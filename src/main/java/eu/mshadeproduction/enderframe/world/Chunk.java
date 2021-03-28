@@ -10,7 +10,14 @@ public interface Chunk {
 
     int getZ();
 
+    int getID();
+
+    void setBlock(int x, int y, int z, Block block);
+
+    Block getBlock(int x, int y, int z);
+
     Set<Player> getViewers();
 
+    Palette getPalette();
 
 }
