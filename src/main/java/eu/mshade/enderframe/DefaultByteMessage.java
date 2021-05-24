@@ -1,6 +1,6 @@
-package eu.mshadeproduction.enderframe;
+package eu.mshade.enderframe;
 
-import eu.mshadeproduction.enderframe.protocol.ByteMessage;
+import eu.mshade.enderframe.protocol.ByteMessage;
 import io.netty.buffer.ByteBuf;
 
 public class DefaultByteMessage extends ByteMessage {
