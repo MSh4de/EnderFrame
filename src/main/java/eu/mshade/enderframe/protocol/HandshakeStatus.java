@@ -1,4 +1,4 @@
-package eu.mshadeproduction.enderframe.protocol;
+package eu.mshade.enderframe.protocol;
 
 import java.util.HashMap;
 import java.util.Map;
