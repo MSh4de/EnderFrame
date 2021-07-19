@@ -2,7 +2,7 @@ package eu.mshade.enderframe.world;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
+import java.util.UUID;
 
 public interface WorldBuffer {
 
@@ -12,9 +12,17 @@ public interface WorldBuffer {
 
     void flushChunkBuffer(ChunkBuffer chunkBuffer);
 
-    CompletableFuture<ChunkBuffer> getChunkBuffer(int x, int z);
+    ChunkBuffer getChunkBuffer(int chunkX, int chunkZ);
+
+    ChunkBuffer getChunkBuffer(UUID id);
+
+    void addChunkBuffer(ChunkBuffer chunkBuffer);
 
     boolean hasFileChunkBuffer(int x, int z);
+
+    File getChunkFile(int chunkX, int chunkZ);
+
+    File getChunkFile(UUID id);
 
     boolean hasChunkBuffer(int x, int z);
 
