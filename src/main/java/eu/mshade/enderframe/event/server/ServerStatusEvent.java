@@ -1,8 +1,8 @@
 
-package eu.mshadeproduction.enderframe.event.server;
+package eu.mshade.enderframe.event.server;
 
-import eu.mshadeproduction.enderframe.event.Event;
+import eu.mshade.enderframe.event.PacketEvent;
 
-public class ServerStatusEvent extends Event {
+public class ServerStatusEvent implements PacketEvent {
 
 }
