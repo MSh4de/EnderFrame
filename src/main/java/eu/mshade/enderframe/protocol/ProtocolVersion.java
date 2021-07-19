@@ -1,4 +1,4 @@
-package eu.mshadeproduction.enderframe.protocol;
+package eu.mshade.enderframe.protocol;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,8 +49,7 @@ public enum ProtocolVersion {
     }
 
     public static ProtocolVersion getProtocolVersion(int number){
-        if (MAP.containsKey(number)) return MAP.get(number);
-        return UNKNOWN;
+        return MAP.getOrDefault(number, UNKNOWN);
     }
 
     public int getProtocolVersion() {

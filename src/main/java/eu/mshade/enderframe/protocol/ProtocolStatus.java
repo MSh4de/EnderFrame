@@ -1,4 +1,4 @@
-package eu.mshadeproduction.enderframe.protocol;
+package eu.mshade.enderframe.protocol;
 
 public enum ProtocolStatus {
 
