@@ -1,5 +1,7 @@
 package eu.mshade.enderframe.world;
 
+import java.util.Objects;
+
 public class WorldLevel {
 
     private String name;
@@ -38,5 +40,18 @@ public class WorldLevel {
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WorldLevel that = (WorldLevel) o;
+        return seed == that.seed && Objects.equals(name, that.name) && levelType == that.levelType && dimension == that.dimension && difficulty == that.difficulty;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, seed, levelType, dimension, difficulty);
     }
 }
