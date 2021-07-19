@@ -1,23 +1,19 @@
-package eu.mshadeproduction.enderframe.entity;
+package eu.mshade.enderframe.entity;
 
-import eu.mshadeproduction.enderframe.protocol.Handshake;
-import eu.mshadeproduction.enderframe.world.Chunk;
+import eu.mshade.enderframe.protocol.ProtocolVersion;
 
-import java.util.List;
+import java.net.InetSocketAddress;
 
 public interface Player extends Entity {
 
     String getName();
 
-    Handshake getHandshake();
+    InetSocketAddress getInetSocketAddress();
 
+    ProtocolVersion getProtocolVersion();
 
-    void loadChunks(List<Chunk> chunks);
+    void sendKeepAlive(int threshold);
 
-    void loadChunk(Chunk chunk);
-
-    void unLoadChunks(List<Chunk> chunks);
-
-    void unLoadChunk(Chunk chunk);
+    int getPing();
 
 }
