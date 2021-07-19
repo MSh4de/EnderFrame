@@ -1,15 +1,16 @@
-package eu.mshade.enderframe.protocol;
+package eu.mshade.enderframe;
 
-import eu.mshade.enderframe.EnderFrameSession;
-import eu.mshade.enderframe.EnderFrameSessionHandler;
-import eu.mshade.mwork.dispatcher.DefaultDispatcherDriver;
-import eu.mshade.mwork.dispatcher.DispatcherDriver;
+import eu.mshade.enderframe.protocol.ByteMessage;
+import eu.mshade.enderframe.protocol.PacketIn;
+import eu.mshade.enderframe.protocol.ProtocolRegistry;
+import eu.mshade.enderframe.protocol.ProtocolVersion;
+import eu.mshade.mwork.event.EventBus;
 import io.netty.buffer.ByteBuf;
 
 public abstract class EnderFrameProtocol {
 
     private final ProtocolRegistry protocolRegistry = new ProtocolRegistry();
-    private final DispatcherDriver<PacketIn> packetInDispatcherDriver = new DefaultDispatcherDriver<>();
+    private final EventBus<PacketIn> eventBus = new EventBus<>();
 
     public abstract ByteMessage getByteMessage(ByteBuf byteBuf);
 
@@ -19,8 +20,8 @@ public abstract class EnderFrameProtocol {
 
     public abstract ProtocolVersion getProtocolVersion();
 
-    public DispatcherDriver<PacketIn> getDispatcherDriver(){
-        return packetInDispatcherDriver;
+    public EventBus<PacketIn> getEventBus(){
+        return eventBus;
     };
 
     public abstract EnderFrameSession getEnderFrameSession(EnderFrameSessionHandler enderFrameSessionHandler);
