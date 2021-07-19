@@ -1,9 +1,9 @@
 package eu.mshade.enderframe.event.entity;
 
-import eu.mshade.enderframe.event.Event;
+import eu.mshade.enderframe.event.PacketEvent;
 import eu.mshade.enderframe.protocol.Handshake;
 
-public class PacketHandshakeEvent implements Event {
+public class PacketHandshakeEvent implements PacketEvent {
 
     private Handshake handshake;
 

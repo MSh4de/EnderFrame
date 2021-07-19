@@ -1,6 +1,6 @@
-package eu.mshadeproduction.enderframe.entity;
+package eu.mshade.enderframe.entity;
 
-import eu.mshadeproduction.enderframe.world.Location;
+import eu.mshade.enderframe.world.Location;
 
 import java.util.UUID;
 
