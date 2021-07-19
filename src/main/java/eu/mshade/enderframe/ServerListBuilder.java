@@ -1,58 +1,67 @@
 package eu.mshade.enderframe;
 
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.chat.ComponentSerializer;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Base64;
 
-public class MotdBuilder {
+public class ServerListBuilder {
 
-    private final JSONObject jsonObject = new JSONObject();
+    private final JSONObject jsonobject = new JSONObject();
 
-    private MotdBuilder() { }
+    private ServerListBuilder() { }
 
-    public MotdBuilder setVersion(String name, int protocol){
+    public ServerListBuilder setVersion(String name, int protocol){
         JSONObject version = new JSONObject();
         version.put("name", name);
         version.put("protocol", protocol);
-        jsonObject.put("version", version);
+        jsonobject.put("version", version);
         return this;
     }
 
-    public MotdBuilder setPlayer(int maxPlayers, int playersOnline){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("max", maxPlayers);
-        jsonObject.put("online", playersOnline);
-        this.jsonObject.put("players", jsonObject);
+    public ServerListBuilder setPlayer(int maxplayers, int playersonline, ServerListPlayerBuilder... serverlistplayerbuilders){
+        JSONObject jsonobject = new JSONObject();
+        jsonobject.put("max", maxplayers);
+        jsonobject.put("online", playersonline);
+
+        JSONArray array = new JSONArray();
+        for (ServerListPlayerBuilder serverlistplayerbuilder : serverlistplayerbuilders) {
+            JSONObject object = new JSONObject();
+            object.put("name", serverlistplayerbuilder.getName());
+            object.put("id", serverlistplayerbuilder.getId().toString());
+            array.put(object);
+        }
+        jsonobject.put("sample", array);
+        this.jsonobject.put("players", jsonobject);
         return this;
     }
 
-    public MotdBuilder setFavIcon(File file){
+    public ServerListBuilder setFavicon(File file){
         try {
-            FileInputStream fileInputStream = new FileInputStream(file);
+            FileInputStream fileinputstream = new FileInputStream(file);
             byte[] bytes = new byte[(int)file.length()];
-            fileInputStream.read(bytes);
-            jsonObject.put("favicon", String.format("data:image/png;base64,%s", Base64.getEncoder().encodeToString(bytes)));
+            fileinputstream.read(bytes);
+            jsonobject.put("favicon", String.format("data:image/png;base64,%s", Base64.getEncoder().encodeToString(bytes)));
         }catch (Exception e){
             e.printStackTrace();
         }
         return this;
     }
 
-    public MotdBuilder setDescription(String description){
-        jsonObject.put("description", new JSONObject(ComponentSerializer.toString(new TextComponent(description))));
+    public ServerListBuilder setDescription(String description){
+        jsonobject.put("description", new JSONObject().put("text", description));
         return this;
     }
 
     public String build(){
-        return jsonObject.toString();
+        return jsonobject.toString();
     }
 
-    public static MotdBuilder builder(){
-        return new MotdBuilder();
+    public static ServerListBuilder builder(){
+        return new ServerListBuilder();
     }
 
 }
