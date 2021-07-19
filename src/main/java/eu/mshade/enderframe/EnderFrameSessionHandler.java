@@ -1,23 +1,25 @@
 package eu.mshade.enderframe;
 
-import eu.mshade.enderframe.entity.Player;
+import eu.mshade.enderframe.event.entity.PacketQuitEvent;
 import eu.mshade.enderframe.protocol.*;
-import eu.mshade.mwork.dispatcher.DispatcherContainer;
-import eu.mshade.mwork.dispatcher.DispatcherContainerBuilder;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import eu.mshade.enderframe.protocol.temp.TempEnderFrameProtocol;
+import eu.mshade.mwork.event.EventContainer;
+import io.netty.channel.*;
 
-public class EnderFrameSession extends ChannelInboundHandlerAdapter {
+import javax.crypto.SecretKey;
+import java.util.Objects;
+
+public class EnderFrameSessionHandler extends ChannelInboundHandlerAdapter {
 
     private final Channel channel;
-    private ProtocolFrame protocolFrame = new DefaultProtocolFrame();
+    private EnderFrameProtocol enderFrameProtocol = new TempEnderFrameProtocol();
     private ProtocolStatus protocolStatus = ProtocolStatus.HANDSHAKE;
-    private Player player;
-    private final DispatcherContainer dispatcherContainer = DispatcherContainerBuilder.builder().setContainer(this).build();
+    private ProtocolVersion protocolVersion = ProtocolVersion.UNKNOWN;
+    private EnderFrameSession enderFrameSession;
+    private final EventContainer eventContainer = EventContainer.of()
+            .putContainer(this);
 
-    public EnderFrameSession(Channel channel) {
+    public EnderFrameSessionHandler(Channel channel) {
         this.channel = channel;
     }
 
@@ -26,15 +28,19 @@ public class EnderFrameSession extends ChannelInboundHandlerAdapter {
         super.channelActive(ctx);
     }
 
+
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        super.channelInactive(ctx);
+        if (protocolStatus == ProtocolStatus.PLAY) {
+            EnderFrame.get().getPacketEventBus().publish(new PacketQuitEvent(enderFrameSession));
+        }
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if (msg instanceof PacketIn) protocolFrame.getDispatcherDriver().dispatch((PacketIn) msg, dispatcherContainer);
+        if (msg instanceof PacketIn) enderFrameProtocol.getEventBus().publish((PacketIn) msg, eventContainer);
     }
+
 
 
     public void sendPacket(PacketOut packet) {
@@ -47,35 +53,53 @@ public class EnderFrameSession extends ChannelInboundHandlerAdapter {
             channel.writeAndFlush(packet).addListener(ChannelFutureListener.CLOSE);
     }
 
-    public void toggleProtocolFrame(ProtocolFrame protocolFrame){
-        this.protocolFrame = protocolFrame;
-        channel.pipeline().get(PacketEncoder.class).toggleProtocolFrame(protocolFrame);
-        channel.pipeline().get(PacketDecoder.class).toggleProtocolFrame(protocolFrame);
+    public void toggleEnderFrameProtocol(EnderFrameProtocol enderFrameProtocol){
+        this.enderFrameProtocol = enderFrameProtocol;
+        this.channel.flush();
+        channel.pipeline().get(PacketCodec.class).toggleProtocolFrame(enderFrameProtocol);
     }
 
-    public ProtocolFrame getProtocolFrame() { return protocolFrame; }
+    public EnderFrameProtocol getEnderFrameProtocol() { return enderFrameProtocol; }
 
     public void toggleProtocolStatus(ProtocolStatus protocolStatus){
         this.protocolStatus = protocolStatus;
-        channel.pipeline().get(PacketEncoder.class).toggleProtocolStatus(protocolStatus);
-        channel.pipeline().get(PacketDecoder.class).toggleProtocolStatus(protocolStatus);
+        channel.pipeline().get(PacketCodec.class).toggleProtocolStatus(protocolStatus);
     }
 
-    public void toggleCompressor(int value){
-        this.channel.flush();
-        this.channel.pipeline().addBefore("decoder", "decompress", new PacketDecompress(value));
-        this.channel.pipeline().addBefore("encoder", "compress", new PacketCompress(value));
+    public void enableEncryption(SecretKey sharedSecret) {
+        updatePipeline("encryption", new PacketEncryption(sharedSecret));
     }
 
-    public Player getPlayer() {
-        return player;
+    public void enableCompression(int threshold){
+        updatePipeline("compression", new PacketCompression(threshold));
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    private void updatePipeline(String key, ChannelHandler handler) {
+        this.channel.pipeline().replace(key, key, handler);
+    }
+
+    public EnderFrameSession getEnderFrameSession() {
+        return enderFrameSession;
+    }
+
+    public void setEnderFrameSession(EnderFrameSession enderFrameSession) {
+        this.enderFrameSession = enderFrameSession;
+    }
+
+    public Channel getChannel() {
+        return channel;
     }
 
     public ProtocolStatus getProtocolStatus() { return protocolStatus; }
+
+    public ProtocolVersion getProtocolVersion() {
+        return protocolVersion;
+    }
+
+    public EnderFrameSessionHandler setProtocolVersion(ProtocolVersion protocolVersion) {
+        this.protocolVersion = protocolVersion;
+        return this;
+    }
 
     public boolean isConnected() {
         return channel.isActive();
