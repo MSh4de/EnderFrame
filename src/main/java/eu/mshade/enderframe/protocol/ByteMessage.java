@@ -1,9 +1,14 @@
-package eu.mshadeproduction.enderframe.protocol;
+package eu.mshade.enderframe.protocol;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
-import io.netty.buffer.ByteBufUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import eu.mshade.enderframe.mojang.chat.TextComponent;
+import eu.mshade.enderframe.world.BlockPosition;
+import eu.mshade.mwork.MWork;
+import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag;
+import io.netty.buffer.*;
 import io.netty.util.ByteProcessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,10 +20,12 @@ import java.nio.channels.GatheringByteChannel;
 import java.nio.channels.ScatteringByteChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 public abstract class ByteMessage extends ByteBuf {
 
     private final ByteBuf buf;
+    private final static Logger LOGGER = LoggerFactory.getLogger(ByteMessage.class);
 
     public ByteMessage(ByteBuf buf) {
         this.buf = buf;
@@ -81,6 +88,15 @@ public abstract class ByteMessage extends ByteBuf {
         } while (value != 0);
     }
 
+    public void writeUUID(UUID uuid){
+        buf.writeLong(uuid.getMostSignificantBits());
+        buf.writeLong(uuid.getLeastSignificantBits());
+    }
+
+    public UUID readUUID(){
+        return new UUID(buf.readLong(), buf.readLong());
+    }
+
     public String readString() {
         return readString(readVarInt());
     }
@@ -95,6 +111,57 @@ public abstract class ByteMessage extends ByteBuf {
         int size = ByteBufUtil.utf8Bytes(str);
         writeVarInt(size);
         buf.writeCharSequence(str, StandardCharsets.UTF_8);
+    }
+
+    public CompoundBinaryTag readCompoundTag() {
+        return MWork.get().getBinaryTagBufferDriver().readCompoundBinaryTag(new ByteBufInputStream(buf));
+    }
+
+    public void writeCompoundTag(CompoundBinaryTag compoundTag) {
+        MWork.get().getBinaryTagBufferDriver().writeCompoundBinaryTag(compoundTag, new ByteBufOutputStream(buf));
+    }
+
+    public void writeTextComponent(TextComponent textComponent) {
+        try {
+            this.writeString(MWork.get().getObjectMapper().writeValueAsString(textComponent));
+        }catch (JsonProcessingException e){
+            LOGGER.error(e.getMessage(), e);
+        }
+    }
+
+
+    public void writeBlockPosition(BlockPosition blockLocation) {
+
+        long x = blockLocation.getX();
+        long y = blockLocation.getY();
+        long z = blockLocation.getZ();
+        this.writeLong(((x & 0x3FFFFFF) << 38) | ((y & 0xFFF) << 26) | (z & 0x3FFFFFF));
+
+    }
+
+    public BlockPosition readBlockPosition() {
+
+        long val = this.readLong();
+        int x = (int) (val >> 38);
+        int y = (int) ((val >> 26) & 0xFFF);
+        int z = (int) (val << 38 >> 38);
+
+        if (x >= (2 ^ 25)) x -= 2 ^ 26;
+        if (y >= (2 ^ 11)) y -= 2 ^ 12;
+        if (z >= (2 ^ 25)) z -= 2 ^ 26;
+
+        return new BlockPosition(x, y, z);
+    }
+
+    public void writeByteArray(byte[] bytes){
+        writeVarInt(bytes.length);
+        writeBytes(bytes);
+    }
+
+    public byte[] readByteArray(){
+        byte[] bytes = new byte[this.readVarInt()];
+        this.readBytes(bytes);
+        return bytes;
     }
 
     @Override
