@@ -1,22 +1,20 @@
 
-package eu.mshadeproduction.enderframe;
+package eu.mshade.enderframe;
 
-import eu.mshadeproduction.enderframe.event.Event;
-import eu.mshadeproduction.enderframe.protocol.ByteMessage;
-import eu.mshadeproduction.mwork.dispatcher.DefaultDispatcherDriver;
-import eu.mshadeproduction.mwork.dispatcher.DispatcherDriver;
+import eu.mshade.enderframe.event.PacketEvent;
+import eu.mshade.mwork.event.EventBus;
 
 public class EnderFrame {
 
-    private final DispatcherDriver<Event> eventDispatcherDriver = new DefaultDispatcherDriver<>();
+    private final EventBus<PacketEvent> packetEventBus = new EventBus<>();
     private static EnderFrame ENDER_FRAME;
 
     private EnderFrame() {
         ENDER_FRAME = this;
     }
 
-    public DispatcherDriver<Event> getEventDispatcherDriver() {
-        return eventDispatcherDriver;
+    public EventBus<PacketEvent> getPacketEventBus() {
+        return packetEventBus;
     }
 
     public static EnderFrame get(){
