@@ -1,6 +1,9 @@
 package eu.mshade.enderframe.metadata;
 
-public interface Metadata {
+public interface Metadata<T> {
 
+    T get();
+
+    MetadataType getMetadataType();
 
 }
