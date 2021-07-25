@@ -1,6 +1,9 @@
 package eu.mshade.enderframe.protocol;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import eu.mshade.enderframe.entity.EntityType;
+import eu.mshade.enderframe.metadata.MetadataEntry;
+import eu.mshade.enderframe.metadata.MetadataManager;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.world.BlockPosition;
 import eu.mshade.mwork.MWork;
@@ -92,6 +95,8 @@ public abstract class ByteMessage extends ByteBuf {
         buf.writeLong(uuid.getMostSignificantBits());
         buf.writeLong(uuid.getLeastSignificantBits());
     }
+
+    public abstract void writeMetadata(EntityType entityType, MetadataEntry metadataEntry);
 
     public UUID readUUID(){
         return new UUID(buf.readLong(), buf.readLong());
