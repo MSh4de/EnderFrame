@@ -1,5 +1,8 @@
 package eu.mshade.enderframe;
 
+import eu.mshade.enderframe.entity.Entity;
+import eu.mshade.enderframe.entity.Player;
+import eu.mshade.enderframe.metadata.MetadataMeaning;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
@@ -120,4 +123,9 @@ public interface EnderFrameSession {
         chunksLoad.forEach(this::sendChunk);
     }
 
+    void sendMetadata(Entity entity, MetadataMeaning...metadataMeanings);
+
+    void spawnMob(Entity entity);
+
+    void spawnPlayer(Player player);
 }

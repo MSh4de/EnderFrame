@@ -2,6 +2,7 @@ package eu.mshade.enderframe.world;
 
 
 import eu.mshade.enderframe.EnderFrameSession;
+import eu.mshade.enderframe.entity.Entity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -57,6 +58,13 @@ public interface ChunkBuffer {
 
     static UUID ofId(int x, int z){
         return UUID.nameUUIDFromBytes(String.format("%d,%d", x, z).getBytes(StandardCharsets.UTF_8));
+    }
+
+    Queue<Entity> getEntities();
+
+    default void addEntity(Entity entity) {
+        getWorldBuffer().addEntity(entity);
+        getEntities().add(entity);
     }
 
 }
