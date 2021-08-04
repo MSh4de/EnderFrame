@@ -1,5 +1,6 @@
 package eu.mshade.enderframe;
 
+import eu.mshade.enderframe.entity.EntityRepository;
 import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.PacketIn;
 import eu.mshade.enderframe.protocol.ProtocolRegistry;
@@ -9,6 +10,7 @@ import io.netty.buffer.ByteBuf;
 
 public abstract class EnderFrameProtocol {
 
+    private final EntityRepository entityRepository = new EntityRepository();
     private final ProtocolRegistry protocolRegistry = new ProtocolRegistry();
     private final EventBus<PacketIn> eventBus = new EventBus<>();
 
@@ -17,6 +19,8 @@ public abstract class EnderFrameProtocol {
     public ProtocolRegistry getProtocolRegistry(){
         return protocolRegistry;
     }
+
+    public EntityRepository getEntityRepository() { return entityRepository; }
 
     public abstract ProtocolVersion getProtocolVersion();
 
