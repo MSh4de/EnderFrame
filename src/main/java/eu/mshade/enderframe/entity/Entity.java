@@ -5,50 +5,65 @@ import eu.mshade.enderframe.world.Vector;
 import eu.mshade.enderframe.world.WorldBuffer;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.UUID;
 
 public interface Entity {
 
-    UUID getUUID();
-
     Location getLocation();
 
-    Location getLocation(Location location);
-
-    void setVelocity(Vector velocity);
+    void setLocation(Location location);
 
     Vector getVelocity();
 
-    boolean isOnGround();
+    void setVelocity(Vector velocity);
 
-    WorldBuffer getWorld();
-
-    boolean teleport(Location location);
-
-    boolean teleport(Location location, TeleportCause TeleportCause);
-
-    boolean teleport(Entity destination);
-
-    boolean teleport(Entity destination, TeleportCause teleportCause);
-    
     int getEntityId();
 
-    void remove();
+    boolean isFire();
 
-    boolean isValid();
+    void setFire(boolean isOnFire);
 
-    //Server getServer();
+    boolean isCrounched();
 
-    UUID getUniqueId();
+    void setCrounched(boolean isCrounched);
 
-    EntityType getType();
+    boolean isSprinting();
 
-    void setCustomName(String name);
+    void setSprinting(boolean isSprinting);
+
+    boolean isEating();
+
+    void setEating(boolean isEating);
+
+    boolean isInvisible();
+
+    void setInvisible(boolean isInvisible);
+
+    short getAirTicks();
+
+    void setAirTicks(short ticks);
 
     String getCustomName();
 
-    void setCustomNameVisible(boolean flag);
+    void setCustomName(String customName);
 
     boolean isCustomNameVisible();
+
+    void setCustomNameVisible(boolean isCustomNameVisible);
+
+    boolean isSilent();
+
+    void setSilent(boolean isSilent);
+
+    UUID getUUID();
+
+    EntityType getType();
+
+    Queue<Player> getViewers();
+
+    void addViewer(Player player);
+
+    void removeViewer(Player player);
 
 }

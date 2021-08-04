@@ -8,83 +8,23 @@ import java.util.Set;
 
 public interface LivingEntity extends Entity {
 
-    double getEyeHeight();
+    float getHealth();
 
-    double getEyeHeight(boolean ignoreSneaking);
+    void setHealth(float health);
 
-    Location getEyeLocation();
+    int getPotionEffectColor();
 
-    //List<Block> getLineOfSight(HashSet<Byte> transparent, int maxDistance);
+    void setPotionEffectColor(int color);
 
-    //List<Block> getLineOfSight(Set<Material> transparent, int maxDistance);
+    boolean isPotionEffectAmbient();
 
-    //Block getTargetBlock(HashSet<Byte> transparent, int maxDistance);
+    void setPotionEffectAmbient(boolean ambient);
 
-    //Block getTargetBlock(Set<Material> transparent, int maxDistance);
+    byte getNumberOfArrowInEntity();
 
-    //List<Block> getLastTwoTargetBlocks(HashSet<Byte> transparent, int maxDistance);
+    void setNumberOfArrowInEntity(byte b);
 
-    //List<Block> getLastTwoTargetBlocks(Set<Material> transparent, int maxDistance);
+    boolean isAIDisable();
 
-    //Egg throwEgg();
-
-    //Snowball throwSnowball();
-
-    //Arrow shootArrow();
-
-    int getRemainingAir();
-
-    void setRemainingAir(int ticks);
-
-    int getMaximumAir();
-
-    void setMaximumAir(int ticks);
-
-    int getMaximumNoDamageTicks();
-
-    void setMaximumNoDamageTicks(int ticks);
-
-    double getLastDamage();
-
-    int _INVALID_getLastDamage();
-
-    void setLastDamage(double damage);
-
-    void _INVALID_setLastDamage(int damage);
-
-    int getNoDamageTicks();
-
-    void setNoDamageTicks(int ticks);
-
-    Player getKiller();
-
-    //boolean addPotionEffect(PotionEffect effect);
-
-    //boolean addPotionEffect(PotionEffect effect, boolean force);
-
-    //boolean addPotionEffects(Collection<PotionEffect> effects);
-
-    //boolean hasPotionEffect(PotionEffectType type);
-
-    //void removePotionEffect(PotionEffectType type);
-
-    //Collection<PotionEffect> getActivePotionEffects();
-
-    boolean hasLineOfSight(Entity other);
-
-    boolean getRemoveWhenFarAway();
-
-    void setRemoveWhenFarAway(boolean remove);
-
-    //EntityEquipment getEquipment();
-
-    void setCanPickupItems(boolean pickup);
-
-    boolean getCanPickupItems();
-
-    boolean isLeashed();
-
-    Entity getLeashHolder() throws IllegalStateException;
-
-    boolean setLeashHolder(Entity holder);
+    void setAIDisable(boolean isDisable);
 }
