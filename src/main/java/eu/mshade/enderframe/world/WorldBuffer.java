@@ -1,5 +1,6 @@
 package eu.mshade.enderframe.world;
 
+import eu.mshade.enderframe.EnderFrameSession;
 import eu.mshade.enderframe.EnderFrameSessionHandler;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.EntityType;
@@ -42,7 +43,11 @@ public interface WorldBuffer {
 
     Queue<Entity> getEntities();
 
+    Player getPlayer(EnderFrameSessionHandler sessionHandler);
+
     void addEntity(Entity entity);
+
+    void removeEntity(Entity entity);
 
     Entity spawnEntity(EntityType entityType, Location location);
 
