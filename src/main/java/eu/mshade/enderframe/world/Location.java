@@ -92,6 +92,13 @@ public class Location implements Cloneable {
         return this;
     }
 
+    public Location subtract(Location location){
+        x -= location.getX();
+        y -= location.getY();
+        z -= location.getZ();
+        return this;
+    }
+
     public int getChunkX(){
         return getBlockX() >> 4;
     }
@@ -164,5 +171,17 @@ public class Location implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new Error(e);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "world=" + world +
+                ", x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                ", pitch=" + pitch +
+                ", yaw=" + yaw +
+                '}';
     }
 }
