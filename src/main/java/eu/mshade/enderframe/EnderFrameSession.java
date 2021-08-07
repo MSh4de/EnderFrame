@@ -16,6 +16,7 @@ import java.net.SocketAddress;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -25,9 +26,9 @@ public interface EnderFrameSession {
 
     void setDisplayName(MOptional<String> displayName);
 
-    void setGameMode(GameMode gameMode);
-
     GameMode getGameMode();
+
+    void setGameMode(GameMode gameMode);
 
     GameProfile getGameProfile();
 
@@ -45,13 +46,14 @@ public interface EnderFrameSession {
 
     byte[] getVerifyToken();
 
+
     int getPing();
 
     void setPing(int ping);
 
-    void setLocation(Location location);
-
     Location getLocation();
+
+    void setLocation(Location location);
 
     Collection<ChunkBuffer> getChunkBuffers();
 
@@ -75,19 +77,23 @@ public interface EnderFrameSession {
 
     void sendPosition(double x, double y, double z, float yaw, float pitch);
 
-    default void sendPosition(Location location){
+    default void sendPosition(Location location) {
         sendPosition(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
     }
 
-    default void sendPosition(Position position){
+    default void sendPosition(Position position) {
         sendPosition(position.getX(), position.getY(), position.getZ(), position.getYaw(), position.getYaw());
-    };
+    }
+
+    ;
 
     void sendMessage(TextComponent textComponent, TextPosition position);
 
     default void sendMessage(String message) {
         sendMessage(TextComponent.of(message), TextPosition.CHAT);
-    };
+    }
+
+    ;
 
     void sendDisconnect(String message);
 
@@ -95,11 +101,11 @@ public interface EnderFrameSession {
 
     void sendUnloadChunk(ChunkBuffer chunkBuffer);
 
-    default void sendPlayerList(String header, String footer){
+    default void sendPlayerList(String header, String footer) {
         getEnderFrameSessionHandler().sendPacket(new PacketOutPlayerList(header, footer));
     }
 
-    default void sendSquareChunk(int radius, int chunkX, int chunkZ, WorldBuffer worldBuffer){
+    default void sendSquareChunk(int radius, int chunkX, int chunkZ, WorldBuffer worldBuffer) {
         Queue<ChunkBuffer> result = new ConcurrentLinkedQueue<>();
         Collection<ChunkBuffer> chunksLoad = new ArrayList<>();
         int rSquared = radius * radius;
@@ -121,11 +127,31 @@ public interface EnderFrameSession {
             if (!result.contains(chunkBuffer)) sendUnloadChunk(chunkBuffer);
         }
         chunksLoad.forEach(this::sendChunk);
+        HashSet<Player> viewers = new HashSet<>();
+        Player player = worldBuffer.getPlayer(this.getEnderFrameSessionHandler());
+
+        result.forEach(each -> each.getViewers().stream().filter(target -> !target.equals(this)).forEach(entity -> viewers.add(worldBuffer.getPlayer(entity.getEnderFrameSessionHandler()))));
+
+        player.getViewers().forEach(viewer -> {
+            if (!viewers.contains(viewer)) {
+                player.removeViewer(viewer);
+                viewer.removeViewer(player);
+            }
+        });
+
+        viewers.forEach(viewer -> {
+            if (!viewer.getViewers().contains(player)) viewer.addViewer(player);
+            if (!player.getViewers().contains(viewer)) player.addViewer(viewer);
+        });
     }
 
-    void sendMetadata(Entity entity, MetadataMeaning...metadataMeanings);
+    void sendMetadata(Entity entity, MetadataMeaning... metadataMeanings);
 
     void spawnMob(Entity entity);
 
+    void removeEntities(Entity...entity);
+
     void spawnPlayer(Player player);
+
+
 }
