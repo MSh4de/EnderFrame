@@ -67,4 +67,9 @@ public interface ChunkBuffer {
         getEntities().add(entity);
     }
 
+    default void removeEntity(Entity entity) {
+        getWorldBuffer().removeEntity(entity);
+        getEntities().remove(entity);
+    }
+
 }
