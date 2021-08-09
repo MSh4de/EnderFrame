@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface Ageable extends LivingEntity {
+public abstract class Ageable extends LivingEntity {
 
-    int getAge();
+    public abstract int getAge();
 
-    void setAge(int age);
+    public abstract void setAge(int age);
 }
