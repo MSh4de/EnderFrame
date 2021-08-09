@@ -3,11 +3,10 @@ package eu.mshade.enderframe;
 import eu.mshade.enderframe.event.entity.PacketQuitEvent;
 import eu.mshade.enderframe.protocol.*;
 import eu.mshade.enderframe.protocol.temp.TempEnderFrameProtocol;
-import eu.mshade.mwork.event.EventContainer;
+import eu.mshade.mwork.event.ParameterContainer;
 import io.netty.channel.*;
 
 import javax.crypto.SecretKey;
-import java.util.Objects;
 
 public class EnderFrameSessionHandler extends ChannelInboundHandlerAdapter {
 
@@ -16,7 +15,7 @@ public class EnderFrameSessionHandler extends ChannelInboundHandlerAdapter {
     private ProtocolStatus protocolStatus = ProtocolStatus.HANDSHAKE;
     private ProtocolVersion protocolVersion = ProtocolVersion.UNKNOWN;
     private EnderFrameSession enderFrameSession;
-    private final EventContainer eventContainer = EventContainer.of()
+    private final ParameterContainer eventContainer = ParameterContainer.of()
             .putContainer(this);
 
     public EnderFrameSessionHandler(Channel channel) {

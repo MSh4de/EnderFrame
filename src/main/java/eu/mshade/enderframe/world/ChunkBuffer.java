@@ -5,13 +5,11 @@ import eu.mshade.enderframe.EnderFrameSession;
 import eu.mshade.enderframe.entity.Entity;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Queue;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
 
 public interface ChunkBuffer {
 

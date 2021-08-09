@@ -22,6 +22,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public interface EnderFrameSession {
 
+    Player getPlayer();
+
+    void setPlayer(Player player);
+
     MOptional<String> getDisplayName();
 
     void setDisplayName(MOptional<String> displayName);

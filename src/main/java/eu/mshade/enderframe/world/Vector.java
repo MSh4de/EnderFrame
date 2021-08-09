@@ -107,4 +107,13 @@ public class Vector implements Cloneable {
                 ", z=" + z +
                 '}';
     }
+
+    @Override
+    public Vector clone() {
+        try {
+            return (Vector) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

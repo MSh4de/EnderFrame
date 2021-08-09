@@ -1,8 +1,10 @@
 package eu.mshade.enderframe.entity;
 
+import eu.mshade.enderframe.EnderFrameSession;
 import eu.mshade.enderframe.EnderFrameSessionHandler;
 import eu.mshade.enderframe.mojang.SkinParts;
 import eu.mshade.enderframe.protocol.ProtocolVersion;
+import eu.mshade.mwork.MOptional;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
