@@ -130,7 +130,16 @@ public interface EnderFrameSession {
         HashSet<Player> viewers = new HashSet<>();
         Player player = worldBuffer.getPlayer(this.getEnderFrameSessionHandler());
 
-        result.forEach(each -> each.getViewers().stream().filter(target -> !target.equals(this)).forEach(entity -> viewers.add(worldBuffer.getPlayer(entity.getEnderFrameSessionHandler()))));
+        for (int x = chunkX - 5; x < chunkX + 5; x++) {
+            for (int z = chunkZ - 5; z < chunkZ + 5; z++) {
+                    ChunkBuffer chunkBuffer = worldBuffer.getChunkBuffer(x, z);
+                    chunkBuffer.getViewers()
+                            .stream()
+                            .filter(target -> !target.equals(this) && target.getLocation().distanceOffset(player.getLocation()) < 64)
+                            .forEach(entity -> viewers.add(worldBuffer.getPlayer(entity.getEnderFrameSessionHandler())));
+            }
+        }
+
 
         player.getViewers().forEach(viewer -> {
             if (!viewers.contains(viewer)) {
@@ -149,7 +158,7 @@ public interface EnderFrameSession {
 
     void spawnMob(Entity entity);
 
-    void removeEntities(Entity...entity);
+    void removeEntities(Entity... entity);
 
     void spawnPlayer(Player player);
 
