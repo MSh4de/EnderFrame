@@ -1,12 +1,12 @@
 package eu.mshade.enderframe.entity;
 
-public interface Creeper extends LivingEntity{
+public abstract class Creeper extends LivingEntity {
 
-    CreeperState getState();
+    public abstract CreeperState getState();
 
-    void setState(CreeperState state);
+    public abstract void setState(CreeperState state);
 
-    boolean isPowered();
+    public abstract boolean isPowered();
 
-    void setPowered(boolean powered);
+    public abstract void setPowered(boolean powered);
 }

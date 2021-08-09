@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface Arrow extends Entity {
+public abstract class Arrow extends Entity {
 
-    boolean isCritical();
+    public abstract boolean isCritical();
 
-    void setCritical(boolean isCritical);
+    public abstract void setCritical(boolean isCritical);
 }

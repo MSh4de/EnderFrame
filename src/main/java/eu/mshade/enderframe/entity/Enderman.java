@@ -1,16 +1,16 @@
 package eu.mshade.enderframe.entity;
 
-public interface Enderman extends LivingEntity{
+public abstract class Enderman extends LivingEntity {
 
-    short getCarriedBlock();
+    public abstract short getCarriedBlock();
 
-    void setCarriedBlock(short s);
+    public abstract void setCarriedBlock(short s);
 
-    byte getCarriedBlockData();
+    public abstract byte getCarriedBlockData();
 
-    void setCarriedBlockData(byte carriedBlockData);
+    public abstract void setCarriedBlockData(byte carriedBlockData);
 
-    boolean isScreaming();
+    public abstract boolean isScreaming();
 
-    void setScreaming(boolean isScreaming);
+    public abstract void setScreaming(boolean isScreaming);
 }

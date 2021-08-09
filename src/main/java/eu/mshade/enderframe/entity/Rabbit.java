@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface Rabbit extends Ageable{
+public abstract class Rabbit extends Ageable{
 
-    byte getRabbitType();
+    public abstract byte getRabbitType();
 
-    void setRabbitType(byte b);
+    public abstract void setRabbitType(byte b);
 }

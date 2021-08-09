@@ -1,20 +1,20 @@
 package eu.mshade.enderframe.entity;
 
-public interface Wolf extends Tameable {
+public abstract class Wolf extends Tameable {
 
-    boolean isAngry();
+    public abstract boolean isAngry();
 
-    void setIsAngry(boolean isAngry);
+    public abstract void setIsAngry(boolean isAngry);
 
-    float getHealth();
+    public abstract float getHealth();
 
-    void setHealth(float health);
+    public abstract void setHealth(float health);
 
-    boolean begging();
+    public abstract boolean begging();
 
-    void setBegging(boolean begging);
+    public abstract void setBegging(boolean begging);
 
-    boolean getCollarColor();
+    public abstract boolean getCollarColor();
 
-    void setCollarColor(boolean collarColor);
+    public abstract void setCollarColor(boolean collarColor);
 }

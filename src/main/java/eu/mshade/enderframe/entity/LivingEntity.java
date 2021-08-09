@@ -1,30 +1,24 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.item.Material;
-import eu.mshade.enderframe.world.Location;
+public abstract class LivingEntity extends Entity {
 
-import java.util.HashSet;
-import java.util.Set;
+    public abstract float getHealth();
 
-public interface LivingEntity extends Entity {
+    public abstract void setHealth(float health);
 
-    float getHealth();
+    public abstract int getPotionEffectColor();
 
-    void setHealth(float health);
+    public abstract void setPotionEffectColor(int color);
 
-    int getPotionEffectColor();
+    public abstract boolean isPotionEffectAmbient();
 
-    void setPotionEffectColor(int color);
+    public abstract void setPotionEffectAmbient(boolean ambient);
 
-    boolean isPotionEffectAmbient();
+    public abstract byte getNumberOfArrowInEntity();
 
-    void setPotionEffectAmbient(boolean ambient);
+    public abstract void setNumberOfArrowInEntity(byte b);
 
-    byte getNumberOfArrowInEntity();
+    public abstract boolean isAIDisable();
 
-    void setNumberOfArrowInEntity(byte b);
-
-    boolean isAIDisable();
-
-    void setAIDisable(boolean isDisable);
+    public abstract void setAIDisable(boolean isDisable);
 }

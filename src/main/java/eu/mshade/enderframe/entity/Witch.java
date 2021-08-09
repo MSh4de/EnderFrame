@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface Witch extends LivingEntity{
+public abstract class Witch extends LivingEntity{
 
-    boolean isAgressive();
-    void setAgressive(boolean isAgressive);
+    public abstract boolean isAgressive();
+    public abstract void setAgressive(boolean isAgressive);
 
 }

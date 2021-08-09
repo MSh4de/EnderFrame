@@ -1,4 +1,4 @@
 package eu.mshade.enderframe.entity;
 
-public interface MagmaCube extends Slime{
+public abstract class MagmaCube extends Slime{
 }

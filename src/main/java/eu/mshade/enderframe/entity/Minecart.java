@@ -1,28 +1,28 @@
 package eu.mshade.enderframe.entity;
 
-public interface Minecart extends Damageable{
+public abstract class Minecart extends Damageable{
 
-    int getShakingPower();
+    public abstract int getShakingPower();
 
-    void setShakingPower(int power);
+    public abstract void setShakingPower(int power);
 
-    int getShakingDirection();
+    public abstract int getShakingDirection();
 
-    void setShakingDirection(int direction);
+    public abstract void setShakingDirection(int direction);
 
-    int getBlockId();
+    public abstract int getBlockId();
 
-    void setBlockId(int blockId);
+    public abstract void setBlockId(int blockId);
 
-    int getBlockData();
+    public abstract int getBlockData();
 
-    void setBlockData(int blockData);
+    public abstract void setBlockData(int blockData);
 
-    int getBlockYPosition();
+    public abstract int getBlockYPosition();
 
-    void setBlockYPosition(int blockYPosition);
+    public abstract void setBlockYPosition(int blockYPosition);
 
-    boolean showBlock();
+    public abstract boolean showBlock();
 
-    void setShowBlock(boolean showBlock);
+    public abstract void setShowBlock(boolean showBlock);
 }

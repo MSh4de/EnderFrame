@@ -1,16 +1,16 @@
 package eu.mshade.enderframe.entity;
 
-public interface Guardian extends LivingEntity {
+public abstract class Guardian extends LivingEntity {
 
-    boolean isElderly();
+    public abstract boolean isElderly();
 
-    void setElderly(boolean isElderly);
+    public abstract void setElderly(boolean isElderly);
 
-    boolean isRetractingSpikes();
+    public abstract boolean isRetractingSpikes();
 
-    void setRetractingSpikes(boolean isRetractingSpikes);
+    public abstract void setRetractingSpikes(boolean isRetractingSpikes);
 
-    int getTargetEntityId();
+    public abstract int getTargetEntityId();
 
-    void setTargetEntityId(int targetEntityId);
+    public abstract void setTargetEntityId(int targetEntityId);
 }

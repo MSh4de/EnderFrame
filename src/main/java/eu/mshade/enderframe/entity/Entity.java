@@ -2,68 +2,66 @@ package eu.mshade.enderframe.entity;
 
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
-import eu.mshade.enderframe.world.WorldBuffer;
 
-import java.util.List;
 import java.util.Queue;
 import java.util.UUID;
 
-public interface Entity {
+public abstract class Entity {
 
-    Location getLocation();
+    public abstract Location getLocation();
 
-    void setLocation(Location location);
+    public abstract void setLocation(Location location);
 
-    Vector getVelocity();
+    public abstract Vector getVelocity();
 
-    void setVelocity(Vector velocity);
+    public abstract void setVelocity(Vector velocity);
 
-    int getEntityId();
+    public abstract int getEntityId();
 
-    boolean isFire();
+    public abstract boolean isFire();
 
-    void setFire(boolean isOnFire);
+    public abstract void setFire(boolean isOnFire);
 
-    boolean isCrounched();
+    public abstract boolean isSneaking();
 
-    void setCrounched(boolean isCrounched);
+    public abstract void setSneaking(boolean isCrounched);
 
-    boolean isSprinting();
+    public abstract boolean isSprinting();
 
-    void setSprinting(boolean isSprinting);
+    public abstract void setSprinting(boolean isSprinting);
 
-    boolean isEating();
+    public abstract boolean isEating();
 
-    void setEating(boolean isEating);
+    public abstract void setEating(boolean isEating);
 
-    boolean isInvisible();
+    public abstract boolean isInvisible();
 
-    void setInvisible(boolean isInvisible);
+    public abstract void setInvisible(boolean isInvisible);
 
-    short getAirTicks();
+    public abstract short getAirTicks();
 
-    void setAirTicks(short ticks);
+    public abstract void setAirTicks(short ticks);
 
-    String getCustomName();
+    public abstract String getCustomName();
 
-    void setCustomName(String customName);
+    public abstract void setCustomName(String customName);
 
-    boolean isCustomNameVisible();
+    public abstract boolean isCustomNameVisible();
 
-    void setCustomNameVisible(boolean isCustomNameVisible);
+    public abstract void setCustomNameVisible(boolean isCustomNameVisible);
 
-    boolean isSilent();
+    public abstract boolean isSilent();
 
-    void setSilent(boolean isSilent);
+    public abstract void setSilent(boolean isSilent);
 
-    UUID getUUID();
+    public abstract UUID getUUID();
 
-    EntityType getType();
+    public abstract EntityType getType();
 
-    Queue<Player> getViewers();
+    public abstract Queue<Player> getViewers();
 
-    void addViewer(Player player);
+    public abstract void addViewer(Player player);
 
-    void removeViewer(Player player);
+    public abstract void removeViewer(Player player);
 
 }

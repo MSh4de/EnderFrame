@@ -1,12 +1,12 @@
 package eu.mshade.enderframe.entity;
 
-public interface Boat extends Damageable {
+public abstract class Boat extends Damageable {
 
-    int getLastHit();
+    public abstract int getLastHit();
 
-    void setLastHit(int time);
+    public abstract void setLastHit(int time);
 
-    int getForwardDirection();
+    public abstract int getForwardDirection();
 
-    void setForwardDirection(int direction);
+    public abstract void setForwardDirection(int direction);
 }

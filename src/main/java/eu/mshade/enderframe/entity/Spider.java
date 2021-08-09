@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.entity;
 
-public interface Spider extends LivingEntity{
+public abstract class Spider extends LivingEntity{
 
-    boolean getClimbing();
-    void setClimbing(boolean climbing);
+    public abstract boolean getClimbing();
+    public abstract void setClimbing(boolean climbing);
 }

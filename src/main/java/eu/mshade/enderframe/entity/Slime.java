@@ -1,9 +1,9 @@
 package eu.mshade.enderframe.entity;
 
-public interface Slime extends LivingEntity{
+public abstract class Slime extends LivingEntity{
 
-    byte size();
+    public abstract byte size();
 
-    void setSize(byte size);
+    public abstract void setSize(byte size);
 
 }

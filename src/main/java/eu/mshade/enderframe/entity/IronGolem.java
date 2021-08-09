@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface IronGolem extends LivingEntity {
+public abstract class IronGolem extends LivingEntity {
 
-    boolean isPlayerCreated();
+    public abstract boolean isPlayerCreated();
 
-    void setPlayerCreated(boolean isPlayerCreated);
+    public abstract void setPlayerCreated(boolean isPlayerCreated);
 }

@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface Ocelot extends Tameable{
+public abstract class Ocelot extends Tameable{
 
-    byte getOcelotType();
+    public abstract byte getOcelotType();
 
-    void setOcelotType(byte ocelotType);
+    public abstract void setOcelotType(byte ocelotType);
 }

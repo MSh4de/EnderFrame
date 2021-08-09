@@ -1,4 +1,4 @@
 package eu.mshade.enderframe.entity;
 
-public interface CaveSpider extends Spider{
+public abstract class CaveSpider extends Spider{
 }

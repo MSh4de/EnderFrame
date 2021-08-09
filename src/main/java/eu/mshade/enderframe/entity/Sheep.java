@@ -1,12 +1,12 @@
 package eu.mshade.enderframe.entity;
 
-public interface Sheep extends Ageable{
+public abstract class Sheep extends Ageable{
 
-    SheepColor getSheepColor();
+    public abstract SheepColor getSheepColor();
 
-    void setSheepColor(SheepColor sheepColor);
+    public abstract void setSheepColor(SheepColor sheepColor);
 
-    boolean isSheared();
+    public abstract boolean isSheared();
 
-    void setSheared(boolean isSheared);
+    public abstract void setSheared(boolean isSheared);
 }

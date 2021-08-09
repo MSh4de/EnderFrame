@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface Blaze extends LivingEntity{
+public abstract class Blaze extends LivingEntity{
 
-    boolean isFire();
+    public abstract boolean isFire();
 
-    void setFire(boolean isFire);
+    public abstract void setFire(boolean isFire);
 }

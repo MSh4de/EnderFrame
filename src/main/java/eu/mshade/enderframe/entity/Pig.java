@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface Pig extends Ageable{
+public abstract class Pig extends Ageable{
 
-    boolean hasSaddle();
+    public abstract boolean hasSaddle();
 
-    void setSaddle(boolean hasSaddle);
+    public abstract void setSaddle(boolean hasSaddle);
 }

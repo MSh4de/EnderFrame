@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface EnderCrystal extends Entity{
+public abstract class EnderCrystal extends Entity {
 
-    int getHealth();
+    public abstract int getHealth();
 
-    void setHealth(int health);
+    public abstract void setHealth(int health);
 }

@@ -1,6 +1,6 @@
 package eu.mshade.enderframe.entity;
 
-public interface Firework extends Entity {
+public abstract class Firework extends Entity {
 
     //Slot
 }

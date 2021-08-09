@@ -1,16 +1,16 @@
 package eu.mshade.enderframe.entity;
 
-public interface Zombie extends LivingEntity{
+public abstract class Zombie extends LivingEntity{
 
-    boolean isChild();
+    public abstract boolean isChild();
 
-    void setChild(boolean isChild);
+    public abstract void setChild(boolean isChild);
 
-    boolean isVillager();
+    public abstract boolean isVillager();
 
-    void setVillager(boolean isVillager);
+    public abstract void setVillager(boolean isVillager);
 
-    boolean isConverting();
+    public abstract boolean isConverting();
 
-    void setConverting(boolean isConverting);
+    public abstract void setConverting(boolean isConverting);
 }

@@ -1,9 +1,9 @@
 package eu.mshade.enderframe.entity;
 
-public interface Damageable extends Entity {
+public abstract class Damageable extends Entity {
 
-    float getDamageTaken();
+    public abstract float getDamageTaken();
 
-    void setDamageTaken(float damageTaken);
+    public abstract void setDamageTaken(float damageTaken);
 
 }

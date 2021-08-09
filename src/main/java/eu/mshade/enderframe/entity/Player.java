@@ -7,23 +7,23 @@ import eu.mshade.enderframe.protocol.ProtocolVersion;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 
-public interface Player extends LivingEntity {
+public abstract class Player extends LivingEntity {
 
-    EnderFrameSessionHandler getEnderFrameSessionHandler();
+    public abstract EnderFrameSessionHandler getEnderFrameSessionHandler();
 
-    String getName();
+    public abstract String getName();
 
-    SocketAddress getSocketAddress();
+    public abstract SocketAddress getSocketAddress();
 
-    ProtocolVersion getProtocolVersion();
+    public abstract ProtocolVersion getProtocolVersion();
 
-    int getPing();
+    public abstract int getPing();
 
-    SkinParts getSkinParts();
+    public abstract SkinParts getSkinParts();
 
-    boolean unused();
+    public abstract boolean unused();
 
-    float getAbsorptionHearts();
+    public abstract float getAbsorptionHearts();
 
-    int getScore();
+    public abstract int getScore();
 }

@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface Villager extends Ageable{
+public abstract class Villager extends Ageable{
 
-    VillagerType getVillagerType();
+    public abstract VillagerType getVillagerType();
 
-    void setVillagerType(VillagerType villagerType);
+    public abstract void setVillagerType(VillagerType villagerType);
 }

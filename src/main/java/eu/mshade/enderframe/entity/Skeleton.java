@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface Skeleton extends LivingEntity{
+public abstract class Skeleton extends LivingEntity{
 
-    SkeletonType getSkeletonType();
+    public abstract SkeletonType getSkeletonType();
 
-    void setSkeletonType(SkeletonType skeletonType);
+    public abstract void setSkeletonType(SkeletonType skeletonType);
 }

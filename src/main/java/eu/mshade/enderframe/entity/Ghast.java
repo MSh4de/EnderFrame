@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface Ghast extends LivingEntity{
+public abstract class Ghast extends LivingEntity {
 
-    boolean isAttacking();
+    public abstract boolean isAttacking();
 
-    void setAttacking(boolean isAttacking);
+    public abstract void setAttacking(boolean isAttacking);
 }

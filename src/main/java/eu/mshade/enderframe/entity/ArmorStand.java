@@ -2,49 +2,49 @@ package eu.mshade.enderframe.entity;
 
 import eu.mshade.enderframe.world.Rotation;
 
-public interface ArmorStand extends LivingEntity {
+public abstract class ArmorStand extends LivingEntity {
 
-    boolean isSmall();
+    public abstract boolean isSmall();
 
-    void setSmall(boolean isSmall);
+    public abstract void setSmall(boolean isSmall);
 
-    boolean hasGravity();
+    public abstract boolean hasGravity();
 
-    void setGravity(boolean isGravity);
+    public abstract void setGravity(boolean isGravity);
 
-    boolean hasArms();
+    public abstract boolean hasArms();
 
-    void setHasArms(boolean hasArms);
+    public abstract void setHasArms(boolean hasArms);
 
-    boolean removeBasePlate();
+    public abstract boolean removeBasePlate();
 
-    void setRemoveBasePlate(boolean removeBasePlate);
+    public abstract void setRemoveBasePlate(boolean removeBasePlate);
 
-    boolean marker();
+    public abstract boolean marker();
 
-    void setMarker(boolean marker);
+    public abstract void setMarker(boolean marker);
 
-    Rotation getHeadPostion();
+    public abstract Rotation getHeadPostion();
 
-    void setHeadPosition(Rotation rotation);
+    public abstract void setHeadPosition(Rotation rotation);
 
-    Rotation getBodyPosition();
+    public abstract Rotation getBodyPosition();
 
-    void setBodyPosition(Rotation rotation);
+    public abstract void setBodyPosition(Rotation rotation);
 
-    Rotation getLeftArmPosition();
+    public abstract Rotation getLeftArmPosition();
 
-    void setLeftArmPosition(Rotation rotation);
+    public abstract void setLeftArmPosition(Rotation rotation);
 
-    Rotation getRightArmPosition();
+    public abstract Rotation getRightArmPosition();
 
-    void setRightArmPosition(Rotation rotation);
+    public abstract void setRightArmPosition(Rotation rotation);
 
-    Rotation getLeftLegPosition();
+    public abstract Rotation getLeftLegPosition();
 
-    void setLeftLegPosition(Rotation rotation);
+    public abstract void setLeftLegPosition(Rotation rotation);
 
-    Rotation getRightLegPosition();
+    public abstract Rotation getRightLegPosition();
 
-    void setRightLegPosition(Rotation rotation);
+    public abstract void setRightLegPosition(Rotation rotation);
 }

@@ -1,12 +1,12 @@
 package eu.mshade.enderframe.entity;
 
-public interface Wither extends LivingEntity{
+public abstract class Wither extends LivingEntity {
 
-    int getWatchedTarget(int index);
+    public abstract int getWatchedTarget(int index);
 
-    void setWatchedTarget(int index, int target);
+    public abstract void setWatchedTarget(int index, int target);
 
-    int getInvulnerableTime();
+    public abstract int getInvulnerableTime();
 
-    void setInvulnerableTime(int time);
+    public abstract void setInvulnerableTime(int time);
 }

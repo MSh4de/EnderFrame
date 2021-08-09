@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface FurnaceMinecart extends Minecart{
+public abstract class FurnaceMinecart extends Minecart {
 
-    boolean isPowered();
+    public abstract boolean isPowered();
 
-    void setPowered(boolean isPowered);
+    public abstract void setPowered(boolean isPowered);
 }

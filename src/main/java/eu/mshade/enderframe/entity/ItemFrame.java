@@ -1,10 +1,10 @@
 package eu.mshade.enderframe.entity;
 
-public interface ItemFrame {
+public abstract class ItemFrame {
 
     //Slot
 
-    byte getRotation();
+    public abstract byte getRotation();
 
-    void setRotation(byte rotation);
+    public abstract void setRotation(byte rotation);
 }

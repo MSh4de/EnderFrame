@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-public interface Bat extends LivingEntity {
+public abstract class Bat extends LivingEntity {
 
-    boolean isHanging();
+    public abstract boolean isHanging();
 
-    void setHanging(boolean isHanging);
+    public abstract void setHanging(boolean isHanging);
 }

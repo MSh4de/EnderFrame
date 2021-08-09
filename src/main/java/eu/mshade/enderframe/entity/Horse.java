@@ -1,52 +1,52 @@
 package eu.mshade.enderframe.entity;
 
-public interface Horse extends Tameable {
+public abstract class Horse extends Tameable {
 
-    boolean isTame();
+    public abstract boolean isTame();
 
-    void setTame(boolean isTame);
+    public abstract void setTame(boolean isTame);
 
-    boolean hasSaddle();
+    public abstract boolean hasSaddle();
 
-    void setSaddle(boolean hasSaddle);
+    public abstract void setSaddle(boolean hasSaddle);
 
-    boolean hasChest();
+    public abstract boolean hasChest();
 
-    void setChest(boolean hasChest);
+    public abstract void setChest(boolean hasChest);
 
-    boolean isBred();
+    public abstract boolean isBred();
 
-    void setBred(boolean isBred);
+    public abstract void setBred(boolean isBred);
 
-    boolean isEating();
+    public abstract boolean isEating();
 
-    void setEating(boolean isEating);
+    public abstract void setEating(boolean isEating);
 
-    boolean isRearing();
+    public abstract boolean isRearing();
 
-    void setRearing(boolean isRearing);
+    public abstract void setRearing(boolean isRearing);
 
-    boolean mouthOpen();
+    public abstract boolean mouthOpen();
 
-    void setMouthOpen(boolean isMouthOpen);
+    public abstract void setMouthOpen(boolean isMouthOpen);
 
-    HorseType getHorseType();
+    public abstract HorseType getHorseType();
 
-    void setHorseType(HorseType horseType);
+    public abstract void setHorseType(HorseType horseType);
 
-    HorseColor getHorseColor();
+    public abstract HorseColor getHorseColor();
 
-    void setHorseColor(HorseColor horseColor);
+    public abstract void setHorseColor(HorseColor horseColor);
 
-    HorseStyle getHorseStyle();
+    public abstract HorseStyle getHorseStyle();
 
-    void setHorseStyle(HorseStyle horseStyle);
+    public abstract void setHorseStyle(HorseStyle horseStyle);
 
-    String getOwner();
+    public abstract String getOwner();
 
-    void setOwner(String owner);
+    public abstract void setOwner(String owner);
 
-    HorseArmor getHorseArmor();
+    public abstract HorseArmor getHorseArmor();
 
-    void setHorseArmor(HorseArmor horseArmor);
+    public abstract void setHorseArmor(HorseArmor horseArmor);
 }
