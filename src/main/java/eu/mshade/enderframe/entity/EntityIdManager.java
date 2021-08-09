@@ -12,7 +12,7 @@ public final class EntityIdManager {
     private static EntityIdManager entityIdManager;
 
     private final Queue<Integer> entitiesId = new ConcurrentLinkedQueue<>();
-    private final AtomicInteger atomicId = new AtomicInteger();
+    private final AtomicInteger atomicId = new AtomicInteger(1);
 
     private EntityIdManager() {
         entityIdManager = this;
