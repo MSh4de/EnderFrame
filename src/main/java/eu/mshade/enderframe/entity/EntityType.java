@@ -1,5 +1,8 @@
 package eu.mshade.enderframe.entity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum EntityType {
     AREA_EFFECT_CLOUD,
     ARMOR_STAND,
@@ -109,10 +112,37 @@ public enum EntityType {
     WITHER_SKELETON,
     WOLF,
     ZOGLIN,
-    ZOMBIE,
+    ZOMBIE(Zombie.class),
     ZOMBIE_HORSE,
     ZOMBIE_VILLAGER,
     ZOMBIFIED_PIGLIN,
-    PLAYER,
+    PLAYER(Player.class),
     FISHING_BOOBER;
+
+    private Class<? extends Entity> clazz;
+    private static Map<String, EntityType> entityTypeMap = new HashMap<>();
+
+    static{
+        for (EntityType value : values()) {
+            entityTypeMap.put(value.name(), value);
+        }
+    }
+
+    EntityType() {
+
+    }
+
+    EntityType(Class<? extends Entity> clazz) {
+        this.clazz = clazz;
+    }
+
+
+
+    public Class<? extends Entity> getClazz() {
+        return clazz;
+    }
+
+    public static EntityType getEntityTypeByName(String name) {
+        return entityTypeMap.get(name);
+    }
 }
