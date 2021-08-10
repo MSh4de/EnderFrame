@@ -126,9 +126,12 @@ public interface EnderFrameSession {
             }
         }
 
-        Collection<ChunkBuffer> overFlowChunk = getChunkBuffers();
-        for (ChunkBuffer chunkBuffer : overFlowChunk) {
-            if (!result.contains(chunkBuffer)) sendUnloadChunk(chunkBuffer);
+        Queue<ChunkBuffer> overFlowChunk = new ConcurrentLinkedQueue<>();
+        for (ChunkBuffer chunkBuffer : getChunkBuffers()) {
+            if (!result.contains(chunkBuffer)){
+                sendUnloadChunk(chunkBuffer);
+                overFlowChunk.add(chunkBuffer);
+            }
         }
         chunksLoad.forEach(this::sendChunk);
         HashSet<Player> viewers = new HashSet<>();
@@ -144,6 +147,8 @@ public interface EnderFrameSession {
             }
         }
 
+        chunksLoad.forEach(chunkBuffer -> chunkBuffer.getEntities().stream().filter(target -> !target.getViewers().contains(player) && !(target instanceof Player)).forEach(entity -> entity.addViewer(player)));
+        overFlowChunk.forEach(chunkBuffer -> chunkBuffer.getEntities().forEach(entity -> entity.removeViewer(player)));
 
         player.getViewers().forEach(viewer -> {
             if (!viewers.contains(viewer)) {
@@ -160,11 +165,11 @@ public interface EnderFrameSession {
 
     void sendMetadata(Entity entity, MetadataMeaning... metadataMeanings);
 
-    void spawnMob(Entity entity);
+    void sendMob(Entity entity);
 
     void removeEntities(Entity... entity);
 
-    void spawnPlayer(Player player);
+    void sendPlayer(Player player);
 
 
 }
