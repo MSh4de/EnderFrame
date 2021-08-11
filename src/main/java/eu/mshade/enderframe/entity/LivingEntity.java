@@ -1,24 +1,74 @@
 package eu.mshade.enderframe.entity;
 
+import eu.mshade.enderframe.world.Location;
+import eu.mshade.enderframe.world.Vector;
+
+import java.util.Queue;
+import java.util.UUID;
+
 public abstract class LivingEntity extends Entity {
 
-    public abstract float getHealth();
+    private float health;
+    private int potionEffectColor;
+    private boolean isPotionEffectAmbient;
+    private byte numberOfArrowInEntity;
+    private boolean isAIDisable;
 
-    public abstract void setHealth(float health);
+    public LivingEntity(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable) {
+        super(location, velocity, entityId, false, false, false, false, false, (short) 0, "",false, false, uuid, entityType, null);
+        this.health = health;
+        this.potionEffectColor = potionEffectColor;
+        this.isPotionEffectAmbient = isPotionEffectAmbient;
+        this.numberOfArrowInEntity = numberOfArrowInEntity;
+        this.isAIDisable = isAIDisable;
+    }
 
-    public abstract int getPotionEffectColor();
+    public LivingEntity(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable) {
+        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, entityType, viewers);
+        this.health = health;
+        this.potionEffectColor = potionEffectColor;
+        this.isPotionEffectAmbient = isPotionEffectAmbient;
+        this.numberOfArrowInEntity = numberOfArrowInEntity;
+        this.isAIDisable = isAIDisable;
+    }
 
-    public abstract void setPotionEffectColor(int color);
+    public float getHealth() {
+        return health;
+    }
 
-    public abstract boolean isPotionEffectAmbient();
+    public void setHealth(float health) {
+        this.health = health;
+    }
 
-    public abstract void setPotionEffectAmbient(boolean ambient);
+    public int getPotionEffectColor() {
+        return potionEffectColor;
+    }
 
-    public abstract byte getNumberOfArrowInEntity();
+    public void setPotionEffectColor(int potionEffectColor) {
+        this.potionEffectColor = potionEffectColor;
+    }
 
-    public abstract void setNumberOfArrowInEntity(byte b);
+    public boolean isPotionEffectAmbient() {
+        return isPotionEffectAmbient;
+    }
 
-    public abstract boolean isAIDisable();
+    public void setPotionEffectAmbient(boolean potionEffectAmbient) {
+        isPotionEffectAmbient = potionEffectAmbient;
+    }
 
-    public abstract void setAIDisable(boolean isDisable);
+    public byte getNumberOfArrowInEntity() {
+        return numberOfArrowInEntity;
+    }
+
+    public void setNumberOfArrowInEntity(byte numberOfArrowInEntity) {
+        this.numberOfArrowInEntity = numberOfArrowInEntity;
+    }
+
+    public boolean isAIDisable() {
+        return isAIDisable;
+    }
+
+    public void setAIDisable(boolean AIDisable) {
+        isAIDisable = AIDisable;
+    }
 }

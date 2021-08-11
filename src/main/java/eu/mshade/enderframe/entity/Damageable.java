@@ -1,9 +1,15 @@
 package eu.mshade.enderframe.entity;
 
-public abstract class Damageable extends Entity {
+import eu.mshade.enderframe.world.Location;
+import eu.mshade.enderframe.world.Vector;
 
-    public abstract float getDamageTaken();
+import java.util.Queue;
+import java.util.UUID;
 
-    public abstract void setDamageTaken(float damageTaken);
+public interface Damageable {
+
+    float getDamageTaken();
+
+   void setDamageTaken(float damageTaken);
 
 }

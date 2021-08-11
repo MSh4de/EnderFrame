@@ -1,20 +1,44 @@
 package eu.mshade.enderframe.entity;
 
-public abstract class Wolf extends Tameable {
+import eu.mshade.enderframe.world.Location;
+import eu.mshade.enderframe.world.Vector;
 
-    public abstract boolean isAngry();
+import java.util.UUID;
 
-    public abstract void setIsAngry(boolean isAngry);
+public abstract class Wolf extends LivingEntity implements Tameable {
 
-    public abstract float getHealth();
+    private boolean isAngry;
+    private boolean begging;
+    private boolean collarColor;
 
-    public abstract void setHealth(float health);
+    public Wolf(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean isAngry, boolean begging, boolean collarColor) {
+        super(location, velocity, entityId, uuid, entityType, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
+        this.isAngry = isAngry;
+        this.begging = begging;
+        this.collarColor = collarColor;
+    }
 
-    public abstract boolean begging();
+    public boolean isAngry() {
+        return isAngry;
+    }
 
-    public abstract void setBegging(boolean begging);
+    public void setAngry(boolean angry) {
+        isAngry = angry;
+    }
 
-    public abstract boolean getCollarColor();
+    public boolean isBegging() {
+        return begging;
+    }
 
-    public abstract void setCollarColor(boolean collarColor);
+    public void setBegging(boolean begging) {
+        this.begging = begging;
+    }
+
+    public boolean isCollarColor() {
+        return collarColor;
+    }
+
+    public void setCollarColor(boolean collarColor) {
+        this.collarColor = collarColor;
+    }
 }

@@ -8,60 +8,149 @@ import java.util.UUID;
 
 public abstract class Entity {
 
-    public abstract Location getLocation();
+    private Location location;
+    private Vector velocity;
+    private int entityId;
+    private boolean isFire;
+    private boolean isSneaking;
+    private boolean isSprinting;
+    private boolean isEating;
+    private boolean isInvisible;
+    private short airTicks;
+    private String customName;
+    private boolean isCustomNameVisible;
+    private boolean isSilent;
+    private UUID uuid;
+    private EntityType entityType;
+    private Queue<Player> viewers;
 
-    public abstract void setLocation(Location location);
+    public Entity(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers) {
+        this.location = location;
+        this.velocity = velocity;
+        this.entityId = entityId;
+        this.isFire = isFire;
+        this.isSneaking = isSneaking;
+        this.isSprinting = isSprinting;
+        this.isEating = isEating;
+        this.isInvisible = isInvisible;
+        this.airTicks = airTicks;
+        this.customName = customName;
+        this.isCustomNameVisible = isCustomNameVisible;
+        this.isSilent = isSilent;
+        this.uuid = uuid;
+        this.entityType = entityType;
+        this.viewers = viewers;
+    }
 
-    public abstract Vector getVelocity();
+    public Location getLocation() {
+        return location;
+    }
 
-    public abstract void setVelocity(Vector velocity);
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
-    public abstract int getEntityId();
+    public Vector getVelocity() {
+        return velocity;
+    }
 
-    public abstract boolean isFire();
+    public void setVelocity(Vector velocity) {
+        this.velocity = velocity;
+    }
 
-    public abstract void setFire(boolean isOnFire);
+    public int getEntityId() {
+        return entityId;
+    }
 
-    public abstract boolean isSneaking();
+    public boolean isFire() {
+        return isFire;
+    }
 
-    public abstract void setSneaking(boolean isCrounched);
+    public void setFire(boolean fire) {
+        isFire = fire;
+    }
 
-    public abstract boolean isSprinting();
+    public boolean isSneaking() {
+        return isSneaking;
+    }
 
-    public abstract void setSprinting(boolean isSprinting);
+    public void setSneaking(boolean sneaking) {
+        isSneaking = sneaking;
+    }
 
-    public abstract boolean isEating();
+    public boolean isSprinting() {
+        return isSprinting;
+    }
 
-    public abstract void setEating(boolean isEating);
+    public void setSprinting(boolean sprinting) {
+        isSprinting = sprinting;
+    }
 
-    public abstract boolean isInvisible();
+    public boolean isEating() {
+        return isEating;
+    }
 
-    public abstract void setInvisible(boolean isInvisible);
+    public void setEating(boolean eating) {
+        isEating = eating;
+    }
 
-    public abstract short getAirTicks();
+    public boolean isInvisible() {
+        return isInvisible;
+    }
 
-    public abstract void setAirTicks(short ticks);
+    public void setInvisible(boolean invisible) {
+        isInvisible = invisible;
+    }
 
-    public abstract String getCustomName();
+    public short getAirTicks() {
+        return airTicks;
+    }
 
-    public abstract void setCustomName(String customName);
+    public void setAirTicks(short airTicks) {
+        this.airTicks = airTicks;
+    }
 
-    public abstract boolean isCustomNameVisible();
+    public String getCustomName() {
+        return customName;
+    }
 
-    public abstract void setCustomNameVisible(boolean isCustomNameVisible);
+    public void setCustomName(String customName) {
+        this.customName = customName;
+    }
 
-    public abstract boolean isSilent();
+    public boolean isCustomNameVisible() {
+        return isCustomNameVisible;
+    }
 
-    public abstract void setSilent(boolean isSilent);
+    public void setCustomNameVisible(boolean customNameVisible) {
+        isCustomNameVisible = customNameVisible;
+    }
 
-    public abstract UUID getUUID();
+    public boolean isSilent() {
+        return isSilent;
+    }
 
-    public abstract EntityType getType();
+    public void setSilent(boolean silent) {
+        isSilent = silent;
+    }
 
-    public abstract Queue<Player> getViewers();
+    public UUID getUUID() {
+        return uuid;
+    }
 
-    public abstract void addViewer(Player player);
+    public EntityType getType() {
+        return entityType;
+    }
 
-    public abstract void removeViewer(Player player);
+    public Queue<Player> getViewers() {
+        return viewers;
+    }
 
+    public void addViewer(Player player) {
+        viewers.add(player);
+    }
+
+    public void removeViewer(Player player){
+        viewers.remove(player);
+    }
 }

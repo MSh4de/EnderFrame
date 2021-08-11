@@ -1,52 +1,104 @@
 package eu.mshade.enderframe.entity;
 
-public abstract class Horse extends Tameable {
+import eu.mshade.enderframe.world.Location;
+import eu.mshade.enderframe.world.Vector;
 
-    public abstract boolean isTame();
+import java.util.UUID;
 
-    public abstract void setTame(boolean isTame);
+public abstract class Horse extends LivingEntity implements Tameable {
 
-    public abstract boolean hasSaddle();
+    private boolean hasSaddle;
+    private boolean hasChest;
+    private boolean isBred;
+    private boolean isRearing;
+    private boolean mouthOpen;
+    private HorseType horseType;
+    private HorseColor horseColor;
+    private HorseStyle horseStyle;
+    private HorseArmor horseArmor;
 
-    public abstract void setSaddle(boolean hasSaddle);
+    public Horse(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean hasSaddle, boolean hasChest, boolean isBred, boolean isRearing, boolean mouthOpen, HorseType horseType, HorseColor horseColor, HorseStyle horseStyle, HorseArmor horseArmor) {
+        super(location, velocity, entityId, uuid, entityType, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
+        this.hasSaddle = hasSaddle;
+        this.hasChest = hasChest;
+        this.isBred = isBred;
+        this.isRearing = isRearing;
+        this.mouthOpen = mouthOpen;
+        this.horseType = horseType;
+        this.horseColor = horseColor;
+        this.horseStyle = horseStyle;
+        this.horseArmor = horseArmor;
+    }
 
-    public abstract boolean hasChest();
+    public boolean isHasSaddle() {
+        return hasSaddle;
+    }
 
-    public abstract void setChest(boolean hasChest);
+    public void setHasSaddle(boolean hasSaddle) {
+        this.hasSaddle = hasSaddle;
+    }
 
-    public abstract boolean isBred();
+    public boolean isHasChest() {
+        return hasChest;
+    }
 
-    public abstract void setBred(boolean isBred);
+    public void setHasChest(boolean hasChest) {
+        this.hasChest = hasChest;
+    }
 
-    public abstract boolean isEating();
+    public boolean isBred() {
+        return isBred;
+    }
 
-    public abstract void setEating(boolean isEating);
+    public void setBred(boolean bred) {
+        isBred = bred;
+    }
 
-    public abstract boolean isRearing();
+    public boolean isRearing() {
+        return isRearing;
+    }
 
-    public abstract void setRearing(boolean isRearing);
+    public void setRearing(boolean rearing) {
+        isRearing = rearing;
+    }
 
-    public abstract boolean mouthOpen();
+    public boolean isMouthOpen() {
+        return mouthOpen;
+    }
 
-    public abstract void setMouthOpen(boolean isMouthOpen);
+    public void setMouthOpen(boolean mouthOpen) {
+        this.mouthOpen = mouthOpen;
+    }
 
-    public abstract HorseType getHorseType();
+    public HorseType getHorseType() {
+        return horseType;
+    }
 
-    public abstract void setHorseType(HorseType horseType);
+    public void setHorseType(HorseType horseType) {
+        this.horseType = horseType;
+    }
 
-    public abstract HorseColor getHorseColor();
+    public HorseColor getHorseColor() {
+        return horseColor;
+    }
 
-    public abstract void setHorseColor(HorseColor horseColor);
+    public void setHorseColor(HorseColor horseColor) {
+        this.horseColor = horseColor;
+    }
 
-    public abstract HorseStyle getHorseStyle();
+    public HorseStyle getHorseStyle() {
+        return horseStyle;
+    }
 
-    public abstract void setHorseStyle(HorseStyle horseStyle);
+    public void setHorseStyle(HorseStyle horseStyle) {
+        this.horseStyle = horseStyle;
+    }
 
-    public abstract String getOwner();
+    public HorseArmor getHorseArmor() {
+        return horseArmor;
+    }
 
-    public abstract void setOwner(String owner);
-
-    public abstract HorseArmor getHorseArmor();
-
-    public abstract void setHorseArmor(HorseArmor horseArmor);
+    public void setHorseArmor(HorseArmor horseArmor) {
+        this.horseArmor = horseArmor;
+    }
 }

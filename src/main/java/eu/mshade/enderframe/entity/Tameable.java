@@ -1,14 +1,14 @@
 package eu.mshade.enderframe.entity;
 
-public abstract class Tameable extends Ageable {
+public interface Tameable {
 
-    public abstract boolean isSitting();
+    boolean isSitting();
 
-    public abstract void setSitting(boolean isSitting);
+    void setSitting(boolean isSitting);
 
-    public abstract boolean isTame();
+    boolean isTame();
 
-    public abstract void setTame(boolean isTame);
+    void setTame(boolean isTame);
 
-    public abstract String getOwner();
+    String getOwner();
 }
