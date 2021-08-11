@@ -8,7 +8,6 @@ import eu.mshade.enderframe.metadata.MetadataType;
 import eu.mshade.enderframe.metadata.MetadataTypeRepository;
 import eu.mshade.enderframe.metadata.buffer.MetadataBuffer;
 import eu.mshade.enderframe.metadata.buffer.type.MetadataTypeBuffer;
-import eu.mshade.enderframe.metadata.v2.MetadataRewriterBucket;
 import eu.mshade.enderframe.protocol.ByteMessage;
 
 import java.util.HashMap;
