@@ -14,8 +14,9 @@ public abstract class Minecart extends Entity implements Damageable {
     public int blockData;
     private int blockYPosition;
     private boolean showBlock;
+    private float damageTaken;
 
-    public Minecart(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers, int shakingPower, int shakingDirection, int blockId, int blockData, int blockYPosition, boolean showBlock) {
+    public Minecart(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers, int shakingPower, int shakingDirection, int blockId, int blockData, int blockYPosition, boolean showBlock, float damageTaken) {
         super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, entityType, viewers);
         this.shakingPower = shakingPower;
         this.shakingDirection = shakingDirection;
@@ -23,6 +24,7 @@ public abstract class Minecart extends Entity implements Damageable {
         this.blockData = blockData;
         this.blockYPosition = blockYPosition;
         this.showBlock = showBlock;
+        this.damageTaken = damageTaken;
     }
 
     public int getShakingPower() {
@@ -71,5 +73,16 @@ public abstract class Minecart extends Entity implements Damageable {
 
     public void setShowBlock(boolean showBlock) {
         this.showBlock = showBlock;
+    }
+
+
+    @Override
+    public float getDamageTaken() {
+        return damageTaken;
+    }
+
+    @Override
+    public void setDamageTaken(float damageTaken) {
+        this.damageTaken = damageTaken;
     }
 }

@@ -4,13 +4,15 @@ import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Rotation;
 import eu.mshade.enderframe.world.Vector;
 
+import java.util.Queue;
 import java.util.UUID;
 
 public abstract class ArmorStand extends LivingEntity {
 
     private boolean isSmall;
     private boolean hasGravity;
-    private boolean removeBasePlate;
+    private boolean hasArms;
+    private boolean removedBasePlate;
     private boolean marker;
     private Rotation headPosition;
     private Rotation bodyPosition;
@@ -19,11 +21,12 @@ public abstract class ArmorStand extends LivingEntity {
     private Rotation leftLegPosition;
     private Rotation rightLegPosition;
 
-    public ArmorStand(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean isSmall, boolean hasGravity, boolean removeBasePlate, boolean marker, Rotation headPosition, Rotation bodyPosition, Rotation leftArmPosition, Rotation rightArmPosition, Rotation leftLegPosition, Rotation rightLegPosition) {
-        super(location, velocity, entityId, uuid, entityType, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
+    public ArmorStand(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean isSmall, boolean hasGravity, boolean hasArms, boolean removedBasePlate, boolean marker, Rotation headPosition, Rotation bodyPosition, Rotation leftArmPosition, Rotation rightArmPosition, Rotation leftLegPosition, Rotation rightLegPosition) {
+        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, entityType, viewers, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
         this.isSmall = isSmall;
         this.hasGravity = hasGravity;
-        this.removeBasePlate = removeBasePlate;
+        this.hasArms = hasArms;
+        this.removedBasePlate = removedBasePlate;
         this.marker = marker;
         this.headPosition = headPosition;
         this.bodyPosition = bodyPosition;
@@ -31,6 +34,29 @@ public abstract class ArmorStand extends LivingEntity {
         this.rightArmPosition = rightArmPosition;
         this.leftLegPosition = leftLegPosition;
         this.rightLegPosition = rightLegPosition;
+    }
+
+    public ArmorStand(Location location, int entityId) {
+        super(location, EntityType.ARMOR_STAND, entityId, 20f);
+        this.isSmall = false;
+        this.hasGravity = true;
+        this.hasArms = true;
+        this.removedBasePlate = false;
+        this.marker = false;
+        this.headPosition = new Rotation(0, 0, 0);
+        this.bodyPosition = new Rotation(0, 0, 0);
+        this.leftArmPosition = new Rotation(0, 0, 0);
+        this.rightArmPosition = new Rotation(0, 0, 0);
+        this.leftLegPosition = new Rotation(0, 0, 0);
+        this.rightLegPosition = new Rotation(0, 0, 0);
+    }
+
+    public ArmorStand(Location location, int entityId, boolean isSmall, boolean hasGravity, boolean removedBasePlate, boolean marker) {
+        super(location, EntityType.ARMOR_STAND, entityId, 20f);
+        this.isSmall = isSmall;
+        this.hasGravity = hasGravity;
+        this.removedBasePlate = removedBasePlate;
+        this.marker = marker;
     }
 
     public boolean isSmall() {
@@ -41,7 +67,7 @@ public abstract class ArmorStand extends LivingEntity {
         isSmall = small;
     }
 
-    public boolean isHasGravity() {
+    public boolean hasGravity() {
         return hasGravity;
     }
 
@@ -49,12 +75,20 @@ public abstract class ArmorStand extends LivingEntity {
         this.hasGravity = hasGravity;
     }
 
-    public boolean isRemoveBasePlate() {
-        return removeBasePlate;
+    public boolean hasArms(){
+        return hasArms;
     }
 
-    public void setRemoveBasePlate(boolean removeBasePlate) {
-        this.removeBasePlate = removeBasePlate;
+    public void setHasArms(boolean hasArms){
+        this.hasArms = hasArms;
+    }
+
+    public boolean isRemovedBasePlate() {
+        return removedBasePlate;
+    }
+
+    public void setRemovedBasePlate(boolean removedBasePlate) {
+        this.removedBasePlate = removedBasePlate;
     }
 
     public boolean isMarker() {

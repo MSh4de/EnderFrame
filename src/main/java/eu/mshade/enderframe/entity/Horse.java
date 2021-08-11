@@ -3,9 +3,10 @@ package eu.mshade.enderframe.entity;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 
+import java.util.Queue;
 import java.util.UUID;
 
-public abstract class Horse extends LivingEntity implements Tameable {
+public abstract class Horse extends LivingEntity implements Tameable, Ageable {
 
     private boolean hasSaddle;
     private boolean hasChest;
@@ -16,9 +17,13 @@ public abstract class Horse extends LivingEntity implements Tameable {
     private HorseColor horseColor;
     private HorseStyle horseStyle;
     private HorseArmor horseArmor;
+    private boolean isSitting;
+    private boolean isTame;
+    private String owner;
+    private int age;
 
-    public Horse(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean hasSaddle, boolean hasChest, boolean isBred, boolean isRearing, boolean mouthOpen, HorseType horseType, HorseColor horseColor, HorseStyle horseStyle, HorseArmor horseArmor) {
-        super(location, velocity, entityId, uuid, entityType, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
+    public Horse(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean hasSaddle, boolean hasChest, boolean isBred, boolean isRearing, boolean mouthOpen, HorseType horseType, HorseColor horseColor, HorseStyle horseStyle, HorseArmor horseArmor, boolean isSitting, boolean isTame, String owner, int age) {
+        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, entityType, viewers, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
         this.hasSaddle = hasSaddle;
         this.hasChest = hasChest;
         this.isBred = isBred;
@@ -28,8 +33,11 @@ public abstract class Horse extends LivingEntity implements Tameable {
         this.horseColor = horseColor;
         this.horseStyle = horseStyle;
         this.horseArmor = horseArmor;
+        this.isSitting = isSitting;
+        this.isTame = isTame;
+        this.owner = owner;
+        this.age = age;
     }
-
     public boolean isHasSaddle() {
         return hasSaddle;
     }
@@ -100,5 +108,40 @@ public abstract class Horse extends LivingEntity implements Tameable {
 
     public void setHorseArmor(HorseArmor horseArmor) {
         this.horseArmor = horseArmor;
+    }
+
+    @Override
+    public int getAge() {
+        return age;
+    }
+
+    @Override
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public boolean isSitting() {
+        return isSitting;
+    }
+
+    @Override
+    public void setSitting(boolean isSitting) {
+        this.isSitting = isSitting;
+    }
+
+    @Override
+    public boolean isTame() {
+        return isTame;
+    }
+
+    @Override
+    public void setTame(boolean isTame) {
+        this.isTame = isTame;
+    }
+
+    @Override
+    public String getOwner() {
+        return owner;
     }
 }

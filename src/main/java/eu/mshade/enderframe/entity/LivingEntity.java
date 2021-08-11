@@ -14,13 +14,13 @@ public abstract class LivingEntity extends Entity {
     private byte numberOfArrowInEntity;
     private boolean isAIDisable;
 
-    public LivingEntity(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable) {
-        super(location, velocity, entityId, false, false, false, false, false, (short) 0, "",false, false, uuid, entityType, null);
+    public LivingEntity(Location location, EntityType entityType, int entityId, float health) {
+        super(location, entityType, entityId);
         this.health = health;
-        this.potionEffectColor = potionEffectColor;
-        this.isPotionEffectAmbient = isPotionEffectAmbient;
-        this.numberOfArrowInEntity = numberOfArrowInEntity;
-        this.isAIDisable = isAIDisable;
+        this.potionEffectColor = 0;
+        this.isPotionEffectAmbient = false;
+        this.numberOfArrowInEntity = 0;
+        this.isAIDisable = false;
     }
 
     public LivingEntity(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable) {

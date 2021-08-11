@@ -5,6 +5,7 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.Queue;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Entity {
 
@@ -23,6 +24,10 @@ public abstract class Entity {
     private UUID uuid;
     private EntityType entityType;
     private Queue<Player> viewers;
+
+    public Entity(Location location, EntityType entityType, int entityId) {
+        this(location, new Vector(), entityId, false, false, false, false, false, (short)300, "", false, false, UUID.randomUUID(), entityType, new ConcurrentLinkedQueue<>());
+    }
 
     public Entity(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers) {
         this.location = location;

@@ -3,22 +3,28 @@ package eu.mshade.enderframe.entity;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 
+import java.util.Queue;
 import java.util.UUID;
 
-public abstract class Blaze extends LivingEntity{
+public abstract class Blaze extends LivingEntity {
 
-    private boolean isFire;
+    private boolean onFire;
 
-    public Blaze(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean isFire) {
-        super(location, velocity, entityId, uuid, entityType, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
-        this.isFire = isFire;
+    public Blaze(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, Queue<Player> viewers, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean onFire) {
+        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.BLAZE, viewers, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
+        this.onFire = onFire;
     }
 
-    public boolean isFire() {
-        return isFire;
+    public Blaze(Location location, int entityId, float health, boolean onFire) {
+        super(location, EntityType.BLAZE, entityId, health);
+        this.onFire = onFire;
     }
 
-    public void setFire(boolean isFire) {
-        this.isFire = isFire;
+    public boolean isOnFire() {
+        return onFire;
+    }
+
+    public void setOnFire(boolean onFire) {
+        this.onFire = onFire;
     }
 }

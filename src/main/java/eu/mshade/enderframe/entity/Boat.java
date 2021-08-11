@@ -11,11 +11,13 @@ public abstract class Boat extends Entity implements Damageable {
     private int lastHit;
 
     private int forwardDirection;
+    private float damageTaken;
 
-    public Boat(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers, int lastHit, int forwardDirection) {
+    public Boat(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers, int lastHit, int forwardDirection, float damageTaken) {
         super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, entityType, viewers);
         this.lastHit = lastHit;
         this.forwardDirection = forwardDirection;
+        this.damageTaken = damageTaken;
     }
 
     public int getLastHit() {
@@ -32,5 +34,15 @@ public abstract class Boat extends Entity implements Damageable {
 
     public void setForwardDirection(int forwardDirection) {
         this.forwardDirection = forwardDirection;
+    }
+
+    @Override
+    public float getDamageTaken() {
+        return damageTaken;
+    }
+
+    @Override
+    public void setDamageTaken(float damageTaken) {
+        this.damageTaken = damageTaken;
     }
 }
