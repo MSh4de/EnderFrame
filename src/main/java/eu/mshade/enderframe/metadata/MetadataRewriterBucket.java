@@ -1,4 +1,4 @@
-package eu.mshade.enderframe.metadata.v2;
+package eu.mshade.enderframe.metadata;
 
 import eu.mshade.enderframe.metadata.MetadataMeaning;
 
