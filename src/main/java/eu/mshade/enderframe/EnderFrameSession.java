@@ -2,6 +2,7 @@ package eu.mshade.enderframe;
 
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
+import eu.mshade.enderframe.event.entity.PacketMoveType;
 import eu.mshade.enderframe.metadata.MetadataMeaning;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
@@ -111,7 +112,7 @@ public interface EnderFrameSession {
 
     default void sendSquareChunk(int radius, int chunkX, int chunkZ, WorldBuffer worldBuffer) {
         Queue<ChunkBuffer> result = new ConcurrentLinkedQueue<>();
-        Collection<ChunkBuffer> chunksLoad = new ArrayList<>();
+        Queue<ChunkBuffer> chunksLoad = new ConcurrentLinkedQueue<>();
         int rSquared = radius * radius;
         for (int x = chunkX - radius; x <= chunkX + radius; x++) {
             for (int z = chunkZ - radius; z <= chunkZ + radius; z++) {
@@ -171,5 +172,16 @@ public interface EnderFrameSession {
 
     void sendPlayer(Player player);
 
+    void sendTeleport(Entity entity, boolean onGround);
 
+    void sendMove(int entityId, Location now, Location before, boolean onGround);
+
+    void sendMoveAndLook(int entityId, Location now, Location before, boolean onGround);
+
+    void sendLook(int entityId, float yaw, float pitch, boolean onGround);
+
+    void sendHeadLook(int entityId, float headYaw);
+
+
+    void moveTo(Player player, PacketMoveType packetMoveType, Location now, Location before, boolean ground);
 }
