@@ -5,6 +5,7 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.Queue;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Boat extends Entity implements Damageable {
 
@@ -13,11 +14,22 @@ public abstract class Boat extends Entity implements Damageable {
     private int forwardDirection;
     private float damageTaken;
 
-    public Boat(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers, int lastHit, int forwardDirection, float damageTaken) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, entityType, viewers);
+    public Boat(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, int lastHit, int forwardDirection, float damageTaken) {
+        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.BOAT);
         this.lastHit = lastHit;
         this.forwardDirection = forwardDirection;
         this.damageTaken = damageTaken;
+    }
+
+    public Boat(Location location, int entityId, int lastHit, int forwardDirection, float damageTaken) {
+        super(location, EntityType.BOAT, entityId);
+        this.lastHit = lastHit;
+        this.forwardDirection = forwardDirection;
+        this.damageTaken = damageTaken;
+    }
+
+    public Boat(Location location, int entityId){
+        this(location, entityId, 0, 0, 0);
     }
 
     public int getLastHit() {

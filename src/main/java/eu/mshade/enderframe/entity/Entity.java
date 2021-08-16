@@ -11,7 +11,7 @@ public abstract class Entity {
 
     private Location location;
     private Vector velocity;
-    private int entityId;
+    private final int entityId;
     private boolean isFire;
     private boolean isSneaking;
     private boolean isSprinting;
@@ -21,15 +21,15 @@ public abstract class Entity {
     private String customName;
     private boolean isCustomNameVisible;
     private boolean isSilent;
-    private UUID uuid;
-    private EntityType entityType;
-    private Queue<Player> viewers;
+    private final UUID uuid;
+    private final EntityType entityType;
+    private final Queue<Player> viewers = new ConcurrentLinkedQueue<>();
 
     public Entity(Location location, EntityType entityType, int entityId) {
-        this(location, new Vector(), entityId, false, false, false, false, false, (short)300, "", false, false, UUID.randomUUID(), entityType, new ConcurrentLinkedQueue<>());
+        this(location, new Vector(), entityId, false, false, false, false, false, (short)300, "", false, false, UUID.randomUUID(), entityType);
     }
 
-    public Entity(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, Queue<Player> viewers) {
+    public Entity(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType) {
         this.location = location;
         this.velocity = velocity;
         this.entityId = entityId;
@@ -44,7 +44,6 @@ public abstract class Entity {
         this.isSilent = isSilent;
         this.uuid = uuid;
         this.entityType = entityType;
-        this.viewers = viewers;
     }
 
     public Location getLocation() {
