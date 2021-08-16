@@ -26,6 +26,10 @@ public abstract class Pig extends LivingEntity implements Ageable, Rideable {
         this.hasSaddle = hasSaddle;
     }
 
+    public Pig(Location location, int entityId) {
+        this(location, entityId, 20f, 0, false,false);
+    }
+
     @Override
     public void setSaddle(boolean hasSaddle) {
         this.hasSaddle = hasSaddle;

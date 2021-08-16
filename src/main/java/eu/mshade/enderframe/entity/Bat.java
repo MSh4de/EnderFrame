@@ -15,6 +15,15 @@ public abstract class Bat extends LivingEntity {
         this.isHanging = isHanging;
     }
 
+    public Bat(Location location, int entityId, float health, boolean isHanging){
+        super(location, EntityType.BAT, entityId, health);
+        this.isHanging = isHanging;
+    }
+
+    public Bat(Location location, int entityId){
+        this(location, entityId, 5, false);
+    }
+
     public boolean isHanging() {
         return isHanging;
     }

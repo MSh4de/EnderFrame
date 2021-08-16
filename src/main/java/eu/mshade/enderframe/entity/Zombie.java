@@ -28,6 +28,10 @@ public abstract class Zombie extends LivingEntity implements Ageable {
         this.isAgeLocked = isAgeLocked;
     }
 
+    public Zombie(Location location, int entityId){
+        this(location, entityId, 0, false, false, false, 0);
+    }
+
     public boolean isVillager() {
         return this.isVillager;
     }
