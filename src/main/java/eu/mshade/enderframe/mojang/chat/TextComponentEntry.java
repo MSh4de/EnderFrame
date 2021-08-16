@@ -79,4 +79,17 @@ public class TextComponentEntry {
         this.clickEvent = clickEvent;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "TextComponentEntry{" +
+                "text='" + text + '\'' +
+                ", color='" + color + '\'' +
+                ", bold=" + bold +
+                ", italic=" + italic +
+                ", strikethrough=" + strikethrough +
+                ", obfuscated=" + obfuscated +
+                ", clickEvent=" + clickEvent +
+                '}';
+    }
 }
