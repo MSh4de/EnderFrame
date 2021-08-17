@@ -5,7 +5,7 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public abstract class Horse extends LivingEntity implements Tameable, Ageable, Vehicle {
+public abstract class Horse extends LivingEntity implements Tameable, Ageable {
 
     private boolean hasSaddle;
     private boolean hasChest;
@@ -22,8 +22,6 @@ public abstract class Horse extends LivingEntity implements Tameable, Ageable, V
 
     private boolean isAgeLocked;
     private int age;
-
-    private Vector vehicleVelocity;
 
     public Horse(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean hasSaddle, boolean hasChest, boolean isBred, boolean isRearing, boolean mouthOpen, HorseType horseType, HorseColor horseColor, HorseStyle horseStyle, HorseArmor horseArmor, boolean isSitting, boolean isTame, String owner, int age) {
         super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.HORSE, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
@@ -58,7 +56,6 @@ public abstract class Horse extends LivingEntity implements Tameable, Ageable, V
         this.owner = owner;
         this.isAgeLocked = isAgeLocked;
         this.age = age;
-        this.vehicleVelocity = vehicleVelocity;
     }
 
     public Horse(Location location, int entityId) {
@@ -148,28 +145,18 @@ public abstract class Horse extends LivingEntity implements Tameable, Ageable, V
     }
 
     @Override
-    public boolean isTame() {
+    public boolean isTamed() {
         return isTame;
     }
 
     @Override
-    public void setTame(boolean isTame) {
-        this.isTame = isTame;
+    public void setTamed(boolean isTamed) {
+        this.isTame = isTamed;
     }
 
     @Override
     public String getOwner() {
         return owner;
-    }
-
-    @Override
-    public Vector getVehicleVelocity() {
-        return this.vehicleVelocity;
-    }
-
-    @Override
-    public void setVehicleVelocity(Vector vehicleVelocity) {
-        this.vehicleVelocity = vehicleVelocity;
     }
 
     @Override
