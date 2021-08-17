@@ -27,38 +27,10 @@ public interface EnderFrameSession {
 
     void setPlayer(Player player);
 
-    MOptional<String> getDisplayName();
-
-    void setDisplayName(MOptional<String> displayName);
-
-    GameMode getGameMode();
-
-    void setGameMode(GameMode gameMode);
-
-    GameProfile getGameProfile();
-
-    void setGameProfile(GameProfile gameProfile);
-
-    SocketAddress getSocketAddress();
-
-    EnderFrameSessionHandler getEnderFrameSessionHandler();
-
-    ProtocolVersion getProtocolVersion();
-
-    void setProtocolVersion(ProtocolVersion protocolVersion);
-
     String getSessionId();
 
     byte[] getVerifyToken();
 
-
-    int getPing();
-
-    void setPing(int ping);
-
-    Location getLocation();
-
-    void setLocation(Location location);
 
     Collection<ChunkBuffer> getChunkBuffers();
 
@@ -75,7 +47,7 @@ public interface EnderFrameSession {
     void sendJoinGame(GameMode gameMode, Dimension dimension, Difficulty difficulty, int maxPlayers, LevelType levelType, boolean reducedDebugInfo);
 
     default void sendAbilities(boolean invulnerable, boolean flying, boolean allowFlying, boolean instantBreak, float flyingSpeed, float walkSpeed) {
-        getEnderFrameSessionHandler().sendPacket(new PacketOutPlayerAbilities(invulnerable, flying, allowFlying, instantBreak, flyingSpeed, walkSpeed));
+        getPlayer().getEnderFrameSessionHandler().sendPacket(new PacketOutPlayerAbilities(invulnerable, flying, allowFlying, instantBreak, flyingSpeed, walkSpeed));
     }
 
     void sendPosition(double x, double y, double z);
@@ -98,7 +70,6 @@ public interface EnderFrameSession {
         sendMessage(TextComponent.of(message), TextPosition.CHAT);
     }
 
-    ;
 
     void sendDisconnect(String message);
 
@@ -107,7 +78,7 @@ public interface EnderFrameSession {
     void sendUnloadChunk(ChunkBuffer chunkBuffer);
 
     default void sendPlayerList(String header, String footer) {
-        getEnderFrameSessionHandler().sendPacket(new PacketOutPlayerList(header, footer));
+        getPlayer().getEnderFrameSessionHandler().sendPacket(new PacketOutPlayerList(header, footer));
     }
 
     default void sendSquareChunk(int radius, int chunkX, int chunkZ, WorldBuffer worldBuffer) {
@@ -136,7 +107,7 @@ public interface EnderFrameSession {
         }
         chunksLoad.forEach(this::sendChunk);
         HashSet<Player> viewers = new HashSet<>();
-        Player player = worldBuffer.getPlayer(this.getEnderFrameSessionHandler());
+        Player player = getPlayer();
 
         for (int x = chunkX - 5; x < chunkX + 5; x++) {
             for (int z = chunkZ - 5; z < chunkZ + 5; z++) {

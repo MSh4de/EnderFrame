@@ -157,4 +157,6 @@ public abstract class Entity {
     public void removeViewer(Player player){
         viewers.remove(player);
     }
+
+    public abstract void tick();
 }

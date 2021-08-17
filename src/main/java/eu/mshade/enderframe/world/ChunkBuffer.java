@@ -3,6 +3,7 @@ package eu.mshade.enderframe.world;
 
 import eu.mshade.enderframe.EnderFrameSession;
 import eu.mshade.enderframe.entity.Entity;
+import eu.mshade.enderframe.entity.Player;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -20,7 +21,7 @@ public interface ChunkBuffer {
     UUID getId();
 
 
-    Collection<EnderFrameSession> getViewers();
+    Collection<Player> getViewers();
 
     WorldBuffer getWorldBuffer();
 
