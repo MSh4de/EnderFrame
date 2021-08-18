@@ -165,4 +165,16 @@ public class Location implements Cloneable {
             throw new Error(e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "world=" + world +
+                ", x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                ", pitch=" + pitch +
+                ", yaw=" + yaw +
+                '}';
+    }
 }
