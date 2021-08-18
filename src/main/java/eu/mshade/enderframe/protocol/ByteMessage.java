@@ -126,7 +126,6 @@ public abstract class ByteMessage extends ByteBuf {
     public void writeValueAsString(Object o){
         try {
             String s = MWORK.getObjectMapper().writeValueAsString(o);
-            System.out.println(s);
             this.writeString(s);
         }catch (JsonProcessingException e){
             LOGGER.error(e.getMessage(), e);
