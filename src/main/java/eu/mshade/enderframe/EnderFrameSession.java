@@ -99,7 +99,23 @@ public interface EnderFrameSession {
     default void sendSquareChunk(int radius, int chunkX, int chunkZ, WorldBuffer worldBuffer){
         Queue<ChunkBuffer> result = new ConcurrentLinkedQueue<>();
         Collection<ChunkBuffer> chunksLoad = new ArrayList<>();
-        int rSquared = radius * radius;
+
+        for (int r = 0; r <= radius; r++) {
+            for (int x = chunkX - r; x <= chunkX + r; x++) {
+                for (int z = chunkZ - r; z <= chunkZ + r; z++) {
+                    double dist = (chunkX - x) * (chunkX - x) + (chunkZ - z) * (chunkZ - z);
+                    if (dist < r * r && !(dist < (r - 1) * (r - 1))) {
+                        ChunkBuffer chunkBuffer = worldBuffer.getChunkBuffer(x, z);
+                        result.add(chunkBuffer);
+                        if (!getChunkBuffers().contains(chunkBuffer)) {
+                            chunksLoad.add(chunkBuffer);
+                        }
+                    }
+                }
+            }
+        }
+
+        /*
         for (int x = chunkX - radius; x <= chunkX + radius; x++) {
             for (int z = chunkZ - radius; z <= chunkZ + radius; z++) {
                 if ((chunkX - x) * (chunkX - x) + (chunkZ - z) * (chunkZ - z) <= rSquared) {
@@ -112,6 +128,8 @@ public interface EnderFrameSession {
                 }
             }
         }
+
+         */
 
         Collection<ChunkBuffer> overFlowChunk = getChunkBuffers();
         for (ChunkBuffer chunkBuffer : overFlowChunk) {
