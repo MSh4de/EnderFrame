@@ -23,7 +23,7 @@ public abstract class Slime extends LivingEntity{
         this(location, EntityType.SLIME, entityId, 20f, (byte)0);
     }
 
-    public byte size() {
+    public byte getSize() {
         return this.size;
     }
 

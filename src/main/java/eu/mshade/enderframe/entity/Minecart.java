@@ -3,21 +3,19 @@ package eu.mshade.enderframe.entity;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 
-import java.util.Queue;
 import java.util.UUID;
 
-public abstract class Minecart extends Entity implements Damageable, Vehicle {
+public abstract class Minecart extends Entity implements Damageable {
 
     private int shakingPower;
     private int shakingDirection;
     private int blockId;
-    public int blockData;
+    private int blockData;
     private int blockYPosition;
     private boolean showBlock;
     private float damageTaken;
-    private Vector vehicleVelocity;
 
-    public Minecart(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, int shakingPower, int shakingDirection, int blockId, int blockData, int blockYPosition, boolean showBlock, float damageTaken, Vector vehicleVelocity) {
+    public Minecart(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, int shakingPower, int shakingDirection, int blockId, int blockData, int blockYPosition, boolean showBlock, float damageTaken) {
         super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, entityType);
         this.shakingPower = shakingPower;
         this.shakingDirection = shakingDirection;
@@ -26,10 +24,9 @@ public abstract class Minecart extends Entity implements Damageable, Vehicle {
         this.blockYPosition = blockYPosition;
         this.showBlock = showBlock;
         this.damageTaken = damageTaken;
-        this.vehicleVelocity = vehicleVelocity;
     }
 
-    public Minecart(Location location, int entityId, EntityType entityType, int shakingPower, int shakingDirection, int blockId, int blockData, int blockYPosition, boolean showBlock, float damageTaken, Vector vehicleVelocity){
+    public Minecart(Location location, int entityId, EntityType entityType, int shakingPower, int shakingDirection, int blockId, int blockData, int blockYPosition, boolean showBlock, float damageTaken){
         super(location, entityType, entityId);
         this.shakingPower = shakingPower;
         this.shakingDirection = shakingDirection;
@@ -38,11 +35,10 @@ public abstract class Minecart extends Entity implements Damageable, Vehicle {
         this.blockYPosition = blockYPosition;
         this.showBlock = showBlock;
         this.damageTaken = damageTaken;
-        this.vehicleVelocity = vehicleVelocity;
     }
 
     public Minecart(Location location, EntityType entityType, int entityId) {
-        this(location, entityId, entityType, 0, 0, 0, 0, 0, false, 0, new Vector());
+        this(location, entityId, entityType, 0, 0, 0, 0, 0, false, 0);
     }
 
     public Minecart(Location location, int entityId){
@@ -105,15 +101,5 @@ public abstract class Minecart extends Entity implements Damageable, Vehicle {
     @Override
     public void setDamageTaken(float damageTaken) {
         this.damageTaken = damageTaken;
-    }
-
-    @Override
-    public Vector getVehicleVelocity() {
-        return vehicleVelocity;
-    }
-
-    @Override
-    public void setVehicleVelocity(Vector velocity) {
-        this.vehicleVelocity = velocity;
     }
 }

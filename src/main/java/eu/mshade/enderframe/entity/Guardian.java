@@ -8,7 +8,7 @@ import java.util.UUID;
 public abstract class Guardian extends LivingEntity {
 
     private boolean isElderly;
-    public boolean isRetractingSpikes;
+    private boolean isRetractingSpikes;
     private int targetEntityId;
 
 

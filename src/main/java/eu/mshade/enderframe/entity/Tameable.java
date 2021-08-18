@@ -6,9 +6,9 @@ public interface Tameable {
 
     void setSitting(boolean isSitting);
 
-    boolean isTame();
+    boolean isTamed();
 
-    void setTame(boolean isTame);
+    void setTamed(boolean isTamed);
 
     String getOwner();
 }

@@ -51,13 +51,13 @@ public abstract class Ocelot extends LivingEntity implements Tameable {
     }
 
     @Override
-    public boolean isTame() {
+    public boolean isTamed() {
         return isTame;
     }
 
     @Override
-    public void setTame(boolean isTame) {
-        this.isTame = isTame;
+    public void setTamed(boolean isTamed) {
+        this.isTame = isTamed;
     }
 
     @Override
