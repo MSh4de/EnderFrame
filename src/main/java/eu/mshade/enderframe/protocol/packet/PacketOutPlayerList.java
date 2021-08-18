@@ -15,7 +15,7 @@ public class PacketOutPlayerList extends PacketOut {
 
     @Override
     public void serialize(ByteMessage byteMessage) {
-        byteMessage.writeTextComponent(TextComponent.of(header));
-        byteMessage.writeTextComponent(TextComponent.of(footer));
+        byteMessage.writeValueAsString(TextComponent.of(header));
+        byteMessage.writeValueAsString(TextComponent.of(footer));
     }
 }

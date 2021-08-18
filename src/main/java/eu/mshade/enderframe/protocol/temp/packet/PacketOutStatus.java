@@ -1,19 +1,19 @@
 package eu.mshade.enderframe.protocol.temp.packet;
 
-import eu.mshade.enderframe.ServerListBuilder;
+import eu.mshade.enderframe.motd.MotdComponent;
 import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.PacketOut;
 
 public class PacketOutStatus extends PacketOut {
 
-    private final ServerListBuilder serverListBuilder;
+    private final MotdComponent motdComponent;
 
-    public PacketOutStatus(ServerListBuilder serverListBuilder) {
-        this.serverListBuilder = serverListBuilder;
+    public PacketOutStatus(MotdComponent motdComponent) {
+        this.motdComponent = motdComponent;
     }
 
     @Override
     public void serialize(ByteMessage byteMessage) {
-        byteMessage.writeString(serverListBuilder.build());
+        byteMessage.writeValueAsString(motdComponent);
     }
 }

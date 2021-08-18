@@ -29,6 +29,7 @@ public abstract class ByteMessage extends ByteBuf {
 
     private final ByteBuf buf;
     private final static Logger LOGGER = LoggerFactory.getLogger(ByteMessage.class);
+    private final static MWork MWORK = MWork.get();
 
     public ByteMessage(ByteBuf buf) {
         this.buf = buf;
@@ -126,13 +127,16 @@ public abstract class ByteMessage extends ByteBuf {
         MWork.get().getBinaryTagBufferDriver().writeCompoundBinaryTag(compoundTag, new ByteBufOutputStream(buf));
     }
 
-    public void writeTextComponent(TextComponent textComponent) {
+
+    public void writeValueAsString(Object o){
         try {
-            this.writeString(MWork.get().getObjectMapper().writeValueAsString(textComponent));
+            String s = MWORK.getObjectMapper().writeValueAsString(o);
+            this.writeString(s);
         }catch (JsonProcessingException e){
             LOGGER.error(e.getMessage(), e);
         }
     }
+
 
 
     public void writeBlockPosition(BlockPosition blockLocation) {

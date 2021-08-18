@@ -28,4 +28,18 @@ public class TextComponent extends TextComponentEntry {
     public List<TextComponentEntry> getExtra() {
         return extra;
     }
+
+    @Override
+    public String toString() {
+        return "TextComponent{" +
+                "text='" + this.getText() + '\'' +
+                ", color='" + this.getColor() + '\'' +
+                ", bold=" + this.isBold() +
+                ", italic=" + this.isItalic() +
+                ", strikethrough=" + this.isStrikethrough() +
+                ", obfuscated=" + this.isObfuscated() +
+                ", clickEvent=" + this.getClickEvent() +
+                "extra=" + extra +
+                '}';
+    }
 }

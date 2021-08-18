@@ -85,6 +85,8 @@ public interface EnderFrameSession {
         Queue<ChunkBuffer> result = new ConcurrentLinkedQueue<>();
         Queue<ChunkBuffer> chunksLoad = new ConcurrentLinkedQueue<>();
         int rSquared = radius * radius;
+
+
         for (int x = chunkX - radius; x <= chunkX + radius; x++) {
             for (int z = chunkZ - radius; z <= chunkZ + radius; z++) {
                 if ((chunkX - x) * (chunkX - x) + (chunkZ - z) * (chunkZ - z) <= rSquared) {
@@ -100,11 +102,13 @@ public interface EnderFrameSession {
 
         Queue<ChunkBuffer> overFlowChunk = new ConcurrentLinkedQueue<>();
         for (ChunkBuffer chunkBuffer : getChunkBuffers()) {
-            if (!result.contains(chunkBuffer)){
+            if (!result.contains(chunkBuffer)) {
                 sendUnloadChunk(chunkBuffer);
                 overFlowChunk.add(chunkBuffer);
             }
         }
+
+
         chunksLoad.forEach(this::sendChunk);
         HashSet<Player> viewers = new HashSet<>();
         Player player = getPlayer();

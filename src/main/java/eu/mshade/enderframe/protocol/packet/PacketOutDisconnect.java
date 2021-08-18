@@ -14,6 +14,6 @@ public class PacketOutDisconnect extends PacketOut {
 
     @Override
     public void serialize(ByteMessage byteMessage) {
-        byteMessage.writeTextComponent(textComponent);
+        byteMessage.writeValueAsString(textComponent);
     }
 }
