@@ -31,7 +31,6 @@ public interface EnderFrameSession {
 
     byte[] getVerifyToken();
 
-
     Collection<ChunkBuffer> getChunkBuffers();
 
     void sendKeepAlive(int threshold);
@@ -61,8 +60,6 @@ public interface EnderFrameSession {
     default void sendPosition(Position position) {
         sendPosition(position.getX(), position.getY(), position.getZ(), position.getYaw(), position.getYaw());
     }
-
-    ;
 
     void sendMessage(TextComponent textComponent, TextPosition position);
 
@@ -156,7 +153,6 @@ public interface EnderFrameSession {
     void sendLook(int entityId, float yaw, float pitch, boolean onGround);
 
     void sendHeadLook(int entityId, float headYaw);
-
 
     void moveTo(Player player, PacketMoveType packetMoveType, Location now, Location before, boolean ground);
 }
