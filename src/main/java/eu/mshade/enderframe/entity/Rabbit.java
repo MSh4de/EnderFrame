@@ -12,9 +12,11 @@ public abstract class Rabbit extends LivingEntity implements Ageable{
     private int age;
     private boolean isAgeLocked;
 
-    public Rabbit(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, byte rabbitType) {
+    public Rabbit(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, byte rabbitType, int age, boolean isAgeLocked) {
         super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.RABBIT, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
         this.rabbitType = rabbitType;
+        this.age = age;
+        this.isAgeLocked = isAgeLocked;
     }
 
     public Rabbit(Location location, int entityId, float health, byte rabbitType, int age) {

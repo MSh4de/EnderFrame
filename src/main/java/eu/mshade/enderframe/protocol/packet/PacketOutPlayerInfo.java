@@ -4,6 +4,7 @@ import eu.mshade.enderframe.EnderFrameSession;
 import eu.mshade.enderframe.PlayerInfo;
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.PlayerInfoType;
+import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.PacketOut;
@@ -27,7 +28,8 @@ public class PacketOutPlayerInfo extends PacketOut {
         byteMessage.writeVarInt(enderFrameSessions.size());
 
         for (EnderFrameSession enderFrameSession : enderFrameSessions) {
-            GameProfile gameProfile = enderFrameSession.getGameProfile();
+            Player player = enderFrameSession.getPlayer();
+            GameProfile gameProfile = player.getGameProfile();
             byteMessage.writeUUID(gameProfile.getId());
 
             switch (playerInfoType) {
@@ -40,20 +42,20 @@ public class PacketOutPlayerInfo extends PacketOut {
                         byteMessage.writeBoolean(property.getSignature().isPresent());
                         property.getSignature().ifPresent(byteMessage::writeString);
                     });
-                    byteMessage.writeVarInt(enderFrameSession.getGameMode().getId());
-                    byteMessage.writeVarInt(enderFrameSession.getPing());
-                    byteMessage.writeBoolean(enderFrameSession.getDisplayName().isPresent());
-                    enderFrameSession.getDisplayName().ifPresent(byteMessage::writeString);
+                    byteMessage.writeVarInt(player.getGameMode().getId());
+                    byteMessage.writeVarInt(player.getPing());
+                    byteMessage.writeBoolean(player.getDisplayName().isPresent());
+                    player.getDisplayName().ifPresent(byteMessage::writeString);
                     break;
                 case UPDATE_GAMEMODE:
-                    byteMessage.writeVarInt(enderFrameSession.getGameMode().getId());
+                    byteMessage.writeVarInt(player.getGameMode().getId());
                     break;
                 case UPDATE_LATENCY:
-                    byteMessage.writeVarInt(enderFrameSession.getPing());
+                    byteMessage.writeVarInt(player.getPing());
                     break;
                 case UPDATE_DISPLAY_NAME:
-                    byteMessage.writeBoolean(enderFrameSession.getDisplayName().isPresent());
-                    enderFrameSession.getDisplayName().ifPresent(byteMessage::writeString);
+                    byteMessage.writeBoolean(player.getDisplayName().isPresent());
+                    player.getDisplayName().ifPresent(byteMessage::writeString);
                     break;
                 case REMOVE_PLAYER:
                     break;

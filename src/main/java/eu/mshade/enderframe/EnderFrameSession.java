@@ -27,6 +27,18 @@ public interface EnderFrameSession {
 
     void setPlayer(Player player);
 
+    GameProfile getGameProfile();
+
+    void setGameProfile(GameProfile gameProfile);
+
+    SocketAddress getSocketAddress();
+
+    Location getLocation();
+
+    void setLocation(Location location);
+
+    void setSocketAddress(SocketAddress socketAddress);
+
     String getSessionId();
 
     byte[] getVerifyToken();
@@ -114,12 +126,12 @@ public interface EnderFrameSession {
                     ChunkBuffer chunkBuffer = worldBuffer.getChunkBuffer(x, z);
                     chunkBuffer.getViewers()
                             .stream()
-                            .filter(target -> !target.equals(this) && target.getLocation().distanceOffset(player.getLocation()) < 64)
-                            .forEach(entity -> viewers.add(worldBuffer.getPlayer(entity.getEnderFrameSessionHandler())));
+                            .filter(target -> !target.equals(this.getPlayer()) && target.getLocation().distanceOffset(player.getLocation()) < 64)
+                            .forEach(viewers::add);
             }
         }
 
-        chunksLoad.forEach(chunkBuffer -> chunkBuffer.getEntities().stream().filter(target -> !target.getViewers().contains(player) && !(target instanceof Player)).forEach(entity -> entity.addViewer(player)));
+        chunksLoad.forEach(chunkBuffer -> chunkBuffer.getEntities().stream().filter(target -> !target.getViewers().contains(player)).forEach(entity -> entity.addViewer(player)));
         overFlowChunk.forEach(chunkBuffer -> chunkBuffer.getEntities().forEach(entity -> entity.removeViewer(player)));
 
         player.getViewers().forEach(viewer -> {
@@ -154,5 +166,5 @@ public interface EnderFrameSession {
     void sendHeadLook(int entityId, float headYaw);
 
 
-    void moveTo(Player player, PacketMoveType packetMoveType, Location now, Location before, boolean ground);
+    void moveTo(Entity entity, PacketMoveType packetMoveType, Location now, Location before, boolean ground);
 }

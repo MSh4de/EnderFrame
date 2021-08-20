@@ -18,7 +18,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     private final String name;
     private final SocketAddress socketAddress;
     private final ProtocolVersion protocolVersion;
-    private final int ping;
+    private int ping;
     private final SkinParts skinParts;
     private final boolean unused;
     private final float absorptionHearts;
@@ -27,13 +27,13 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     private GameMode gameMode;
     private GameProfile gameProfile;
 
-    public Player(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, EnderFrameSessionHandler enderFrameSessionHandler, String name, SocketAddress socketAddress, ProtocolVersion protocolVersion, int ping, SkinParts skinParts, boolean unused, float absorptionHearts, int score, MOptional<String> displayName, GameMode gameMode, GameProfile gameProfile) {
+    public Player(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, EnderFrameSessionHandler enderFrameSessionHandler, SocketAddress socketAddress, ProtocolVersion protocolVersion, SkinParts skinParts, boolean unused, float absorptionHearts, int score, MOptional<String> displayName, GameMode gameMode, GameProfile gameProfile) {
         super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.PLAYER, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
         this.enderFrameSessionHandler = enderFrameSessionHandler;
-        this.name = name;
+        this.name = gameProfile.getName();
         this.socketAddress = socketAddress;
         this.protocolVersion = protocolVersion;
-        this.ping = ping;
+        this.ping = 0;
         this.skinParts = skinParts;
         this.unused = unused;
         this.absorptionHearts = absorptionHearts;
@@ -43,10 +43,10 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
         this.gameProfile = gameProfile;
     }
 
-    public Player(Location location, int entityId, EnderFrameSessionHandler enderFrameSessionHandler, String name, SocketAddress socketAddress, ProtocolVersion protocolVersion, GameMode gameMode, GameProfile gameProfile) {
+    public Player(Location location, int entityId, EnderFrameSessionHandler enderFrameSessionHandler, SocketAddress socketAddress, ProtocolVersion protocolVersion, GameMode gameMode, GameProfile gameProfile) {
         super(location, EntityType.PLAYER, entityId, 20f);
         this.enderFrameSessionHandler = enderFrameSessionHandler;
-        this.name = name;
+        this.name = gameProfile.getName();
         this.socketAddress = socketAddress;
         this.protocolVersion = protocolVersion;
         this.ping = 0;
@@ -87,6 +87,10 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
 
     public int getPing() {
         return ping;
+    }
+
+    public void setPing(int ping) {
+        this.ping = ping;
     }
 
     public SkinParts getSkinParts() {

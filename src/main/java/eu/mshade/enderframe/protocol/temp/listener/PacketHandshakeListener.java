@@ -4,7 +4,7 @@ import eu.mshade.enderframe.EnderFrame;
 import eu.mshade.enderframe.event.entity.PacketHandshakeEvent;
 import eu.mshade.enderframe.protocol.Handshake;
 import eu.mshade.enderframe.protocol.temp.packet.PacketInHandshake;
-import eu.mshade.mwork.event.ParameterContainer;
+import eu.mshade.mwork.ParameterContainer;
 import eu.mshade.mwork.event.EventListener;
 
 import java.net.InetSocketAddress;

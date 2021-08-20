@@ -3,7 +3,7 @@ package eu.mshade.enderframe.protocol.temp.listener;
 import eu.mshade.enderframe.EnderFrame;
 import eu.mshade.enderframe.event.server.ServerStatusEvent;
 import eu.mshade.enderframe.protocol.temp.packet.PacketInStatus;
-import eu.mshade.mwork.event.ParameterContainer;
+import eu.mshade.mwork.ParameterContainer;
 import eu.mshade.mwork.event.EventListener;
 
 public class PacketStatusListener implements EventListener<PacketInStatus> {

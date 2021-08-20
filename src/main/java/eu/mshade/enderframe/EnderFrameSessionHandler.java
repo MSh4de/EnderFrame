@@ -3,7 +3,7 @@ package eu.mshade.enderframe;
 import eu.mshade.enderframe.event.entity.PacketQuitEvent;
 import eu.mshade.enderframe.protocol.*;
 import eu.mshade.enderframe.protocol.temp.TempEnderFrameProtocol;
-import eu.mshade.mwork.event.ParameterContainer;
+import eu.mshade.mwork.ParameterContainer;
 import io.netty.channel.*;
 
 import javax.crypto.SecretKey;
