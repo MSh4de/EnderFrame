@@ -20,8 +20,7 @@ public interface ChunkBuffer {
 
     UUID getId();
 
-
-    Collection<Player> getViewers();
+    Queue<Player> getViewers();
 
     WorldBuffer getWorldBuffer();
 

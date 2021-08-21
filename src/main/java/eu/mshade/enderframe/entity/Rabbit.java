@@ -8,12 +8,11 @@ import java.util.UUID;
 public abstract class Rabbit extends LivingEntity implements Ageable{
 
     private byte rabbitType;
-
     private int age;
     private boolean isAgeLocked;
 
-    public Rabbit(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, byte rabbitType, int age, boolean isAgeLocked) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, entityType, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
+    public Rabbit(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, byte rabbitType, int age, boolean isAgeLocked) {
+        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.RABBIT, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
         this.rabbitType = rabbitType;
         this.age = age;
         this.isAgeLocked = isAgeLocked;

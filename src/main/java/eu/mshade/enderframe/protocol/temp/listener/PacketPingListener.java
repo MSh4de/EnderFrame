@@ -3,7 +3,7 @@ package eu.mshade.enderframe.protocol.temp.listener;
 import eu.mshade.enderframe.EnderFrame;
 import eu.mshade.enderframe.event.server.ServerPingEvent;
 import eu.mshade.enderframe.protocol.temp.packet.PacketInPing;
-import eu.mshade.mwork.event.ParameterContainer;
+import eu.mshade.mwork.ParameterContainer;
 import eu.mshade.mwork.event.EventListener;
 
 public class PacketPingListener implements EventListener<PacketInPing> {
