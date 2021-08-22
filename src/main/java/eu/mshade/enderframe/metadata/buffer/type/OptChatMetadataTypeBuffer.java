@@ -9,6 +9,6 @@ public class OptChatMetadataTypeBuffer implements MetadataTypeBuffer {
     @Override
     public void write(ByteMessage byteMessage, Metadata<?> metadata) {
         byteMessage.writeBoolean(true);
-        byteMessage.writeTextComponent((TextComponent) metadata.get());
+        byteMessage.writeValueAsString(metadata.get());
     }
 }
