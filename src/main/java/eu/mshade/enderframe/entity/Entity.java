@@ -153,7 +153,7 @@ public abstract class Entity {
 
     public void addViewer(Player player) {
         EnderFrameSession enderFrameSession = player.getEnderFrameSessionHandler().getEnderFrameSession();
-        enderFrameSession.sendMob(this);
+        enderFrameSession.sendEntity(this);
         enderFrameSession.sendTeleport(this, false);
         viewers.add(player);
     }

@@ -150,11 +150,9 @@ public interface EnderFrameSession {
 
     void sendMetadata(Entity entity, MetadataMeaning... metadataMeanings);
 
-    void sendMob(Entity entity);
-
     void removeEntities(Entity... entity);
 
-    void sendPlayer(Player player);
+    <T extends Entity> void sendEntity(T entity);
 
     void sendTeleport(Entity entity, boolean onGround);
 
