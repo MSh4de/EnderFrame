@@ -156,14 +156,14 @@ public interface EnderFrameSession {
 
     void sendTeleport(Entity entity, boolean onGround);
 
-    void sendMove(int entityId, Location now, Location before, boolean onGround);
+    void sendMove(Entity entity, boolean onGround);
 
-    void sendMoveAndLook(int entityId, Location now, Location before, boolean onGround);
+    void sendMoveAndLook(Entity entity, boolean onGround);
 
-    void sendLook(int entityId, float yaw, float pitch, boolean onGround);
+    void sendLook(Entity entity, boolean onGround);
 
-    void sendHeadLook(int entityId, float headYaw);
+    void sendHeadLook(Entity entity);
 
-    void moveTo(Entity entity, PacketMoveType packetMoveType, Location now, Location before, boolean ground);
+    void moveTo(Entity entity, PacketMoveType packetMoveType, boolean ground);
 
 }
