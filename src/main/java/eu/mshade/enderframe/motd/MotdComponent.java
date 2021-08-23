@@ -67,6 +67,7 @@ public class MotdComponent {
                 "version=" + version +
                 ", players=" + players +
                 ", description=" + description +
+                ", favicon='" + favicon + '\'' +
                 '}';
     }
 }

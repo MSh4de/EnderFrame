@@ -1,5 +1,6 @@
 package eu.mshade.enderframe.entity;
 
+import eu.mshade.enderframe.EnderFrameSession;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 
@@ -151,10 +152,14 @@ public abstract class Entity {
     }
 
     public void addViewer(Player player) {
+        EnderFrameSession enderFrameSession = player.getEnderFrameSessionHandler().getEnderFrameSession();
+        enderFrameSession.sendMob(this);
+        enderFrameSession.sendTeleport(this, false);
         viewers.add(player);
     }
 
     public void removeViewer(Player player){
+        player.getEnderFrameSessionHandler().getEnderFrameSession().removeEntities(this);
         viewers.remove(player);
     }
 

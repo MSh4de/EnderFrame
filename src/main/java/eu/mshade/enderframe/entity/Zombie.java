@@ -9,8 +9,9 @@ public abstract class Zombie extends LivingEntity implements Ageable {
 
     private boolean isVillager;
     private boolean isConverting;
-    private boolean isAgeLocked;
     private int age;
+    private boolean isAgeLocked;
+
 
     public Zombie(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean isVillager, boolean isConverting, int age, boolean isAgeLocked) {
         super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.ZOMBIE, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
