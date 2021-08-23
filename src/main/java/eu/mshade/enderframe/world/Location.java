@@ -8,20 +8,20 @@ public class Location implements Cloneable {
     private double x;
     private double y;
     private double z;
-    private float pitch;
     private float yaw;
+    private float pitch;
 
     public Location(WorldBuffer world, double x, double y, double z) {
         this(world, x, y, z, 0, 0);
     }
 
-    public Location(WorldBuffer world, double x, double y, double z, float pitch, float yaw) {
+    public Location(WorldBuffer world, double x, double y, double z, float yaw, float pitch) {
         this.world = world;
         this.x = x;
         this.y = y;
         this.z = z;
-        this.pitch = pitch;
         this.yaw = yaw;
+        this.pitch = pitch;
     }
 
     public WorldBuffer getWorld() {
