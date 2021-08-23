@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Entity {
 
+    private Location beforeLocation;
     private Location location;
     private Vector velocity;
     private final int entityId;
@@ -31,6 +32,7 @@ public abstract class Entity {
     }
 
     public Entity(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType) {
+        this.beforeLocation = location;
         this.location = location;
         this.velocity = velocity;
         this.entityId = entityId;
@@ -45,6 +47,14 @@ public abstract class Entity {
         this.isSilent = isSilent;
         this.uuid = uuid;
         this.entityType = entityType;
+    }
+
+    public void setBeforeLocation(Location location) {
+        this.beforeLocation = location;
+    }
+
+    public Location getBeforeLocation() {
+        return this.beforeLocation;
     }
 
     public Location getLocation() {
