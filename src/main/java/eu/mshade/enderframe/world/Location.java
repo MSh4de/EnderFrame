@@ -99,6 +99,13 @@ public class Location implements Cloneable {
         return this;
     }
 
+    public Location add(double x, double y, double z) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        return this;
+    }
+
     public double distance(Location location){
         return Math.abs(x - location.getX()) + Math.abs(y - location.getY()) + Math.abs(z - location.getZ());
     }
