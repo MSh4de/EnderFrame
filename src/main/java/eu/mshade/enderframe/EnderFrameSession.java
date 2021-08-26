@@ -27,6 +27,8 @@ public interface EnderFrameSession {
 
     void setPlayer(Player player);
 
+    int getEntityId();
+
     GameProfile getGameProfile();
 
     void setGameProfile(GameProfile gameProfile);
