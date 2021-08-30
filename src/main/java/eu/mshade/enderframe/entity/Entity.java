@@ -3,10 +3,10 @@ package eu.mshade.enderframe.entity;
 import eu.mshade.enderframe.EnderFrameSession;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
+import eu.mshade.mwork.MLockableQueue;
 
 import java.util.Queue;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Entity {
 
@@ -25,7 +25,7 @@ public abstract class Entity {
     private boolean isSilent;
     private final UUID uuid;
     private final EntityType entityType;
-    private final Queue<Player> viewers = new ConcurrentLinkedQueue<>();
+    private final Queue<Player> viewers = new MLockableQueue<>();
 
     public Entity(Location location, EntityType entityType, int entityId) {
         this(location, new Vector(), entityId, false, false, false, false, false, (short)300, "", false, false, UUID.randomUUID(), entityType);
