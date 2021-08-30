@@ -64,4 +64,6 @@ public interface ChunkBuffer {
 
     void removeEntity(Entity entity);
 
+    void clearEntities();
+
 }
