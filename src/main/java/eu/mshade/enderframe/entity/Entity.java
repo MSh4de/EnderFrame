@@ -10,8 +10,8 @@ import java.util.UUID;
 
 public abstract class Entity {
 
-    private Location beforeLocation;
-    private Location location;
+    private final Location beforeLocation;
+    private final Location location;
     private Vector velocity;
     private final int entityId;
     private boolean isFire;
@@ -49,20 +49,12 @@ public abstract class Entity {
         this.entityType = entityType;
     }
 
-    public void setBeforeLocation(Location location) {
-        this.beforeLocation = location;
-    }
-
     public Location getBeforeLocation() {
         return this.beforeLocation;
     }
 
     public Location getLocation() {
         return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     public Vector getVelocity() {
