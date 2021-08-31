@@ -1,7 +1,9 @@
 package eu.mshade.enderframe.entity;
 
 import eu.mshade.enderframe.EnderFrame;
+import eu.mshade.enderframe.event.EntityMoveEvent;
 import eu.mshade.enderframe.event.EntitySeeEvent;
+import eu.mshade.enderframe.event.EntityTeleportEvent;
 import eu.mshade.enderframe.event.EntityUnseeEvent;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
@@ -12,8 +14,8 @@ import java.util.UUID;
 
 public abstract class Entity {
 
-    private final Location beforeLocation;
-    private final Location location;
+    protected Location beforeLocation;
+    protected Location location;
     private Vector velocity;
     private final int entityId;
     private boolean isFire;
@@ -57,6 +59,21 @@ public abstract class Entity {
 
     public Location getLocation() {
         return location;
+    }
+
+    public void teleport(Location location) {
+        setUnsafeLocation(location);
+        EnderFrame.get().getEnderFrameEventBus().publish(new EntityTeleportEvent(this, location));
+    }
+
+    public void move(Location location) {
+        setUnsafeLocation(location);
+        EnderFrame.get().getEnderFrameEventBus().publish(new EntityMoveEvent(this, location));
+    }
+
+    public void setUnsafeLocation(Location location) {
+        this.beforeLocation = this.location;
+        this.location = location;
     }
 
     public Vector getVelocity() {
