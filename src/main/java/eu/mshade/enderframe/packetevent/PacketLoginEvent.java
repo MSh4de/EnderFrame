@@ -1,6 +1,4 @@
-package eu.mshade.enderframe.event.entity;
-
-import eu.mshade.enderframe.event.PacketEvent;
+package eu.mshade.enderframe.packetevent;
 
 public class PacketLoginEvent implements PacketEvent {
 

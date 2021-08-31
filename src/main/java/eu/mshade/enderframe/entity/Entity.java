@@ -1,6 +1,8 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.EnderFrameSession;
+import eu.mshade.enderframe.EnderFrame;
+import eu.mshade.enderframe.event.EntitySeeEvent;
+import eu.mshade.enderframe.event.EntityUnseeEvent;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 import eu.mshade.mwork.MLockableQueue;
@@ -154,15 +156,11 @@ public abstract class Entity {
     }
 
     public void addViewer(Player player) {
-        EnderFrameSession enderFrameSession = player.getEnderFrameSessionHandler().getEnderFrameSession();
-        enderFrameSession.sendEntity(this);
-        enderFrameSession.sendTeleport(this, false);
-        viewers.add(player);
+        EnderFrame.get().getEnderFrameEventBus().publish(new EntitySeeEvent(this, player));
     }
 
     public void removeViewer(Player player){
-        player.getEnderFrameSessionHandler().getEnderFrameSession().removeEntities(this);
-        viewers.remove(player);
+        EnderFrame.get().getEnderFrameEventBus().publish(new EntityUnseeEvent(this, player));
     }
 
     public abstract void tick();

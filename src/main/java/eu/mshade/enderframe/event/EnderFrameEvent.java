@@ -1,4 +1,4 @@
 package eu.mshade.enderframe.event;
 
-public interface PacketEvent {
+public interface EnderFrameEvent {
 }

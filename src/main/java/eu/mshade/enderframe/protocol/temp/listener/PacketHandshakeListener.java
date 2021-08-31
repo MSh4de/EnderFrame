@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.protocol.temp.listener;
 
 import eu.mshade.enderframe.EnderFrame;
-import eu.mshade.enderframe.event.entity.PacketHandshakeEvent;
+import eu.mshade.enderframe.packetevent.PacketHandshakeEvent;
 import eu.mshade.enderframe.protocol.Handshake;
 import eu.mshade.enderframe.protocol.temp.packet.PacketInHandshake;
 import eu.mshade.mwork.ParameterContainer;

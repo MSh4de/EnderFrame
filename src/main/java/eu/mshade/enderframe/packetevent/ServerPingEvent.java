@@ -1,6 +1,4 @@
-package eu.mshade.enderframe.event.server;
-
-import eu.mshade.enderframe.event.PacketEvent;
+package eu.mshade.enderframe.packetevent;
 
 public class ServerPingEvent implements PacketEvent {
 
