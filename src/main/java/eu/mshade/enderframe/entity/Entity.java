@@ -5,6 +5,7 @@ import eu.mshade.enderframe.event.EntitySeeEvent;
 import eu.mshade.enderframe.event.EntityUnseeEvent;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
+import eu.mshade.mwork.ParameterContainer;
 
 import java.util.Queue;
 import java.util.UUID;
