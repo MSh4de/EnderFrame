@@ -1,11 +1,15 @@
 package eu.mshade.enderframe.packetevent;
 
+import eu.mshade.enderframe.entity.Player;
+
 public class PacketEncryptionEvent implements PacketEvent {
 
-    private byte[] sharedSecret;
-    private byte[] verifyToken;
+    private final Player player;
+    private final byte[] sharedSecret;
+    private final byte[] verifyToken;
 
-    public PacketEncryptionEvent(byte[] sharedSecret, byte[] verifyToken) {
+    public PacketEncryptionEvent(Player player, byte[] sharedSecret, byte[] verifyToken) {
+        this.player = player;
         this.sharedSecret = sharedSecret;
         this.verifyToken = verifyToken;
     }
@@ -16,5 +20,9 @@ public class PacketEncryptionEvent implements PacketEvent {
 
     public byte[] getVerifyToken() {
         return verifyToken;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

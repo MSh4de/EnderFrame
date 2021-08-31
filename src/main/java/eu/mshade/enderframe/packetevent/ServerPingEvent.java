@@ -1,11 +1,19 @@
 package eu.mshade.enderframe.packetevent;
 
+import eu.mshade.enderframe.entity.Player;
+
 public class ServerPingEvent implements PacketEvent {
 
-    private long payload;
+    private final Player player;
+    private final long payload;
 
-    public ServerPingEvent(long payload) {
+    public ServerPingEvent(Player player, long payload) {
+        this.player = player;
         this.payload = payload;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public long getPayload() {
