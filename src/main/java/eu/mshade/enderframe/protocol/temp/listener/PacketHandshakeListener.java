@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.protocol.temp.listener;
 
 import eu.mshade.enderframe.EnderFrame;
+import eu.mshade.enderframe.EnderFrameSessionHandler;
 import eu.mshade.enderframe.packetevent.PacketHandshakeEvent;
 import eu.mshade.enderframe.protocol.Handshake;
 import eu.mshade.enderframe.protocol.temp.packet.PacketInHandshake;
@@ -14,7 +15,8 @@ public class PacketHandshakeListener implements EventListener<PacketInHandshake>
     @Override
     public void onEvent(PacketInHandshake event, ParameterContainer eventContainer) {
         Handshake handshake = new Handshake(event.getVersion(), InetSocketAddress.createUnresolved(event.getHost(), event.getPort()), event.getHandshakeStatus());
-        EnderFrame.get().getPacketEventBus().publish(new PacketHandshakeEvent(handshake), eventContainer);
+        EnderFrame.get().getPacketEventBus().publish(new PacketHandshakeEvent(eventContainer.getContainer(EnderFrameSessionHandler.class).getEnderFrameSession().getPlayer(),
+                handshake), eventContainer);
     }
 
 

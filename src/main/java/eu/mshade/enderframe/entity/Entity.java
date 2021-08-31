@@ -1,20 +1,21 @@
 package eu.mshade.enderframe.entity;
 
 import eu.mshade.enderframe.EnderFrame;
+import eu.mshade.enderframe.event.EntityMoveEvent;
 import eu.mshade.enderframe.event.EntitySeeEvent;
+import eu.mshade.enderframe.event.EntityTeleportEvent;
 import eu.mshade.enderframe.event.EntityUnseeEvent;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
-import eu.mshade.mwork.ParameterContainer;
+import eu.mshade.mwork.MLockableQueue;
 
 import java.util.Queue;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Entity {
 
-    private Location beforeLocation;
-    private Location location;
+    protected Location beforeLocation;
+    protected Location location;
     private Vector velocity;
     private final int entityId;
     private boolean isFire;
@@ -28,7 +29,7 @@ public abstract class Entity {
     private boolean isSilent;
     private final UUID uuid;
     private final EntityType entityType;
-    private final Queue<Player> viewers = new ConcurrentLinkedQueue<>();
+    private final Queue<Player> viewers = new MLockableQueue<>();
 
     public Entity(Location location, EntityType entityType, int entityId) {
         this(location, new Vector(), entityId, false, false, false, false, false, (short)300, "", false, false, UUID.randomUUID(), entityType);
@@ -52,10 +53,6 @@ public abstract class Entity {
         this.entityType = entityType;
     }
 
-    public void setBeforeLocation(Location location) {
-        this.beforeLocation = location;
-    }
-
     public Location getBeforeLocation() {
         return this.beforeLocation;
     }
@@ -64,7 +61,16 @@ public abstract class Entity {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void teleport(Location location) {
+        EnderFrame.get().getEnderFrameEventBus().publish(new EntityTeleportEvent(this, location));
+    }
+
+    public void move(Location location) {
+        EnderFrame.get().getEnderFrameEventBus().publish(new EntityMoveEvent(this, location));
+    }
+
+    public void setUnsafeLocation(Location location) {
+        this.beforeLocation = this.location;
         this.location = location;
     }
 
