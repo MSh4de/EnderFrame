@@ -12,6 +12,7 @@ import eu.mshade.enderframe.protocol.packet.PacketOutPlayerList;
 import eu.mshade.enderframe.world.*;
 
 import java.net.SocketAddress;
+import java.nio.ByteBuffer;
 import java.security.PublicKey;
 import java.util.Collection;
 import java.util.HashSet;
@@ -146,6 +147,8 @@ public interface EnderFrameSession {
             if (!player.getViewers().contains(viewer)) player.addViewer(viewer);
         });
     }
+
+    void sendChunkData(ChunkBuffer chunkBuffer, boolean continuous, int bitMask, byte[] bytes);
 
     void sendMetadata(Entity entity, MetadataMeaning... metadataMeanings);
 
