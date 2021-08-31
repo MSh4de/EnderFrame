@@ -1,4 +1,4 @@
-package eu.mshade.enderframe.event.entity;
+package eu.mshade.enderframe.packetevent;
 
 public enum PacketMoveType {
 

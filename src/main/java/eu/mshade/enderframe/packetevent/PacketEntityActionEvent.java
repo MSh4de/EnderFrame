@@ -1,6 +1,5 @@
-package eu.mshade.enderframe.event.entity;
+package eu.mshade.enderframe.packetevent;
 
-import eu.mshade.enderframe.event.PacketEvent;
 import eu.mshade.enderframe.metadata.ActionType;
 
 public class PacketEntityActionEvent implements PacketEvent {

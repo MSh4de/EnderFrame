@@ -1,6 +1,6 @@
 package eu.mshade.enderframe;
 
-import eu.mshade.enderframe.event.entity.PacketQuitEvent;
+import eu.mshade.enderframe.packetevent.PacketQuitEvent;
 import eu.mshade.enderframe.protocol.*;
 import eu.mshade.enderframe.protocol.temp.TempEnderFrameProtocol;
 import eu.mshade.mwork.ParameterContainer;

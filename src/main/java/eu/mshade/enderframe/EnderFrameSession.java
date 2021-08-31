@@ -2,20 +2,17 @@ package eu.mshade.enderframe;
 
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.event.entity.PacketMoveType;
+import eu.mshade.enderframe.packetevent.PacketMoveType;
 import eu.mshade.enderframe.metadata.MetadataMeaning;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
-import eu.mshade.enderframe.protocol.ProtocolVersion;
 import eu.mshade.enderframe.protocol.packet.PacketOutPlayerAbilities;
 import eu.mshade.enderframe.protocol.packet.PacketOutPlayerList;
 import eu.mshade.enderframe.world.*;
-import eu.mshade.mwork.MOptional;
 
 import java.net.SocketAddress;
 import java.security.PublicKey;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Queue;

@@ -1,6 +1,5 @@
-package eu.mshade.enderframe.event.entity;
+package eu.mshade.enderframe.packetevent;
 
-import eu.mshade.enderframe.event.PacketEvent;
 import eu.mshade.enderframe.mojang.SkinParts;
 
 public class PacketClientSettingsEvent implements PacketEvent {
