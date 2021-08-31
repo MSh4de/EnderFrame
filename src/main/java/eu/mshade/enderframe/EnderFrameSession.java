@@ -126,7 +126,7 @@ public interface EnderFrameSession {
                     ChunkBuffer chunkBuffer = worldBuffer.getChunkBuffer(x, z);
                     chunkBuffer.getViewers()
                             .stream()
-                            .filter(target -> !target.equals(this.getPlayer()) && target.getLocation().distanceOffset(player.getLocation()) < 64)
+                            .filter(target -> !target.equals(this.getPlayer()) && target.getLocation().distanceXZ(player.getLocation()) < 64)
                             .forEach(viewers::add);
             }
         }
@@ -153,16 +153,16 @@ public interface EnderFrameSession {
 
     <T extends Entity> void sendEntity(T entity);
 
-    void sendTeleport(Entity entity, boolean onGround);
+    void sendTeleport(Entity entity);
 
-    void sendMove(Entity entity, boolean onGround);
+    void sendMove(Entity entity);
 
-    void sendMoveAndLook(Entity entity, boolean onGround);
+    void sendMoveAndLook(Entity entity);
 
-    void sendLook(Entity entity, boolean onGround);
+    void sendLook(Entity entity);
 
     void sendHeadLook(Entity entity);
 
-    void moveTo(Entity entity, PacketMoveType packetMoveType, boolean ground);
+    void moveTo(Entity entity);
 
 }
