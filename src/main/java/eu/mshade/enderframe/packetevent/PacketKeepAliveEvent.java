@@ -13,7 +13,7 @@ public class PacketKeepAliveEvent implements PacketEvent {
     }
 
     public Player getPlayer() {
-        return this.getPlayer();
+        return player;
     }
 
     public int getThreshold() {
