@@ -10,7 +10,7 @@ import eu.mshade.mwork.event.EventListener;
 public class PacketStatusListener implements EventListener<PacketInStatus> {
     @Override
     public void onEvent(PacketInStatus event, ParameterContainer eventContainer) {
-        EnderFrame.get().getPacketEventBus().publish(new ServerStatusEvent(eventContainer.getContainer(EnderFrameSessionHandler.class).getEnderFrameSession().getPlayer())
+        EnderFrame.get().getPacketEventBus().publish(new ServerStatusEvent(eventContainer.getContainer(EnderFrameSessionHandler.class))
                 , eventContainer);
     }
 

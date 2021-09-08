@@ -11,7 +11,7 @@ public class PacketPingListener implements EventListener<PacketInPing> {
 
     @Override
     public void onEvent(PacketInPing event, ParameterContainer eventContainer) {
-        EnderFrame.get().getPacketEventBus().publish(new ServerPingEvent(eventContainer.getContainer(EnderFrameSessionHandler.class).getEnderFrameSession().getPlayer(),
+        EnderFrame.get().getPacketEventBus().publish(new ServerPingEvent(eventContainer.getContainer(EnderFrameSessionHandler.class),
                 event.getPayload()), eventContainer);
     }
 

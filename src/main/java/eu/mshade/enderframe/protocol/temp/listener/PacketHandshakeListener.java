@@ -15,7 +15,7 @@ public class PacketHandshakeListener implements EventListener<PacketInHandshake>
     @Override
     public void onEvent(PacketInHandshake event, ParameterContainer eventContainer) {
         Handshake handshake = new Handshake(event.getVersion(), InetSocketAddress.createUnresolved(event.getHost(), event.getPort()), event.getHandshakeStatus());
-        EnderFrame.get().getPacketEventBus().publish(new PacketHandshakeEvent(eventContainer.getContainer(EnderFrameSessionHandler.class).getEnderFrameSession().getPlayer(),
+        EnderFrame.get().getPacketEventBus().publish(new PacketHandshakeEvent(eventContainer.getContainer(EnderFrameSessionHandler.class),
                 handshake), eventContainer);
     }
 
