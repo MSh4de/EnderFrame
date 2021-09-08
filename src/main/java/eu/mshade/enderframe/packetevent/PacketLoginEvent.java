@@ -1,19 +1,20 @@
 package eu.mshade.enderframe.packetevent;
 
+import eu.mshade.enderframe.EnderFrameSessionHandler;
 import eu.mshade.enderframe.entity.Player;
 
 public class PacketLoginEvent implements PacketEvent {
 
-    private final Player player;
+    private final EnderFrameSessionHandler enderFrameSessionHandler;
     private final String name;
 
-    public PacketLoginEvent(Player player, String name) {
-        this.player = player;
+    public PacketLoginEvent(EnderFrameSessionHandler enderFrameSessionHandler, String name) {
+        this.enderFrameSessionHandler = enderFrameSessionHandler;
         this.name = name;
     }
 
-    public Player getPlayer() {
-        return this.player;
+    public EnderFrameSessionHandler getEnderFrameSessionHandler() {
+        return enderFrameSessionHandler;
     }
 
     public String getName() {

@@ -1,16 +1,17 @@
 package eu.mshade.enderframe.packetevent;
 
+import eu.mshade.enderframe.EnderFrameSessionHandler;
 import eu.mshade.enderframe.entity.Player;
 
 public class PacketFinallyJoinEvent implements PacketEvent {
 
-    private final Player player;
+    private final EnderFrameSessionHandler enderFrameSessionHandler;
 
-    public PacketFinallyJoinEvent(Player player) {
-        this.player = player;
+    public PacketFinallyJoinEvent(EnderFrameSessionHandler enderFrameSessionHandler) {
+        this.enderFrameSessionHandler = enderFrameSessionHandler;
     }
 
-    public Player getPlayer() {
-        return player;
+    public EnderFrameSessionHandler getEnderFrameSessionHandler() {
+        return enderFrameSessionHandler;
     }
 }

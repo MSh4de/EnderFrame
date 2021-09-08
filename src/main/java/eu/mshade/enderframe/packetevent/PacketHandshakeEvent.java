@@ -1,22 +1,22 @@
 package eu.mshade.enderframe.packetevent;
 
+import eu.mshade.enderframe.EnderFrameSessionHandler;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.protocol.Handshake;
 
 public class PacketHandshakeEvent implements PacketEvent {
 
-    private final Player player;
+    private final EnderFrameSessionHandler enderFrameSessionHandler;
     private final Handshake handshake;
 
-    public PacketHandshakeEvent(Player player, Handshake handshake) {
-        this.player = player;
+    public PacketHandshakeEvent(EnderFrameSessionHandler enderFrameSessionHandler, Handshake handshake) {
+        this.enderFrameSessionHandler = enderFrameSessionHandler;
         this.handshake = handshake;
     }
 
-    public Player getPlayer() {
-        return player;
+    public EnderFrameSessionHandler getEnderFrameSessionHandler() {
+        return enderFrameSessionHandler;
     }
-
     public Handshake getHandshake() {
         return handshake;
     }

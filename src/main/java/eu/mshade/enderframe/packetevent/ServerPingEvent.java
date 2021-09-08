@@ -1,19 +1,20 @@
 package eu.mshade.enderframe.packetevent;
 
+import eu.mshade.enderframe.EnderFrameSessionHandler;
 import eu.mshade.enderframe.entity.Player;
 
 public class ServerPingEvent implements PacketEvent {
 
-    private final Player player;
+    private final EnderFrameSessionHandler enderFrameSessionHandler;
     private final long payload;
 
-    public ServerPingEvent(Player player, long payload) {
-        this.player = player;
+    public ServerPingEvent(EnderFrameSessionHandler enderFrameSessionHandler, long payload) {
+        this.enderFrameSessionHandler = enderFrameSessionHandler;
         this.payload = payload;
     }
 
-    public Player getPlayer() {
-        return player;
+    public EnderFrameSessionHandler getEnderFrameSessionHandler() {
+        return enderFrameSessionHandler;
     }
 
     public long getPayload() {
