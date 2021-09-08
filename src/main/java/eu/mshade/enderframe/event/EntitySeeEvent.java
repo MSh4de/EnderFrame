@@ -4,7 +4,7 @@ import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.event.EnderFrameEvent;
 
-public class EntitySeeEvent implements EnderFrameEvent {
+public class EntitySeeEvent extends EnderFrameEvent {
 
     private final Entity entity;
     private final Player player;

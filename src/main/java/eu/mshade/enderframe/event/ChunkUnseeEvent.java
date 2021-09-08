@@ -3,7 +3,7 @@ package eu.mshade.enderframe.event;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.world.ChunkBuffer;
 
-public class ChunkUnseeEvent implements EnderFrameEvent {
+public class ChunkUnseeEvent extends EnderFrameEvent {
 
     private final ChunkBuffer chunkBuffer;
     private final Player player;
