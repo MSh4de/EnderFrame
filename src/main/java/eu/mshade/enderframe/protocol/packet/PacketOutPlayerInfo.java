@@ -22,13 +22,12 @@ public class PacketOutPlayerInfo extends PacketOut {
     @Override
     public void serialize(ByteMessage byteMessage) {
         PlayerInfoType playerInfoType = playerInfo.getPlayerInfoType();
-        List<EnderFrameSession> enderFrameSessions = playerInfo.getEnderFrameSessions();
+        List<Player> players = playerInfo.getPlayers();
 
         byteMessage.writeVarInt(playerInfoType.ordinal());
-        byteMessage.writeVarInt(enderFrameSessions.size());
+        byteMessage.writeVarInt(players.size());
 
-        for (EnderFrameSession enderFrameSession : enderFrameSessions) {
-            Player player = enderFrameSession.getPlayer();
+        for (Player player : players) {
             GameProfile gameProfile = player.getGameProfile();
             byteMessage.writeUUID(gameProfile.getId());
 
