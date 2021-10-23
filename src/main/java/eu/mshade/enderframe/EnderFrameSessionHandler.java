@@ -15,6 +15,7 @@ public class EnderFrameSessionHandler extends ChannelInboundHandlerAdapter {
     private ProtocolStatus protocolStatus = ProtocolStatus.HANDSHAKE;
     private ProtocolVersion protocolVersion = ProtocolVersion.UNKNOWN;
     private EnderFrameSession enderFrameSession;
+    private Handshake handshake;
     private final ParameterContainer eventContainer = ParameterContainer.of()
             .putContainer(this);
 
@@ -97,6 +98,15 @@ public class EnderFrameSessionHandler extends ChannelInboundHandlerAdapter {
 
     public EnderFrameSessionHandler setProtocolVersion(ProtocolVersion protocolVersion) {
         this.protocolVersion = protocolVersion;
+        return this;
+    }
+
+    public Handshake getHandshake() {
+        return handshake;
+    }
+
+    public EnderFrameSessionHandler setHandshake(Handshake handshake) {
+        this.handshake = handshake;
         return this;
     }
 
