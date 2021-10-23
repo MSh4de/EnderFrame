@@ -33,17 +33,13 @@ public interface EnderFrameSession {
 
     SocketAddress getSocketAddress();
 
-    Location getLocation();
-
-    void setLocation(Location location);
-
     void setSocketAddress(SocketAddress socketAddress);
 
     String getSessionId();
 
     byte[] getVerifyToken();
 
-    Collection<ChunkBuffer> getChunkBuffers();
+    Queue<ChunkBuffer> getChunkBuffers();
 
     void sendKeepAlive(int threshold);
 
@@ -79,7 +75,6 @@ public interface EnderFrameSession {
         sendMessage(TextComponent.of(message), TextPosition.CHAT);
     }
 
-
     void sendDisconnect(String message);
 
     void sendChunk(ChunkBuffer chunkBuffer);
@@ -94,7 +89,6 @@ public interface EnderFrameSession {
         Queue<ChunkBuffer> result = new ConcurrentLinkedQueue<>();
         Queue<ChunkBuffer> chunksLoad = new ConcurrentLinkedQueue<>();
         int rSquared = radius * radius;
-
 
         for (int x = chunkX - radius; x <= chunkX + radius; x++) {
             for (int z = chunkZ - radius; z <= chunkZ + radius; z++) {
@@ -116,7 +110,6 @@ public interface EnderFrameSession {
                 overFlowChunk.add(chunkBuffer);
             }
         }
-
 
         chunksLoad.forEach(this::sendChunk);
         HashSet<Player> viewers = new HashSet<>();
@@ -148,7 +141,6 @@ public interface EnderFrameSession {
         });
     }
 
-    void sendChunkData(ChunkBuffer chunkBuffer, boolean continuous, int bitMask, byte[] bytes);
 
     void sendMetadata(Entity entity, MetadataMeaning... metadataMeanings);
 
