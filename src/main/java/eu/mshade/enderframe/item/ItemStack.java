@@ -14,6 +14,7 @@ public class ItemStack implements PropertyItemMeta, Cloneable {
     private List<String> lore = new ArrayList<>();
     private final Map<Enchantment, Integer> enchantments = new HashMap<>();
     private final Set<ItemFlag> itemFlags = new HashSet<>();
+    private Set<Material> adventureBlocks = new LinkedHashSet<>();
 
     public ItemStack(Material material, int count, int durability) {
         this.material = material;
@@ -127,6 +128,10 @@ public class ItemStack implements PropertyItemMeta, Cloneable {
     public ItemStack setUnbreakable(boolean unbreakable) {
         this.unbreakable = unbreakable;
         return this;
+    }
+
+    public Set<Material> getAdventureBlocks() {
+        return adventureBlocks;
     }
 
     @Override
