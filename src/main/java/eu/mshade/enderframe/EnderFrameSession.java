@@ -14,10 +14,10 @@ import eu.mshade.enderframe.world.*;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.security.PublicKey;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public interface EnderFrameSession {
 
@@ -102,7 +102,6 @@ public interface EnderFrameSession {
                 }
             }
         }
-
         Queue<ChunkBuffer> overFlowChunk = new ConcurrentLinkedQueue<>();
         for (ChunkBuffer chunkBuffer : getChunkBuffers()) {
             if (!result.contains(chunkBuffer)) {
@@ -112,33 +111,35 @@ public interface EnderFrameSession {
         }
 
         chunksLoad.forEach(this::sendChunk);
-        HashSet<Player> viewers = new HashSet<>();
         Player player = getPlayer();
+        Set<Entity> entities = new HashSet<>();
 
-        for (int x = chunkX - 5; x < chunkX + 5; x++) {
-            for (int z = chunkZ - 5; z < chunkZ + 5; z++) {
+        for (int x = chunkX - 5; x <= chunkX + 5; x++) {
+            for (int z = chunkZ - 5; z <= chunkZ + 5; z++) {
+                if ((chunkX - x) * (chunkX - x) + (chunkZ - z) * (chunkZ - z) <= 5*5) {
                     ChunkBuffer chunkBuffer = worldBuffer.getChunkBuffer(x, z);
-                    chunkBuffer.getViewers()
-                            .stream()
-                            .filter(target -> !target.equals(this.getPlayer()) && target.getLocation().distanceXZ(player.getLocation()) < 64)
-                            .forEach(viewers::add);
+                    entities.addAll(chunkBuffer.getEntities());
+                    chunkBuffer.getViewers().stream().filter(target -> !target.equals(player)).forEach(entities::add);
+                }
             }
         }
 
-        chunksLoad.forEach(chunkBuffer -> chunkBuffer.getEntities().stream().filter(target -> !target.getViewers().contains(player)).forEach(entity -> entity.addViewer(player)));
-        overFlowChunk.forEach(chunkBuffer -> chunkBuffer.getEntities().forEach(entity -> entity.removeViewer(player)));
+        Set<Entity> collect = entities.stream().filter(entity -> entity.getLocation().distanceXZ(player.getLocation()) <= 80).collect(Collectors.toSet());
 
-        player.getViewers().forEach(viewer -> {
-            if (!viewers.contains(viewer)) {
-                player.removeViewer(viewer);
-                viewer.removeViewer(player);
+        for (Entity entity : collect) {
+            if (!entity.getViewers().contains(player)) {
+                if (entity instanceof Player){
+                    player.addViewer((Player) entity);
+                }
+                entity.addViewer(player);
             }
+        }
+
+        entities.stream().filter(entity -> !collect.contains(entity)).forEach(entity -> {
+            entity.removeViewer(player);
+            if (entity instanceof Player) player.removeViewer((Player) entity);
         });
 
-        viewers.forEach(viewer -> {
-            if (!viewer.getViewers().contains(player)) viewer.addViewer(player);
-            if (!player.getViewers().contains(viewer)) player.addViewer(viewer);
-        });
     }
 
 
