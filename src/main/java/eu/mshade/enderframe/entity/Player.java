@@ -17,10 +17,10 @@ import java.util.UUID;
 
 public abstract class Player extends LivingEntity implements ProjectileSource {
 
-    private final EnderFrameSessionHandler enderFrameSessionHandler;
+    private EnderFrameSessionHandler enderFrameSessionHandler;
     private final String name;
-    private final SocketAddress socketAddress;
-    private final ProtocolVersion protocolVersion;
+    private SocketAddress socketAddress;
+    private ProtocolVersion protocolVersion;
     private int ping;
     private final SkinParts skinParts;
     private final boolean unused;
@@ -46,8 +46,24 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
         this.gameProfile = gameProfile;
     }
 
+    public Player(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean unused, float absorptionHearts, int score, MOptional<String> displayName, GameMode gameMode, GameProfile gameProfile) {
+        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.PLAYER, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
+        this.name = gameProfile.getName();
+        this.ping = 0;
+        this.skinParts = SkinParts.fromByte((byte)127);
+        this.unused = unused;
+        this.absorptionHearts = absorptionHearts;
+        this.score = score;
+        this.displayName = displayName;
+        this.gameMode = gameMode;
+        this.gameProfile = gameProfile;
+    }
+
+
+
     public Player(Location location, int entityId, EnderFrameSessionHandler enderFrameSessionHandler, GameMode gameMode, GameProfile gameProfile) {
         super(location, EntityType.PLAYER, entityId, 20f);
+        this.uuid = gameProfile.getId();
         this.enderFrameSessionHandler = enderFrameSessionHandler;
         this.name = gameProfile.getName();
         this.socketAddress = enderFrameSessionHandler.getEnderFrameSession().getSocketAddress();

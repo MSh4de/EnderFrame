@@ -41,7 +41,10 @@ public class EnderFrameSessionHandler extends ChannelInboundHandlerAdapter {
         if (msg instanceof PacketIn) enderFrameProtocol.getEventBus().publish((PacketIn) msg, eventContainer);
     }
 
-
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+    }
 
     public void sendPacket(PacketOut packet) {
         if (isConnected())

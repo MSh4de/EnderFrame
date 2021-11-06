@@ -195,12 +195,13 @@ public class Location implements Cloneable {
     }
 
     @Override
-    public Location clone() {
+    public Location clone()  {
         try {
             return (Location) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new Error(e);
+            e.printStackTrace();
         }
+        return null;
     }
 
     @Override
@@ -210,8 +211,8 @@ public class Location implements Cloneable {
                 ", x=" + x +
                 ", y=" + y +
                 ", z=" + z +
-                ", pitch=" + pitch +
                 ", yaw=" + yaw +
+                ", pitch=" + pitch +
                 '}';
     }
 }
