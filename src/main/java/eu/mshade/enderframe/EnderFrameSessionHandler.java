@@ -1,6 +1,6 @@
 package eu.mshade.enderframe;
 
-import eu.mshade.enderframe.event.entity.PacketQuitEvent;
+import eu.mshade.enderframe.packetevent.PacketQuitEvent;
 import eu.mshade.enderframe.protocol.*;
 import eu.mshade.enderframe.protocol.temp.TempEnderFrameProtocol;
 import eu.mshade.mwork.ParameterContainer;
@@ -15,6 +15,7 @@ public class EnderFrameSessionHandler extends ChannelInboundHandlerAdapter {
     private ProtocolStatus protocolStatus = ProtocolStatus.HANDSHAKE;
     private ProtocolVersion protocolVersion = ProtocolVersion.UNKNOWN;
     private EnderFrameSession enderFrameSession;
+    private Handshake handshake;
     private final ParameterContainer eventContainer = ParameterContainer.of()
             .putContainer(this);
 
@@ -40,7 +41,10 @@ public class EnderFrameSessionHandler extends ChannelInboundHandlerAdapter {
         if (msg instanceof PacketIn) enderFrameProtocol.getEventBus().publish((PacketIn) msg, eventContainer);
     }
 
-
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+    }
 
     public void sendPacket(PacketOut packet) {
         if (isConnected())
@@ -97,6 +101,15 @@ public class EnderFrameSessionHandler extends ChannelInboundHandlerAdapter {
 
     public EnderFrameSessionHandler setProtocolVersion(ProtocolVersion protocolVersion) {
         this.protocolVersion = protocolVersion;
+        return this;
+    }
+
+    public Handshake getHandshake() {
+        return handshake;
+    }
+
+    public EnderFrameSessionHandler setHandshake(Handshake handshake) {
+        this.handshake = handshake;
         return this;
     }
 

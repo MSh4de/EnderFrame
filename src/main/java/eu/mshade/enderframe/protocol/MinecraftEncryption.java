@@ -27,7 +27,7 @@ public class MinecraftEncryption {
 
     public String getHashServerId(String s, PublicKey publickey, SecretKey secretkey) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest messagedigest = MessageDigest.getInstance("SHA-1");
-        messagedigest.update(s.getBytes("ISO_8859_1"));
+        messagedigest.update(s.getBytes());
         messagedigest.update(secretkey.getEncoded());
         messagedigest.update(publickey.getEncoded());
         return new BigInteger(messagedigest.digest()).toString(16);

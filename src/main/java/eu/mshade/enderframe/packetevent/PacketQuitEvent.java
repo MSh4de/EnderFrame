@@ -1,7 +1,6 @@
-package eu.mshade.enderframe.event.entity;
+package eu.mshade.enderframe.packetevent;
 
 import eu.mshade.enderframe.EnderFrameSession;
-import eu.mshade.enderframe.event.PacketEvent;
 
 public class PacketQuitEvent implements PacketEvent {
 

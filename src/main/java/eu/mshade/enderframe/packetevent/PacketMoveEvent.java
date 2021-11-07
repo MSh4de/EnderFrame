@@ -1,6 +1,5 @@
-package eu.mshade.enderframe.event.entity;
+package eu.mshade.enderframe.packetevent;
 
-import eu.mshade.enderframe.event.PacketEvent;
 import eu.mshade.enderframe.world.Position;
 
 public class PacketMoveEvent implements PacketEvent {

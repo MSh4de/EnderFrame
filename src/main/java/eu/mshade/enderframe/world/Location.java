@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Location implements Cloneable {
 
-    private WorldBuffer world;
+    private final WorldBuffer world;
     private double x;
     private double y;
     private double z;
@@ -99,11 +99,22 @@ public class Location implements Cloneable {
         return this;
     }
 
+    public Location add(double x, double y, double z) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        return this;
+    }
+
+    public Location add(Location location) {
+        return add(location.getX(), location.getY(), location.getZ());
+    }
+
     public double distance(Location location){
         return Math.abs(x - location.getX()) + Math.abs(y - location.getY()) + Math.abs(z - location.getZ());
     }
 
-    public double distanceOffset(Location location){
+    public double distanceXZ(Location location){
         return Math.abs(x - location.getX()) + Math.abs(z - location.getZ());
     }
 
@@ -117,6 +128,17 @@ public class Location implements Cloneable {
 
     public ChunkBuffer getChunkBuffer(){
         return world.getChunkBuffer(getChunkX(), getChunkZ());
+    }
+
+    public boolean compareHeadRotation(Location location) {
+        return this.getYaw() == location.getYaw()
+                && this.getPitch() == location.getPitch();
+    }
+
+    public boolean compareBodyLocation(Location location) {
+        return this.getX() == location.getX()
+                && this.getY() == location.getY()
+                && this.getZ() == location.getZ();
     }
 
     public Vector getDirection() {
@@ -173,12 +195,13 @@ public class Location implements Cloneable {
     }
 
     @Override
-    public Location clone() {
+    public Location clone()  {
         try {
             return (Location) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new Error(e);
+            e.printStackTrace();
         }
+        return null;
     }
 
     @Override
@@ -188,8 +211,8 @@ public class Location implements Cloneable {
                 ", x=" + x +
                 ", y=" + y +
                 ", z=" + z +
-                ", pitch=" + pitch +
                 ", yaw=" + yaw +
+                ", pitch=" + pitch +
                 '}';
     }
 }

@@ -2,24 +2,22 @@ package eu.mshade.enderframe;
 
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.event.entity.PacketMoveType;
+import eu.mshade.enderframe.packetevent.PacketMoveType;
 import eu.mshade.enderframe.metadata.MetadataMeaning;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
-import eu.mshade.enderframe.protocol.ProtocolVersion;
 import eu.mshade.enderframe.protocol.packet.PacketOutPlayerAbilities;
 import eu.mshade.enderframe.protocol.packet.PacketOutPlayerList;
 import eu.mshade.enderframe.world.*;
-import eu.mshade.mwork.MOptional;
 
 import java.net.SocketAddress;
+import java.nio.ByteBuffer;
 import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public interface EnderFrameSession {
 
@@ -27,15 +25,13 @@ public interface EnderFrameSession {
 
     void setPlayer(Player player);
 
+    int getEntityId();
+
     GameProfile getGameProfile();
 
     void setGameProfile(GameProfile gameProfile);
 
     SocketAddress getSocketAddress();
-
-    Location getLocation();
-
-    void setLocation(Location location);
 
     void setSocketAddress(SocketAddress socketAddress);
 
@@ -43,7 +39,7 @@ public interface EnderFrameSession {
 
     byte[] getVerifyToken();
 
-    Collection<ChunkBuffer> getChunkBuffers();
+    Queue<ChunkBuffer> getChunkBuffers();
 
     void sendKeepAlive(int threshold);
 
@@ -79,7 +75,6 @@ public interface EnderFrameSession {
         sendMessage(TextComponent.of(message), TextPosition.CHAT);
     }
 
-
     void sendDisconnect(String message);
 
     void sendChunk(ChunkBuffer chunkBuffer);
@@ -95,7 +90,6 @@ public interface EnderFrameSession {
         Queue<ChunkBuffer> chunksLoad = new ConcurrentLinkedQueue<>();
         int rSquared = radius * radius;
 
-
         for (int x = chunkX - radius; x <= chunkX + radius; x++) {
             for (int z = chunkZ - radius; z <= chunkZ + radius; z++) {
                 if ((chunkX - x) * (chunkX - x) + (chunkZ - z) * (chunkZ - z) <= rSquared) {
@@ -108,7 +102,6 @@ public interface EnderFrameSession {
                 }
             }
         }
-
         Queue<ChunkBuffer> overFlowChunk = new ConcurrentLinkedQueue<>();
         for (ChunkBuffer chunkBuffer : getChunkBuffers()) {
             if (!result.contains(chunkBuffer)) {
@@ -117,55 +110,55 @@ public interface EnderFrameSession {
             }
         }
 
-
         chunksLoad.forEach(this::sendChunk);
-        HashSet<Player> viewers = new HashSet<>();
         Player player = getPlayer();
+        Set<Entity> entities = new HashSet<>();
 
-        for (int x = chunkX - 5; x < chunkX + 5; x++) {
-            for (int z = chunkZ - 5; z < chunkZ + 5; z++) {
+        for (int x = chunkX - 5; x <= chunkX + 5; x++) {
+            for (int z = chunkZ - 5; z <= chunkZ + 5; z++) {
+                if ((chunkX - x) * (chunkX - x) + (chunkZ - z) * (chunkZ - z) <= 5*5) {
                     ChunkBuffer chunkBuffer = worldBuffer.getChunkBuffer(x, z);
-                    chunkBuffer.getViewers()
-                            .stream()
-                            .filter(target -> !target.equals(this.getPlayer()) && target.getLocation().distanceOffset(player.getLocation()) < 64)
-                            .forEach(viewers::add);
+                    entities.addAll(chunkBuffer.getEntities());
+                    chunkBuffer.getViewers().stream().filter(target -> !target.equals(player)).forEach(entities::add);
+                }
             }
         }
 
-        chunksLoad.forEach(chunkBuffer -> chunkBuffer.getEntities().stream().filter(target -> !target.getViewers().contains(player)).forEach(entity -> entity.addViewer(player)));
-        overFlowChunk.forEach(chunkBuffer -> chunkBuffer.getEntities().forEach(entity -> entity.removeViewer(player)));
+        Set<Entity> collect = entities.stream().filter(entity -> entity.getLocation().distanceXZ(player.getLocation()) <= 80).collect(Collectors.toSet());
 
-        player.getViewers().forEach(viewer -> {
-            if (!viewers.contains(viewer)) {
-                player.removeViewer(viewer);
-                viewer.removeViewer(player);
+        for (Entity entity : collect) {
+            if (!entity.getViewers().contains(player)) {
+                if (entity instanceof Player){
+                    player.addViewer((Player) entity);
+                }
+                entity.addViewer(player);
             }
+        }
+
+        entities.stream().filter(entity -> !collect.contains(entity)).forEach(entity -> {
+            entity.removeViewer(player);
+            if (entity instanceof Player) player.removeViewer((Player) entity);
         });
 
-        viewers.forEach(viewer -> {
-            if (!viewer.getViewers().contains(player)) viewer.addViewer(player);
-            if (!player.getViewers().contains(viewer)) player.addViewer(viewer);
-        });
     }
+
 
     void sendMetadata(Entity entity, MetadataMeaning... metadataMeanings);
 
-    void sendMob(Entity entity);
-
     void removeEntities(Entity... entity);
 
-    void sendPlayer(Player player);
+    <T extends Entity> void sendEntity(T entity);
 
-    void sendTeleport(Entity entity, boolean onGround);
+    void sendTeleport(Entity entity);
 
-    void sendMove(int entityId, Location now, Location before, boolean onGround);
+    void sendMove(Entity entity);
 
-    void sendMoveAndLook(int entityId, Location now, Location before, boolean onGround);
+    void sendMoveAndLook(Entity entity);
 
-    void sendLook(int entityId, float yaw, float pitch, boolean onGround);
+    void sendLook(Entity entity);
 
-    void sendHeadLook(int entityId, float headYaw);
+    void sendHeadLook(Entity entity);
 
-    void moveTo(Entity entity, PacketMoveType packetMoveType, Location now, Location before, boolean ground);
+    void moveTo(Entity entity);
 
 }
