@@ -51,7 +51,7 @@ public class ItemStack implements Cloneable {
     }
 
     public boolean hasEnchants() {
-        return enchantments.isEmpty();
+        return !enchantments.isEmpty();
     }
 
     public boolean hasEnchantment(Enchantment enchantment) {
