@@ -1,13 +1,5 @@
 package eu.mshade.enderframe.mojang;
 
-import com.google.common.collect.ImmutableMap;
-
-import java.awt.*;
-import java.beans.ConstructorProperties;
-import java.awt.image.ColorModel;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.color.ColorSpace;
 import java.util.Map;
 
 public class Color {
@@ -228,7 +220,7 @@ public class Color {
     }
 
     public Map<String, Object> serialize() {
-        return ImmutableMap.<String, Object>of(
+        return Map.of(
                 "RED", getRed(),
                 "BLUE", getBlue(),
                 "GREEN", getGreen()
