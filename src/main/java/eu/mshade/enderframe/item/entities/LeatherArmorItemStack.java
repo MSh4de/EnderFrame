@@ -2,14 +2,13 @@ package eu.mshade.enderframe.item.entities;
 
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.Material;
+import eu.mshade.enderframe.mojang.Color;
 
-import java.awt.*;
-
-public class LeatherClothItemStack extends ItemStack {
+public class LeatherArmorItemStack extends ItemStack {
 
     private Color color = Color.YELLOW;
 
-    public LeatherClothItemStack(Material material, int count, int durability) {
+    public LeatherArmorItemStack(Material material, int count, int durability) {
         super(material, count, durability);
     }
 
@@ -17,7 +16,7 @@ public class LeatherClothItemStack extends ItemStack {
         return color;
     }
 
-    public LeatherClothItemStack setColor(Color color) {
+    public LeatherArmorItemStack setColor(Color color) {
         this.color = color;
         return this;
     }
