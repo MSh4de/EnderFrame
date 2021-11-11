@@ -1,6 +1,5 @@
 package eu.mshade.enderframe.mojang;
 
-import com.google.common.base.Preconditions;
 import com.sun.source.util.Plugin;
 
 import java.util.Locale;
@@ -27,15 +26,8 @@ public class NamespacedKey {
      */
     @Deprecated
     public NamespacedKey(String namespace, String key) {
-        Preconditions.checkArgument(namespace != null && !namespace.isEmpty(), "namespace");
-        Preconditions.checkArgument(key != null, "key");
-
         this.namespace = namespace;
         this.key = key;
-
-        String string = toString();
-        Preconditions.checkArgument(string.indexOf(' ') == -1, "NamespacedKey cannot contain spaces (%s)", string);
-        Preconditions.checkArgument(string.length() < 256, "NamespacedKey must be less than 256 characters", string);
     }
 
     /**
@@ -45,17 +37,9 @@ public class NamespacedKey {
      * @param key the key to create
      */
     public NamespacedKey(Plugin plugin, String key) {
-        Preconditions.checkArgument(plugin != null, "plugin");
-        Preconditions.checkArgument(key != null, "key");
-
-        // Plugin names cannot have spaces anymore (SimplePluginManager)
-        Preconditions.checkArgument(key.indexOf(' ') == -1, "key cannot contain spaces (%s)", key);
-
         this.namespace = plugin.getName().toLowerCase(Locale.ROOT);
         this.key = key.toLowerCase().toLowerCase(Locale.ROOT);
 
-        String string = toString();
-        Preconditions.checkArgument(string.length() < 256, "NamespacedKey must be less than 256 characters (%s)", string);
     }
 
     public String getNamespace() {
@@ -110,6 +94,11 @@ public class NamespacedKey {
      */
     public static NamespacedKey minecraft(String key) {
         return new NamespacedKey(MINECRAFT, key);
+    }
+
+    public static NamespacedKey fromString(String string){
+        String[] keys = string.split(":");
+        return new NamespacedKey(keys[0], keys[1]);
     }
 
 }
