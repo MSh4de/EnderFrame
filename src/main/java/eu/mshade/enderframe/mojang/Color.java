@@ -1,6 +1,5 @@
 package eu.mshade.enderframe.mojang;
 
-import com.google.common.collect.ImmutableMap;
 
 import java.awt.*;
 import java.beans.ConstructorProperties;
@@ -228,7 +227,7 @@ public class Color {
     }
 
     public Map<String, Object> serialize() {
-        return ImmutableMap.<String, Object>of(
+        return Map.of(
                 "RED", getRed(),
                 "BLUE", getBlue(),
                 "GREEN", getGreen()
