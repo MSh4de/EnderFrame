@@ -22,13 +22,6 @@ public class ProtocolRegistry {
         packetOut.computeIfAbsent(protocolStatus, p -> new HashMap<>()).putIfAbsent(aClass, id);
     }
 
-    public Map<ProtocolStatus, Map<Integer, Class<? extends PacketIn>>> getPacketIn() {
-        return packetIn;
-    }
-
-    public Map<ProtocolStatus, Map<Class<? extends PacketOut>, Integer>> getPacketOut() {
-        return packetOut;
-    }
 
     public MOptional<PacketIn> getPacketByID(ProtocolStatus protocolStatus, int id){
         try {
