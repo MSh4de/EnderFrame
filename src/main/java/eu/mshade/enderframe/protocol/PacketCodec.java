@@ -19,16 +19,16 @@ public class PacketCodec extends MessageToMessageCodec<ByteBuf, PacketOut> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, PacketOut msg, List<Object> out) throws Exception {
-        ByteBuf buffer = ctx.alloc().buffer();
-        ByteMessage buf = enderFrameProtocol.getByteMessage(buffer);
-        enderFrameProtocol.getProtocolRegistry().getPacketID(protocolStatus, msg).ifPresent(integer -> {
-            buf.writeVarInt(integer);
-            msg.serialize(buf);
+        ByteBuf buffer  = ctx.alloc().buffer();
+            ByteMessage buf = enderFrameProtocol.getByteMessage(buffer);
+            enderFrameProtocol.getProtocolRegistry().getPacketID(protocolStatus, msg).exception(e -> logger.error("",e)).ifPresent(integer -> {
+                buf.writeVarInt(integer);
+                msg.serialize(buf);
+            }).ifNotPresent(unused -> {
+                logger.info(String.format("Undefined outgoing packet of class %s", msg.getClass().getName()));
+            });
             out.add(buffer);
-        }).ifNotPresent(unused -> {
-            logger.info(String.format("Undefined outgoing packet of class %s", msg.getClass().getName()));
-            //logger.log(Level.WARNING, String.format("Undefined packetID class: %s", msg.getClass().getName()))
-        });
+
     }
 
     @Override
@@ -36,12 +36,11 @@ public class PacketCodec extends MessageToMessageCodec<ByteBuf, PacketOut> {
         if (!ctx.channel().isActive()) return;
         ByteMessage buf = enderFrameProtocol.getByteMessage(msg);
         int packetId = buf.readVarInt();
-        enderFrameProtocol.getProtocolRegistry().getPacketByID(protocolStatus, packetId).ifPresent(packetIn -> {
+        enderFrameProtocol.getProtocolRegistry().getPacketByID(protocolStatus, packetId).exception(e -> logger.error("",e)).ifPresent(packetIn -> {
             packetIn.deserialize(buf);
-            ctx.fireChannelRead(packetIn);
+            out.add(packetIn);
         }).ifNotPresent(unused -> {
             logger.info(String.format("Undefined incoming packet: %s", packetId));
-            //logger.log(Level.WARNING, String.format("Undefined incoming packet: %s", packetId))
         });
 
     }
