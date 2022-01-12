@@ -16,7 +16,10 @@ import io.netty.buffer.ByteBuf;
 public class TempEnderFrameProtocol extends EnderFrameProtocol {
 
 
+    private static TempEnderFrameProtocol INSTANCE;
+
     public TempEnderFrameProtocol() {
+        INSTANCE = this;
 
         this.getEventBus().subscribe(PacketInHandshake.class, new PacketHandshakeListener());
         this.getEventBus().subscribe(PacketInStatus.class, new PacketStatusListener());
@@ -47,5 +50,8 @@ public class TempEnderFrameProtocol extends EnderFrameProtocol {
         return null;
     }
 
+    public static TempEnderFrameProtocol getInstance(){
+        return (INSTANCE != null ? INSTANCE : new TempEnderFrameProtocol());
+    }
 
 }
