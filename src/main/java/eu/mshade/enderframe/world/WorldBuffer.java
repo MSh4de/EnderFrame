@@ -27,11 +27,7 @@ public interface WorldBuffer {
 
     void addChunkBuffer(ChunkBuffer chunkBuffer);
 
-    boolean hasFileChunkBuffer(int x, int z);
-
     File getChunkFile(int chunkX, int chunkZ);
-
-    File getChunkFile(UUID id);
 
     boolean hasChunkBuffer(int x, int z);
 
