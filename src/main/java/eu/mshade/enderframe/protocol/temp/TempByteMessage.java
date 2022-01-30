@@ -2,6 +2,8 @@ package eu.mshade.enderframe.protocol.temp;
 
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.EntityType;
+import eu.mshade.enderframe.item.ItemStack;
+import eu.mshade.enderframe.item.Material;
 import eu.mshade.enderframe.metadata.MetadataEntry;
 import eu.mshade.enderframe.metadata.MetadataMeaning;
 import eu.mshade.enderframe.protocol.ByteMessage;
@@ -16,6 +18,16 @@ public class TempByteMessage extends ByteMessage {
     @Override
     public void writeMetadata(Entity entity, MetadataMeaning metadataMeaning) {
 
+    }
+
+    @Override
+    public void writeItemStack(ItemStack itemStack) {
+
+    }
+
+    @Override
+    public ItemStack readItemStack() {
+        return null;
     }
 
 

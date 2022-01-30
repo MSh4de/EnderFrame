@@ -26,24 +26,10 @@ public class NamespacedKey {
      */
     @Deprecated
     public NamespacedKey(String namespace, String key) {
-
         this.namespace = namespace;
         this.key = key;
-
     }
-
-    /**
-     * Create a key in the plugin's namespace.
-     *
-     * @param plugin the plugin to use for the namespace
-     * @param key the key to create
-     */
-    public NamespacedKey(Plugin plugin, String key) {
-
-        this.namespace = plugin.getName().toLowerCase(Locale.ROOT);
-        this.key = key.toLowerCase().toLowerCase(Locale.ROOT);
-
-    }
+    
 
     public String getNamespace() {
         return namespace;
@@ -97,6 +83,11 @@ public class NamespacedKey {
      */
     public static NamespacedKey minecraft(String key) {
         return new NamespacedKey(MINECRAFT, key);
+    }
+
+    public static NamespacedKey fromString(String string){
+        String[] keys = string.split(":");
+        return new NamespacedKey(keys[0], keys[1]);
     }
 
 }

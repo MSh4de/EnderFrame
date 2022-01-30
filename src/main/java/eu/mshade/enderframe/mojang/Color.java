@@ -1,6 +1,5 @@
 package eu.mshade.enderframe.mojang;
 
-
 import java.awt.*;
 import java.beans.ConstructorProperties;
 import java.awt.image.ColorModel;
