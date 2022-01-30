@@ -29,7 +29,6 @@ public class NamespacedKey {
         this.namespace = namespace;
         this.key = key;
     }
-    
 
     public String getNamespace() {
         return namespace;
