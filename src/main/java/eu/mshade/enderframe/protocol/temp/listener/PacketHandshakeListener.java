@@ -19,14 +19,4 @@ public class PacketHandshakeListener implements EventListener<PacketInHandshake>
                 handshake), eventContainer);
     }
 
-
-    /*
-    @Override
-    public void handle(PacketInHandshake packet, DispatcherContainer dispatcherContainer) {
-        Handshake handshake = new Handshake(packet.getVersion(), InetSocketAddress.createUnresolved(packet.getHost(), packet.getPort()), packet.getHandshakeStatus());
-        EnderFrame.get().getPacketEventBus().dispatch(new PacketHandshakeEvent(handshake), dispatcherContainer);
-    }
-
-     */
-
 }

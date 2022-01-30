@@ -6,11 +6,8 @@ import eu.mshade.enderframe.EnderFrameSessionHandler;
 import eu.mshade.enderframe.event.*;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
-import eu.mshade.mwork.MLockableQueue;
 
-import java.util.Queue;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.*;
 
 public abstract class Entity {
 
@@ -29,7 +26,7 @@ public abstract class Entity {
     private boolean isSilent;
     protected UUID uuid;
     private final EntityType entityType;
-    private final Queue<Player> viewers = new ConcurrentLinkedQueue<>();
+    private final Set<Player> viewers = new HashSet<>();
 
     public Entity(Location location, EntityType entityType, int entityId) {
         this(location, new Vector(), entityId, false, false, false, false, false, (short) 300, "", false, false, UUID.randomUUID(), entityType);
@@ -83,8 +80,9 @@ public abstract class Entity {
         EnderFrame.get().getEnderFrameEventBus().publish(entityMoveEvent);
 
         if (!entityMoveEvent.isCancelled()) {
-            this.setUnsafeLocation(this.getLocation().clone());
+            this.setUnsafeLocation(location.clone());
             System.out.println(this.getViewers());
+            System.out.println(this.getLocation());
             this.getViewers()
                     .stream()
                     .map(Player::getEnderFrameSessionHandler)
@@ -203,7 +201,7 @@ public abstract class Entity {
         return entityType;
     }
 
-    public Queue<Player> getViewers() {
+    public Set<Player> getViewers() {
         return viewers;
     }
 
@@ -228,4 +226,17 @@ public abstract class Entity {
     }
 
     public abstract void tick();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Entity)) return false;
+        Entity entity = (Entity) o;
+        return entityId == entity.entityId && isFire == entity.isFire && isSneaking == entity.isSneaking && isSprinting == entity.isSprinting && isEating == entity.isEating && isInvisible == entity.isInvisible && airTicks == entity.airTicks && isCustomNameVisible == entity.isCustomNameVisible && isSilent == entity.isSilent && Objects.equals(beforeLocation, entity.beforeLocation) && Objects.equals(location, entity.location) && Objects.equals(velocity, entity.velocity) && Objects.equals(customName, entity.customName) && Objects.equals(uuid, entity.uuid) && entityType == entity.entityType && Objects.equals(viewers, entity.viewers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(beforeLocation, location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, entityType, viewers);
+    }
 }

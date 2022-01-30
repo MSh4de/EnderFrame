@@ -1,23 +1,12 @@
 package eu.mshade.enderframe.packetevent;
 
-import eu.mshade.enderframe.world.Position;
 
-public class PacketMoveEvent implements PacketEvent {
+public interface PacketMoveEvent extends PacketGroundEvent {
 
-    private Position position;
-    private PacketMoveType packetMoveType;
+    double getX();
 
-    public PacketMoveEvent(Position position, PacketMoveType packetMoveType) {
-        this.position = position;
-        this.packetMoveType = packetMoveType;
-    }
+    double getY();
 
-    public Position getPosition() {
-        return position;
-    }
-
-    public PacketMoveType getPacketMoveType() {
-        return packetMoveType;
-    }
+    double getZ();
 
 }

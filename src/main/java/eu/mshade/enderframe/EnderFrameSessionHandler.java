@@ -5,13 +5,15 @@ import eu.mshade.enderframe.protocol.*;
 import eu.mshade.enderframe.protocol.temp.TempEnderFrameProtocol;
 import eu.mshade.mwork.ParameterContainer;
 import io.netty.channel.*;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 
 import javax.crypto.SecretKey;
 
 public class EnderFrameSessionHandler extends ChannelInboundHandlerAdapter {
 
     private final Channel channel;
-    private EnderFrameProtocol enderFrameProtocol = new TempEnderFrameProtocol();
+    private EnderFrameProtocol enderFrameProtocol = TempEnderFrameProtocol.getInstance();
     private ProtocolStatus protocolStatus = ProtocolStatus.HANDSHAKE;
     private ProtocolVersion protocolVersion = ProtocolVersion.UNKNOWN;
     private EnderFrameSession enderFrameSession;
@@ -48,7 +50,7 @@ public class EnderFrameSessionHandler extends ChannelInboundHandlerAdapter {
 
     public void sendPacket(PacketOut packet) {
         if (isConnected())
-            channel.writeAndFlush(packet, channel.voidPromise());
+            channel.writeAndFlush(packet);
     }
 
     public void sendPacketAndClose(PacketOut packet) {

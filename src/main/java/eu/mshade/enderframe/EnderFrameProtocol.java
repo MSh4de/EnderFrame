@@ -8,6 +8,8 @@ import eu.mshade.enderframe.protocol.ProtocolVersion;
 import eu.mshade.mwork.event.EventBus;
 import io.netty.buffer.ByteBuf;
 
+import java.util.concurrent.ScheduledExecutorService;
+
 public abstract class EnderFrameProtocol {
 
     private final EntityRepository entityRepository = new EntityRepository();
