@@ -127,6 +127,8 @@ public interface EnderFrameSession {
         Set<Entity> collect = entities.stream().filter(entity -> entity.getLocation().distanceXZ(player.getLocation()) <= 80).collect(Collectors.toSet());
 
         for (Entity entity : collect) {
+            System.out.println(entity);
+            System.out.println(entity.getViewers().contains(player));
             if (!entity.getViewers().contains(player)) {
                 if (entity instanceof Player){
                     player.addViewer((Player) entity);
@@ -135,10 +137,13 @@ public interface EnderFrameSession {
             }
         }
 
+        /*
         entities.stream().filter(entity -> !collect.contains(entity)).forEach(entity -> {
             entity.removeViewer(player);
             if (entity instanceof Player) player.removeViewer((Player) entity);
         });
+
+         */
 
     }
 

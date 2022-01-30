@@ -13,6 +13,7 @@ import eu.mshade.enderframe.world.Vector;
 import eu.mshade.mwork.MOptional;
 
 import java.net.SocketAddress;
+import java.util.Objects;
 import java.util.UUID;
 
 public abstract class Player extends LivingEntity implements ProjectileSource {
@@ -170,5 +171,16 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
         this.gameProfile = gameProfile;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Player)) return false;
+        Player player = (Player) o;
+        return ping == player.ping && unused == player.unused && Float.compare(player.absorptionHearts, absorptionHearts) == 0 && score == player.score && Objects.equals(enderFrameSessionHandler, player.enderFrameSessionHandler) && Objects.equals(name, player.name) && Objects.equals(socketAddress, player.socketAddress) && protocolVersion == player.protocolVersion && Objects.equals(skinParts, player.skinParts) && Objects.equals(displayName, player.displayName) && gameMode == player.gameMode && Objects.equals(gameProfile, player.gameProfile);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(enderFrameSessionHandler, name, socketAddress, protocolVersion, ping, skinParts, unused, absorptionHearts, score, displayName, gameMode, gameProfile);
+    }
 }
