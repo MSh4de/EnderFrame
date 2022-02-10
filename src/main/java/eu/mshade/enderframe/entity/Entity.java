@@ -9,8 +9,9 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.*;
 
-public abstract class Entity {
+public interface Entity {
 
+    /**
     protected Location beforeLocation;
     protected Location location;
     private Vector velocity;
@@ -26,38 +27,15 @@ public abstract class Entity {
     private boolean isSilent;
     protected UUID uuid;
     private final EntityType entityType;
-    private final Set<Player> viewers = new HashSet<>();
+     **/
 
-    public Entity(Location location, EntityType entityType, int entityId) {
-        this(location, new Vector(), entityId, false, false, false, false, false, (short) 300, "", false, false, UUID.randomUUID(), entityType);
-    }
 
-    public Entity(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, EntityType entityType) {
-        this.beforeLocation = location.clone();
-        this.location = location;
-        this.velocity = velocity;
-        this.entityId = entityId;
-        this.isFire = isFire;
-        this.isSneaking = isSneaking;
-        this.isSprinting = isSprinting;
-        this.isEating = isEating;
-        this.isInvisible = isInvisible;
-        this.airTicks = airTicks;
-        this.customName = customName;
-        this.isCustomNameVisible = isCustomNameVisible;
-        this.isSilent = isSilent;
-        this.uuid = uuid;
-        this.entityType = entityType;
-    }
 
-    public Location getBeforeLocation() {
-        return this.beforeLocation;
-    }
+    Location getBeforeLocation();
 
-    public Location getLocation() {
-        return location;
-    }
+    Location getLocation();
 
+    /*
     public void teleport(Location location) {
         EntityTeleportEvent entityTeleportEvent = new EntityTeleportEvent(this, location);
         EnderFrame.get().getEnderFrameEventBus().publish(entityTeleportEvent);
@@ -74,6 +52,8 @@ public abstract class Entity {
                 sendEntityChunkChange();
         }
     }
+
+
 
     public void move(Location location) {
         EntityMoveEvent entityMoveEvent = new EntityMoveEvent(this, location);
@@ -104,106 +84,64 @@ public abstract class Entity {
         }
     }
 
-    public void setUnsafeLocation(Location location) {
-        this.beforeLocation = this.location;
-        this.location = location;
-    }
+     */
 
-    public Vector getVelocity() {
-        return velocity;
-    }
 
-    public void setVelocity(Vector velocity) {
-        this.velocity = velocity;
-    }
+    Vector getVelocity();
 
-    public int getEntityId() {
-        return entityId;
-    }
+    void setVelocity(Vector velocity);
 
-    public boolean isFire() {
-        return isFire;
-    }
+    int getEntityId();
 
-    public void setFire(boolean fire) {
-        isFire = fire;
-    }
+    boolean isFire();
 
-    public boolean isSneaking() {
-        return isSneaking;
-    }
+    void setFire(boolean fire);
 
-    public void setSneaking(boolean sneaking) {
-        isSneaking = sneaking;
-    }
+    boolean isSneaking();
 
-    public boolean isSprinting() {
-        return isSprinting;
-    }
+    void setSneaking(boolean sneaking);
 
-    public void setSprinting(boolean sprinting) {
-        isSprinting = sprinting;
-    }
+     boolean isSprinting();
 
-    public boolean isEating() {
-        return isEating;
-    }
+     void setSprinting(boolean sprinting);
 
-    public void setEating(boolean eating) {
-        isEating = eating;
-    }
+     boolean isEating();
 
-    public boolean isInvisible() {
-        return isInvisible;
-    }
+     void setEating(boolean eating);
 
-    public void setInvisible(boolean invisible) {
-        isInvisible = invisible;
-    }
+     boolean isInvisible();
 
-    public short getAirTicks() {
-        return airTicks;
-    }
+     void setInvisible(boolean invisible);
 
-    public void setAirTicks(short airTicks) {
-        this.airTicks = airTicks;
-    }
+     short getAirTicks();
 
-    public String getCustomName() {
-        return customName;
-    }
+    void setAirTicks(short airTicks);
 
-    public void setCustomName(String customName) {
-        this.customName = customName;
-    }
+    String getCustomName();
 
-    public boolean isCustomNameVisible() {
-        return isCustomNameVisible;
-    }
+    void setCustomName(String customName);
 
-    public void setCustomNameVisible(boolean customNameVisible) {
-        isCustomNameVisible = customNameVisible;
-    }
+    boolean isCustomNameVisible();
 
-    public boolean isSilent() {
-        return isSilent;
-    }
+    void setCustomNameVisible(boolean customNameVisible);
 
-    public void setSilent(boolean silent) {
-        isSilent = silent;
-    }
+    boolean isSilent();
 
-    public UUID getUniqueId() {
-        return uuid;
-    }
+    void setSilent(boolean silent);
 
-    public EntityType getType() {
-        return entityType;
-    }
+    UUID getUniqueId();
+
+    EntityType getEntityType();
+
+
+
+
+    /*
 
     public Set<Player> getViewers() {
-        return viewers;
-    }
+            return viewers;
+        }
+
 
     public void addViewer(Player player) {
         EntitySeeEvent entitySeeEvent = new EntitySeeEvent(this, player);
@@ -225,18 +163,9 @@ public abstract class Entity {
 
     }
 
+
     public abstract void tick();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Entity)) return false;
-        Entity entity = (Entity) o;
-        return entityId == entity.entityId && isFire == entity.isFire && isSneaking == entity.isSneaking && isSprinting == entity.isSprinting && isEating == entity.isEating && isInvisible == entity.isInvisible && airTicks == entity.airTicks && isCustomNameVisible == entity.isCustomNameVisible && isSilent == entity.isSilent && Objects.equals(beforeLocation, entity.beforeLocation) && Objects.equals(location, entity.location) && Objects.equals(velocity, entity.velocity) && Objects.equals(customName, entity.customName) && Objects.equals(uuid, entity.uuid) && entityType == entity.entityType && Objects.equals(viewers, entity.viewers);
-    }
+     */
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(beforeLocation, location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, entityType, viewers);
-    }
 }

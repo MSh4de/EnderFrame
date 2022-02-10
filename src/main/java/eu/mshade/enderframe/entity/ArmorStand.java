@@ -6,8 +6,9 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public abstract class ArmorStand extends LivingEntity {
+public interface ArmorStand extends LivingEntity {
 
+    /*
     private boolean isSmall;
     private boolean hasGravity;
     private boolean hasArms;
@@ -19,125 +20,51 @@ public abstract class ArmorStand extends LivingEntity {
     private Rotation rightArmPosition;
     private Rotation leftLegPosition;
     private Rotation rightLegPosition;
+     */
 
-    public ArmorStand(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean isSmall, boolean hasGravity, boolean hasArms, boolean removedBasePlate, boolean marker, Rotation headPosition, Rotation bodyPosition, Rotation leftArmPosition, Rotation rightArmPosition, Rotation leftLegPosition, Rotation rightLegPosition) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.ARMOR_STAND, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
-        this.isSmall = isSmall;
-        this.hasGravity = hasGravity;
-        this.hasArms = hasArms;
-        this.removedBasePlate = removedBasePlate;
-        this.marker = marker;
-        this.headPosition = headPosition;
-        this.bodyPosition = bodyPosition;
-        this.leftArmPosition = leftArmPosition;
-        this.rightArmPosition = rightArmPosition;
-        this.leftLegPosition = leftLegPosition;
-        this.rightLegPosition = rightLegPosition;
-    }
 
-    public ArmorStand(Location location, int entityId, boolean isSmall, boolean hasGravity, boolean removedBasePlate, boolean marker) {
-        super(location, EntityType.ARMOR_STAND, entityId, 20f);
-        this.isSmall = isSmall;
-        this.hasGravity = hasGravity;
-        this.removedBasePlate = removedBasePlate;
-        this.marker = marker;
-        this.headPosition = new Rotation(0, 0, 0);
-        this.bodyPosition = new Rotation(0, 0, 0);
-        this.leftArmPosition = new Rotation(0, 0, 0);
-        this.rightArmPosition = new Rotation(0, 0, 0);
-        this.leftLegPosition = new Rotation(0, 0, 0);
-        this.rightLegPosition = new Rotation(0, 0, 0);
-    }
 
-    public ArmorStand(Location location, int entityId) {
-        this(location, entityId, false, false, false, false);
-    }
+    boolean isSmall();
 
-    public boolean isSmall() {
-        return isSmall;
-    }
+    void setSmall(boolean small);
 
-    public void setSmall(boolean small) {
-        isSmall = small;
-    }
+    boolean hasGravity();
 
-    public boolean hasGravity() {
-        return hasGravity;
-    }
+    void setHasGravity(boolean hasGravity);
 
-    public void setHasGravity(boolean hasGravity) {
-        this.hasGravity = hasGravity;
-    }
+    boolean hasArms();
 
-    public boolean hasArms(){
-        return hasArms;
-    }
+    void setHasArms(boolean hasArms);
 
-    public void setHasArms(boolean hasArms){
-        this.hasArms = hasArms;
-    }
+    boolean isRemovedBasePlate();
 
-    public boolean isRemovedBasePlate() {
-        return removedBasePlate;
-    }
+    void setRemovedBasePlate(boolean removedBasePlate);
 
-    public void setRemovedBasePlate(boolean removedBasePlate) {
-        this.removedBasePlate = removedBasePlate;
-    }
+    boolean isMarker();
 
-    public boolean isMarker() {
-        return marker;
-    }
+    void setMarker(boolean marker);
 
-    public void setMarker(boolean marker) {
-        this.marker = marker;
-    }
+    Rotation getHeadPosition();
 
-    public Rotation getHeadPosition() {
-        return headPosition;
-    }
+     void setHeadPosition(Rotation headPosition);
 
-    public void setHeadPosition(Rotation headPosition) {
-        this.headPosition = headPosition;
-    }
+     Rotation getBodyPosition();
 
-    public Rotation getBodyPosition() {
-        return bodyPosition;
-    }
+     void setBodyPosition(Rotation bodyPosition);
 
-    public void setBodyPosition(Rotation bodyPosition) {
-        this.bodyPosition = bodyPosition;
-    }
+     Rotation getLeftArmPosition();
 
-    public Rotation getLeftArmPosition() {
-        return leftArmPosition;
-    }
+     void setLeftArmPosition(Rotation leftArmPosition);
 
-    public void setLeftArmPosition(Rotation leftArmPosition) {
-        this.leftArmPosition = leftArmPosition;
-    }
+     Rotation getRightArmPosition();
 
-    public Rotation getRightArmPosition() {
-        return rightArmPosition;
-    }
+    void setRightArmPosition(Rotation rightArmPosition);
 
-    public void setRightArmPosition(Rotation rightArmPosition) {
-        this.rightArmPosition = rightArmPosition;
-    }
+    Rotation getLeftLegPosition();
 
-    public Rotation getLeftLegPosition() {
-        return leftLegPosition;
-    }
+    void setLeftLegPosition(Rotation leftLegPosition);
 
-    public void setLeftLegPosition(Rotation leftLegPosition) {
-        this.leftLegPosition = leftLegPosition;
-    }
+    Rotation getRightLegPosition();
 
-    public Rotation getRightLegPosition() {
-        return rightLegPosition;
-    }
-
-    public void setRightLegPosition(Rotation rightLegPosition) {
-        this.rightLegPosition = rightLegPosition;
-    }
+    void setRightLegPosition(Rotation rightLegPosition);
 }
