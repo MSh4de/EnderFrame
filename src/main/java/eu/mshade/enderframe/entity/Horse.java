@@ -5,8 +5,9 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public abstract class Horse extends LivingEntity implements Tameable, Ageable {
+public interface Horse extends LivingEntity, Tameable, Ageable {
 
+    /*
     private boolean hasSaddle;
     private boolean hasChest;
     private boolean isBred;
@@ -23,189 +24,43 @@ public abstract class Horse extends LivingEntity implements Tameable, Ageable {
     private boolean isAgeLocked;
     private int age;
 
-    public Horse(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean hasSaddle, boolean hasChest, boolean isBred, boolean isRearing, boolean mouthOpen, HorseType horseType, HorseColor horseColor, HorseStyle horseStyle, HorseArmor horseArmor, boolean isSitting, boolean isTame, String owner, int age) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.HORSE, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
-        this.hasSaddle = hasSaddle;
-        this.hasChest = hasChest;
-        this.isBred = isBred;
-        this.isRearing = isRearing;
-        this.mouthOpen = mouthOpen;
-        this.horseType = horseType;
-        this.horseColor = horseColor;
-        this.horseStyle = horseStyle;
-        this.horseArmor = horseArmor;
-        this.isSitting = isSitting;
-        this.isTame = isTame;
-        this.owner = owner;
-        this.age = age;
-    }
+     */
 
-    public Horse(Location location, int entityId, float health, boolean hasSaddle, boolean hasChest, boolean isBred, boolean isRearing, boolean mouthOpen, HorseType horseType, HorseColor horseColor, HorseStyle horseStyle, HorseArmor horseArmor, boolean isSitting, boolean isTame, String owner, boolean isAgeLocked, int age, Vector vehicleVelocity) {
-        super(location, EntityType.HORSE, entityId, health);
-        this.hasSaddle = hasSaddle;
-        this.hasChest = hasChest;
-        this.isBred = isBred;
-        this.isRearing = isRearing;
-        this.mouthOpen = mouthOpen;
-        this.horseType = horseType;
-        this.horseColor = horseColor;
-        this.horseStyle = horseStyle;
-        this.horseArmor = horseArmor;
-        this.isSitting = isSitting;
-        this.isTame = isTame;
-        this.owner = owner;
-        this.isAgeLocked = isAgeLocked;
-        this.age = age;
-    }
 
-    public Horse(Location location, int entityId) {
-        this(location, entityId, 20f, false, false, false, false, false, HorseType.HORSE, HorseColor.BLACK, HorseStyle.NONE, HorseArmor.NO_ARMOR, false, false, null, false, 0, new Vector());
-    }
+    boolean isHasSaddle();
 
-    public boolean isHasSaddle() {
-        return hasSaddle;
-    }
+    void setHasSaddle(boolean hasSaddle);
 
-    public void setHasSaddle(boolean hasSaddle) {
-        this.hasSaddle = hasSaddle;
-    }
+    boolean isHasChest();
 
-    public boolean isHasChest() {
-        return hasChest;
-    }
+    void setHasChest(boolean hasChest);
 
-    public void setHasChest(boolean hasChest) {
-        this.hasChest = hasChest;
-    }
+    boolean isBred();
 
-    public boolean isBred() {
-        return isBred;
-    }
+    void setBred(boolean bred);
 
-    public void setBred(boolean bred) {
-        isBred = bred;
-    }
+    boolean isRearing();
 
-    public boolean isRearing() {
-        return isRearing;
-    }
+    void setRearing(boolean rearing);
 
-    public void setRearing(boolean rearing) {
-        isRearing = rearing;
-    }
+    boolean isMouthOpen();
 
-    public boolean isMouthOpen() {
-        return mouthOpen;
-    }
+    void setMouthOpen(boolean mouthOpen);
 
-    public void setMouthOpen(boolean mouthOpen) {
-        this.mouthOpen = mouthOpen;
-    }
+    HorseType getHorseType();
 
-    public HorseType getHorseType() {
-        return horseType;
-    }
+    void setHorseType(HorseType horseType);
 
-    public void setHorseType(HorseType horseType) {
-        this.horseType = horseType;
-    }
+    HorseColor getHorseColor();
 
-    public HorseColor getHorseColor() {
-        return horseColor;
-    }
+    void setHorseColor(HorseColor horseColor);
 
-    public void setHorseColor(HorseColor horseColor) {
-        this.horseColor = horseColor;
-    }
+    HorseStyle getHorseStyle();
 
-    public HorseStyle getHorseStyle() {
-        return horseStyle;
-    }
+    void setHorseStyle(HorseStyle horseStyle);
 
-    public void setHorseStyle(HorseStyle horseStyle) {
-        this.horseStyle = horseStyle;
-    }
+    HorseArmor getHorseArmor();
 
-    public HorseArmor getHorseArmor() {
-        return horseArmor;
-    }
+    void setHorseArmor(HorseArmor horseArmor);
 
-    public void setHorseArmor(HorseArmor horseArmor) {
-        this.horseArmor = horseArmor;
-    }
-
-    @Override
-    public boolean isSitting() {
-        return isSitting;
-    }
-
-    @Override
-    public void setSitting(boolean isSitting) {
-        this.isSitting = isSitting;
-    }
-
-    @Override
-    public boolean isTamed() {
-        return isTame;
-    }
-
-    @Override
-    public void setTamed(boolean isTamed) {
-        this.isTame = isTamed;
-    }
-
-    @Override
-    public String getOwner() {
-        return owner;
-    }
-
-    @Override
-    public int getAge() {
-        return age;
-    }
-
-    @Override
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    @Override
-    public void setAgeLock(boolean isAgeLocked) {
-        this.isAgeLocked = isAgeLocked;
-    }
-
-    @Override
-    public boolean getAgeLock() {
-        return this.isAgeLocked;
-    }
-
-    @Override
-    public void setBaby() {
-        if (this.isAdult()) {
-            this.setAge(-24000);
-        }
-    }
-
-    @Override
-    public void setAdult() {
-        if (!this.isAdult()) {
-            this.setAge(0);
-        }
-    }
-
-    @Override
-    public boolean isAdult() {
-        return this.getAge() >= 0;
-    }
-
-    @Override
-    public boolean canBreed() {
-        return this.getAge() == 0;
-    }
-
-    @Override
-    public void setBreed(boolean isBreedable) {
-        if (isBreedable) this.setAge(0);
-        else this.setAge(6000);
-    }
 }
