@@ -5,26 +5,14 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public abstract class Chicken extends LivingEntity implements Ageable {
+public interface Chicken extends LivingEntity, Ageable, Breedable {
 
+    /*
     private int age;
     private boolean isAgeLocked;
 
-    public Chicken(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, int age, boolean isAgeLocked) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.CHICKEN, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
-        this.age = age;
-        this.isAgeLocked = isAgeLocked;
-    }
 
-    public Chicken(Location location, int entityId, float health, int age, boolean isAgeLocked) {
-        super(location, EntityType.CHICKEN, entityId, health);
-        this.age = age;
-        this.isAgeLocked = isAgeLocked;
-    }
 
-    public Chicken(Location location, int entityId) {
-        this(location, entityId, 20f, 0, false);
-    }
 
     @Override
     public int getAge() {
@@ -75,4 +63,6 @@ public abstract class Chicken extends LivingEntity implements Ageable {
         if (isBreedable) this.setAge(0);
         else this.setAge(6000);
     }
+
+     */
 }
