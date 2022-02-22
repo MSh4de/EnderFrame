@@ -5,42 +5,70 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public interface Minecart extends Entity, Damageable {
+public abstract class Minecart extends Entity implements Damageable {
 
-    /*
-    private int shakingPower;
-    private int shakingDirection;
-    private int blockId;
-    private int blockData;
-    private int blockYPosition;
-    private boolean showBlock;
-    private float damageTaken;
+    protected int shakingPower;
+    protected int shakingDirection;
+    protected int blockId;
+    protected int blockData;
+    protected int blockYPosition;
+    protected boolean showBlock;
 
-     */
+    public Minecart(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, int shakingPower, int shakingDirection, int blockId, int blockData, int blockYPosition, boolean showBlock) {
+        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType);
+        this.shakingPower = shakingPower;
+        this.shakingDirection = shakingDirection;
+        this.blockId = blockId;
+        this.blockData = blockData;
+        this.blockYPosition = blockYPosition;
+        this.showBlock = showBlock;
+    }
 
+    public int getShakingPower() {
+        return shakingPower;
+    }
 
+    public void setShakingPower(int shakingPower) {
+        this.shakingPower = shakingPower;
+    }
 
-    int getShakingPower();
+    public int getShakingDirection() {
+        return shakingDirection;
+    }
 
-    void setShakingPower(int shakingPower);
+    public void setShakingDirection(int shakingDirection) {
+        this.shakingDirection = shakingDirection;
+    }
 
-    int getShakingDirection();
+    public int getBlockId() {
+        return blockId;
+    }
 
-    void setShakingDirection(int shakingDirection);
+    public void setBlockId(int blockId) {
+        this.blockId = blockId;
+    }
 
-    int getBlockId();
+    public int getBlockData() {
+        return blockData;
+    }
 
-    void setBlockId(int blockId);
+    public void setBlockData(int blockData) {
+        this.blockData = blockData;
+    }
 
-    int getBlockData();
+    public int getBlockYPosition() {
+        return blockYPosition;
+    }
 
-    void setBlockData(int blockData);
+    public void setBlockYPosition(int blockYPosition) {
+        this.blockYPosition = blockYPosition;
+    }
 
-    int getBlockYPosition();
+    public boolean isShowBlock() {
+        return showBlock;
+    }
 
-    void setBlockYPosition(int blockYPosition);
-
-    boolean isShowBlock();
-
-    void setShowBlock(boolean showBlock);
+    public void setShowBlock(boolean showBlock) {
+        this.showBlock = showBlock;
+    }
 }
