@@ -1,4 +1,4 @@
 package eu.mshade.enderframe.entity;
 
-public interface NonPlayerCharacter extends Player{
+public abstract class NonPlayerCharacter extends Player{
 }
