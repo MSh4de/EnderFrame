@@ -1,6 +1,5 @@
 package eu.mshade.enderframe.protocol.packet;
 
-import eu.mshade.enderframe.EnderFrameSession;
 import eu.mshade.enderframe.PlayerInfo;
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.PlayerInfoType;
@@ -43,8 +42,8 @@ public class PacketOutPlayerInfo extends PacketOut {
                     });
                     byteMessage.writeVarInt(player.getGameMode().getId());
                     byteMessage.writeVarInt(player.getPing());
-                    byteMessage.writeBoolean(player.getDisplayName().isPresent());
-                    player.getDisplayName().ifPresent(byteMessage::writeString);
+                    byteMessage.writeBoolean(player.getPlayerListName().isPresent());
+                    player.getPlayerListName().ifPresent(byteMessage::writeString);
                     break;
                 case UPDATE_GAMEMODE:
                     byteMessage.writeVarInt(player.getGameMode().getId());
@@ -53,8 +52,8 @@ public class PacketOutPlayerInfo extends PacketOut {
                     byteMessage.writeVarInt(player.getPing());
                     break;
                 case UPDATE_DISPLAY_NAME:
-                    byteMessage.writeBoolean(player.getDisplayName().isPresent());
-                    player.getDisplayName().ifPresent(byteMessage::writeString);
+                    byteMessage.writeBoolean(player.getPlayerListName().isPresent());
+                    player.getPlayerListName().ifPresent(byteMessage::writeString);
                     break;
                 case REMOVE_PLAYER:
                     break;
