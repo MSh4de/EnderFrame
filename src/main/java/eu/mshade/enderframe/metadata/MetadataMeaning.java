@@ -142,7 +142,6 @@ public enum MetadataMeaning {
     WATCHED_TARGET,
     INVULNERABLE_TIME,
     RABBIT_TYPE,
-    UNUSED,
     IS_BECOMING_A_DROWNED,
     IS_CONVERTING,
     CARRIED_BLOCK,
