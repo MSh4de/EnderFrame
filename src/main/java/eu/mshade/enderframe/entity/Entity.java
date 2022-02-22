@@ -9,31 +9,52 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.*;
 
-public interface Entity {
+public abstract class Entity {
 
-    /**
+
     protected Location beforeLocation;
     protected Location location;
-    private Vector velocity;
-    private final int entityId;
-    private boolean isFire;
-    private boolean isSneaking;
-    private boolean isSprinting;
-    private boolean isEating;
-    private boolean isInvisible;
-    private short airTicks;
-    private String customName;
-    private boolean isCustomNameVisible;
-    private boolean isSilent;
+    protected Vector velocity;
+    protected int entityId;
+    protected boolean fire;
+    protected boolean sneaking;
+    protected boolean sprinting;
+    protected boolean eating;
+    protected boolean invisible;
+    protected short airTicks;
+    protected String customName;
+    protected boolean customNameVisible;
+    protected boolean silent;
+    protected boolean invulnerable;
     protected UUID uuid;
-    private final EntityType entityType;
-     **/
+    protected EntityType entityType;
 
+    public Entity(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType) {
+        this.beforeLocation = beforeLocation;
+        this.location = location;
+        this.velocity = velocity;
+        this.entityId = entityId;
+        this.fire = fire;
+        this.sneaking = sneaking;
+        this.sprinting = sprinting;
+        this.eating = eating;
+        this.invisible = invisible;
+        this.airTicks = airTicks;
+        this.customName = customName;
+        this.customNameVisible = customNameVisible;
+        this.silent = silent;
+        this.invulnerable = invulnerable;
+        this.uuid = uuid;
+        this.entityType = entityType;
+    }
 
+    public Location getBeforeLocation(){
+        return this.beforeLocation;
+    }
 
-    Location getBeforeLocation();
-
-    Location getLocation();
+    public Location getLocation(){
+        return this.location;
+    }
 
     /*
     public void teleport(Location location) {
@@ -87,51 +108,105 @@ public interface Entity {
      */
 
 
-    Vector getVelocity();
+    public Vector getVelocity(){
+        return this.velocity;
+    }
 
-    void setVelocity(Vector velocity);
+    public void setVelocity(Vector velocity){
+        this.velocity = velocity;
+    }
 
-    int getEntityId();
+    public int getEntityId(){
+        return this.entityId;
+    }
 
-    boolean isFire();
+    public boolean isFire(){
+        return this.fire;
+    }
 
-    void setFire(boolean fire);
+   public void setFire(boolean fire){
+        this.fire = fire;
+   }
 
-    boolean isSneaking();
+   public boolean isSneaking(){
+        return this.sneaking;
+   }
 
-    void setSneaking(boolean sneaking);
+   public void setSneaking(boolean sneaking){
+        this.sneaking = sneaking;
+   }
 
-     boolean isSprinting();
+   public boolean isSprinting(){
+        return this.sprinting;
+   }
 
-     void setSprinting(boolean sprinting);
+   public void setSprinting(boolean sprinting){
+        this.sprinting = sprinting;
+   }
 
-     boolean isEating();
+   public boolean isEating(){
+        return this.eating;
+   }
 
-     void setEating(boolean eating);
+   public void setEating(boolean eating){
+        this.eating = eating;
+   }
 
-     boolean isInvisible();
+   public boolean isInvisible(){
+        return this.invisible;
+   }
 
-     void setInvisible(boolean invisible);
+   public void setInvisible(boolean invisible){
+        this.invisible = invisible;
+   }
 
-     short getAirTicks();
+   public short getAirTicks(){
+        return this.airTicks;
+   }
 
-    void setAirTicks(short airTicks);
+    public void setAirTicks(short airTicks){
+        this.airTicks = airTicks;
+    }
 
-    String getCustomName();
+   public String getCustomName(){
+        return this.customName;
+   }
 
-    void setCustomName(String customName);
+   public void setCustomName(String customName){
+        this.customName = customName;
+   }
 
-    boolean isCustomNameVisible();
+   public boolean isCustomNameVisible(){
+        return this.customNameVisible;
+   }
 
-    void setCustomNameVisible(boolean customNameVisible);
+   public void setCustomNameVisible(boolean customNameVisible){
+        this.customNameVisible = customNameVisible;
+   }
 
-    boolean isSilent();
+   public boolean isSilent(){
+       return this.silent;
+   }
 
-    void setSilent(boolean silent);
+   public void setSilent(boolean silent){
+        this.silent = silent;
+   }
 
-    UUID getUniqueId();
+   public void setInvulnerable(boolean invulnerable){
+        this.invulnerable = invulnerable;
+   }
 
-    EntityType getEntityType();
+   public boolean isInvulnerable(){
+        return this.invulnerable;
+   }
+
+   public UUID getUniqueId(){
+        return this.uuid;
+   }
+
+   public EntityType getEntityType(){
+        return this.entityType;
+   }
 
 
 
