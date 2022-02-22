@@ -2,27 +2,35 @@ package eu.mshade.enderframe.entity;
 
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.world.Location;
-import eu.mshade.enderframe.world.Rotation;
 import eu.mshade.enderframe.world.Vector;
 
-import java.util.Queue;
 import java.util.UUID;
 
-public interface ItemFrame extends Entity, Hanging {
+public abstract class ItemFrame extends Entity implements Hanging {
 
-    /*
-    private byte rotation;
-    private ItemStack content;
 
-     */
+    protected byte rotation;
+    protected ItemStack itemStack;
 
-    ItemStack getItem();
+    public ItemFrame(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, byte rotation, ItemStack itemStack) {
+        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType);
+        this.rotation = rotation;
+        this.itemStack = itemStack;
+    }
 
-    void setItem(ItemStack content);
+    public byte getRotation() {
+        return rotation;
+    }
 
-    //Slot
+    public void setRotation(byte rotation) {
+        this.rotation = rotation;
+    }
 
-    byte getRotation();
+    public ItemStack getItemStack() {
+        return itemStack;
+    }
 
-    void setRotation(byte rotation);
+    public void setItemStack(ItemStack itemStack) {
+        this.itemStack = itemStack;
+    }
 }
