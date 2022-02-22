@@ -1,186 +1,142 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.EnderFrameSession;
-import eu.mshade.enderframe.EnderFrameSessionHandler;
 import eu.mshade.enderframe.GameMode;
+import eu.mshade.enderframe.PlayerInfoBuilder;
+import eu.mshade.enderframe.metadata.MetadataMeaning;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.SkinParts;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.protocol.ProtocolVersion;
+import eu.mshade.enderframe.world.ChunkBuffer;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
-import eu.mshade.mwork.MOptional;
 
 import java.net.SocketAddress;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 public abstract class Player extends LivingEntity implements ProjectileSource {
 
-    private EnderFrameSessionHandler enderFrameSessionHandler;
-    private final String name;
-    private SocketAddress socketAddress;
-    private ProtocolVersion protocolVersion;
-    private int ping;
-    private final SkinParts skinParts;
-    private final boolean unused;
-    private final float absorptionHearts;
-    private final int score;
-    private MOptional<String> displayName;
-    private GameMode gameMode;
-    private GameProfile gameProfile;
 
-    public Player(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, EnderFrameSessionHandler enderFrameSessionHandler, boolean unused, float absorptionHearts, int score, MOptional<String> displayName, GameMode gameMode, GameProfile gameProfile) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.PLAYER, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
-        this.enderFrameSessionHandler = enderFrameSessionHandler;
-        this.name = gameProfile.getName();
-        this.socketAddress = enderFrameSessionHandler.getEnderFrameSession().getSocketAddress();
-        this.protocolVersion = enderFrameSessionHandler.getProtocolVersion();
-        this.ping = 0;
-        this.skinParts = SkinParts.fromByte((byte)127);
-        this.unused = unused;
+    protected String name;
+    protected SocketAddress socketAddress;
+    protected ProtocolVersion protocolVersion;
+    protected int ping;
+    protected SkinParts skinParts;
+    protected float absorptionHearts;
+    protected int score;
+    protected Optional<String> playerListName;
+    protected GameMode gameMode;
+    protected GameProfile gameProfile;
+
+    public Player(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, String name, SocketAddress socketAddress, ProtocolVersion protocolVersion, int ping, SkinParts skinParts, float absorptionHearts, int score, Optional<String> playerListName, GameMode gameMode, GameProfile gameProfile) {
+        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
+        this.name = name;
+        this.socketAddress = socketAddress;
+        this.protocolVersion = protocolVersion;
+        this.ping = ping;
+        this.skinParts = skinParts;
         this.absorptionHearts = absorptionHearts;
         this.score = score;
-        this.displayName = displayName;
+        this.playerListName = playerListName;
         this.gameMode = gameMode;
         this.gameProfile = gameProfile;
     }
 
-    public Player(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean unused, float absorptionHearts, int score, MOptional<String> displayName, GameMode gameMode, GameProfile gameProfile) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.PLAYER, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
-        this.name = gameProfile.getName();
-        this.ping = 0;
-        this.skinParts = SkinParts.fromByte((byte)127);
-        this.unused = unused;
-        this.absorptionHearts = absorptionHearts;
-        this.score = score;
-        this.displayName = displayName;
-        this.gameMode = gameMode;
-        this.gameProfile = gameProfile;
+    public String getName(){
+        return this.name;
     }
 
-
-
-    public Player(Location location, int entityId, EnderFrameSessionHandler enderFrameSessionHandler, GameMode gameMode, GameProfile gameProfile) {
-        super(location, EntityType.PLAYER, entityId, 20f);
-        this.uuid = gameProfile.getId();
-        this.enderFrameSessionHandler = enderFrameSessionHandler;
-        this.name = gameProfile.getName();
-        this.socketAddress = enderFrameSessionHandler.getEnderFrameSession().getSocketAddress();
-        this.protocolVersion = enderFrameSessionHandler.getProtocolVersion();
-        this.ping = 0;
-        this.skinParts = SkinParts.fromByte((byte)127);
-        this.unused = false;
-        this.absorptionHearts = 0f;
-        this.score = 0;
-        this.displayName = MOptional.empty();
-        this.gameMode = gameMode;
-        this.gameProfile = gameProfile;
+    public SocketAddress getSocketAddress(){
+        return this.socketAddress;
     }
 
-    @Override
-    public <T extends Projectile> T launchProjectile(Class<? extends T> projectile) {
-        return null;
+    public void setSocketAddress(SocketAddress socketAddress){
+        this.socketAddress = socketAddress;
     }
 
-    @Override
-    public <T extends Projectile> T launchProjectile(Class<? extends T> projectile, Vector vector) {
-        return null;
+    public ProtocolVersion getProtocolVersion(){
+        return this.protocolVersion;
     }
 
-    public void sendMessage(TextComponent textComponent, TextPosition textPosition){
-        this.getEnderFrameSessionHandler().getEnderFrameSession().sendMessage(textComponent, textPosition);
+    public int getPing(){
+        return this.ping;
     }
 
-    public void sendMessage(TextComponent textComponent){
-        this.getEnderFrameSessionHandler().getEnderFrameSession().sendMessage(textComponent, TextPosition.CHAT);
-    }
-
-    public void sendMessage(String name){
-        this.getEnderFrameSessionHandler().getEnderFrameSession().sendMessage(name);
-    }
-
-
-    public EnderFrameSession getEnderFrameSession(){
-        return enderFrameSessionHandler.getEnderFrameSession();
-    }
-
-
-    public EnderFrameSessionHandler getEnderFrameSessionHandler() {
-        return enderFrameSessionHandler;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public SocketAddress getSocketAddress() {
-        return socketAddress;
-    }
-
-    public ProtocolVersion getProtocolVersion() {
-        return protocolVersion;
-    }
-
-    public int getPing() {
-        return ping;
-    }
-
-    public void setPing(int ping) {
+    public void setPing(int ping){
         this.ping = ping;
     }
 
-    public SkinParts getSkinParts() {
-        return skinParts;
+    public SkinParts getSkinParts(){
+        return this.skinParts;
     }
 
-    public boolean isUnused() {
-        return unused;
+    public float getAbsorptionHearts(){
+        return this.absorptionHearts;
     }
 
-    public float getAbsorptionHearts() {
-        return absorptionHearts;
+    public int getScore(){
+        return this.score;
     }
 
-    public int getScore() {
-        return score;
+    public GameMode getGameMode(){
+        return this.gameMode;
     }
 
-    public MOptional<String> getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(MOptional<String> displayName) {
-        this.displayName = displayName;
-    }
-
-    public GameMode getGameMode() {
-        return gameMode;
-    }
-
-    public void setGameMode(GameMode gameMode) {
+    public void setGameMode(GameMode gameMode){
         this.gameMode = gameMode;
     }
 
-    public GameProfile getGameProfile() {
-        return gameProfile;
+    public GameProfile getGameProfile(){
+        return this.gameProfile;
     }
 
-    public void setGameProfile(GameProfile gameProfile) {
+    public void setGameProfile(GameProfile gameProfile){
         this.gameProfile = gameProfile;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Player)) return false;
-        Player player = (Player) o;
-        return ping == player.ping && unused == player.unused && Float.compare(player.absorptionHearts, absorptionHearts) == 0 && score == player.score && Objects.equals(enderFrameSessionHandler, player.enderFrameSessionHandler) && Objects.equals(name, player.name) && Objects.equals(socketAddress, player.socketAddress) && protocolVersion == player.protocolVersion && Objects.equals(skinParts, player.skinParts) && Objects.equals(displayName, player.displayName) && gameMode == player.gameMode && Objects.equals(gameProfile, player.gameProfile);
+    public Optional<String> getPlayerListName(){
+        return this.playerListName;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(enderFrameSessionHandler, name, socketAddress, protocolVersion, ping, skinParts, unused, absorptionHearts, score, displayName, gameMode, gameProfile);
+    public void setPlayerListName(String name){
+        this.name = name;
     }
+
+    public abstract void sendPlayerInfo(PlayerInfoBuilder playerInfoBuilder);
+
+    public abstract void sendMessage(TextComponent textComponent, TextPosition textPosition);
+
+    public abstract void sendMessage(TextComponent textComponent);
+
+    public abstract void sendMessage(String message);
+
+    public abstract void disconnect(String message);
+
+    public abstract void sendUpdateLocation(Entity entity);
+
+    public abstract void sendTeleport(Entity entity);
+
+    public abstract void sendMove(Entity entity);
+
+    public abstract void sendMoveAndLook(Entity entity);
+
+    public abstract void sendLook(Entity entity);
+
+    public abstract void sendHeadLook(Entity entity);
+
+    public abstract void sendEntity(Entity... entities);
+
+    public abstract void removeEntity(Entity... entities);
+
+    public abstract boolean seeEntity(Entity entity);
+
+    public abstract void sendMetadata(Entity entity, MetadataMeaning... metadataMeanings);
+
+    public abstract void sendChunk(ChunkBuffer chunkBuffer);
+
+    public abstract void sendUnloadChunk(ChunkBuffer chunkBuffer);
+
+    public abstract void sendHeadAndFooter(String header, String footer);
 }
