@@ -5,9 +5,9 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public interface Horse extends LivingEntity, Tameable, Ageable {
+public abstract class Horse extends LivingEntity implements Tameable, Ageable {
 
-    /*
+
     private boolean hasSaddle;
     private boolean hasChest;
     private boolean isBred;
@@ -17,50 +17,91 @@ public interface Horse extends LivingEntity, Tameable, Ageable {
     private HorseColor horseColor;
     private HorseStyle horseStyle;
     private HorseArmor horseArmor;
-    private boolean isSitting;
-    private boolean isTame;
-    private final String owner;
 
-    private boolean isAgeLocked;
-    private int age;
+    public Horse(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, boolean hasSaddle, boolean hasChest, boolean isBred, boolean isRearing, boolean mouthOpen, HorseType horseType, HorseColor horseColor, HorseStyle horseStyle, HorseArmor horseArmor) {
+        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
+        this.hasSaddle = hasSaddle;
+        this.hasChest = hasChest;
+        this.isBred = isBred;
+        this.isRearing = isRearing;
+        this.mouthOpen = mouthOpen;
+        this.horseType = horseType;
+        this.horseColor = horseColor;
+        this.horseStyle = horseStyle;
+        this.horseArmor = horseArmor;
+    }
 
-     */
+    public boolean isHasSaddle() {
+        return hasSaddle;
+    }
 
+    public void setHasSaddle(boolean hasSaddle) {
+        this.hasSaddle = hasSaddle;
+    }
 
-    boolean isHasSaddle();
+    public boolean isHasChest() {
+        return hasChest;
+    }
 
-    void setHasSaddle(boolean hasSaddle);
+    public void setHasChest(boolean hasChest) {
+        this.hasChest = hasChest;
+    }
 
-    boolean isHasChest();
+    public boolean isBred() {
+        return isBred;
+    }
 
-    void setHasChest(boolean hasChest);
+    public void setBred(boolean bred) {
+        isBred = bred;
+    }
 
-    boolean isBred();
+    public boolean isRearing() {
+        return isRearing;
+    }
 
-    void setBred(boolean bred);
+    public void setRearing(boolean rearing) {
+        isRearing = rearing;
+    }
 
-    boolean isRearing();
+    public boolean isMouthOpen() {
+        return mouthOpen;
+    }
 
-    void setRearing(boolean rearing);
+    public void setMouthOpen(boolean mouthOpen) {
+        this.mouthOpen = mouthOpen;
+    }
 
-    boolean isMouthOpen();
+    public HorseType getHorseType() {
+        return horseType;
+    }
 
-    void setMouthOpen(boolean mouthOpen);
+    public void setHorseType(HorseType horseType) {
+        this.horseType = horseType;
+    }
 
-    HorseType getHorseType();
+    public HorseColor getHorseColor() {
+        return horseColor;
+    }
 
-    void setHorseType(HorseType horseType);
+    public void setHorseColor(HorseColor horseColor) {
+        this.horseColor = horseColor;
+    }
 
-    HorseColor getHorseColor();
+    public HorseStyle getHorseStyle() {
+        return horseStyle;
+    }
 
-    void setHorseColor(HorseColor horseColor);
+    public void setHorseStyle(HorseStyle horseStyle) {
+        this.horseStyle = horseStyle;
+    }
 
-    HorseStyle getHorseStyle();
+    public HorseArmor getHorseArmor() {
+        return horseArmor;
+    }
 
-    void setHorseStyle(HorseStyle horseStyle);
+    public void setHorseArmor(HorseArmor horseArmor) {
+        this.horseArmor = horseArmor;
+    }
 
-    HorseArmor getHorseArmor();
-
-    void setHorseArmor(HorseArmor horseArmor);
 
 }
