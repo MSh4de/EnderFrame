@@ -5,23 +5,31 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public interface Zombie extends LivingEntity, Ageable {
-
-    /*
-    private boolean isVillager;
-    private boolean isConverting;
-    private int age;
-    private boolean isAgeLocked;
-
-     */
+public abstract class Zombie extends LivingEntity implements Ageable {
 
 
+    protected boolean isVillager;
+    protected boolean isConverting;
 
-    boolean isVillager();
+    public Zombie(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, boolean isVillager, boolean isConverting) {
+        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
+        this.isVillager = isVillager;
+        this.isConverting = isConverting;
+    }
 
-    void setVillager(boolean isVillager);
+    public boolean isVillager() {
+        return this.isVillager;
+    }
 
-    boolean isConverting();
+    public void setVillager(boolean isVillager) {
+        this.isVillager = isVillager;
+    }
 
-    void setConverting(boolean isConverting);
+    public boolean isConverting() {
+        return this.isConverting;
+    }
+
+    public void setConverting(boolean isConverting) {
+        this.isConverting = isConverting;
+    }
 }

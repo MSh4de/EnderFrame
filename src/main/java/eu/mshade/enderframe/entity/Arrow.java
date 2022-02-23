@@ -4,19 +4,22 @@ import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
-public interface Arrow extends Entity, Projectile {
+public abstract class Arrow extends Entity implements Projectile {
 
-    /*
-    private boolean isCritical;
-    private ProjectileSource source;
-    private boolean isBouncy;
+    protected boolean critical;
 
-     */
+    public Arrow(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, boolean critical) {
+        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType);
+        this.critical = critical;
+    }
 
-    boolean isCritical();
+    public boolean isCritical() {
+        return critical;
+    }
 
-    void setCritical(boolean isCritical);
+    public void setCritical(boolean isCritical) {
+        this.critical = isCritical;
+    }
 
 }

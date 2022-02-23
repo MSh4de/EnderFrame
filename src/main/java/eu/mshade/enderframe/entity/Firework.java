@@ -6,7 +6,11 @@ import eu.mshade.enderframe.world.Vector;
 import java.util.Queue;
 import java.util.UUID;
 
-public interface Firework extends Entity {
+public abstract class Firework extends Entity {
+
+    public Firework(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType) {
+        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType);
+    }
 
 
     //Slot

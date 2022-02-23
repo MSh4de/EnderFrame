@@ -5,6 +5,6 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public interface MagmaCube extends Slime{
+public abstract class MagmaCube extends Slime{
 
 }

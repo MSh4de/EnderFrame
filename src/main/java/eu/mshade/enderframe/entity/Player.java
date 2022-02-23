@@ -13,8 +13,7 @@ import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 
 import java.net.SocketAddress;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class Player extends LivingEntity implements ProjectileSource {
 
@@ -29,6 +28,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     protected Optional<String> playerListName;
     protected GameMode gameMode;
     protected GameProfile gameProfile;
+    protected Set<Entity> seeEntities = new HashSet<>();
 
     public Player(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, String name, SocketAddress socketAddress, ProtocolVersion protocolVersion, int ping, SkinParts skinParts, float absorptionHearts, int score, Optional<String> playerListName, GameMode gameMode, GameProfile gameProfile) {
         super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
@@ -130,7 +130,13 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
 
     public abstract void removeEntity(Entity... entities);
 
-    public abstract boolean seeEntity(Entity entity);
+    public boolean seeEntity(Entity entity){
+        return this.seeEntities.contains(entity);
+    }
+
+    public Collection<Entity> getSeeEntity(){
+        return this.seeEntities;
+    }
 
     public abstract void sendMetadata(Entity entity, MetadataMeaning... metadataMeanings);
 

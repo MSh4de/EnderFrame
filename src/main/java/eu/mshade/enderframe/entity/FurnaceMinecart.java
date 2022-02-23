@@ -1,16 +1,15 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.world.Location;
-import eu.mshade.enderframe.world.Vector;
+public abstract class FurnaceMinecart extends Minecart {
 
-import java.util.UUID;
-
-public interface FurnaceMinecart extends Minecart {
-
-    //private boolean isPowered;
+    protected boolean powered;
 
 
-    boolean isPowered();
+    public boolean isPowered() {
+        return powered;
+    }
 
-    void setPowered(boolean powered);
+    public void setPowered(boolean powered) {
+        this.powered = powered;
+    }
 }
