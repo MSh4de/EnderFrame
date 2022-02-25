@@ -56,6 +56,11 @@ public abstract class Entity {
         return this.location;
     }
 
+    public void setLocation(Location location) {
+        this.beforeLocation = this.location.clone();
+        this.location = location;
+    }
+
     /*
     public void teleport(Location location) {
         EntityTeleportEvent entityTeleportEvent = new EntityTeleportEvent(this, location);
