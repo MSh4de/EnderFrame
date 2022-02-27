@@ -35,7 +35,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     protected boolean instantBreak;
     protected float flyingSpeed;
     protected float walkSpeed;
-    protected Queue<ChunkBuffer> lookAtChunk = new ConcurrentLinkedQueue<>();
+    protected Queue<ChunkBuffer> lookAtChunks = new ConcurrentLinkedQueue<>();
 
     public Player(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, String name, SocketAddress socketAddress, ProtocolVersion protocolVersion, int ping, SkinParts skinParts, float absorptionHearts, int score, Optional<String> playerListName, GameMode gameMode, GameProfile gameProfile) {
         super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
@@ -184,6 +184,14 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     public abstract void sendSection(SectionBuffer sectionBuffer);
 
     public abstract void sendUnloadChunk(ChunkBuffer chunkBuffer);
+
+    public Collection<ChunkBuffer> getLookAtChunks(){
+        return this.lookAtChunks;
+    }
+
+    public boolean hasLookAtChunk(ChunkBuffer chunkBuffer){
+        return this.lookAtChunks.contains(chunkBuffer);
+    }
 
     public abstract void sendHeadAndFooter(String header, String footer);
 }
