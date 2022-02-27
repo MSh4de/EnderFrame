@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.metadata;
 
 public enum MetadataMeaning {
+
     ENTITY_PROPERTIES,
     AIR_TICKS,
     CUSTOM_NAME,
@@ -167,4 +168,5 @@ public enum MetadataMeaning {
     FUSE_TIME,
     IS_CHILD,
     IS_VILLAGER;
+
 }
