@@ -33,6 +33,8 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     protected boolean flying;
     protected boolean allowFlying;
     protected boolean instantBreak;
+    protected float flyingSpeed;
+    protected float walkSpeed;
     protected Queue<ChunkBuffer> lookAtChunk = new ConcurrentLinkedQueue<>();
 
     public Player(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, String name, SocketAddress socketAddress, ProtocolVersion protocolVersion, int ping, SkinParts skinParts, float absorptionHearts, int score, Optional<String> playerListName, GameMode gameMode, GameProfile gameProfile) {
@@ -131,6 +133,22 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
 
     public void setInstantBreak(boolean instantBreak) {
         this.instantBreak = instantBreak;
+    }
+
+    public float getFlyingSpeed() {
+        return flyingSpeed;
+    }
+
+    public void setFlyingSpeed(float flyingSpeed) {
+        this.flyingSpeed = flyingSpeed;
+    }
+
+    public float getWalkSpeed() {
+        return walkSpeed;
+    }
+
+    public void setWalkSpeed(float walkSpeed) {
+        this.walkSpeed = walkSpeed;
     }
 
     public abstract void sendPlayerInfo(PlayerInfoBuilder playerInfoBuilder);
