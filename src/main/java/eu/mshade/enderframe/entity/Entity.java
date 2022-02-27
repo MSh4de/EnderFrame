@@ -4,13 +4,14 @@ import eu.mshade.enderframe.EnderFrame;
 import eu.mshade.enderframe.EnderFrameSession;
 import eu.mshade.enderframe.EnderFrameSessionHandler;
 import eu.mshade.enderframe.event.*;
+import eu.mshade.enderframe.metadata.MetadataMeaning;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Entity {
-
 
     protected Location beforeLocation;
     protected Location location;
@@ -28,6 +29,9 @@ public abstract class Entity {
     protected boolean invulnerable;
     protected UUID uuid;
     protected EntityType entityType;
+    protected Queue<Entity> lookAtEntity = new ConcurrentLinkedQueue<>();
+    protected Queue<Entity> watchedEntity = new ConcurrentLinkedQueue<>();
+    protected Set<MetadataMeaning> metadataMeanings = new HashSet<>();
 
     public Entity(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType) {
         this.beforeLocation = beforeLocation;
@@ -48,11 +52,11 @@ public abstract class Entity {
         this.entityType = entityType;
     }
 
-    public Location getBeforeLocation(){
+    public Location getBeforeLocation() {
         return this.beforeLocation;
     }
 
-    public Location getLocation(){
+    public Location getLocation() {
         return this.location;
     }
 
@@ -113,110 +117,154 @@ public abstract class Entity {
      */
 
 
-    public Vector getVelocity(){
+    public Vector getVelocity() {
         return this.velocity;
     }
 
-    public void setVelocity(Vector velocity){
+    public void setVelocity(Vector velocity) {
         this.velocity = velocity;
     }
 
-    public int getEntityId(){
+    public int getEntityId() {
         return this.entityId;
     }
 
-    public boolean isFire(){
+    public boolean isFire() {
         return this.fire;
     }
 
-   public void setFire(boolean fire){
+    public void setFire(boolean fire) {
         this.fire = fire;
-   }
+    }
 
-   public boolean isSneaking(){
+    public boolean isSneaking() {
         return this.sneaking;
-   }
+    }
 
-   public void setSneaking(boolean sneaking){
+    public void setSneaking(boolean sneaking) {
         this.sneaking = sneaking;
-   }
+    }
 
-   public boolean isSprinting(){
+    public boolean isSprinting() {
         return this.sprinting;
-   }
+    }
 
-   public void setSprinting(boolean sprinting){
+    public void setSprinting(boolean sprinting) {
         this.sprinting = sprinting;
-   }
+    }
 
-   public boolean isEating(){
+    public boolean isEating() {
         return this.eating;
-   }
+    }
 
-   public void setEating(boolean eating){
+    public void setEating(boolean eating) {
         this.eating = eating;
-   }
+    }
 
-   public boolean isInvisible(){
+    public boolean isInvisible() {
         return this.invisible;
-   }
+    }
 
-   public void setInvisible(boolean invisible){
+    public void setInvisible(boolean invisible) {
         this.invisible = invisible;
-   }
+    }
 
-   public short getAirTicks(){
+    public short getAirTicks() {
         return this.airTicks;
-   }
+    }
 
-    public void setAirTicks(short airTicks){
+    public void setAirTicks(short airTicks) {
         this.airTicks = airTicks;
     }
 
-   public String getCustomName(){
+    public String getCustomName() {
         return this.customName;
-   }
+    }
 
-   public void setCustomName(String customName){
+    public void setCustomName(String customName) {
         this.customName = customName;
-   }
+    }
 
-   public boolean isCustomNameVisible(){
+    public boolean isCustomNameVisible() {
         return this.customNameVisible;
-   }
+    }
 
-   public void setCustomNameVisible(boolean customNameVisible){
+    public void setCustomNameVisible(boolean customNameVisible) {
         this.customNameVisible = customNameVisible;
-   }
+    }
 
-   public boolean isSilent(){
-       return this.silent;
-   }
+    public boolean isSilent() {
+        return this.silent;
+    }
 
-   public void setSilent(boolean silent){
+    public void setSilent(boolean silent) {
         this.silent = silent;
-   }
+    }
 
-   public void setInvulnerable(boolean invulnerable){
+    public void setInvulnerable(boolean invulnerable) {
         this.invulnerable = invulnerable;
-   }
+    }
 
-   public boolean isInvulnerable(){
+    public boolean isInvulnerable() {
         return this.invulnerable;
-   }
+    }
 
-   public UUID getUniqueId(){
+    public UUID getUniqueId() {
         return this.uuid;
-   }
+    }
 
-   public EntityType getEntityType(){
+    public EntityType getEntityType() {
         return this.entityType;
-   }
+    }
+
+    public Collection<Entity> getLookAtEntity() {
+        return lookAtEntity;
+    }
+
+    public void addLookAtEntity(Entity... entities) {
+        this.lookAtEntity.addAll(Arrays.asList(entities));
+    }
+
+    public void removeLookAtEntity(Entity... entities) {
+        this.lookAtEntity.removeAll(Arrays.asList(entities));
+    }
+
+    public boolean containsLookAtEntity(Entity entity) {
+        return this.lookAtEntity.contains(entity);
+    }
+
+
+    public Collection<Entity> getWatchedEntity() {
+        return watchedEntity;
+    }
+
+    public void addWatchedEntity(Entity... entities) {
+        this.lookAtEntity.addAll(List.of(entities));
+    }
+
+    public void removeWatchedEntity(Entity... entities) {
+        this.lookAtEntity.removeAll(List.of(entities));
+    }
+
+    public boolean containsWatchedEntity(Entity entity) {
+        return this.watchedEntity.contains(entity);
+    }
+
+    public void addMetadataMeaning(MetadataMeaning... metadataMeanings){
+        this.metadataMeanings.addAll(List.of(metadataMeanings));
+    }
+
+    public void removeMetadataMeaning(MetadataMeaning... metadataMeanings){
+        this.metadataMeanings.removeAll(List.of(metadataMeanings));
+    }
+
+    public Collection<MetadataMeaning> getMetadataMeanings(){
+        return this.metadataMeanings;
+    }
 
 
 
-
-    /*
+   /*
 
     public Set<Player> getViewers() {
             return viewers;
