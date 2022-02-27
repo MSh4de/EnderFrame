@@ -10,10 +10,12 @@ import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.protocol.ProtocolVersion;
 import eu.mshade.enderframe.world.ChunkBuffer;
 import eu.mshade.enderframe.world.Location;
+import eu.mshade.enderframe.world.SectionBuffer;
 import eu.mshade.enderframe.world.Vector;
 
 import java.net.SocketAddress;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Player extends LivingEntity implements ProjectileSource {
 
@@ -28,7 +30,10 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     protected Optional<String> playerListName;
     protected GameMode gameMode;
     protected GameProfile gameProfile;
-    protected Set<Entity> seeEntities = new HashSet<>();
+    protected boolean flying;
+    protected boolean allowFlying;
+    protected boolean instantBreak;
+    protected Queue<ChunkBuffer> lookAtChunk = new ConcurrentLinkedQueue<>();
 
     public Player(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, String name, SocketAddress socketAddress, ProtocolVersion protocolVersion, int ping, SkinParts skinParts, float absorptionHearts, int score, Optional<String> playerListName, GameMode gameMode, GameProfile gameProfile) {
         super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
@@ -104,6 +109,30 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
         this.name = name;
     }
 
+    public boolean isFlying() {
+        return flying;
+    }
+
+    public void setFlying(boolean flying) {
+        this.flying = flying;
+    }
+
+    public boolean isAllowFlying() {
+        return allowFlying;
+    }
+
+    public void setAllowFlying(boolean allowFlying) {
+        this.allowFlying = allowFlying;
+    }
+
+    public boolean isInstantBreak() {
+        return instantBreak;
+    }
+
+    public void setInstantBreak(boolean instantBreak) {
+        this.instantBreak = instantBreak;
+    }
+
     public abstract void sendPlayerInfo(PlayerInfoBuilder playerInfoBuilder);
 
     public abstract void sendMessage(TextComponent textComponent, TextPosition textPosition);
@@ -130,17 +159,11 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
 
     public abstract void removeEntity(Entity... entities);
 
-    public boolean seeEntity(Entity entity){
-        return this.seeEntities.contains(entity);
-    }
-
-    public Collection<Entity> getSeeEntity(){
-        return this.seeEntities;
-    }
-
     public abstract void sendMetadata(Entity entity, MetadataMeaning... metadataMeanings);
 
     public abstract void sendChunk(ChunkBuffer chunkBuffer);
+
+    public abstract void sendSection(SectionBuffer sectionBuffer);
 
     public abstract void sendUnloadChunk(ChunkBuffer chunkBuffer);
 
