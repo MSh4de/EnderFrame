@@ -7,6 +7,7 @@ import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.SkinParts;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
+import eu.mshade.enderframe.protocol.PacketOut;
 import eu.mshade.enderframe.protocol.ProtocolVersion;
 import eu.mshade.enderframe.world.ChunkBuffer;
 import eu.mshade.enderframe.world.Location;
@@ -14,6 +15,7 @@ import eu.mshade.enderframe.world.SectionBuffer;
 import eu.mshade.enderframe.world.Vector;
 
 import java.net.SocketAddress;
+import java.security.PublicKey;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -161,6 +163,8 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
 
     public abstract void disconnect(String message);
 
+    public abstract void teleport(Location location);
+
     public abstract void sendUpdateLocation(Entity entity);
 
     public abstract void sendTeleport(Entity entity);
@@ -194,4 +198,12 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     }
 
     public abstract void sendHeadAndFooter(String header, String footer);
+
+    public abstract void updateAbilities();
+
+    public abstract void sendKeepAlive(int threshold);
+
+    public abstract void sendEncryption(PublicKey publicKey);
+
+    public abstract void sendPacket(PacketOut packetOut);
 }
