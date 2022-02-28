@@ -7,6 +7,7 @@ import eu.mshade.enderframe.metadata.MetadataMeaning;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
+import eu.mshade.enderframe.protocol.PacketOut;
 import eu.mshade.enderframe.protocol.packet.PacketOutPlayerAbilities;
 import eu.mshade.enderframe.protocol.packet.PacketOutPlayerList;
 import eu.mshade.enderframe.world.*;
@@ -38,6 +39,8 @@ public interface EnderFrameSession {
     String getSessionId();
 
     byte[] getVerifyToken();
+
+    void sendPacket(PacketOut packetOut);
 
     Queue<ChunkBuffer> getChunkBuffers();
 
