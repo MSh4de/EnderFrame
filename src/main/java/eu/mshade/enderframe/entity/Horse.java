@@ -10,20 +10,20 @@ public abstract class Horse extends LivingEntity implements Tameable, Ageable {
 
     private boolean hasSaddle;
     private boolean hasChest;
-    private boolean isBred;
-    private boolean isRearing;
+    private boolean bred;
+    private boolean rearing;
     private boolean mouthOpen;
     private HorseType horseType;
     private HorseColor horseColor;
     private HorseStyle horseStyle;
     private HorseArmor horseArmor;
 
-    public Horse(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, boolean hasSaddle, boolean hasChest, boolean isBred, boolean isRearing, boolean mouthOpen, HorseType horseType, HorseColor horseColor, HorseStyle horseStyle, HorseArmor horseArmor) {
+    public Horse(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, boolean hasSaddle, boolean hasChest, boolean bred, boolean rearing, boolean mouthOpen, HorseType horseType, HorseColor horseColor, HorseStyle horseStyle, HorseArmor horseArmor) {
         super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
         this.hasSaddle = hasSaddle;
         this.hasChest = hasChest;
-        this.isBred = isBred;
-        this.isRearing = isRearing;
+        this.bred = bred;
+        this.rearing = rearing;
         this.mouthOpen = mouthOpen;
         this.horseType = horseType;
         this.horseColor = horseColor;
@@ -48,19 +48,19 @@ public abstract class Horse extends LivingEntity implements Tameable, Ageable {
     }
 
     public boolean isBred() {
-        return isBred;
+        return bred;
     }
 
     public void setBred(boolean bred) {
-        isBred = bred;
+        this.bred = bred;
     }
 
     public boolean isRearing() {
-        return isRearing;
+        return rearing;
     }
 
     public void setRearing(boolean rearing) {
-        isRearing = rearing;
+        this.rearing = rearing;
     }
 
     public boolean isMouthOpen() {
