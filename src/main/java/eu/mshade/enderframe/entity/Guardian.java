@@ -7,31 +7,31 @@ import java.util.UUID;
 
 public abstract class Guardian extends LivingEntity {
 
-    protected boolean isElderly;
-    protected boolean isRetractingSpikes;
+    protected boolean elderly;
+    protected boolean retractingSpikes;
     protected int targetEntityId;
 
-    public Guardian(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, boolean isElderly, boolean isRetractingSpikes, int targetEntityId) {
+    public Guardian(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, boolean elderly, boolean retractingSpikes, int targetEntityId) {
         super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
-        this.isElderly = isElderly;
-        this.isRetractingSpikes = isRetractingSpikes;
+        this.elderly = elderly;
+        this.retractingSpikes = retractingSpikes;
         this.targetEntityId = targetEntityId;
     }
 
     public boolean isElderly() {
-        return isElderly;
+        return elderly;
     }
 
     public void setElderly(boolean elderly) {
-        isElderly = elderly;
+        this.elderly = elderly;
     }
 
     public boolean isRetractingSpikes() {
-        return isRetractingSpikes;
+        return retractingSpikes;
     }
 
     public void setRetractingSpikes(boolean retractingSpikes) {
-        isRetractingSpikes = retractingSpikes;
+        this.retractingSpikes = retractingSpikes;
     }
 
     public int getTargetEntityId() {
