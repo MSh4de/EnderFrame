@@ -2,7 +2,11 @@ package eu.mshade.enderframe.metadata;
 
 public enum EntityMetadataType {
 
-    ENTITY_PROPERTIES,
+    CROUCHED,
+    HANDLING,
+    INVISIBLE,
+    ON_FIRE,
+    SPRINTING,
     AIR_TICKS,
     CUSTOM_NAME,
     IS_CUSTOM_NAME_VISIBLE,
@@ -80,7 +84,7 @@ public enum EntityMetadataType {
     HORSE_ARMOR,
     OWNER,
     WOLF_PROPERTIES,
-    ON_FIRE,
+    //BLAZE_ON_FIRE,
     VILLAGER_TYPE,
     HAS_CHEST,
     STRENGTH,
