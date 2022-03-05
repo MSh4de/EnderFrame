@@ -7,29 +7,19 @@ import java.util.UUID;
 
 public abstract class Creeper extends LivingEntity {
 
+    /*
     protected CreeperState creeperState;
     protected boolean powered;
 
-    public Creeper(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, CreeperState creeperState, boolean powered) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
-        this.creeperState = creeperState;
-        this.powered = powered;
+     */
+
+    public Creeper(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.CREEPER);
     }
 
-    public CreeperState getCreeperState() {
-        return creeperState;
+    public Creeper(Location location, int entityId) {
+        this(location, new Vector(), entityId, UUID.randomUUID());
     }
 
-    public void setCreeperState(CreeperState creeperState) {
-        this.creeperState = creeperState;
-    }
-
-    public boolean isPowered() {
-        return powered;
-    }
-
-    public void setPowered(boolean powered) {
-        this.powered = powered;
-    }
 
 }
