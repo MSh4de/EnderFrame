@@ -17,5 +17,5 @@ public abstract class Blaze extends LivingEntity {
     public Blaze(Location location, int entityId) {
         super(location, new Vector(), entityId, UUID.randomUUID(), EntityType.BLAZE);
     }
-  
+
 }
