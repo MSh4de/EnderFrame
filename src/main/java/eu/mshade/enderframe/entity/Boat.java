@@ -7,29 +7,20 @@ import java.util.UUID;
 
 public abstract class Boat extends Entity implements Damageable {
 
+    /*
     protected int lastHit;
     protected int forwardDirection;
 
-    public Boat(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, int lastHit, int forwardDirection) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType);
-        this.lastHit = lastHit;
-        this.forwardDirection = forwardDirection;
+     */
+
+    public Boat(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.BOAT);
     }
 
-    public int getLastHit() {
-        return lastHit;
+    public Boat(Location location, int entityId) {
+        this(location, new Vector(), entityId, UUID.randomUUID());
     }
 
-    public void setLastHit(int lastHit) {
-        this.lastHit = lastHit;
-    }
 
-    public int getForwardDirection() {
-        return forwardDirection;
-    }
-
-    public void setForwardDirection(int forwardDirection) {
-        this.forwardDirection = forwardDirection;
-    }
 
 }
