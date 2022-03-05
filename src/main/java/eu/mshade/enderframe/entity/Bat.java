@@ -7,18 +7,14 @@ import java.util.UUID;
 
 public abstract class Bat extends LivingEntity {
 
-    protected boolean hanging;
+    //protected boolean hanging;
 
-    public Bat(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, boolean hanging) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
-        this.hanging = hanging;
+    public Bat(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.BAT);
     }
 
-    public boolean isHanging() {
-        return hanging;
+    public Bat(Location location, int entityId) {
+        this(location, new Vector(), entityId, UUID.randomUUID());
     }
 
-    public void setHanging(boolean isHanging) {
-        this.hanging = isHanging;
-    }
 }
