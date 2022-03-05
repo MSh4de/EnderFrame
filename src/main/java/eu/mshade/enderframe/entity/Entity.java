@@ -1,10 +1,7 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.EnderFrame;
-import eu.mshade.enderframe.EnderFrameSession;
-import eu.mshade.enderframe.EnderFrameSessionHandler;
-import eu.mshade.enderframe.event.*;
-import eu.mshade.enderframe.metadata.MetadataMeaning;
+import eu.mshade.enderframe.metadata.EntityMetadataBucket;
+import eu.mshade.enderframe.metadata.EntityMetadataType;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 
@@ -17,37 +14,17 @@ public abstract class Entity {
     protected Location location;
     protected Vector velocity;
     protected int entityId;
-    protected boolean fire;
-    protected boolean sneaking;
-    protected boolean sprinting;
-    protected boolean eating;
-    protected boolean invisible;
-    protected short airTicks;
-    protected String customName;
-    protected boolean customNameVisible;
-    protected boolean silent;
-    protected boolean invulnerable;
+    protected EntityMetadataBucket entityMetadataBucket = new EntityMetadataBucket();
     protected UUID uuid;
     protected EntityType entityType;
     protected Queue<Entity> lookAtEntity = new ConcurrentLinkedQueue<>();
     protected Queue<Entity> watchedEntity = new ConcurrentLinkedQueue<>();
-    protected Set<MetadataMeaning> metadataMeanings = new HashSet<>();
 
-    public Entity(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType) {
-        this.beforeLocation = beforeLocation;
+    public Entity(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
+        this.beforeLocation = location.clone();
         this.location = location;
         this.velocity = velocity;
         this.entityId = entityId;
-        this.fire = fire;
-        this.sneaking = sneaking;
-        this.sprinting = sprinting;
-        this.eating = eating;
-        this.invisible = invisible;
-        this.airTicks = airTicks;
-        this.customName = customName;
-        this.customNameVisible = customNameVisible;
-        this.silent = silent;
-        this.invulnerable = invulnerable;
         this.uuid = uuid;
         this.entityType = entityType;
     }
@@ -64,6 +41,7 @@ public abstract class Entity {
         this.beforeLocation = this.location.clone();
         this.location = location;
     }
+
 
     /*
     public void teleport(Location location) {
@@ -129,86 +107,6 @@ public abstract class Entity {
         return this.entityId;
     }
 
-    public boolean isFire() {
-        return this.fire;
-    }
-
-    public void setFire(boolean fire) {
-        this.fire = fire;
-    }
-
-    public boolean isSneaking() {
-        return this.sneaking;
-    }
-
-    public void setSneaking(boolean sneaking) {
-        this.sneaking = sneaking;
-    }
-
-    public boolean isSprinting() {
-        return this.sprinting;
-    }
-
-    public void setSprinting(boolean sprinting) {
-        this.sprinting = sprinting;
-    }
-
-    public boolean isEating() {
-        return this.eating;
-    }
-
-    public void setEating(boolean eating) {
-        this.eating = eating;
-    }
-
-    public boolean isInvisible() {
-        return this.invisible;
-    }
-
-    public void setInvisible(boolean invisible) {
-        this.invisible = invisible;
-    }
-
-    public short getAirTicks() {
-        return this.airTicks;
-    }
-
-    public void setAirTicks(short airTicks) {
-        this.airTicks = airTicks;
-    }
-
-    public String getCustomName() {
-        return this.customName;
-    }
-
-    public void setCustomName(String customName) {
-        this.customName = customName;
-    }
-
-    public boolean isCustomNameVisible() {
-        return this.customNameVisible;
-    }
-
-    public void setCustomNameVisible(boolean customNameVisible) {
-        this.customNameVisible = customNameVisible;
-    }
-
-    public boolean isSilent() {
-        return this.silent;
-    }
-
-    public void setSilent(boolean silent) {
-        this.silent = silent;
-    }
-
-    public void setInvulnerable(boolean invulnerable) {
-        this.invulnerable = invulnerable;
-    }
-
-    public boolean isInvulnerable() {
-        return this.invulnerable;
-    }
-
     public UUID getUniqueId() {
         return this.uuid;
     }
@@ -250,21 +148,11 @@ public abstract class Entity {
         return this.watchedEntity.contains(entity);
     }
 
-    public void addMetadataMeaning(MetadataMeaning... metadataMeanings){
-        this.metadataMeanings.addAll(List.of(metadataMeanings));
+    public EntityMetadataBucket getEntityMetadataBucket() {
+        return entityMetadataBucket;
     }
 
-    public void removeMetadataMeaning(MetadataMeaning... metadataMeanings){
-        this.metadataMeanings.removeAll(List.of(metadataMeanings));
-    }
-
-    public Collection<MetadataMeaning> getMetadataMeanings(){
-        return this.metadataMeanings;
-    }
-
-
-
-   /*
+    /*
 
     public Set<Player> getViewers() {
             return viewers;
