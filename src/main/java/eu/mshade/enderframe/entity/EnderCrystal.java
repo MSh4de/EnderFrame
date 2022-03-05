@@ -7,18 +7,18 @@ import java.util.UUID;
 
 public abstract class EnderCrystal extends Entity {
 
+    /*
     protected int health;
 
-    public EnderCrystal(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, int health) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType);
-        this.health = health;
+     */
+
+    public EnderCrystal(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.END_CRYSTAL);
     }
 
-    public int getHealth(){
-        return this.health;
+    public EnderCrystal(Location location, int entityId) {
+        this(location, new Vector(), entityId, UUID.randomUUID());
     }
 
-    public void setHealth(int health){
-        this.health = health;
-    }
+
 }
