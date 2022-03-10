@@ -7,7 +7,12 @@ import java.util.UUID;
 
 public abstract class MagmaCube extends Slime{
 
-    public MagmaCube(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, byte size) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai, size);
+
+    public MagmaCube(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.MAGMA_CUBE);
+    }
+
+    public MagmaCube(Location location, int entityId) {
+        super(location, entityId, EntityType.MAGMA_CUBE);
     }
 }
