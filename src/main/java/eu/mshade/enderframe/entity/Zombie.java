@@ -7,29 +7,27 @@ import java.util.UUID;
 
 public abstract class Zombie extends LivingEntity implements Ageable {
 
+    public Zombie(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
+        super(location, velocity, entityId, uuid, entityType);
+    }
 
+    public Zombie(Location location, int entityId, EntityType entityType) {
+        super(location, entityId, entityType);
+    }
+
+    public Zombie(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.ZOMBIE);
+    }
+
+    public Zombie(Location location, int entityId) {
+        super(location, entityId, EntityType.ZOMBIE);
+    }
+
+    /*
     protected boolean isVillager;
     protected boolean isConverting;
 
-    public Zombie(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, boolean isVillager, boolean isConverting) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
-        this.isVillager = isVillager;
-        this.isConverting = isConverting;
-    }
+     */
 
-    public boolean isVillager() {
-        return this.isVillager;
-    }
 
-    public void setVillager(boolean isVillager) {
-        this.isVillager = isVillager;
-    }
-
-    public boolean isConverting() {
-        return this.isConverting;
-    }
-
-    public void setConverting(boolean isConverting) {
-        this.isConverting = isConverting;
-    }
 }
