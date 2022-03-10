@@ -8,29 +8,20 @@ import java.util.UUID;
 
 public abstract class Sheep extends LivingEntity implements Ageable {
 
+    /*
     protected Color sheepColor;
     protected boolean sheared;
 
-    public Sheep(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, Color sheepColor, boolean sheared) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
-        this.sheepColor = sheepColor;
-        this.sheared = sheared;
+     */
+
+    public Sheep(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.SHEEP);
     }
 
-    public Color getSheepColor() {
-        return sheepColor;
+    public Sheep(Location location, int entityId) {
+        super(location, entityId, EntityType.SHEEP);
     }
 
-    public void setSheepColor(Color sheepColor) {
-        this.sheepColor = sheepColor;
-    }
 
-    public boolean isSheared() {
-        return sheared;
-    }
-
-    public void setSheared(boolean sheared) {
-        this.sheared = sheared;
-    }
 
 }
