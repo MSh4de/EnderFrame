@@ -7,19 +7,30 @@ import java.util.UUID;
 
 public abstract class Slime extends LivingEntity{
 
+    public Slime(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
+        super(location, velocity, entityId, uuid, entityType);
+    }
+
+    public Slime(Location location, int entityId, EntityType entityType) {
+        super(location, entityId, entityType);
+    }
+
+    public Slime(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.SLIME);
+    }
+
+    public Slime(Location location, int entityId) {
+        super(location, entityId, EntityType.SLIME);
+    }
+
+
+
+
+    /*
     protected byte size;
 
-    public Slime(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, byte size) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
-        this.size = size;
-    }
+     */
 
-    public byte getSize() {
-        return this.size;
-    }
 
-    public void setSize(byte size) {
-        this.size = size;
-    }
 
 }
