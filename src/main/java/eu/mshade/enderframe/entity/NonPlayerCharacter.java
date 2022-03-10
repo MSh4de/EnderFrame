@@ -13,8 +13,12 @@ import java.util.UUID;
 
 public abstract class NonPlayerCharacter extends Player{
 
-    public NonPlayerCharacter(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, String name, SocketAddress socketAddress, ProtocolVersion protocolVersion, int ping, SkinParts skinParts, float absorptionHearts, int score, Optional<String> playerListName, GameMode gameMode, GameProfile gameProfile) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai, name, socketAddress, protocolVersion, ping, skinParts, absorptionHearts, score, playerListName, gameMode, gameProfile);
+
+    public NonPlayerCharacter(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.NO_PLAYER_CHARACTER);
     }
 
+    public NonPlayerCharacter(Location location, int entityId) {
+        super(location, entityId, EntityType.NO_PLAYER_CHARACTER);
+    }
 }
