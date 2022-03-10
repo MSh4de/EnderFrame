@@ -8,8 +8,14 @@ import java.util.UUID;
 
 public abstract class Firework extends Entity {
 
-    public Firework(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType);
+
+    public Firework(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.FIREWORK_ROCKET);
+    }
+
+
+    public Firework(Location location, int entityId) {
+        super(location, new Vector(), entityId, UUID.randomUUID(), EntityType.FIREWORK_ROCKET);
     }
 
 
