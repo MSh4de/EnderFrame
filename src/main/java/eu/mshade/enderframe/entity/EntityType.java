@@ -87,7 +87,7 @@ public enum EntityType {
     SKELETON_HORSE,
     SLIME(Slime.class),
     SMALL_FIREBALL,
-    SNOW_GOLEM(Snowman.class),
+    SNOWMAN(Snowman.class),
     SNOWBALL,
     SPECTRAL_ARROW,
     SPIDER(Spider.class),
@@ -116,6 +116,7 @@ public enum EntityType {
     ZOMBIE_VILLAGER,
     ZOMBIFIED_PIGLIN,
     PLAYER(Player.class),
+    NO_PLAYER_CHARACTER(),
     FISHING_BOOBER;
 
     private Class<? extends Entity> clazz;
