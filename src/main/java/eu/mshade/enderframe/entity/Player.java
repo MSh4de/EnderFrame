@@ -2,7 +2,7 @@ package eu.mshade.enderframe.entity;
 
 import eu.mshade.enderframe.GameMode;
 import eu.mshade.enderframe.PlayerInfoBuilder;
-import eu.mshade.enderframe.metadata.MetadataMeaning;
+import eu.mshade.enderframe.metadata.EntityMetadataType;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.SkinParts;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
@@ -39,19 +39,22 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     protected float walkSpeed;
     protected Queue<ChunkBuffer> lookAtChunks = new ConcurrentLinkedQueue<>();
 
-    public Player(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, String name, SocketAddress socketAddress, ProtocolVersion protocolVersion, int ping, SkinParts skinParts, float absorptionHearts, int score, Optional<String> playerListName, GameMode gameMode, GameProfile gameProfile) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
-        this.name = name;
-        this.socketAddress = socketAddress;
-        this.protocolVersion = protocolVersion;
-        this.ping = ping;
-        this.skinParts = skinParts;
-        this.absorptionHearts = absorptionHearts;
-        this.score = score;
-        this.playerListName = playerListName;
-        this.gameMode = gameMode;
-        this.gameProfile = gameProfile;
+    public Player(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
+        super(location, velocity, entityId, uuid, entityType);
     }
+
+    public Player(Location location, int entityId, EntityType entityType) {
+        super(location, entityId, entityType);
+    }
+
+    public Player(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.PLAYER);
+    }
+
+    public Player(Location location, int entityId) {
+        super(location, entityId, EntityType.PLAYER);
+    }
+
 
     public String getName(){
         return this.name;
@@ -181,7 +184,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
 
     public abstract void removeEntity(Entity... entities);
 
-    public abstract void sendMetadata(Entity entity, MetadataMeaning... metadataMeanings);
+    public abstract void sendMetadata(Entity entity, EntityMetadataType... entityMetadataTypes);
 
     public abstract void sendChunk(ChunkBuffer chunkBuffer);
 
