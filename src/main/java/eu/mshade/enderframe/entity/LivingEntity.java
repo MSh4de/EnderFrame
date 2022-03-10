@@ -20,4 +20,10 @@ public abstract class LivingEntity extends Entity {
     public LivingEntity(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
         super(location, velocity, entityId, uuid, entityType);
     }
+
+    public LivingEntity(Location location, int entityId, EntityType entityType) {
+        super(location, entityId, entityType);
+    }
+
+
 }
