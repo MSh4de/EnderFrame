@@ -29,6 +29,10 @@ public abstract class Entity {
         this.entityType = entityType;
     }
 
+    public Entity(Location location, int entityId, EntityType entityType) {
+        this(location, new Vector(), entityId, UUID.randomUUID(), entityType);
+    }
+
     public Location getBeforeLocation() {
         return this.beforeLocation;
     }
