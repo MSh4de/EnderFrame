@@ -7,18 +7,19 @@ import java.util.UUID;
 
 public abstract class IronGolem extends LivingEntity {
 
+    /*
     private boolean playerCreated;
 
-    public IronGolem(Location beforeLocation, Location location, Vector velocity, int entityId, boolean fire, boolean sneaking, boolean sprinting, boolean eating, boolean invisible, short airTicks, String customName, boolean customNameVisible, boolean silent, boolean invulnerable, UUID uuid, EntityType entityType, float health, int potionEffectColor, boolean potionEffectAmbient, byte numberOfArrowInEntity, boolean ai, boolean playerCreated) {
-        super(beforeLocation, location, velocity, entityId, fire, sneaking, sprinting, eating, invisible, airTicks, customName, customNameVisible, silent, invulnerable, uuid, entityType, health, potionEffectColor, potionEffectAmbient, numberOfArrowInEntity, ai);
-        this.playerCreated = playerCreated;
+     */
+    public IronGolem(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.IRON_GOLEM);
     }
 
-    public boolean isPlayerCreated() {
-        return this.playerCreated;
+    public IronGolem(Location location, int entityId) {
+        super(location, entityId, EntityType.IRON_GOLEM);
     }
 
-    public void setPlayerCreated(boolean isPlayerCreated) {
-        this.playerCreated = isPlayerCreated;
-    }
+
+
+
 }
