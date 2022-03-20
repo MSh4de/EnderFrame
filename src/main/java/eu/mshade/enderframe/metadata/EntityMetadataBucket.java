@@ -1,29 +1,27 @@
 package eu.mshade.enderframe.metadata;
 
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.*;
+public abstract class EntityMetadataController {
 
-public class EntityMetadataBucket {
+    private Map<EntityMetadataType, EntityMetadataBuffer> entityMetadataBufferByType = new HashMap<>();
+    private Map<EntityMetadataType, Integer> indexEntityMetadataByType = new HashMap<>();
 
-    private final Map<EntityMetadataType, EntityMetadata<?>> entityMetadataByType = new HashMap<>();
 
-
-    public <T> EntityMetadata<T> getEntityMetadata(EntityMetadataType entityMetadataType){
-        return (EntityMetadata<T>) this.entityMetadataByType.get(entityMetadataType);
+    public void registerEntityMetadata(int index, EntityMetadataBuffer entityMetadataBuffer, EntityMetadataType... entityMetadataTypes){
+        for (EntityMetadataType entityMetadataType : entityMetadataTypes) {
+            this.entityMetadataBufferByType.put(entityMetadataType, entityMetadataBuffer);
+            this.indexEntityMetadataByType.put(entityMetadataType, index);
+        }
     }
 
-    public void setEntityMetadata(EntityMetadata<?> entityMetadata){
-        this.entityMetadataByType.put(entityMetadata.getEntityMetadataType(), entityMetadata);
+    public int getIndexEntityMetadata(EntityMetadataType entityMetadataType){
+        return this.indexEntityMetadataByType.get(entityMetadataType);
     }
 
-    public boolean hasEntityMetadata(EntityMetadataType entityMetadataType){
-        return this.entityMetadataByType.containsKey(entityMetadataType);
+    public EntityMetadataBuffer getEntityMetadataBuffer(EntityMetadataType entityMetadataType){
+        return this.entityMetadataBufferByType.get(entityMetadataType);
     }
-
-    public Collection<EntityMetadata<?>> getEntityMetadata(){
-        return this.entityMetadataByType.values();
-    }
-
-
 
 }
