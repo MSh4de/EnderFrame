@@ -1,6 +1,6 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.metadata.EntityMetadataBucket;
+import eu.mshade.enderframe.metadata.EntityMetadata;
 import eu.mshade.enderframe.metadata.EntityMetadataType;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
@@ -14,7 +14,7 @@ public abstract class Entity {
     protected Location location;
     protected Vector velocity;
     protected int entityId;
-    protected EntityMetadataBucket entityMetadataBucket = new EntityMetadataBucket();
+    protected final Map<EntityMetadataType, EntityMetadata<?>> entityMetadataByType = new HashMap<>();
     protected UUID uuid;
     protected EntityType entityType;
     protected Queue<Entity> lookAtEntity = new ConcurrentLinkedQueue<>();
@@ -152,8 +152,24 @@ public abstract class Entity {
         return this.watchedEntity.contains(entity);
     }
 
-    public EntityMetadataBucket getEntityMetadataBucket() {
-        return entityMetadataBucket;
+    public <T> EntityMetadata<T> getEntityMetadata(EntityMetadataType entityMetadataType){
+        return (EntityMetadata<T>) this.entityMetadataByType.get(entityMetadataType);
+    }
+
+    public void setEntityMetadata(EntityMetadata<?> entityMetadata){
+        this.entityMetadataByType.put(entityMetadata.getEntityMetadataType(), entityMetadata);
+    }
+
+    public boolean hasEntityMetadata(EntityMetadataType entityMetadataType){
+        return this.entityMetadataByType.containsKey(entityMetadataType);
+    }
+
+    public <T> EntityMetadata<T> getEntityMetadataOrDefault(EntityMetadataType entityMetadataType, EntityMetadata<T> t){
+        return (EntityMetadata<T>) this.entityMetadataByType.getOrDefault(entityMetadataType, t);
+    }
+
+    public Collection<EntityMetadata<?>> getEntityMetadata(){
+        return this.entityMetadataByType.values();
     }
 
     /*
