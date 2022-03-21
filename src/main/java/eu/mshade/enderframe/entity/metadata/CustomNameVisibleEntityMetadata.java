@@ -19,6 +19,6 @@ public class CustomNameVisibleEntityMetadata implements EntityMetadata<Boolean> 
 
     @Override
     public EntityMetadataType getEntityMetadataType() {
-        return EntityMetadataType.IS_CUSTOM_NAME_VISIBLE;
+        return EntityMetadataType.CUSTOM_NAME_VISIBLE;
     }
 }
