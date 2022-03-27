@@ -3,22 +3,10 @@ package eu.mshade.enderframe.entity.metadata;
 import eu.mshade.enderframe.metadata.EntityMetadata;
 import eu.mshade.enderframe.metadata.EntityMetadataType;
 
-public class PotionEffectAmbientEntityMetadata implements EntityMetadata<Boolean> {
+public class PotionEffectAmbientEntityMetadata extends EntityMetadata<Boolean> {
 
-    private boolean potionEffectAmbient;
-
-    @Override
-    public void set(Boolean aBoolean) {
-        this.potionEffectAmbient = aBoolean;
+    public PotionEffectAmbientEntityMetadata(Boolean aBoolean) {
+        super(aBoolean, EntityMetadataType.POTION_EFFECT_AMBIENT);
     }
 
-    @Override
-    public Boolean get() {
-        return this.potionEffectAmbient;
-    }
-
-    @Override
-    public EntityMetadataType getEntityMetadataType() {
-        return EntityMetadataType.POTION_EFFECT_AMBIENT;
-    }
 }

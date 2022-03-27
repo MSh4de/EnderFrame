@@ -3,22 +3,12 @@ package eu.mshade.enderframe.entity.metadata;
 import eu.mshade.enderframe.metadata.EntityMetadata;
 import eu.mshade.enderframe.metadata.EntityMetadataType;
 
-public class HandlingEntityMetadata implements EntityMetadata<Boolean> {
+public class HandlingEntityMetadata extends EntityMetadata<Boolean> {
 
-    private boolean handling = false;
+    public static HandlingEntityMetadata DEFAULT = new HandlingEntityMetadata(false);
 
-    @Override
-    public void set(Boolean aBoolean) {
-        this.handling = aBoolean;
+    public HandlingEntityMetadata(Boolean aBoolean) {
+        super(aBoolean, EntityMetadataType.HANDLING);
     }
 
-    @Override
-    public Boolean get() {
-        return this.handling;
-    }
-
-    @Override
-    public EntityMetadataType getEntityMetadataType() {
-        return EntityMetadataType.HANDLING;
-    }
 }

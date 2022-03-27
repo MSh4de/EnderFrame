@@ -3,22 +3,10 @@ package eu.mshade.enderframe.entity.metadata;
 import eu.mshade.enderframe.metadata.EntityMetadata;
 import eu.mshade.enderframe.metadata.EntityMetadataType;
 
-public class CustomNameEntityMetadata implements EntityMetadata<String> {
+public class CustomNameEntityMetadata extends EntityMetadata<String> {
 
-    private String customName;
-
-    @Override
-    public void set(String s) {
-        this.customName = s;
+    public CustomNameEntityMetadata(String s) {
+        super(s, EntityMetadataType.CUSTOM_NAME);
     }
 
-    @Override
-    public String get() {
-        return this.customName;
-    }
-
-    @Override
-    public EntityMetadataType getEntityMetadataType() {
-        return EntityMetadataType.CUSTOM_NAME;
-    }
 }

@@ -3,22 +3,10 @@ package eu.mshade.enderframe.entity.metadata;
 import eu.mshade.enderframe.metadata.EntityMetadata;
 import eu.mshade.enderframe.metadata.EntityMetadataType;
 
-public class SilentEntityMetadata implements EntityMetadata<Boolean> {
+public class SilentEntityMetadata extends EntityMetadata<Boolean> {
 
-    private boolean silent;
-
-    @Override
-    public void set(Boolean aBoolean) {
-        this.silent = aBoolean;
+    public SilentEntityMetadata(Boolean aBoolean) {
+        super(aBoolean, EntityMetadataType.SILENT);
     }
 
-    @Override
-    public Boolean get() {
-        return silent;
-    }
-
-    @Override
-    public EntityMetadataType getEntityMetadataType() {
-        return EntityMetadataType.SILENT;
-    }
 }

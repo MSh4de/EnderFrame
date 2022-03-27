@@ -3,22 +3,12 @@ package eu.mshade.enderframe.entity.metadata;
 import eu.mshade.enderframe.metadata.EntityMetadata;
 import eu.mshade.enderframe.metadata.EntityMetadataType;
 
-public class SprintingEntityMetadata implements EntityMetadata<Boolean> {
+public class SprintingEntityMetadata extends EntityMetadata<Boolean> {
 
-    private boolean sprinting = false;
+    public static SprintingEntityMetadata DEFAULT = new SprintingEntityMetadata(false);
 
-    @Override
-    public void set(Boolean aBoolean) {
-        this.sprinting = aBoolean;
+    public SprintingEntityMetadata(Boolean aBoolean) {
+        super(aBoolean, EntityMetadataType.SPRINTING);
     }
 
-    @Override
-    public Boolean get() {
-        return this.sprinting;
-    }
-
-    @Override
-    public EntityMetadataType getEntityMetadataType() {
-        return EntityMetadataType.SPRINTING;
-    }
 }

@@ -3,22 +3,12 @@ package eu.mshade.enderframe.entity.metadata;
 import eu.mshade.enderframe.metadata.EntityMetadata;
 import eu.mshade.enderframe.metadata.EntityMetadataType;
 
-public class CrouchedEntityMetadata implements EntityMetadata<Boolean> {
+public class CrouchedEntityMetadata extends EntityMetadata<Boolean> {
 
-    private boolean crouched = false;
+    public static CrouchedEntityMetadata DEFAULT = new CrouchedEntityMetadata(false);
 
-    @Override
-    public void set(Boolean aBoolean) {
-        this.crouched = aBoolean;
+    public CrouchedEntityMetadata(Boolean aBoolean) {
+        super(aBoolean, EntityMetadataType.CROUCHED);
     }
 
-    @Override
-    public Boolean get() {
-        return this.crouched;
-    }
-
-    @Override
-    public EntityMetadataType getEntityMetadataType() {
-        return EntityMetadataType.CROUCHED;
-    }
 }
