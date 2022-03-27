@@ -1,11 +1,24 @@
 package eu.mshade.enderframe.metadata;
 
-public interface EntityMetadata<T> {
+public abstract class EntityMetadata<T> {
 
-    void set(T t);
+    private T t;
+    private EntityMetadataType entityMetadataType;
 
-    T get();
+    public EntityMetadata(T t, EntityMetadataType entityMetadataType) {
+        this.t = t;
+        this.entityMetadataType = entityMetadataType;
+    }
 
-    EntityMetadataType getEntityMetadataType();
+    public T get() {
+        return t;
+    }
 
+    public void set(T t) {
+        this.t = t;
+    }
+
+    public EntityMetadataType getEntityMetadataType() {
+        return entityMetadataType;
+    }
 }
