@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.packetevent;
 
 import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.mojang.SkinParts;
+import eu.mshade.enderframe.mojang.SkinPart;
 
 public class PacketClientSettingsEvent implements PacketEvent {
 
@@ -10,15 +10,15 @@ public class PacketClientSettingsEvent implements PacketEvent {
     private final byte viewDistance;
     private final byte chatMode;
     private final boolean chatColors;
-    private final SkinParts skinParts;
+    private final SkinPart skinPart;
 
-    public PacketClientSettingsEvent(Player player, String locale, byte viewDistance, byte chatMode, boolean chatColors, SkinParts skinParts) {
+    public PacketClientSettingsEvent(Player player, String locale, byte viewDistance, byte chatMode, boolean chatColors, SkinPart skinPart) {
         this.player = player;
         this.locale = locale;
         this.viewDistance = viewDistance;
         this.chatMode = chatMode;
         this.chatColors = chatColors;
-        this.skinParts = skinParts;
+        this.skinPart = skinPart;
     }
 
     public Player getPlayer() {
@@ -41,8 +41,8 @@ public class PacketClientSettingsEvent implements PacketEvent {
         return chatColors;
     }
 
-    public SkinParts getDisplayedSkinParts() {
-        return skinParts;
+    public SkinPart getDisplayedSkinParts() {
+        return skinPart;
     }
 
 
