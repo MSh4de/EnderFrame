@@ -6,16 +6,14 @@ import java.util.Map;
 
 public abstract class EntityMetadataBucket {
 
-    private Map<EntityMetadataType, EntityMetadataBuffer<?>> entityMetadataBufferByType = new HashMap<>();
+    private Map<EntityMetadataType, EntityMetadataWrapper<?>> entityMetadataBufferByType = new HashMap<>();
     private Map<EntityMetadataType, Integer> indexEntityMetadataByType = new HashMap<>();
-    private Map<EntityMetadataType, MetadataType> metadataTypeByEntityMetadataType = new HashMap<>();
 
 
-    public void registerEntityMetadata(int index,  MetadataType metadataType, EntityMetadataBuffer<?> entityMetadataBuffer, EntityMetadataType... entityMetadataTypes){
+    public void registerEntityMetadata(int index, EntityMetadataWrapper<?> entityMetadataWrapper, EntityMetadataType... entityMetadataTypes){
         for (EntityMetadataType entityMetadataType : entityMetadataTypes) {
-            this.entityMetadataBufferByType.put(entityMetadataType, entityMetadataBuffer);
+            this.entityMetadataBufferByType.put(entityMetadataType, entityMetadataWrapper);
             this.indexEntityMetadataByType.put(entityMetadataType, index);
-            this.metadataTypeByEntityMetadataType.put(entityMetadataType, metadataType);
         }
     }
 
@@ -23,12 +21,8 @@ public abstract class EntityMetadataBucket {
         return this.indexEntityMetadataByType.get(entityMetadataType);
     }
 
-    public EntityMetadataBuffer getEntityMetadataBuffer(EntityMetadataType entityMetadataType){
+    public EntityMetadataWrapper getEntityMetadataBuffer(EntityMetadataType entityMetadataType){
         return this.entityMetadataBufferByType.get(entityMetadataType);
-    }
-
-    public MetadataType getMetadataType(EntityMetadataType entityMetadataType){
-        return this.metadataTypeByEntityMetadataType.get(entityMetadataType);
     }
 
     public Collection<EntityMetadataType> getEntityMetadataTypes(){
