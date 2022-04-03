@@ -4,7 +4,7 @@ import eu.mshade.enderframe.GameMode;
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.metadata.EntityMetadataType;
 import eu.mshade.enderframe.mojang.GameProfile;
-import eu.mshade.enderframe.mojang.SkinParts;
+import eu.mshade.enderframe.mojang.SkinPart;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.protocol.PacketOut;
@@ -26,7 +26,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     protected SocketAddress socketAddress;
     protected ProtocolVersion protocolVersion;
     protected int ping;
-    protected SkinParts skinParts;
+    protected SkinPart skinPart;
     protected float absorptionHearts;
     protected int score;
     protected Optional<String> playerListName;
@@ -80,8 +80,8 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
         this.ping = ping;
     }
 
-    public SkinParts getSkinParts(){
-        return this.skinParts;
+    public SkinPart getSkinParts(){
+        return this.skinPart;
     }
 
     public float getAbsorptionHearts(){
