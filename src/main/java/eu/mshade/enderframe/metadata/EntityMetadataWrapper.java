@@ -3,8 +3,8 @@ package eu.mshade.enderframe.metadata;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.protocol.ByteMessage;
 
-public interface EntityMetadataBuffer<T extends Entity> {
+public interface EntityMetadataWrapper<T extends Entity> {
 
-    void write(ByteMessage byteMessage, T t);
+    Metadata<?> wrap(T t);
 
 }
