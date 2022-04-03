@@ -1,6 +1,6 @@
 package eu.mshade.enderframe.mojang;
 
-public class SkinParts {
+public class SkinPart {
 
     private boolean cape;
     private boolean jacket;
@@ -10,7 +10,7 @@ public class SkinParts {
     private boolean rightPantsLeg;
     private boolean hat;
 
-    public SkinParts(boolean cape, boolean jacket, boolean leftSleeve, boolean rightSleeve, boolean leftPantsLeg, boolean rightPantsLeg, boolean hat) {
+    public SkinPart(boolean cape, boolean jacket, boolean leftSleeve, boolean rightSleeve, boolean leftPantsLeg, boolean rightPantsLeg, boolean hat) {
         this.cape = cape;
         this.jacket = jacket;
         this.leftSleeve = leftSleeve;
@@ -24,7 +24,7 @@ public class SkinParts {
         return cape;
     }
 
-    public SkinParts setCape(boolean cape) {
+    public SkinPart setCape(boolean cape) {
         this.cape = cape;
         return this;
     }
@@ -33,7 +33,7 @@ public class SkinParts {
         return jacket;
     }
 
-    public SkinParts setJacket(boolean jacket) {
+    public SkinPart setJacket(boolean jacket) {
         this.jacket = jacket;
         return this;
     }
@@ -42,7 +42,7 @@ public class SkinParts {
         return leftSleeve;
     }
 
-    public SkinParts setLeftSleeve(boolean leftSleeve) {
+    public SkinPart setLeftSleeve(boolean leftSleeve) {
         this.leftSleeve = leftSleeve;
         return this;
     }
@@ -51,7 +51,7 @@ public class SkinParts {
         return rightSleeve;
     }
 
-    public SkinParts setRightSleeve(boolean rightSleeve) {
+    public SkinPart setRightSleeve(boolean rightSleeve) {
         this.rightSleeve = rightSleeve;
         return this;
     }
@@ -60,7 +60,7 @@ public class SkinParts {
         return leftPantsLeg;
     }
 
-    public SkinParts setLeftPantsLeg(boolean leftPantsLeg) {
+    public SkinPart setLeftPantsLeg(boolean leftPantsLeg) {
         this.leftPantsLeg = leftPantsLeg;
         return this;
     }
@@ -69,7 +69,7 @@ public class SkinParts {
         return rightPantsLeg;
     }
 
-    public SkinParts setRightPantsLeg(boolean rightPantsLeg) {
+    public SkinPart setRightPantsLeg(boolean rightPantsLeg) {
         this.rightPantsLeg = rightPantsLeg;
         return this;
     }
@@ -78,13 +78,13 @@ public class SkinParts {
         return hat;
     }
 
-    public SkinParts setHat(boolean hat) {
+    public SkinPart setHat(boolean hat) {
         this.hat = hat;
         return this;
     }
 
 
-    public static SkinParts fromByte(byte b) {
+    public static SkinPart fromByte(byte b) {
 
         boolean cape = b == (byte) (b | 0x01);
 
@@ -100,7 +100,7 @@ public class SkinParts {
 
         boolean hat = b == (byte) (b | 0x40);
 
-        return new SkinParts(cape, jacket, leftSleeve, rightSleeve, leftPantsLeg, rightPantsLeg, hat);
+        return new SkinPart(cape, jacket, leftSleeve, rightSleeve, leftPantsLeg, rightPantsLeg, hat);
     }
 
     public byte toByte() {
