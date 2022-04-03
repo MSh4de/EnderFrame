@@ -3,10 +3,7 @@ package eu.mshade.enderframe.protocol;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.item.ItemStack;
-import eu.mshade.enderframe.item.Material;
-import eu.mshade.enderframe.metadata.MetadataEntry;
-import eu.mshade.enderframe.metadata.MetadataMeaning;
-import eu.mshade.enderframe.mojang.chat.TextComponent;
+import eu.mshade.enderframe.metadata.EntityMetadataType;
 import eu.mshade.enderframe.world.BlockPosition;
 import eu.mshade.mwork.MWork;
 import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag;
@@ -99,7 +96,7 @@ public abstract class ByteMessage extends ByteBuf {
         buf.writeLong(uuid.getLeastSignificantBits());
     }
 
-    public abstract void writeMetadata(Entity entity, MetadataMeaning metadataMeaning);
+    public abstract void writeEntityMetadata(Entity entity, EntityMetadataType entityMetadataType);
 
     public abstract void writeItemStack(ItemStack itemStack);
 
