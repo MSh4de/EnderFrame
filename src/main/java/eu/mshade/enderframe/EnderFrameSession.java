@@ -2,8 +2,7 @@ package eu.mshade.enderframe;
 
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.packetevent.PacketMoveType;
-import eu.mshade.enderframe.metadata.MetadataMeaning;
+import eu.mshade.enderframe.metadata.EntityMetadataType;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
@@ -13,11 +12,9 @@ import eu.mshade.enderframe.protocol.packet.PacketOutPlayerList;
 import eu.mshade.enderframe.world.*;
 
 import java.net.SocketAddress;
-import java.nio.ByteBuffer;
 import java.security.PublicKey;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public interface EnderFrameSession {
@@ -151,7 +148,7 @@ public interface EnderFrameSession {
     }
 
 
-    void sendMetadata(Entity entity, MetadataMeaning... metadataMeanings);
+    void sendMetadata(Entity entity, EntityMetadataType... entityMetadataTypes);
 
     void removeEntities(Entity... entity);
 
