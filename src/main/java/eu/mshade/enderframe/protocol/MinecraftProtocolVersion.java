@@ -3,7 +3,7 @@ package eu.mshade.enderframe.protocol;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ProtocolVersion {
+public enum MinecraftProtocolVersion {
 
     UNKNOWN(-1),
     V1_8(47),
@@ -36,19 +36,19 @@ public enum ProtocolVersion {
 
     private int protocolVersion;
 
-    private final static Map<Integer, ProtocolVersion> MAP = new HashMap<>();
+    private final static Map<Integer, MinecraftProtocolVersion> MAP = new HashMap<>();
 
-    ProtocolVersion(int protocolVersion) {
+    MinecraftProtocolVersion(int protocolVersion) {
         this.protocolVersion = protocolVersion;
     }
 
     static {
-        for (ProtocolVersion protocolVersion : ProtocolVersion.values()) {
-            MAP.put(protocolVersion.getProtocolVersion(), protocolVersion);
+        for (MinecraftProtocolVersion minecraftProtocolVersion : MinecraftProtocolVersion.values()) {
+            MAP.put(minecraftProtocolVersion.getProtocolVersion(), minecraftProtocolVersion);
         }
     }
 
-    public static ProtocolVersion getProtocolVersion(int number){
+    public static MinecraftProtocolVersion getProtocolVersion(int number){
         return MAP.getOrDefault(number, UNKNOWN);
     }
 
