@@ -1,10 +1,10 @@
 package eu.mshade.enderframe.world;
 
-public interface SectionBuffer {
+public interface Section {
 
     int getY();
 
-    ChunkBuffer getChunkBuffer();
+    Chunk getChunkBuffer();
 
     int getRealBlock();
 
