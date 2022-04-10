@@ -1,18 +1,16 @@
 package eu.mshade.enderframe.world;
 
 
-import eu.mshade.enderframe.EnderFrameSession;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
 import java.util.Queue;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
-public interface ChunkBuffer {
+public interface Chunk {
 
     int getX();
 
@@ -22,9 +20,9 @@ public interface ChunkBuffer {
 
     Queue<Player> getViewers();
 
-    WorldBuffer getWorldBuffer();
+    World getWorldBuffer();
 
-    SectionBuffer[] getSectionBuffers();
+    Section[] getSectionBuffers();
 
     AtomicLong getHealth();
 
