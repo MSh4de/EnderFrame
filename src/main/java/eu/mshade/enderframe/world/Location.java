@@ -4,18 +4,18 @@ import java.util.Objects;
 
 public class Location implements Cloneable {
 
-    private final WorldBuffer world;
+    private final World world;
     private double x;
     private double y;
     private double z;
     private float yaw;
     private float pitch;
 
-    public Location(WorldBuffer world, double x, double y, double z) {
+    public Location(World world, double x, double y, double z) {
         this(world, x, y, z, 0, 0);
     }
 
-    public Location(WorldBuffer world, double x, double y, double z, float yaw, float pitch) {
+    public Location(World world, double x, double y, double z, float yaw, float pitch) {
         this.world = world;
         this.x = x;
         this.y = y;
@@ -24,7 +24,7 @@ public class Location implements Cloneable {
         this.pitch = pitch;
     }
 
-    public WorldBuffer getWorld() {
+    public World getWorld() {
         return world;
     }
 
@@ -126,7 +126,7 @@ public class Location implements Cloneable {
         return getBlockZ() >> 4;
     }
 
-    public ChunkBuffer getChunkBuffer(){
+    public Chunk getChunkBuffer(){
         return world.getChunkBuffer(getChunkX(), getChunkZ());
     }
 
