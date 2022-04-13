@@ -1,169 +1,156 @@
 package eu.mshade.enderframe;
 
-import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.metadata.EntityMetadataType;
 import eu.mshade.enderframe.mojang.GameProfile;
-import eu.mshade.enderframe.mojang.chat.TextComponent;
-import eu.mshade.enderframe.mojang.chat.TextPosition;
-import eu.mshade.enderframe.protocol.PacketOut;
-import eu.mshade.enderframe.protocol.packet.PacketOutPlayerAbilities;
-import eu.mshade.enderframe.protocol.packet.PacketOutPlayerList;
-import eu.mshade.enderframe.world.*;
+import eu.mshade.enderframe.packetevent.PacketQuitEvent;
+import eu.mshade.enderframe.protocol.*;
+import eu.mshade.enderframe.protocol.temp.TempEnderFrameProtocol;
+import eu.mshade.mwork.ParameterContainer;
+import io.netty.channel.*;
 
+import javax.crypto.SecretKey;
 import java.net.SocketAddress;
-import java.security.PublicKey;
-import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.Collectors;
+import java.util.Random;
 
-public interface EnderFrameSession {
+public class EnderFrameSession extends ChannelInboundHandlerAdapter {
 
-    Player getPlayer();
+    private static final Random random = new Random();
 
-    void setPlayer(Player player);
+    private final Channel channel;
+    private final String sessionId;
+    private final byte[] verifyToken = new byte[4];
+    private GameProfile gameProfile;
+    private SocketAddress socketAddress;
+    private EnderFrameProtocol enderFrameProtocol = TempEnderFrameProtocol.getInstance();
+    private ProtocolStatus protocolStatus = ProtocolStatus.HANDSHAKE;
+    private MinecraftProtocolVersion minecraftProtocolVersion = MinecraftProtocolVersion.UNKNOWN;
+    private Player player;
+    private Handshake handshake;
+    private final ParameterContainer eventContainer = ParameterContainer.of()
+            .putContainer(this);
 
-    int getEntityId();
-
-    GameProfile getGameProfile();
-
-    void setGameProfile(GameProfile gameProfile);
-
-    SocketAddress getSocketAddress();
-
-    void setSocketAddress(SocketAddress socketAddress);
-
-    String getSessionId();
-
-    byte[] getVerifyToken();
-
-    void sendPacket(PacketOut packetOut);
-
-    Queue<ChunkBuffer> getChunkBuffers();
-
-    void sendKeepAlive(int threshold);
-
-    void sendEncryption(PublicKey publicKey);
-
-    void sendCompression(int threshold);
-
-    void sendLoginSuccess();
-
-    void sendPlayerInfo(PlayerInfoBuilder playerInfoBuilder);
-
-    void sendJoinGame(GameMode gameMode, Dimension dimension, Difficulty difficulty, int maxPlayers, LevelType levelType, boolean reducedDebugInfo);
-
-    default void sendAbilities(boolean invulnerable, boolean flying, boolean allowFlying, boolean instantBreak, float flyingSpeed, float walkSpeed) {
-        getPlayer().getEnderFrameSessionHandler().sendPacket(new PacketOutPlayerAbilities(invulnerable, flying, allowFlying, instantBreak, flyingSpeed, walkSpeed));
+    public EnderFrameSession(Channel channel) {
+        this.channel = channel;
+        this.sessionId = Long.toString(random.nextLong(), 16).trim();
+        this.socketAddress = channel.remoteAddress();
+        random.nextBytes(verifyToken);
     }
 
-    void sendPosition(double x, double y, double z);
-
-    void sendPosition(double x, double y, double z, float yaw, float pitch);
-
-    default void sendPosition(Location location) {
-        sendPosition(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        super.channelActive(ctx);
     }
 
-    default void sendPosition(Position position) {
-        sendPosition(position.getX(), position.getY(), position.getZ(), position.getYaw(), position.getYaw());
-    }
-
-    void sendMessage(TextComponent textComponent, TextPosition position);
-
-    default void sendMessage(String message) {
-        sendMessage(TextComponent.of(message), TextPosition.CHAT);
-    }
-
-    void sendDisconnect(String message);
-
-    void sendChunk(ChunkBuffer chunkBuffer);
-
-    void sendUnloadChunk(ChunkBuffer chunkBuffer);
-
-    default void sendPlayerList(String header, String footer) {
-        getPlayer().getEnderFrameSessionHandler().sendPacket(new PacketOutPlayerList(header, footer));
-    }
-
-    default void sendSquareChunk(int radius, int chunkX, int chunkZ, WorldBuffer worldBuffer) {
-        Queue<ChunkBuffer> result = new ConcurrentLinkedQueue<>();
-        Queue<ChunkBuffer> chunksLoad = new ConcurrentLinkedQueue<>();
-        int rSquared = radius * radius;
-
-        for (int x = chunkX - radius; x <= chunkX + radius; x++) {
-            for (int z = chunkZ - radius; z <= chunkZ + radius; z++) {
-                if ((chunkX - x) * (chunkX - x) + (chunkZ - z) * (chunkZ - z) <= rSquared) {
-                    ChunkBuffer chunkBuffer = worldBuffer.getChunkBuffer(x, z);
-                    result.add(chunkBuffer);
-                    if (!getChunkBuffers().contains(chunkBuffer)) {
-                        chunksLoad.add(chunkBuffer);
-                    }
-
-                }
-            }
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        if (protocolStatus == ProtocolStatus.PLAY) {
+            EnderFrame.get().getPacketEventBus().publish(new PacketQuitEvent(enderFrameSession));
         }
-        Queue<ChunkBuffer> overFlowChunk = new ConcurrentLinkedQueue<>();
-        for (ChunkBuffer chunkBuffer : getChunkBuffers()) {
-            if (!result.contains(chunkBuffer)) {
-                sendUnloadChunk(chunkBuffer);
-                overFlowChunk.add(chunkBuffer);
-            }
-        }
+    }
 
-        chunksLoad.forEach(this::sendChunk);
-        Player player = getPlayer();
-        Set<Entity> entities = new HashSet<>();
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        if (msg instanceof PacketIn) enderFrameProtocol.getEventBus().publish((PacketIn) msg, eventContainer);
+    }
 
-        for (int x = chunkX - 5; x <= chunkX + 5; x++) {
-            for (int z = chunkZ - 5; z <= chunkZ + 5; z++) {
-                if ((chunkX - x) * (chunkX - x) + (chunkZ - z) * (chunkZ - z) <= 5*5) {
-                    ChunkBuffer chunkBuffer = worldBuffer.getChunkBuffer(x, z);
-                    entities.addAll(chunkBuffer.getEntities());
-                    chunkBuffer.getViewers().stream().filter(target -> !target.equals(player)).forEach(entities::add);
-                }
-            }
-        }
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+    }
 
-        Set<Entity> collect = entities.stream().filter(entity -> entity.getLocation().distanceXZ(player.getLocation()) <= 80).collect(Collectors.toSet());
+    public GameProfile getGameProfile() {
+        return gameProfile;
+    }
 
-        for (Entity entity : collect) {
-            System.out.println(entity);
-            System.out.println(entity.getViewers().contains(player));
-            if (!entity.getViewers().contains(player)) {
-                if (entity instanceof Player){
-                    player.addViewer((Player) entity);
-                }
-                entity.addViewer(player);
-            }
-        }
+    public void setGameProfile(GameProfile gameProfile) {
+        this.gameProfile = gameProfile;
+    }
 
-        /*
-        entities.stream().filter(entity -> !collect.contains(entity)).forEach(entity -> {
-            entity.removeViewer(player);
-            if (entity instanceof Player) player.removeViewer((Player) entity);
-        });
+    public SocketAddress getSocketAddress() {
+        return socketAddress;
+    }
 
-         */
+    public void setSocketAddress(SocketAddress socketAddress) {
+        this.socketAddress = socketAddress;
+    }
 
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public byte[] getVerifyToken() {
+        return verifyToken;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public void sendPacket(PacketOut packet) {
+        if (isConnected())
+            channel.writeAndFlush(packet);
+    }
+
+    public void sendPacketAndClose(PacketOut packet) {
+        if (isConnected())
+            channel.writeAndFlush(packet).addListener(ChannelFutureListener.CLOSE);
+    }
+
+    public void toggleEnderFrameProtocol(EnderFrameProtocol enderFrameProtocol){
+        this.enderFrameProtocol = enderFrameProtocol;
+        this.channel.flush();
+        channel.pipeline().get(PacketCodec.class).toggleProtocolFrame(enderFrameProtocol);
+    }
+
+    public EnderFrameProtocol getEnderFrameProtocol() { return enderFrameProtocol; }
+
+    public void toggleProtocolStatus(ProtocolStatus protocolStatus){
+        this.protocolStatus = protocolStatus;
+        channel.pipeline().get(PacketCodec.class).toggleProtocolStatus(protocolStatus);
+    }
+
+    public void enableEncryption(SecretKey sharedSecret) {
+        updatePipeline("encryption", new PacketEncryption(sharedSecret));
+    }
+
+    public void enableCompression(int threshold){
+        updatePipeline("compression", new PacketCompression(threshold));
+    }
+
+    private void updatePipeline(String key, ChannelHandler handler) {
+        this.channel.pipeline().replace(key, key, handler);
     }
 
 
-    void sendMetadata(Entity entity, EntityMetadataType... entityMetadataTypes);
+    public Channel getChannel() {
+        return channel;
+    }
 
-    void removeEntities(Entity... entity);
+    public ProtocolStatus getProtocolStatus() { return protocolStatus; }
 
-    <T extends Entity> void sendEntity(T entity);
+    public MinecraftProtocolVersion getProtocolVersion() {
+        return minecraftProtocolVersion;
+    }
 
-    void sendTeleport(Entity entity);
+    public EnderFrameSession setProtocolVersion(MinecraftProtocolVersion minecraftProtocolVersion) {
+        this.minecraftProtocolVersion = minecraftProtocolVersion;
+        return this;
+    }
 
-    void sendMove(Entity entity);
+    public Handshake getHandshake() {
+        return handshake;
+    }
 
-    void sendMoveAndLook(Entity entity);
+    public EnderFrameSession setHandshake(Handshake handshake) {
+        this.handshake = handshake;
+        return this;
+    }
 
-    void sendLook(Entity entity);
-
-    void sendHeadLook(Entity entity);
-
-    void moveTo(Entity entity);
-
+    public boolean isConnected() {
+        return channel.isActive();
+    }
 }
