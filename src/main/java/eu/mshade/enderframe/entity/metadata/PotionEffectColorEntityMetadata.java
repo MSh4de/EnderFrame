@@ -1,12 +1,12 @@
 package eu.mshade.enderframe.entity.metadata;
 
-import eu.mshade.enderframe.metadata.EntityMetadata;
-import eu.mshade.enderframe.metadata.EntityMetadataType;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 
-public class PotionEffectColorEntityMetadata extends EntityMetadata<Integer> {
+public class PotionEffectColorEntityMetadata extends EntityMetadataKeyValue<Integer> {
 
     public PotionEffectColorEntityMetadata(Integer integer) {
-        super(integer, EntityMetadataType.POTION_EFFECT_COLOR);
+        super(EntityMetadataKey.POTION_EFFECT_COLOR, integer);
     }
 
 }

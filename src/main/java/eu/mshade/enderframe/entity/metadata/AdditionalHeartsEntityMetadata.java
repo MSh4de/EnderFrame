@@ -1,11 +1,13 @@
 package eu.mshade.enderframe.entity.metadata;
 
-import eu.mshade.enderframe.metadata.EntityMetadata;
-import eu.mshade.enderframe.metadata.EntityMetadataType;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 
-public class AdditionalHeartsEntityMetadata extends EntityMetadata<Float> {
+public class AdditionalHeartsEntityMetadata extends EntityMetadataKeyValue<Float> {
 
     public AdditionalHeartsEntityMetadata(Float aFloat) {
-        super(aFloat, EntityMetadataType.ADDITIONAL_HEARTS);
+        super(EntityMetadataKey.ADDITIONAL_HEARTS, aFloat);
+
+
     }
 }

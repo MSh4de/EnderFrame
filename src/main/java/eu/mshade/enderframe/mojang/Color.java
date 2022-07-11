@@ -1,11 +1,5 @@
 package eu.mshade.enderframe.mojang;
 
-import java.awt.*;
-import java.beans.ConstructorProperties;
-import java.awt.image.ColorModel;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.color.ColorSpace;
 import java.util.Map;
 
 public class Color {

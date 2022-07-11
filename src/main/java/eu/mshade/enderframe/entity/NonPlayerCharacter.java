@@ -7,7 +7,6 @@ import java.util.UUID;
 
 public abstract class NonPlayerCharacter extends Player{
 
-
     public NonPlayerCharacter(Location location, Vector velocity, int entityId, UUID uuid) {
         super(location, velocity, entityId, uuid, EntityType.NO_PLAYER_CHARACTER);
     }

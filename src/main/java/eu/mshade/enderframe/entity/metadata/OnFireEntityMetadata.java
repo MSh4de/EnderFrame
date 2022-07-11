@@ -1,14 +1,14 @@
 package eu.mshade.enderframe.entity.metadata;
 
-import eu.mshade.enderframe.metadata.EntityMetadata;
-import eu.mshade.enderframe.metadata.EntityMetadataType;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 
-public class OnFireEntityMetadata extends EntityMetadata<Boolean> {
+public class OnFireEntityMetadata extends EntityMetadataKeyValue<Boolean> {
 
     public static OnFireEntityMetadata DEFAULT = new OnFireEntityMetadata(false);
 
     public OnFireEntityMetadata(Boolean aBoolean) {
-        super(aBoolean, EntityMetadataType.ON_FIRE);
+        super(EntityMetadataKey.ON_FIRE, aBoolean);
     }
 
 }

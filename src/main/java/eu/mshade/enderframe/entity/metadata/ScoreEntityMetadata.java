@@ -1,11 +1,11 @@
 package eu.mshade.enderframe.entity.metadata;
 
-import eu.mshade.enderframe.metadata.EntityMetadata;
-import eu.mshade.enderframe.metadata.EntityMetadataType;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 
-public class ScoreEntityMetadata extends EntityMetadata<Integer> {
+public class ScoreEntityMetadata extends EntityMetadataKeyValue<Integer> {
 
     public ScoreEntityMetadata(Integer integer) {
-        super(integer, EntityMetadataType.SCORE);
+        super(EntityMetadataKey.SCORE, integer);
     }
 }

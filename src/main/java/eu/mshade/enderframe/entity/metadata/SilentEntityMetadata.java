@@ -1,12 +1,12 @@
 package eu.mshade.enderframe.entity.metadata;
 
-import eu.mshade.enderframe.metadata.EntityMetadata;
-import eu.mshade.enderframe.metadata.EntityMetadataType;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 
-public class SilentEntityMetadata extends EntityMetadata<Boolean> {
+public class SilentEntityMetadata extends EntityMetadataKeyValue<Boolean> {
 
     public SilentEntityMetadata(Boolean aBoolean) {
-        super(aBoolean, EntityMetadataType.SILENT);
+        super(EntityMetadataKey.SILENT, aBoolean);
     }
 
 }

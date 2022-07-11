@@ -3,6 +3,8 @@ package eu.mshade.enderframe.world;
 
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
+import eu.mshade.enderframe.item.MaterialKey;
+import eu.mshade.mwork.binarytag.poet.BinaryTagPoet;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -20,19 +22,17 @@ public interface Chunk {
 
     Queue<Player> getViewers();
 
-    World getWorldBuffer();
+    World getWorld();
 
-    Section[] getSectionBuffers();
+    Section[] getSections();
 
     AtomicLong getHealth();
-
-    File getFile();
 
     int getBitMask();
 
     int getBlock(int x, int y, int z);
 
-    void setBlock(int x, int y, int z, int block);
+    void setBlock(int x, int y, int z, MaterialKey block);
 
     byte getBlockLight(int x, int y, int z);
 
@@ -63,5 +63,8 @@ public interface Chunk {
     void removeEntity(Entity entity);
 
     void clearEntities();
+
+
+
 
 }

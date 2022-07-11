@@ -1,14 +1,21 @@
 package eu.mshade.enderframe.entity.metadata;
 
-import eu.mshade.enderframe.metadata.EntityMetadata;
-import eu.mshade.enderframe.metadata.EntityMetadataType;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 
-public class SprintingEntityMetadata extends EntityMetadata<Boolean> {
+public class SprintingEntityMetadata extends EntityMetadataKeyValue<Boolean> {
 
     public static SprintingEntityMetadata DEFAULT = new SprintingEntityMetadata(false);
 
     public SprintingEntityMetadata(Boolean aBoolean) {
-        super(aBoolean, EntityMetadataType.SPRINTING);
+        super(EntityMetadataKey.SPRINTING, aBoolean);
     }
 
+    @Override
+    public String toString() {
+        return "SprintingEntityMetadata{" +
+                "metadataKey=" + metadataKey +
+                ", metadataValue=" + metadataValue +
+                '}';
+    }
 }

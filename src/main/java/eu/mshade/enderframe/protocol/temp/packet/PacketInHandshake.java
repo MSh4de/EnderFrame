@@ -1,11 +1,11 @@
 package eu.mshade.enderframe.protocol.temp.packet;
 
-import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.HandshakeStatus;
-import eu.mshade.enderframe.protocol.PacketIn;
 import eu.mshade.enderframe.protocol.MinecraftProtocolVersion;
+import eu.mshade.enderframe.protocol.PacketIn;
+import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketInHandshake extends PacketIn {
+public class PacketInHandshake implements PacketIn {
 
     private MinecraftProtocolVersion version;
     private String host;
@@ -13,11 +13,11 @@ public class PacketInHandshake extends PacketIn {
     private HandshakeStatus handshakeStatus;
 
     @Override
-    public void deserialize(ByteMessage byteMessage) {
-        this.version = MinecraftProtocolVersion.getProtocolVersion(byteMessage.readVarInt());
-        this.host = byteMessage.readString();
-        this.port = byteMessage.readUnsignedShort();
-        this.handshakeStatus = HandshakeStatus.getHandShakeStatus(byteMessage.readVarInt());
+    public void deserialize(ProtocolBuffer protocolBuffer) {
+        this.version = MinecraftProtocolVersion.getProtocolVersion(protocolBuffer.readVarInt());
+        this.host = protocolBuffer.readString();
+        this.port = protocolBuffer.readUnsignedShort();
+        this.handshakeStatus = HandshakeStatus.getHandShakeStatus(protocolBuffer.readVarInt());
     }
 
     public MinecraftProtocolVersion getVersion() {

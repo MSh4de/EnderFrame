@@ -1,6 +1,5 @@
 package eu.mshade.enderframe.metadata.type;
 
-import eu.mshade.enderframe.metadata.Metadata;
 import eu.mshade.enderframe.metadata.MetadataType;
 import eu.mshade.enderframe.world.BlockPosition;
 

@@ -6,23 +6,23 @@ import java.util.*;
 
 public class ItemStack implements Cloneable {
 
-    private Material material;
+    private MaterialKey material;
     private int count;
     private int durability;
     private boolean unbreakable;
     private TextComponent displayName;
     private List<String> lore = new ArrayList<>();
-    private final Map<Enchantment, Integer> enchantments = new HashMap<>();
+    private final Map<EnchantmentType, Integer> enchantments = new HashMap<>();
     private final Set<ItemFlag> itemFlags = new HashSet<>();
     private final Set<Material> adventureBlocks = new LinkedHashSet<>();
 
-    public ItemStack(Material material, int count, int durability) {
+    public ItemStack(MaterialKey material, int count, int durability) {
         this.material = material;
         this.count = count;
         this.durability = durability;
     }
 
-    public Material getMaterial() {
+    public MaterialKey getMaterial() {
         return material;
     }
 
@@ -54,24 +54,24 @@ public class ItemStack implements Cloneable {
         return !enchantments.isEmpty();
     }
 
-    public boolean hasEnchantment(Enchantment enchantment) {
-        return enchantments.containsKey(enchantment);
+    public boolean hasEnchantment(EnchantmentType enchantmentType) {
+        return enchantments.containsKey(enchantmentType);
     }
 
-    public int getEnchantmentLevel(Enchantment enchantment) {
-        return enchantments.getOrDefault(enchantment, 0);
+    public int getEnchantmentLevel(EnchantmentType enchantmentType) {
+        return enchantments.getOrDefault(enchantmentType, 0);
     }
 
-    public Map<Enchantment, Integer> getEnchantments() {
+    public Map<EnchantmentType, Integer> getEnchantments() {
         return enchantments;
     }
 
-    public void addEnchantment(Enchantment enchantment, int level) {
-        enchantments.put(enchantment, level);
+    public void addEnchantment(EnchantmentType enchantmentType, int level) {
+        enchantments.put(enchantmentType, level);
     }
 
-    public void removeEnchant(Enchantment enchantment) {
-        enchantments.remove(enchantment);
+    public void removeEnchant(EnchantmentType enchantmentType) {
+        enchantments.remove(enchantmentType);
     }
 
     public void addItemFlags(ItemFlag... itemFlags) {
@@ -134,5 +134,20 @@ public class ItemStack implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "ItemStack{" +
+                "material=" + material +
+                ", count=" + count +
+                ", durability=" + durability +
+                ", unbreakable=" + unbreakable +
+                ", displayName=" + displayName +
+                ", lore=" + lore +
+                ", enchantments=" + enchantments +
+                ", itemFlags=" + itemFlags +
+                ", adventureBlocks=" + adventureBlocks +
+                '}';
     }
 }

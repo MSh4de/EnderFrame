@@ -1,6 +1,5 @@
 package eu.mshade.enderframe.protocol;
 
-import eu.mshade.enderframe.EnderFrameProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,18 +10,18 @@ public class ProtocolBundle {
 
     private static ProtocolBundle protocolBundle;
     private final Logger logger = LoggerFactory.getLogger(ProtocolBundle.class);
-    private final Map<MinecraftProtocolVersion, EnderFrameProtocol> protocolBufferByVersion = new HashMap<>();
+    private final Map<MinecraftProtocolVersion, Protocol> protocolBufferByVersion = new HashMap<>();
 
     public ProtocolBundle() {
         protocolBundle = this;
     }
 
-    public void register(EnderFrameProtocol enderFrameProtocol){
-        logger.info(String.format("Register protocol %s", enderFrameProtocol.getMinecraftProtocolVersion()));
-        protocolBufferByVersion.put(enderFrameProtocol.getMinecraftProtocolVersion(), enderFrameProtocol);
+    public void register(Protocol protocol){
+        logger.info(String.format("Register protocol %s", protocol.getMinecraftProtocolVersion()));
+        protocolBufferByVersion.put(protocol.getMinecraftProtocolVersion(), protocol);
     }
 
-    public EnderFrameProtocol getEnderFrameProtocolByVersion(MinecraftProtocolVersion version){
+    public Protocol getEnderFrameProtocolByVersion(MinecraftProtocolVersion version){
         return protocolBufferByVersion.get(version);
     }
 

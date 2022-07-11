@@ -12,15 +12,15 @@ public class BlockPosition {
         this.z = z;
     }
 
-    public Integer getX() {
+    public int getX() {
         return x;
     }
 
-    public Integer getY() {
+    public int getY() {
         return y;
     }
 
-    public Integer getZ() {
+    public int getZ() {
         return z;
     }
 

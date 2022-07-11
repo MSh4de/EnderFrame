@@ -34,6 +34,10 @@ public class Vector implements Cloneable {
         return x;
     }
 
+    public int getBlockX(){
+        return (int) Math.floor(x);
+    }
+
     public Vector setX(double x) {
         this.x = x;
         return this;
@@ -43,6 +47,9 @@ public class Vector implements Cloneable {
         return y;
     }
 
+    public int getBlockY(){
+        return (int) Math.floor(y);
+    }
     public Vector setY(double y) {
         this.y = y;
         return this;
@@ -50,6 +57,10 @@ public class Vector implements Cloneable {
 
     public double getZ() {
         return z;
+    }
+
+    public int getBlockZ(){
+        return (int) Math.floor(z);
     }
 
     public Vector setZ(double z) {

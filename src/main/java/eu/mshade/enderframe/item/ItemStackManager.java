@@ -7,15 +7,14 @@ import java.util.Map;
 
 public abstract class ItemStackManager<T, U> {
 
-    // ?
 
     private Map<Material, T> materialToWrap = new HashMap<>();
     private Map<T, Material> wrapToMaterial = new HashMap<>();
     private Map<Material, ItemStackRewriter> itemStackRewriter = new HashMap<>();
     private Map<Material, NamespacedKey> materialNamespacedMap = new HashMap<>();
     private Map<NamespacedKey, Material> nameSpacedKeyToMaterial = new HashMap<>();
-    private Map<Enchantment, U> enchantmentToWrap = new HashMap<>();
-    private Map<U, Enchantment> wrapToEnchantment = new HashMap<>();
+    private Map<EnchantmentType, U> enchantmentToWrap = new HashMap<>();
+    private Map<U, EnchantmentType> wrapToEnchantment = new HashMap<>();
 
     private ItemStackRewriter defaultItemStackRewriter;
 
@@ -41,9 +40,9 @@ public abstract class ItemStackManager<T, U> {
         }
     }
 
-    public void registerEnchantmentWithWrap(Enchantment enchantment, U wrap) {
-        this.enchantmentToWrap.put(enchantment, wrap);
-        this.wrapToEnchantment.put(wrap, enchantment);
+    public void registerEnchantmentWithWrap(EnchantmentType enchantmentType, U wrap) {
+        this.enchantmentToWrap.put(enchantmentType, wrap);
+        this.wrapToEnchantment.put(wrap, enchantmentType);
     }
 
     public ItemStackRewriter getItemStackRewriterByMaterial(Material material){
@@ -70,11 +69,11 @@ public abstract class ItemStackManager<T, U> {
         return this.nameSpacedKeyToMaterial.get(namespacedKey);
     }
 
-    public U getWrapFromEnchantment(Enchantment enchantment) {
-        return this.enchantmentToWrap.get(enchantment);
+    public U getWrapFromEnchantment(EnchantmentType enchantmentType) {
+        return this.enchantmentToWrap.get(enchantmentType);
     }
 
-    public Enchantment getEnchantmentFromWrap(U wrap){
+    public EnchantmentType getEnchantmentFromWrap(U wrap){
         return this.wrapToEnchantment.get(wrap);
     }
 }

@@ -1,12 +1,7 @@
 package eu.mshade.enderframe.item.entities;
 
-import eu.mshade.enderframe.item.BannerColor;
-import eu.mshade.enderframe.item.ItemStack;
-import eu.mshade.enderframe.item.Material;
-import eu.mshade.enderframe.item.Pattern;
-import eu.mshade.enderframe.mojang.chat.TextComponent;
+import eu.mshade.enderframe.item.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +12,7 @@ public class BannerItemStack extends ItemStack {
     private BannerColor color = BannerColor.YELLOW;
     private final List<Pattern> patterns = new ArrayList<>();
 
-    public BannerItemStack(Material material, int count, int durability) {
+    public BannerItemStack(MaterialKey material, int count, int durability) {
         super(material, count, durability);
     }
 

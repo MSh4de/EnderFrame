@@ -1,16 +1,24 @@
-package eu.mshade.enderframe.metadata;
+package eu.mshade.enderframe.metadata.entity;
 
-public enum EntityMetadataType {
+import eu.mshade.enderframe.metadata.MetadataKey;
 
-    CROUCHED,
-    HANDLING,
-    INVISIBLE,
-    ON_FIRE,
-    SPRINTING,
-    AIR_TICKS,
-    CUSTOM_NAME,
-    CUSTOM_NAME_VISIBLE,
-    SILENT,
+public enum EntityMetadataKey implements MetadataKey {
+
+    CROUCHED(),
+    HANDLING(),
+    INVISIBLE(),
+    ON_FIRE(),
+    SPRINTING(),
+    AIR_TICKS(),
+    CUSTOM_NAME(),
+    CUSTOM_NAME_VISIBLE(),
+    SILENT(),
+    HEALTH(),
+    POTION_EFFECT_COLOR,
+    POTION_EFFECT_AMBIENT,
+    NUMBER_OF_ARROWS_IN_ENTITY,
+    NUMBER_OF_BEE_STRINGERS_IN_ENTITY,
+    WHETHER_ARTIFICIAL_INTELLIGENCE,
     HAS_NO_GRAVITY,
     POSE,
     TICKS_FROZEN_IN_POWDERED_SNOW,
@@ -39,18 +47,12 @@ public enum EntityMetadataType {
     SPLASH_TIMER,
     BEAM_TARGET,
     SHOW_BOTTOM,
-    IS_INVULNERABLE,
+    INVULNERABLE,
     FIREWORK_INFO,
     ENTITY_ID,
     IS_SHOT_AT_ANGLE,
     ROTATION,
     LIVING_ENTITY_PROPERTIES,
-    HEALTH,
-    POTION_EFFECT_COLOR,
-    POTION_EFFECT_AMBIENT,
-    NUMBER_OF_ARROWS_IN_ENTITY,
-    NUMBER_OF_BEE_STRINGERS_IN_ENTITY,
-    WHETHER_ARTIFICIAL_INTELLIGENCE,
     BED_LOCATION,
     ADDITIONAL_HEARTS,
     SCORE,
@@ -176,6 +178,21 @@ public enum EntityMetadataType {
     LAST_OUTPUT,
     FUSE_TIME,
     CHILD,
-    VILLAGER;
+    VILLAGER,
+    FLYING(),
+    ALLOW_FLYING();
+    private String name;
+    EntityMetadataKey(String name) {
+        this.name = name;
+    }
 
+
+    EntityMetadataKey() {
+        this.name = this.name();
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
 }

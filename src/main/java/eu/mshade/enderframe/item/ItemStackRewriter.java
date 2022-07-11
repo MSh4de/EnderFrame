@@ -6,6 +6,6 @@ public interface ItemStackRewriter {
 
     CompoundBinaryTag write(ItemStackManager itemStackManager, ItemStack itemStack);
 
-    ItemStack read(ItemStackManager itemStackManager, Material material, int count, int durability, CompoundBinaryTag compoundBinaryTag);
+    ItemStack read(ItemStackManager itemStackManager, MaterialKey material, int count, int durability, CompoundBinaryTag compoundBinaryTag);
 
 }

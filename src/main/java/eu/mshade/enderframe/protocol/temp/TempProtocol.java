@@ -1,24 +1,19 @@
 package eu.mshade.enderframe.protocol.temp;
 
+import eu.mshade.enderframe.protocol.*;
 import eu.mshade.enderframe.protocol.packet.PacketOutDisconnect;
 import eu.mshade.enderframe.protocol.temp.listener.PacketHandshakeListener;
 import eu.mshade.enderframe.protocol.temp.listener.PacketPingListener;
 import eu.mshade.enderframe.protocol.temp.listener.PacketStatusListener;
 import eu.mshade.enderframe.protocol.temp.packet.*;
-import eu.mshade.enderframe.EnderFrameProtocol;
-import eu.mshade.enderframe.EnderFrameSession;
-import eu.mshade.enderframe.EnderFrameSessionHandler;
-import eu.mshade.enderframe.protocol.ByteMessage;
-import eu.mshade.enderframe.protocol.ProtocolStatus;
-import eu.mshade.enderframe.protocol.ProtocolVersion;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
 
-public class TempEnderFrameProtocol extends EnderFrameProtocol {
 
+public class TempProtocol extends Protocol {
 
-    private static TempEnderFrameProtocol INSTANCE;
-
-    public TempEnderFrameProtocol() {
+    private static TempProtocol INSTANCE;
+    public TempProtocol() {
         INSTANCE = this;
 
         this.getEventBus().subscribe(PacketInHandshake.class, new PacketHandshakeListener());
@@ -35,23 +30,25 @@ public class TempEnderFrameProtocol extends EnderFrameProtocol {
         this.getProtocolRegistry().registerOut(ProtocolStatus.LOGIN, 0x00, PacketOutDisconnect.class);
     }
 
+
     @Override
-    public ByteMessage getByteMessage(ByteBuf byteBuf) {
-        return new TempByteMessage(byteBuf);
+    public ProtocolBuffer getProtocolBuffer(ByteBuf byteBuf) {
+        return new TempProtocolBuffer(byteBuf);
     }
 
     @Override
-    public ProtocolVersion getProtocolVersion() {
-        return ProtocolVersion.UNKNOWN;
+    public SessionWrapper getSessionWrapper(Channel channel) {
+        return new TempSessionWrapper(channel);
     }
 
     @Override
-    public EnderFrameSession getEnderFrameSession(EnderFrameSessionHandler enderFrameSessionHandler) {
-        return null;
+    public MinecraftProtocolVersion getMinecraftProtocolVersion() {
+        return MinecraftProtocolVersion.UNKNOWN;
     }
 
-    public static TempEnderFrameProtocol getInstance(){
-        return (INSTANCE != null ? INSTANCE : new TempEnderFrameProtocol());
+
+    public static TempProtocol getInstance(){
+        return (INSTANCE != null ? INSTANCE : new TempProtocol());
     }
 
 }

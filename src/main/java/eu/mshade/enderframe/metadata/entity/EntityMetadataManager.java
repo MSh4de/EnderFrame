@@ -1,7 +1,9 @@
-package eu.mshade.enderframe.metadata;
+package eu.mshade.enderframe.metadata.entity;
 
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.EntityType;
+import eu.mshade.enderframe.metadata.MetadataBuffer;
+import eu.mshade.enderframe.metadata.MetadataType;
 
 import java.util.HashMap;
 import java.util.Map;

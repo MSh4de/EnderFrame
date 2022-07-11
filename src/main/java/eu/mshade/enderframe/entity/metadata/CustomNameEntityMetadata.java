@@ -1,12 +1,12 @@
 package eu.mshade.enderframe.entity.metadata;
 
-import eu.mshade.enderframe.metadata.EntityMetadata;
-import eu.mshade.enderframe.metadata.EntityMetadataType;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 
-public class CustomNameEntityMetadata extends EntityMetadata<String> {
+public class CustomNameEntityMetadata extends EntityMetadataKeyValue<String> {
 
     public CustomNameEntityMetadata(String s) {
-        super(s, EntityMetadataType.CUSTOM_NAME);
+        super(EntityMetadataKey.CUSTOM_NAME, s);
     }
 
 }

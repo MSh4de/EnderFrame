@@ -1,7 +1,4 @@
-import eu.mshade.enderframe.item.ItemStack;
-import eu.mshade.enderframe.item.ItemStackManager;
-import eu.mshade.enderframe.item.ItemStackRewriter;
-import eu.mshade.enderframe.item.Material;
+import eu.mshade.enderframe.item.*;
 import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag;
 
 public class CommonItemStackRewriter implements ItemStackRewriter {
@@ -15,7 +12,7 @@ public class CommonItemStackRewriter implements ItemStackRewriter {
     }
 
     @Override
-    public ItemStack read(ItemStackManager itemStackManager, Material material, int count, int durability, CompoundBinaryTag compoundBinaryTag) {
+    public ItemStack read(ItemStackManager itemStackManager, MaterialKey material, int count, int durability, CompoundBinaryTag compoundBinaryTag) {
         return null;
     }
 

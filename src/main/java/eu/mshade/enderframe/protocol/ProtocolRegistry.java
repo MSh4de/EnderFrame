@@ -2,7 +2,6 @@ package eu.mshade.enderframe.protocol;
 
 
 import eu.mshade.mwork.MOptional;
-import eu.mshade.mwork.MWork;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

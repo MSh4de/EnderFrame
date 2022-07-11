@@ -1,8 +1,5 @@
 package eu.mshade.enderframe.mojang;
 
-import com.sun.source.util.Plugin;
-
-import java.util.Locale;
 import java.util.UUID;
 
 public class NamespacedKey {

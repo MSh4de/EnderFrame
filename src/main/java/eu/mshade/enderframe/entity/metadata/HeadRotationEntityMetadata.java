@@ -1,13 +1,13 @@
 package eu.mshade.enderframe.entity.metadata;
 
-import eu.mshade.enderframe.metadata.EntityMetadata;
-import eu.mshade.enderframe.metadata.EntityMetadataType;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 import eu.mshade.enderframe.world.Rotation;
 
-public class HeadRotationEntityMetadata extends EntityMetadata<Rotation> {
+public class HeadRotationEntityMetadata extends EntityMetadataKeyValue<Rotation> {
 
     public HeadRotationEntityMetadata(Rotation rotation) {
-        super(rotation, EntityMetadataType.HEAD_ROTATION);
+        super(EntityMetadataKey.HEAD_ROTATION, rotation);
     }
 
 }

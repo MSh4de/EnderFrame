@@ -1,7 +1,5 @@
 package eu.mshade.enderframe.metadata;
 
-import java.util.Map;
-
 public enum Pose {
 
     STANDING(0),

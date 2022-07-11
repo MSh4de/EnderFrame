@@ -19,8 +19,6 @@ public class ByteMetadata implements Metadata<Byte> {
         this(aByte ? 1 : 0);
     }
 
-
-
     @Override
     public Byte get() {
         return aByte;

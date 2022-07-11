@@ -4,17 +4,17 @@ import java.net.InetSocketAddress;
 
 public class Handshake {
 
-    private ProtocolVersion version;
+    private MinecraftProtocolVersion version;
     private InetSocketAddress inetSocketAddress;
     private HandshakeStatus handshakeStatus;
 
-    public Handshake(ProtocolVersion version, InetSocketAddress inetSocketAddress, HandshakeStatus handshakeStatus) {
+    public Handshake(MinecraftProtocolVersion version, InetSocketAddress inetSocketAddress, HandshakeStatus handshakeStatus) {
         this.version = version;
         this.inetSocketAddress = inetSocketAddress;
         this.handshakeStatus = handshakeStatus;
     }
 
-    public ProtocolVersion getVersion() {
+    public MinecraftProtocolVersion getVersion() {
         return version;
     }
 

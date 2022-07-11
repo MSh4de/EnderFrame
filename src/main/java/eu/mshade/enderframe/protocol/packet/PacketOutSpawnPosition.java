@@ -1,19 +1,20 @@
 package eu.mshade.enderframe.protocol.packet;
 
-import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.PacketOut;
+import eu.mshade.enderframe.protocol.ProtocolBuffer;
 import eu.mshade.enderframe.world.BlockPosition;
+import eu.mshade.enderframe.world.Vector;
 
-public class PacketOutSpawnPosition extends PacketOut {
+public class PacketOutSpawnPosition implements PacketOut {
 
-    private BlockPosition blockPosition;
+    private Vector blockPosition;
 
-    public PacketOutSpawnPosition(BlockPosition blockPosition) {
+    public PacketOutSpawnPosition(Vector blockPosition) {
         this.blockPosition = blockPosition;
     }
 
     @Override
-    public void serialize(ByteMessage byteMessage) {
-        byteMessage.writeBlockPosition(blockPosition);
+    public void serialize(ProtocolBuffer protocolBuffer) {
+        protocolBuffer.writeBlockPosition(blockPosition);
     }
 }

@@ -1,8 +1,7 @@
 package eu.mshade.enderframe.protocol;
 
-import eu.mshade.enderframe.EnderFrameProtocol;
-import eu.mshade.enderframe.protocol.temp.TempEnderFrameProtocol;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
 import org.slf4j.Logger;
@@ -12,45 +11,48 @@ import java.util.List;
 
 public class PacketCodec extends MessageToMessageCodec<ByteBuf, PacketOut> {
 
-    private EnderFrameProtocol enderFrameProtocol = new TempEnderFrameProtocol();
-    private ProtocolStatus protocolStatus = ProtocolStatus.HANDSHAKE;
     private static Logger logger = LoggerFactory.getLogger(PacketCodec.class);
 
 
     @Override
     protected void encode(ChannelHandlerContext ctx, PacketOut msg, List<Object> out) throws Exception {
         ByteBuf buffer  = ctx.alloc().buffer();
-            ByteMessage buf = enderFrameProtocol.getByteMessage(buffer);
-            enderFrameProtocol.getProtocolRegistry().getPacketID(protocolStatus, msg).exception(e -> logger.error("",e)).ifPresent(integer -> {
-                buf.writeVarInt(integer);
-                msg.serialize(buf);
-            }).ifNotPresent(unused -> {
-                logger.info(String.format("Undefined outgoing packet of class %s", msg.getClass().getName()));
-            });
+        Channel channel = ctx.channel();
+        ProtocolPipeline protocolPipeline = ProtocolPipeline.get();
+
+        SessionWrapper sessionWrapper = protocolPipeline.getSessionWrapper(channel);
+        Protocol protocol = protocolPipeline.getProtocol(channel);
+        ProtocolBuffer protocolBuffer = protocol.getProtocolBuffer(buffer);
+
+        protocol.getProtocolRegistry().getPacketID(sessionWrapper.getProtocolStatus(), msg).exception(e -> logger.error("",e)).ifPresent(integer -> {
+            protocolBuffer.writeVarInt(integer);
+            msg.serialize(protocolBuffer);
             out.add(buffer);
+        }).ifNotPresent(unused -> {
+            logger.info(String.format("Undefined outgoing packet of class %s", msg.getClass().getName()));
+        });
 
     }
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
-        if (!ctx.channel().isActive()) return;
-        ByteMessage buf = enderFrameProtocol.getByteMessage(msg);
-        int packetId = buf.readVarInt();
-        enderFrameProtocol.getProtocolRegistry().getPacketByID(protocolStatus, packetId).exception(e -> logger.error("",e)).ifPresent(packetIn -> {
-            packetIn.deserialize(buf);
-            out.add(packetIn);
-        }).ifNotPresent(unused -> {
-            logger.info(String.format("Undefined incoming packet: %s", packetId));
-        });
+            if (!ctx.channel().isActive()) return;
+            Channel channel = ctx.channel();
+            ProtocolPipeline protocolPipeline = ProtocolPipeline.get();
 
-    }
+            SessionWrapper sessionWrapper = protocolPipeline.getSessionWrapper(channel);
+            Protocol protocol = protocolPipeline.getProtocol(channel);
+            ProtocolBuffer protocolBuffer = protocol.getProtocolBuffer(msg);
 
-    public void toggleProtocolFrame(EnderFrameProtocol enderFrameProtocol){
-        this.enderFrameProtocol = enderFrameProtocol;
-    }
+            int packetId = protocolBuffer.readVarInt();
 
-    public void toggleProtocolStatus(ProtocolStatus protocolStatus){
-        this.protocolStatus = protocolStatus;
+            protocol.getProtocolRegistry().getPacketByID(sessionWrapper.getProtocolStatus(), packetId).ifPresent(packetIn -> {
+                packetIn.deserialize(protocolBuffer);
+                out.add(packetIn);
+            }).ifNotPresent(unused -> {
+                logger.info(String.format("Undefined incoming packet: %s", packetId));
+            });
+
     }
 
 }

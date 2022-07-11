@@ -1,12 +1,12 @@
 package eu.mshade.enderframe.entity.metadata;
 
-import eu.mshade.enderframe.metadata.EntityMetadata;
-import eu.mshade.enderframe.metadata.EntityMetadataType;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 
-public class CustomNameVisibleEntityMetadata extends EntityMetadata<Boolean> {
+public class CustomNameVisibleEntityMetadata extends EntityMetadataKeyValue<Boolean> {
 
     public CustomNameVisibleEntityMetadata(Boolean aBoolean) {
-        super(aBoolean, EntityMetadataType.CUSTOM_NAME_VISIBLE);
+        super(EntityMetadataKey.CUSTOM_NAME_VISIBLE, aBoolean);
     }
 
 }

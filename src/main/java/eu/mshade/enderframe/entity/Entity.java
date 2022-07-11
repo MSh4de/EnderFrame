@@ -1,28 +1,37 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.metadata.EntityMetadata;
-import eu.mshade.enderframe.metadata.EntityMetadataType;
+import eu.mshade.enderframe.metadata.MetadataKey;
+import eu.mshade.enderframe.metadata.MetadataKeyValue;
+import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
+import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.tick.Tickable;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class Entity {
 
-    protected Location beforeLocation;
-    protected Location location;
+/**
+ * use uuid for create entityID and not create dynamicly
+ */
+
+public abstract class Entity extends Tickable {
+
+    protected Location beforeLocation, location, beforeServerLocation, serverLocation;
     protected Vector velocity;
     protected int entityId;
-    protected final Map<EntityMetadataType, EntityMetadata<?>> entityMetadataByType = new HashMap<>();
     protected UUID uuid;
     protected EntityType entityType;
+    protected final MetadataKeyValueBucket<EntityMetadataKey> metadataKeyValueBucket = new MetadataKeyValueBucket<>();
     protected Queue<Entity> lookAtEntity = new ConcurrentLinkedQueue<>();
     protected Queue<Entity> watchedEntity = new ConcurrentLinkedQueue<>();
 
     public Entity(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
         this.beforeLocation = location.clone();
         this.location = location;
+        this.beforeServerLocation = location.clone();
+        this.serverLocation = location.clone();
         this.velocity = velocity;
         this.entityId = entityId;
         this.uuid = uuid;
@@ -46,6 +55,18 @@ public abstract class Entity {
         this.location = location;
     }
 
+    public Location getBeforeServerLocation() {
+        return beforeServerLocation;
+    }
+
+    public Location getServerLocation() {
+        return serverLocation;
+    }
+
+    public void setServerLocation(Location location) {
+        this.beforeServerLocation = this.serverLocation.clone();
+        this.serverLocation = location;
+    }
 
     /*
     public void teleport(Location location) {
@@ -152,24 +173,8 @@ public abstract class Entity {
         return this.watchedEntity.contains(entity);
     }
 
-    public <T> EntityMetadata<T> getEntityMetadata(EntityMetadataType entityMetadataType){
-        return (EntityMetadata<T>) this.entityMetadataByType.get(entityMetadataType);
-    }
-
-    public void setEntityMetadata(EntityMetadata<?> entityMetadata){
-        this.entityMetadataByType.put(entityMetadata.getEntityMetadataType(), entityMetadata);
-    }
-
-    public boolean hasEntityMetadata(EntityMetadataType entityMetadataType){
-        return this.entityMetadataByType.containsKey(entityMetadataType);
-    }
-
-    public <T> EntityMetadata<T> getEntityMetadataOrDefault(EntityMetadataType entityMetadataType, EntityMetadata<T> t){
-        return (EntityMetadata<T>) this.entityMetadataByType.getOrDefault(entityMetadataType, t);
-    }
-
-    public Collection<EntityMetadata<?>> getEntityMetadata(){
-        return this.entityMetadataByType.values();
+    public MetadataKeyValueBucket<EntityMetadataKey> getMetadataKeyValueBucket() {
+        return metadataKeyValueBucket;
     }
 
     /*

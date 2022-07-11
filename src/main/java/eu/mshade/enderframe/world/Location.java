@@ -126,8 +126,8 @@ public class Location implements Cloneable {
         return getBlockZ() >> 4;
     }
 
-    public Chunk getChunkBuffer(){
-        return world.getChunkBuffer(getChunkX(), getChunkZ());
+    public Chunk getChunk(){
+        return world.getChunk(getChunkX(), getChunkZ());
     }
 
     public boolean compareHeadRotation(Location location) {
