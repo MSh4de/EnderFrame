@@ -9,6 +9,7 @@ public class TextComponentEntry {
     private boolean italic = false;
     private boolean strikethrough = false;
     private boolean obfuscated = false;
+    private boolean underlined;
     private TextClickEvent clickEvent;
 
     private TextComponentEntry() {
@@ -78,6 +79,19 @@ public class TextComponentEntry {
     public TextComponentEntry withClickEvent(TextClickEvent clickEvent) {
         this.clickEvent = clickEvent;
         return this;
+    }
+
+    public String toLegacyText(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(ChatColor.of(getColor()));
+        if (bold) stringBuilder.append(ChatColor.BOLD);
+        if (italic) stringBuilder.append(ChatColor.ITALIC);
+        if (strikethrough) stringBuilder.append(ChatColor.STRIKETHROUGH);
+        if (obfuscated) stringBuilder.append(ChatColor.MAGIC);
+        if (underlined) stringBuilder.append(ChatColor.UNDERLINE);
+        stringBuilder.append(getText());
+
+        return stringBuilder.toString();
     }
 
     @Override

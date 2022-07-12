@@ -10,7 +10,7 @@ public enum AttributeType {
     ZOMBIE_SPAWN_REINFORCEMENTS("zombie.spawnReinforcements", 0, 1);
     
     private final String name;
-    private final double def,max;
+    private final double def, max;
 
     AttributeType(String name, double def, double max) {
         this.name = name;

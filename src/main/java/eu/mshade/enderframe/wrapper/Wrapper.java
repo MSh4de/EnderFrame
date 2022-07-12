@@ -21,6 +21,13 @@ public abstract class Wrapper<I, O> {
         this.outputByInput.put(i, o);
    }
 
+   public void registerInput(I i, O o){
+        this.outputByInput.put(i, o);
+   }
+    public void registerOutput(O o, I i){
+        this.inputByOutput.put(o, i);
+    }
+
    public boolean isSupport(I i){
         return this.outputByInput.containsKey(i);
    }

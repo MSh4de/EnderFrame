@@ -1,10 +1,11 @@
 package eu.mshade.enderframe.metadata.entity;
 
+import eu.mshade.enderframe.metadata.MetadataKey;
 import eu.mshade.enderframe.metadata.MetadataKeyValue;
 
-public class EntityMetadataKeyValue<V> extends MetadataKeyValue<EntityMetadataKey, V> {
+public class EntityMetadataKeyValue<V> extends MetadataKeyValue<MetadataKey, V> {
 
-    public EntityMetadataKeyValue(EntityMetadataKey metadataKey, V metadataValue) {
+    public EntityMetadataKeyValue(MetadataKey metadataKey, V metadataValue) {
         super(metadataKey, metadataValue);
     }
 

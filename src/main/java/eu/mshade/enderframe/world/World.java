@@ -19,13 +19,13 @@ public abstract class World extends Tickable {
     protected final File regionFolder;
     protected final File indicesFolder;
 
-    protected final MetadataKeyValueBucket<WorldMetadataType> metadataKeyValueBucket;
+    protected final MetadataKeyValueBucket metadataKeyValueBucket;
     protected final Map<UUID, Chunk> chunks = new ConcurrentHashMap<>();
     protected final Queue<Entity> entities = new ConcurrentLinkedQueue<>();
     protected ChunkGenerator chunkGenerator;
 
 
-    public World(File worldFolder, MetadataKeyValueBucket<WorldMetadataType> metadataKeyValueBucket) {
+    public World(File worldFolder, MetadataKeyValueBucket metadataKeyValueBucket) {
         this.worldFolder = worldFolder;
         this.regionFolder = new File(worldFolder, "regions");
         this.indicesFolder = new File(worldFolder, "indices");
@@ -33,7 +33,7 @@ public abstract class World extends Tickable {
     }
 
     public World(File worldFolder) {
-        this(worldFolder, new MetadataKeyValueBucket<>());
+        this(worldFolder, new MetadataKeyValueBucket());
     }
 
     public void flushChunk(Chunk chunk){
@@ -92,7 +92,7 @@ public abstract class World extends Tickable {
         return this.chunks.values();
     }
 
-    public MetadataKeyValueBucket<WorldMetadataType> getMetadataKeyValueBucket() {
+    public MetadataKeyValueBucket getMetadataKeyValueBucket() {
         return metadataKeyValueBucket;
     }
 

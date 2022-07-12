@@ -23,7 +23,7 @@ public abstract class Entity extends Tickable {
     protected int entityId;
     protected UUID uuid;
     protected EntityType entityType;
-    protected final MetadataKeyValueBucket<EntityMetadataKey> metadataKeyValueBucket = new MetadataKeyValueBucket<>();
+    protected final MetadataKeyValueBucket metadataKeyValueBucket = new MetadataKeyValueBucket();
     protected Queue<Entity> lookAtEntity = new ConcurrentLinkedQueue<>();
     protected Queue<Entity> watchedEntity = new ConcurrentLinkedQueue<>();
 
@@ -173,7 +173,7 @@ public abstract class Entity extends Tickable {
         return this.watchedEntity.contains(entity);
     }
 
-    public MetadataKeyValueBucket<EntityMetadataKey> getMetadataKeyValueBucket() {
+    public MetadataKeyValueBucket getMetadataKeyValueBucket() {
         return metadataKeyValueBucket;
     }
 

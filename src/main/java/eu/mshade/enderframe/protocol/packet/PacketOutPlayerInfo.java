@@ -38,8 +38,9 @@ public class PacketOutPlayerInfo implements PacketOut {
                     gameProfile.getProperties().forEach((s, property) -> {
                         protocolBuffer.writeString(property.getName());
                         protocolBuffer.writeString(property.getValue());
-                        protocolBuffer.writeBoolean(property.getSignature().isPresent());
-                        property.getSignature().ifPresent(protocolBuffer::writeString);
+                        protocolBuffer.writeBoolean(property.getSignature() != null);
+                        if (property.getSignature() != null) protocolBuffer.writeString(property.getSignature());
+
                     });
                     protocolBuffer.writeVarInt(player.getGameMode().getId());
                     protocolBuffer.writeVarInt(player.getPing());
