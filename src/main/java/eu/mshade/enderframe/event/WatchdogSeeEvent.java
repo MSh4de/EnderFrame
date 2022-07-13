@@ -1,16 +1,16 @@
 package eu.mshade.enderframe.event;
 
-import eu.mshade.enderframe.world.ChunkBuffer;
+import eu.mshade.enderframe.world.Chunk;
 
 public class WatchdogSeeEvent extends EnderFrameEvent {
 
-    private final ChunkBuffer chunkBuffer;
+    private final Chunk chunk;
 
-    public WatchdogSeeEvent(ChunkBuffer chunkBuffer) {
-        this.chunkBuffer = chunkBuffer;
+    public WatchdogSeeEvent(Chunk chunk) {
+        this.chunk = chunk;
     }
 
-    public ChunkBuffer getChunkBuffer() {
-        return chunkBuffer;
+    public Chunk getChunkBuffer() {
+        return chunk;
     }
 }

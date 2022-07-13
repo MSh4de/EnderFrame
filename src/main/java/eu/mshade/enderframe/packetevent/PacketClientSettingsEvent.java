@@ -1,28 +1,21 @@
 package eu.mshade.enderframe.packetevent;
 
-import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.mojang.SkinParts;
+import eu.mshade.enderframe.mojang.SkinPart;
 
 public class PacketClientSettingsEvent implements PacketEvent {
 
-    private final Player player;
     private final String locale;
     private final byte viewDistance;
     private final byte chatMode;
     private final boolean chatColors;
-    private final SkinParts skinParts;
+    private final SkinPart skinPart;
 
-    public PacketClientSettingsEvent(Player player, String locale, byte viewDistance, byte chatMode, boolean chatColors, SkinParts skinParts) {
-        this.player = player;
+    public PacketClientSettingsEvent(String locale, byte viewDistance, byte chatMode, boolean chatColors, SkinPart skinPart) {
         this.locale = locale;
         this.viewDistance = viewDistance;
         this.chatMode = chatMode;
         this.chatColors = chatColors;
-        this.skinParts = skinParts;
-    }
-
-    public Player getPlayer() {
-        return player;
+        this.skinPart = skinPart;
     }
 
     public String getLocale() {
@@ -41,8 +34,8 @@ public class PacketClientSettingsEvent implements PacketEvent {
         return chatColors;
     }
 
-    public SkinParts getDisplayedSkinParts() {
-        return skinParts;
+    public SkinPart getDisplayedSkinParts() {
+        return skinPart;
     }
 
 

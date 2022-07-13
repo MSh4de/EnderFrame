@@ -1,6 +1,6 @@
 package eu.mshade.enderframe.protocol;
 
-import eu.mshade.enderframe.protocol.temp.TempByteMessage;
+import eu.mshade.enderframe.protocol.temp.TempProtocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -17,6 +17,7 @@ public class PacketCompression extends MessageToMessageCodec<ByteBuf, ByteBuf> {
     private final Inflater inflater = new Inflater();
     private final byte[] buffer = new byte[8192];
     private final Deflater deflater = new Deflater();
+    private final Protocol protocol = TempProtocol.getInstance();
 
     /**
      * Creates an instance that compresses messages using an {@link Inflater} and {@link Deflater}.
@@ -28,26 +29,26 @@ public class PacketCompression extends MessageToMessageCodec<ByteBuf, ByteBuf> {
     }
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out)
+    protected void encode(ChannelHandlerContext ctx, ByteBuf byteBuf, List<Object> out)
             throws Exception {
-        int i = msg.readableBytes();
+        int i = byteBuf.readableBytes();
         ByteBuf buffer = ctx.alloc().buffer();
-        ByteMessage byteMessage = new TempByteMessage(buffer);
+        ProtocolBuffer protocolBuffer = protocol.getProtocolBuffer(buffer);
 
         if (i < threshold) {
-            byteMessage.writeVarInt(0);
-            byteMessage.writeBytes(msg);
+            protocolBuffer.writeVarInt(0);
+            buffer.writeBytes(byteBuf);
         } else {
             byte[] abyte = new byte[i];
-            msg.readBytes(abyte);
-            byteMessage.writeVarInt(abyte.length);
+            byteBuf.readBytes(abyte);
+            protocolBuffer.writeVarInt(abyte.length);
             this.deflater.setInput(abyte, 0, i);
             this.deflater.finish();
 
             while (!this.deflater.finished()) {
                 int j = this.deflater.deflate(this.buffer);
 
-                byteMessage.writeBytes(this.buffer, 0, j);
+                buffer.writeBytes(this.buffer, 0, j);
             }
 
             this.deflater.reset();
@@ -57,14 +58,13 @@ public class PacketCompression extends MessageToMessageCodec<ByteBuf, ByteBuf> {
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out)
+    protected void decode(ChannelHandlerContext ctx, ByteBuf byteBuf, List<Object> out)
             throws Exception {
-        if (msg.readableBytes() != 0) {
-            ByteMessage byteMessage = new TempByteMessage(msg);
-            int i = byteMessage.readVarInt();
-
+        ProtocolBuffer protocolBuffer = protocol.getProtocolBuffer(byteBuf);
+        if (byteBuf.readableBytes() != 0) {
+            int i = protocolBuffer.readVarInt();
             if (i == 0) {
-                out.add(byteMessage.readBytes(byteMessage.readableBytes()));
+                out.add(byteBuf.readBytes(byteBuf.readableBytes()));
             } else {
                 if (i < threshold) {
                     throw new DecoderException("Badly compressed packet - size of " + i + " is below server threshold of " + this.threshold);
@@ -74,9 +74,9 @@ public class PacketCompression extends MessageToMessageCodec<ByteBuf, ByteBuf> {
                     throw new DecoderException("Badly compressed packet - size of " + i + " is larger than protocol maximum of " + 2097152);
                 }
 
-                byte[] abyte = new byte[byteMessage.readableBytes()];
+                byte[] abyte = new byte[byteBuf.readableBytes()];
 
-                byteMessage.readBytes(abyte);
+                byteBuf.readBytes(abyte);
                 this.inflater.setInput(abyte);
                 byte[] abyte1 = new byte[i];
 

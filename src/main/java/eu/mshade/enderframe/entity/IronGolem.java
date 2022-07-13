@@ -7,27 +7,19 @@ import java.util.UUID;
 
 public abstract class IronGolem extends LivingEntity {
 
-    private boolean isPlayerCreated;
+    /*
+    private boolean playerCreated;
 
-    public IronGolem(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean isPlayerCreated) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.IRON_GOLEM, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
-        this.isPlayerCreated = isPlayerCreated;
-    }
-
-    public IronGolem(Location location, int entityId, float health, boolean isPlayerCreated) {
-        super(location, EntityType.IRON_GOLEM, entityId, health);
-        this.isPlayerCreated = isPlayerCreated;
+     */
+    public IronGolem(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.IRON_GOLEM);
     }
 
     public IronGolem(Location location, int entityId) {
-        this(location, entityId, 20f, false);
+        super(location, entityId, EntityType.IRON_GOLEM);
     }
 
-    public boolean isPlayerCreated() {
-        return this.isPlayerCreated;
-    }
 
-    public void setPlayerCreated(boolean isPlayerCreated) {
-        this.isPlayerCreated = isPlayerCreated;
-    }
+
+
 }

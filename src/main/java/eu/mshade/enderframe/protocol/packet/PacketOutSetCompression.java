@@ -1,9 +1,9 @@
 package eu.mshade.enderframe.protocol.packet;
 
-import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.PacketOut;
+import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketOutSetCompression extends PacketOut {
+public class PacketOutSetCompression implements PacketOut {
 
     private int threshold;
 
@@ -12,7 +12,7 @@ public class PacketOutSetCompression extends PacketOut {
     }
 
     @Override
-    public void serialize(ByteMessage byteMessage) {
-        byteMessage.writeVarInt(threshold);
+    public void serialize(ProtocolBuffer protocolBuffer) {
+        protocolBuffer.writeVarInt(threshold);
     }
 }

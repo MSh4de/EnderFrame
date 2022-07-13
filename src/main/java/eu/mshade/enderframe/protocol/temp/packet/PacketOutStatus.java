@@ -1,10 +1,10 @@
 package eu.mshade.enderframe.protocol.temp.packet;
 
 import eu.mshade.enderframe.motd.MotdComponent;
-import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.PacketOut;
+import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketOutStatus extends PacketOut {
+public class PacketOutStatus implements PacketOut {
 
     private final MotdComponent motdComponent;
 
@@ -13,7 +13,7 @@ public class PacketOutStatus extends PacketOut {
     }
 
     @Override
-    public void serialize(ByteMessage byteMessage) {
-        byteMessage.writeValueAsString(motdComponent);
+    public void serialize(ProtocolBuffer protocolBuffer) {
+        protocolBuffer.writeValueAsString(motdComponent);
     }
 }

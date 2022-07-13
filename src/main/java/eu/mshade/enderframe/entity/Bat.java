@@ -3,32 +3,18 @@ package eu.mshade.enderframe.entity;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 
-import java.util.Queue;
 import java.util.UUID;
 
 public abstract class Bat extends LivingEntity {
 
-    private boolean isHanging;
+    //protected boolean hanging;
 
-    public Bat(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean isHanging) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.BAT, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
-        this.isHanging = isHanging;
+    public Bat(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.BAT);
     }
 
-    public Bat(Location location, int entityId, float health, boolean isHanging){
-        super(location, EntityType.BAT, entityId, health);
-        this.isHanging = isHanging;
+    public Bat(Location location, int entityId) {
+        this(location, new Vector(), entityId, UUID.randomUUID());
     }
 
-    public Bat(Location location, int entityId){
-        this(location, entityId, 5, false);
-    }
-
-    public boolean isHanging() {
-        return isHanging;
-    }
-
-    public void setHanging(boolean isHanging) {
-        this.isHanging = isHanging;
-    }
 }

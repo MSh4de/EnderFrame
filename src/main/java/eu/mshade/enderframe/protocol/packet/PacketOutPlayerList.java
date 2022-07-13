@@ -1,21 +1,21 @@
 package eu.mshade.enderframe.protocol.packet;
 
 import eu.mshade.enderframe.mojang.chat.TextComponent;
-import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.PacketOut;
+import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketOutPlayerList extends PacketOut {
+public class PacketOutPlayerList implements PacketOut {
 
-    private String header, footer;
+    private TextComponent header, footer;
 
-    public PacketOutPlayerList(String header, String footer) {
+    public PacketOutPlayerList(TextComponent header, TextComponent footer) {
         this.header = header;
         this.footer = footer;
     }
 
     @Override
-    public void serialize(ByteMessage byteMessage) {
-        byteMessage.writeValueAsString(TextComponent.of(header));
-        byteMessage.writeValueAsString(TextComponent.of(footer));
+    public void serialize(ProtocolBuffer protocolBuffer) {
+        protocolBuffer.writeValueAsString(header);
+        protocolBuffer.writeValueAsString(footer);
     }
 }

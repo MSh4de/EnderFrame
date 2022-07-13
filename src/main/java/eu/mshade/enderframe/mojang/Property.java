@@ -8,19 +8,19 @@ public class Property {
 
     private String name;
     private String value;
-    private MOptional<String> signature;
+    private String signature;
 
     private Property() {
     }
 
-    public Property(String name, String value, MOptional<String> signature) {
+    public Property(String name, String value, String signature) {
         this.name = name;
         this.value = value;
         this.signature = signature;
     }
 
     public Property(String name, String value) {
-        this(name, value, MOptional.empty());
+        this(name, value, null);
     }
 
     public String getName() {
@@ -31,7 +31,7 @@ public class Property {
         return value;
     }
 
-    public MOptional<String> getSignature() {
+    public String getSignature() {
         return signature;
     }
 

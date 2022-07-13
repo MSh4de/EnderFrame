@@ -5,29 +5,23 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public abstract class Spider extends LivingEntity{
+public abstract class Spider extends LivingEntity {
 
-    private boolean isClimbing;
+    /*
+    protected boolean climbing;
 
-    public Spider(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean isClimbing) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.CAVE_SPIDER, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
-        this.isClimbing = isClimbing;
+     */
+
+    protected Spider(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
+        super(location, velocity, entityId, uuid, entityType);
     }
 
-    public Spider(Location location, int entityId, float health, boolean isClimbing) {
-        super(location, EntityType.CAVE_SPIDER, entityId, health);
-        this.isClimbing = isClimbing;
+    public Spider(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.SPIDER);
     }
 
     public Spider(Location location, int entityId) {
-        this(location, entityId, 10f, false);
+        this(location, new Vector(), entityId, UUID.randomUUID());
     }
 
-    public boolean isClimbing() {
-        return isClimbing;
-    }
-
-    public void setClimbing(boolean climbing) {
-        isClimbing = climbing;
-    }
 }

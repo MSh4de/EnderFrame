@@ -1,19 +1,17 @@
 package eu.mshade.enderframe.event;
 
-import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.event.EnderFrameEvent;
-import eu.mshade.enderframe.world.ChunkBuffer;
+import eu.mshade.enderframe.world.Chunk;
 
 public class ChunkLoadEvent extends EnderFrameEvent {
 
-    private final ChunkBuffer chunkBuffer;
+    private final Chunk chunk;
 
-    public ChunkLoadEvent(ChunkBuffer chunkBuffer) {
-        this.chunkBuffer = chunkBuffer;
+    public ChunkLoadEvent(Chunk chunk) {
+        this.chunk = chunk;
     }
 
-    public ChunkBuffer getChunkBuffer() {
-        return chunkBuffer;
+    public Chunk getChunkBuffer() {
+        return chunk;
     }
 
 }

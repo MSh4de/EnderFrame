@@ -38,6 +38,10 @@ public class GameProfile {
         return properties;
     }
 
+    public void setProperty(Property property){
+        this.properties.put(property.getName(), property);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

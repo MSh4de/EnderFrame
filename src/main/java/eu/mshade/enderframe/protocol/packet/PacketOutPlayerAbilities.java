@@ -1,9 +1,9 @@
 package eu.mshade.enderframe.protocol.packet;
 
-import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.PacketOut;
+import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketOutPlayerAbilities extends PacketOut {
+public class PacketOutPlayerAbilities implements PacketOut {
 
     private boolean invulnerable;
     private boolean flying;
@@ -22,7 +22,7 @@ public class PacketOutPlayerAbilities extends PacketOut {
     }
 
     @Override
-    public void serialize(ByteMessage byteMessage) {
+    public void serialize(ProtocolBuffer protocolBuffer) {
         byte b = 0;
 
         if (this.invulnerable) b |= 1;
@@ -30,8 +30,8 @@ public class PacketOutPlayerAbilities extends PacketOut {
         if (this.allowFlying) b |= 4;
         if (this.instantBreak) b |= 8;
 
-        byteMessage.writeByte(b);
-        byteMessage.writeFloat(this.flyingSpeed);
-        byteMessage.writeFloat(this.walkSpeed);
+        protocolBuffer.writeByte(b);
+        protocolBuffer.writeFloat(this.flyingSpeed);
+        protocolBuffer.writeFloat(this.walkSpeed);
     }
 }

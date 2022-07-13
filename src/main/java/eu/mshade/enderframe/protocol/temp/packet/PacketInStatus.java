@@ -1,11 +1,11 @@
 package eu.mshade.enderframe.protocol.temp.packet;
 
-import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.PacketIn;
+import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketInStatus extends PacketIn {
+public class PacketInStatus implements PacketIn {
     @Override
-    public void deserialize(ByteMessage byteMessage) {
+    public void deserialize(ProtocolBuffer protocolBuffer) {
 
     }
 }

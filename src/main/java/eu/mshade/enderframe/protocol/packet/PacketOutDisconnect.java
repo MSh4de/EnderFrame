@@ -1,10 +1,10 @@
 package eu.mshade.enderframe.protocol.packet;
 
 import eu.mshade.enderframe.mojang.chat.TextComponent;
-import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.PacketOut;
+import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketOutDisconnect extends PacketOut {
+public class PacketOutDisconnect implements PacketOut {
 
     private TextComponent textComponent;
 
@@ -13,7 +13,7 @@ public class PacketOutDisconnect extends PacketOut {
     }
 
     @Override
-    public void serialize(ByteMessage byteMessage) {
-        byteMessage.writeValueAsString(textComponent);
+    public void serialize(ProtocolBuffer protocolBuffer) {
+        protocolBuffer.writeValueAsString(textComponent);
     }
 }

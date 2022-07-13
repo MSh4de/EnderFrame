@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.protocol;
 
-public abstract class PacketOut {
+public interface PacketOut {
 
-    public abstract void serialize(ByteMessage byteMessage);
+    void serialize(ProtocolBuffer protocolBuffer);
 
 }

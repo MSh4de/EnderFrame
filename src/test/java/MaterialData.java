@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Objects;
 
-public class MaterialData {
+public class MaterialData implements Serializable {
 
     private int id;
     private byte data;

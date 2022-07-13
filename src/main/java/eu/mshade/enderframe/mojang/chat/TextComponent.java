@@ -29,6 +29,15 @@ public class TextComponent extends TextComponentEntry {
         return extra;
     }
 
+    public String toLegacyText(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.toLegacyText());
+        extra.forEach(textComponentEntry -> {
+            stringBuilder.append(textComponentEntry.toLegacyText());
+        });
+        return stringBuilder.toString();
+    }
+
     @Override
     public String toString() {
         return "TextComponent{" +

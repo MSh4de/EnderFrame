@@ -1,186 +1,161 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.EnderFrameSession;
-import eu.mshade.enderframe.EnderFrameSessionHandler;
 import eu.mshade.enderframe.GameMode;
 import eu.mshade.enderframe.mojang.GameProfile;
-import eu.mshade.enderframe.mojang.SkinParts;
-import eu.mshade.enderframe.mojang.chat.TextComponent;
-import eu.mshade.enderframe.mojang.chat.TextPosition;
-import eu.mshade.enderframe.protocol.ProtocolVersion;
+import eu.mshade.enderframe.protocol.MinecraftProtocolVersion;
+import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.world.Chunk;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
-import eu.mshade.mwork.MOptional;
 
 import java.net.SocketAddress;
-import java.util.Objects;
+import java.util.Collection;
+import java.util.Queue;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Player extends LivingEntity implements ProjectileSource {
 
-    private EnderFrameSessionHandler enderFrameSessionHandler;
-    private final String name;
-    private SocketAddress socketAddress;
-    private ProtocolVersion protocolVersion;
-    private int ping;
-    private final SkinParts skinParts;
-    private final boolean unused;
-    private final float absorptionHearts;
-    private final int score;
-    private MOptional<String> displayName;
-    private GameMode gameMode;
-    private GameProfile gameProfile;
 
-    public Player(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, EnderFrameSessionHandler enderFrameSessionHandler, boolean unused, float absorptionHearts, int score, MOptional<String> displayName, GameMode gameMode, GameProfile gameProfile) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.PLAYER, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
-        this.enderFrameSessionHandler = enderFrameSessionHandler;
-        this.name = gameProfile.getName();
-        this.socketAddress = enderFrameSessionHandler.getEnderFrameSession().getSocketAddress();
-        this.protocolVersion = enderFrameSessionHandler.getProtocolVersion();
-        this.ping = 0;
-        this.skinParts = SkinParts.fromByte((byte)127);
-        this.unused = unused;
-        this.absorptionHearts = absorptionHearts;
-        this.score = score;
-        this.displayName = displayName;
-        this.gameMode = gameMode;
-        this.gameProfile = gameProfile;
+    protected SocketAddress socketAddress;
+    protected MinecraftProtocolVersion minecraftProtocolVersion;
+    protected int ping;
+    protected String displayName;
+    protected GameMode gameMode = GameMode.UNKNOWN;
+    protected GameProfile gameProfile;
+    protected boolean invulnerable;
+    protected boolean flying;
+    protected boolean allowFlying;
+    protected boolean instantBreak;
+    protected float flyingSpeed;
+    protected float walkSpeed;
+    protected Queue<Chunk> lookAtChunks = new ConcurrentLinkedQueue<>();
+
+    public Player(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
+        super(location, velocity, entityId, uuid, entityType);
     }
 
-    public Player(Location location, Vector velocity, int entityId, boolean isFire, boolean isSneaking, boolean isSprinting, boolean isEating, boolean isInvisible, short airTicks, String customName, boolean isCustomNameVisible, boolean isSilent, UUID uuid, float health, int potionEffectColor, boolean isPotionEffectAmbient, byte numberOfArrowInEntity, boolean isAIDisable, boolean unused, float absorptionHearts, int score, MOptional<String> displayName, GameMode gameMode, GameProfile gameProfile) {
-        super(location, velocity, entityId, isFire, isSneaking, isSprinting, isEating, isInvisible, airTicks, customName, isCustomNameVisible, isSilent, uuid, EntityType.PLAYER, health, potionEffectColor, isPotionEffectAmbient, numberOfArrowInEntity, isAIDisable);
-        this.name = gameProfile.getName();
-        this.ping = 0;
-        this.skinParts = SkinParts.fromByte((byte)127);
-        this.unused = unused;
-        this.absorptionHearts = absorptionHearts;
-        this.score = score;
-        this.displayName = displayName;
-        this.gameMode = gameMode;
-        this.gameProfile = gameProfile;
+    public Player(Location location, int entityId, EntityType entityType) {
+        super(location, entityId, entityType);
+    }
+
+    public Player(Location location, Vector velocity, int entityId, UUID uuid) {
+        super(location, velocity, entityId, uuid, EntityType.PLAYER);
+    }
+
+    public Player(Location location, int entityId) {
+        super(location, entityId, EntityType.PLAYER);
     }
 
 
-
-    public Player(Location location, int entityId, EnderFrameSessionHandler enderFrameSessionHandler, GameMode gameMode, GameProfile gameProfile) {
-        super(location, EntityType.PLAYER, entityId, 20f);
-        this.uuid = gameProfile.getId();
-        this.enderFrameSessionHandler = enderFrameSessionHandler;
-        this.name = gameProfile.getName();
-        this.socketAddress = enderFrameSessionHandler.getEnderFrameSession().getSocketAddress();
-        this.protocolVersion = enderFrameSessionHandler.getProtocolVersion();
-        this.ping = 0;
-        this.skinParts = SkinParts.fromByte((byte)127);
-        this.unused = false;
-        this.absorptionHearts = 0f;
-        this.score = 0;
-        this.displayName = MOptional.empty();
-        this.gameMode = gameMode;
-        this.gameProfile = gameProfile;
+    public String getName(){
+        return getGameProfile().getName();
     }
 
-    @Override
-    public <T extends Projectile> T launchProjectile(Class<? extends T> projectile) {
-        return null;
+    public SocketAddress getSocketAddress(){
+        return this.socketAddress;
     }
 
-    @Override
-    public <T extends Projectile> T launchProjectile(Class<? extends T> projectile, Vector vector) {
-        return null;
+    public void setSocketAddress(SocketAddress socketAddress){
+        this.socketAddress = socketAddress;
     }
 
-    public void sendMessage(TextComponent textComponent, TextPosition textPosition){
-        this.getEnderFrameSessionHandler().getEnderFrameSession().sendMessage(textComponent, textPosition);
+    public void setMinecraftProtocolVersion(MinecraftProtocolVersion minecraftProtocolVersion) {
+        this.minecraftProtocolVersion = minecraftProtocolVersion;
     }
 
-    public void sendMessage(TextComponent textComponent){
-        this.getEnderFrameSessionHandler().getEnderFrameSession().sendMessage(textComponent, TextPosition.CHAT);
+    public MinecraftProtocolVersion getProtocolVersion(){
+        return this.minecraftProtocolVersion;
     }
 
-    public void sendMessage(String name){
-        this.getEnderFrameSessionHandler().getEnderFrameSession().sendMessage(name);
+    public int getPing(){
+        return this.ping;
     }
 
-
-    public EnderFrameSession getEnderFrameSession(){
-        return enderFrameSessionHandler.getEnderFrameSession();
-    }
-
-
-    public EnderFrameSessionHandler getEnderFrameSessionHandler() {
-        return enderFrameSessionHandler;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public SocketAddress getSocketAddress() {
-        return socketAddress;
-    }
-
-    public ProtocolVersion getProtocolVersion() {
-        return protocolVersion;
-    }
-
-    public int getPing() {
-        return ping;
-    }
-
-    public void setPing(int ping) {
+    public void setPing(int ping){
         this.ping = ping;
     }
 
-    public SkinParts getSkinParts() {
-        return skinParts;
+    public GameMode getGameMode(){
+        return this.gameMode;
     }
 
-    public boolean isUnused() {
-        return unused;
-    }
-
-    public float getAbsorptionHearts() {
-        return absorptionHearts;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public MOptional<String> getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(MOptional<String> displayName) {
-        this.displayName = displayName;
-    }
-
-    public GameMode getGameMode() {
-        return gameMode;
-    }
-
-    public void setGameMode(GameMode gameMode) {
+    public void setGameMode(GameMode gameMode){
         this.gameMode = gameMode;
     }
 
-    public GameProfile getGameProfile() {
-        return gameProfile;
+    public GameProfile getGameProfile(){
+        return this.gameProfile;
     }
 
-    public void setGameProfile(GameProfile gameProfile) {
+    public void setGameProfile(GameProfile gameProfile){
         this.gameProfile = gameProfile;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Player)) return false;
-        Player player = (Player) o;
-        return ping == player.ping && unused == player.unused && Float.compare(player.absorptionHearts, absorptionHearts) == 0 && score == player.score && Objects.equals(enderFrameSessionHandler, player.enderFrameSessionHandler) && Objects.equals(name, player.name) && Objects.equals(socketAddress, player.socketAddress) && protocolVersion == player.protocolVersion && Objects.equals(skinParts, player.skinParts) && Objects.equals(displayName, player.displayName) && gameMode == player.gameMode && Objects.equals(gameProfile, player.gameProfile);
+    public String getDisplayName(){
+        return this.displayName;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(enderFrameSessionHandler, name, socketAddress, protocolVersion, ping, skinParts, unused, absorptionHearts, score, displayName, gameMode, gameProfile);
+    public void setDisplayName(String name){
+        this.displayName = name;
     }
+
+    public boolean isInvulnerable() {
+        return invulnerable;
+    }
+
+    public void setInvulnerable(boolean invulnerable) {
+        this.invulnerable = invulnerable;
+    }
+
+    public boolean isFlying() {
+        return flying;
+    }
+
+    public void setFlying(boolean flying) {
+        this.flying = flying;
+    }
+
+    public boolean isAllowFlying() {
+        return allowFlying;
+    }
+
+    public void setAllowFlying(boolean allowFlying) {
+        this.allowFlying = allowFlying;
+    }
+
+    public boolean isInstantBreak() {
+        return instantBreak;
+    }
+
+    public void setInstantBreak(boolean instantBreak) {
+        this.instantBreak = instantBreak;
+    }
+
+    public float getFlyingSpeed() {
+        return flyingSpeed;
+    }
+
+    public void setFlyingSpeed(float flyingSpeed) {
+        this.flyingSpeed = flyingSpeed;
+    }
+
+    public float getWalkSpeed() {
+        return walkSpeed;
+    }
+
+    public void setWalkSpeed(float walkSpeed) {
+        this.walkSpeed = walkSpeed;
+    }
+
+    public Collection<Chunk> getLookAtChunks(){
+        return this.lookAtChunks;
+    }
+
+    public boolean hasLookAtChunk(Chunk chunk){
+        return this.lookAtChunks.contains(chunk);
+    }
+
+    public abstract SessionWrapper getSessionWrapper();
+
 }

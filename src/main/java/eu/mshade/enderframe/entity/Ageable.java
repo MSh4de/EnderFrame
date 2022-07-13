@@ -16,7 +16,4 @@ public interface Ageable {
 
     boolean isAdult();
 
-    boolean canBreed();
-
-    void setBreed(boolean breed);
 }

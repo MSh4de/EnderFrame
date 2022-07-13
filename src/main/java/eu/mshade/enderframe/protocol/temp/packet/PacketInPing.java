@@ -1,15 +1,15 @@
 package eu.mshade.enderframe.protocol.temp.packet;
 
-import eu.mshade.enderframe.protocol.ByteMessage;
 import eu.mshade.enderframe.protocol.PacketIn;
+import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketInPing extends PacketIn {
+public class PacketInPing implements PacketIn {
 
     private long payload;
 
     @Override
-    public void deserialize(ByteMessage byteMessage) {
-        payload = byteMessage.readLong();
+    public void deserialize(ProtocolBuffer protocolBuffer) {
+        payload = protocolBuffer.readLong();
     }
 
     public long getPayload() {
