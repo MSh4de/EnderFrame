@@ -2,6 +2,7 @@ package eu.mshade.enderframe.item;
 
 import eu.mshade.enderframe.metadata.MetadataKey;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,14 @@ public abstract class ItemStackMetadataManager {
 
     public ItemStackMetadataBuffer getItemStackMetadataBuffer(MetadataKey metadataKey){
         return this.itemStackMetadataBufferByMetadataKey.get(metadataKey);
+    }
+
+    public Collection<MetadataKey> getMetadataKeys(){
+        return this.itemStackMetadataBufferByMetadataKey.keySet();
+    }
+
+    public Collection<ItemStackMetadataBuffer> getItemStackMetadataBuffers(){
+        return this.itemStackMetadataBufferByMetadataKey.values();
     }
 
 

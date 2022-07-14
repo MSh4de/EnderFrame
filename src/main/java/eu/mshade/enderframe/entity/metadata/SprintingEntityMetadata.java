@@ -1,9 +1,9 @@
 package eu.mshade.enderframe.entity.metadata;
 
+import eu.mshade.enderframe.metadata.MetadataKeyValue;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 
-public class SprintingEntityMetadata extends EntityMetadataKeyValue<Boolean> {
+public class SprintingEntityMetadata extends MetadataKeyValue<Boolean> {
 
     public static SprintingEntityMetadata DEFAULT = new SprintingEntityMetadata(false);
 
@@ -11,11 +11,4 @@ public class SprintingEntityMetadata extends EntityMetadataKeyValue<Boolean> {
         super(EntityMetadataKey.SPRINTING, aBoolean);
     }
 
-    @Override
-    public String toString() {
-        return "SprintingEntityMetadata{" +
-                "metadataKey=" + metadataKey +
-                ", metadataValue=" + metadataValue +
-                '}';
-    }
 }

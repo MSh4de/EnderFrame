@@ -1,9 +1,9 @@
 package eu.mshade.enderframe.entity.metadata;
 
+import eu.mshade.enderframe.metadata.MetadataKeyValue;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 
-public class InvisibleEntityMetadata extends EntityMetadataKeyValue<Boolean> {
+public class InvisibleEntityMetadata extends MetadataKeyValue<Boolean> {
 
     public static InvisibleEntityMetadata DEFAULT = new InvisibleEntityMetadata(false);
 

@@ -1,16 +1,16 @@
 package eu.mshade.enderframe.metadata;
 
-public abstract class MetadataKeyValue<K extends MetadataKey, V> {
+public abstract class MetadataKeyValue<V> {
 
-    protected K metadataKey;
+    protected MetadataKey metadataKey;
     protected V metadataValue;
 
-    public MetadataKeyValue(K metadataKey, V metadataValue) {
+    public MetadataKeyValue(MetadataKey metadataKey, V metadataValue) {
         this.metadataKey = metadataKey;
         this.metadataValue = metadataValue;
     }
 
-    public K getMetadataKey() {
+    public MetadataKey getMetadataKey() {
         return metadataKey;
     }
 
@@ -22,5 +22,11 @@ public abstract class MetadataKeyValue<K extends MetadataKey, V> {
         this.metadataValue = metadataValue;
     }
 
-
+    @Override
+    public String toString() {
+        return "MetadataKeyValue{" +
+                "metadataKey=" + metadataKey +
+                ", metadataValue=" + metadataValue +
+                '}';
+    }
 }

@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class MetadataKeyValueBucket {
 
-    protected final Map<MetadataKey, MetadataKeyValue<MetadataKey, ?>> metadataKeyValueByMetadataKey = new HashMap<>();
+    protected final Map<MetadataKey, MetadataKeyValue<?>> metadataKeyValueByMetadataKey = new HashMap<>();
 
-    public void setMetadataKeyValue(MetadataKeyValue<MetadataKey, ?> entityMetadata){
+    public void setMetadataKeyValue(MetadataKeyValue<?> entityMetadata){
         this.metadataKeyValueByMetadataKey.put(entityMetadata.getMetadataKey(), entityMetadata);
     }
 
@@ -16,11 +16,11 @@ public class MetadataKeyValueBucket {
         return this.metadataKeyValueByMetadataKey.containsKey(metadataKey);
     }
 
-    public <T> MetadataKeyValue<MetadataKey, T> getMetadataKeyValueOrDefault(MetadataKey metadataKey, MetadataKeyValue<MetadataKey, T> t){
-        return (MetadataKeyValue<MetadataKey, T>) this.metadataKeyValueByMetadataKey.getOrDefault(metadataKey, t);
+    public <T> MetadataKeyValue<T> getMetadataKeyValueOrDefault(MetadataKey metadataKey, MetadataKeyValue<T> t){
+        return (MetadataKeyValue<T>) this.metadataKeyValueByMetadataKey.getOrDefault(metadataKey, t);
     }
 
-    public <T extends MetadataKeyValue<MetadataKey, ?>> T getMetadataKeyValue(MetadataKey metadataKey, Class<T> type){
+    public <T extends MetadataKeyValue<?>> T getMetadataKeyValue(MetadataKey metadataKey, Class<T> type){
         return type.cast(this.metadataKeyValueByMetadataKey.get(metadataKey));
     }
 
@@ -29,8 +29,14 @@ public class MetadataKeyValueBucket {
     }
 
 
-    public Collection<MetadataKeyValue<MetadataKey, ?>> getMetadataKeyValues(){
+    public Collection<MetadataKeyValue<?>> getMetadataKeyValues(){
         return this.metadataKeyValueByMetadataKey.values();
     }
 
+    @Override
+    public String toString() {
+        return "MetadataKeyValueBucket{" +
+                "metadataKeyValueByMetadataKey=" + metadataKeyValueByMetadataKey +
+                '}';
+    }
 }

@@ -62,4 +62,14 @@ public class ItemStack implements Cloneable {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "ItemStack{" +
+                "material=" + material +
+                ", count=" + count +
+                ", durability=" + durability +
+                ", metadataKeyValueBucket=" + metadataKeyValueBucket +
+                '}';
+    }
 }

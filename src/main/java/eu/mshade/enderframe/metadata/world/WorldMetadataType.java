@@ -2,32 +2,13 @@ package eu.mshade.enderframe.metadata.world;
 
 import eu.mshade.enderframe.metadata.MetadataKey;
 
-public enum WorldMetadataType implements MetadataKey {
-
-    NAME(),
-    SEED(),
-    LEVEL_TYPE(),
-    DIMENSION(),
-    DIFFICULTY();
-
-    private String name;
-    private int index;
-
-    WorldMetadataType(String name) {
-        this.name = name;
-    }
-
-    WorldMetadataType() {
-        this.name = this.name();
-    }
+public class WorldMetadataType {
 
 
-
-    @Override
-    public String getName() {
-        return this.name();
-    }
-
-
+    public static MetadataKey NAME = MetadataKey.from("NAME");
+    public static MetadataKey SEED = MetadataKey.from("SEED");
+    public static MetadataKey LEVEL_TYPE = MetadataKey.from("LEVEL_TYPE");
+    public static MetadataKey DIMENSION = MetadataKey.from("DIMENSION");
+    public static MetadataKey DIFFICULTY = MetadataKey.from("DIFFICULTY");
 
 }

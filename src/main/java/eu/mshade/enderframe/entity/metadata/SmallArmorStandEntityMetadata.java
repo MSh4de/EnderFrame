@@ -1,9 +1,9 @@
 package eu.mshade.enderframe.entity.metadata;
 
+import eu.mshade.enderframe.metadata.MetadataKeyValue;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKeyValue;
 
-public class SmallArmorStandEntityMetadata extends EntityMetadataKeyValue<Boolean> {
+public class SmallArmorStandEntityMetadata extends MetadataKeyValue<Boolean> {
 
     public static SmallArmorStandEntityMetadata DEFAULT = new SmallArmorStandEntityMetadata(false);
 
