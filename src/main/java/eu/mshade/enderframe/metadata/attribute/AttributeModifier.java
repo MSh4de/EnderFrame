@@ -4,31 +4,27 @@ import java.util.UUID;
 
 public class AttributeModifier {
 
-    private final String name;
     private final UUID uuid;
     private final double amount;
-    private final byte operation;
+    private final AttributeOperation attributeOperation;
 
-    public AttributeModifier(String name, UUID uuid, double amount, byte operation) {
-        this.name = name;
+    public AttributeModifier(UUID uuid, double amount, AttributeOperation attributeOperation) {
+
         this.uuid = uuid;
         this.amount = amount;
-        this.operation = operation;
+        this.attributeOperation = attributeOperation;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public UUID getUuid() {
-        return uuid;
+        return this.uuid;
     }
 
     public double getAmount() {
-        return amount;
+        return this.amount;
     }
 
-    public byte getOperation() {
-        return operation;
+    public AttributeOperation getAttributeOperation() {
+        return this.attributeOperation;
     }
 }
