@@ -27,6 +27,10 @@ public class ItemStack implements Cloneable {
         this(material, count, 0, new MetadataKeyValueBucket());
     }
 
+    public ItemStack(MaterialKey materialKey){
+        this(materialKey, 1, 0, new MetadataKeyValueBucket());
+    }
+
 
 
     public MaterialKey getMaterial() {

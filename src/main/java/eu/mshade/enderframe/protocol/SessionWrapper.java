@@ -2,6 +2,7 @@ package eu.mshade.enderframe.protocol;
 
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
+import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.item.MaterialData;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
@@ -17,6 +18,7 @@ import io.netty.channel.ChannelHandler;
 
 import javax.crypto.SecretKey;
 import java.security.PublicKey;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 
@@ -178,4 +180,20 @@ public abstract class SessionWrapper {
    }
 
    public abstract void sendBlockChange(Vector blockPosition, MaterialKey materialKey);
+
+   public abstract void sendOpenInventory(Inventory inventory);
+
+   public abstract void sendItemStacks(Inventory inventory);
+
+    @Override
+    public String toString() {
+        return "SessionWrapper{" +
+                "channel=" + channel +
+                ", sessionId='" + sessionId + '\'' +
+                ", verifyToken=" + Arrays.toString(verifyToken) +
+                ", gameProfile=" + gameProfile +
+                ", handshake=" + handshake +
+                ", protocolStatus=" + protocolStatus +
+                '}';
+    }
 }
