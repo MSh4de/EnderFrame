@@ -2,18 +2,27 @@ package eu.mshade.enderframe.inventory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class InventoryRepository {
 
-    protected Map<Integer, Inventory> inventoryById = new ConcurrentHashMap<>();
+    protected Map<Inventory, Integer> idByInventory = new ConcurrentHashMap<>();
+    private Map<Integer, Inventory> inventoryById = new ConcurrentHashMap<>();
 
-    public void register(Inventory inventory){
-        this.inventoryById.put(inventory.getId(), inventory);
+    public int getIdOfInventory(Inventory inventory){
+        return this.idByInventory.get(inventory);
+    }
+
+    public Inventory getInventory(int id){
+        return this.inventoryById.get(id);
+    }
+
+    public void register(int id, Inventory inventory){
+        this.inventoryById.put(id, inventory);
+        this.idByInventory.put(inventory, id);
     }
 
     public void flush(Inventory inventory){
-        this.inventoryById.remove(inventory.getId());
-        Inventory.UNIQUE_ID_MANAGER.flushId(inventory.getId());
+        int id = this.idByInventory.remove(inventory);
+        this.inventoryById.remove(id);
     }
 }
