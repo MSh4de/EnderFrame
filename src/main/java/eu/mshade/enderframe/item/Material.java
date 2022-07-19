@@ -28,13 +28,18 @@ public class Material {
     public static MaterialKey DIRT = MaterialKey.from(9, NamespacedKey.minecraft("dirt"),  Set.of(MaterialCategory.BLOCK));
     public static MaterialKey COARSE_DIRT = MaterialKey.from(10, NamespacedKey.minecraft("coarse_dirt"),  Set.of(MaterialCategory.BLOCK));
     public static MaterialKey PODZOL = MaterialKey.from(11, NamespacedKey.minecraft("podzol"), Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey COBBLESTONE = MaterialKey.from(12, NamespacedKey.minecraft("cobblestone"), Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey OAK_WOOD_PLANKS = MaterialKey.from(13, NamespacedKey.minecraft("oak_wood_planks"), Set.of(MaterialCategory.BLOCK));
+
+
+    public static MaterialKey OAK_WOOD = MaterialKey.from(14, NamespacedKey.minecraft("oak_wood"), Set.of(MaterialCategory.BLOCK));
 
     /**
      * Item tested with metadata
      */
-    public static MaterialKey WOODEN_PICKAXE = MaterialKey.from(12, NamespacedKey.minecraft("wooden_pickaxe"), Set.of(MaterialCategory.TOOLS));
-    public static MaterialKey LEATHER_HELMET = MaterialKey.from(13, NamespacedKey.minecraft("leather_helmet"), Set.of(MaterialCategory.ARMOR));
-    public static MaterialKey PLAYER_SKULL = MaterialKey.from(14, NamespacedKey.minecraft("player_skull"));
+    public static MaterialKey WOODEN_PICKAXE = MaterialKey.from(15, NamespacedKey.minecraft("wooden_pickaxe"), Set.of(MaterialCategory.TOOLS));
+    public static MaterialKey LEATHER_HELMET = MaterialKey.from(16, NamespacedKey.minecraft("leather_helmet"), Set.of(MaterialCategory.ARMOR));
+    public static MaterialKey PLAYER_SKULL = MaterialKey.from(17, NamespacedKey.minecraft("player_skull"));
 
     static {
         Field[] declaredFields = Material.class.getDeclaredFields();
