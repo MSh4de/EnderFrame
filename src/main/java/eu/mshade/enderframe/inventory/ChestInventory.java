@@ -6,11 +6,11 @@ public class ChestInventory extends Inventory {
 
     protected int line;
 
-    public ChestInventory(TextComponent textComponent, InventoryKey inventoryKey) {
-        super(textComponent, inventoryKey);
+    public ChestInventory(TextComponent textComponent) {
+        super(textComponent, InventoryType.CHEST);
     }
 
-    public ChestInventory(String name, InventoryKey inventoryKey) {
-        super(name, inventoryKey);
+    public ChestInventory(String name) {
+        super(name, InventoryType.CHEST);
     }
 }
