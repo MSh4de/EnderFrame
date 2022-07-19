@@ -1,5 +1,6 @@
 package eu.mshade.enderframe.item;
 
+import eu.mshade.enderframe.inventory.EquipmentSlot;
 import eu.mshade.enderframe.metadata.attribute.AttributeKey;
 import eu.mshade.enderframe.metadata.attribute.AttributeModifier;
 
