@@ -3,6 +3,8 @@ package eu.mshade.enderframe.protocol;
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.inventory.Inventory;
+import eu.mshade.enderframe.inventory.InventoryRepository;
+import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialData;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
@@ -24,12 +26,13 @@ import java.util.function.Consumer;
 
 public abstract class SessionWrapper {
 
-    private final Channel channel;
-    private final String sessionId;
-    private final byte[] verifyToken = new byte[4];
-    private GameProfile gameProfile;
-    private Handshake handshake;
-    private ProtocolStatus protocolStatus = ProtocolStatus.HANDSHAKE;
+    protected final Channel channel;
+    protected final String sessionId;
+    protected final byte[] verifyToken = new byte[4];
+    protected GameProfile gameProfile;
+    protected Handshake handshake;
+    protected ProtocolStatus protocolStatus = ProtocolStatus.HANDSHAKE;
+    protected InventoryRepository inventoryRepository = new InventoryRepository();
 
     public SessionWrapper(Channel channel) {
         this.channel = channel;
@@ -102,6 +105,10 @@ public abstract class SessionWrapper {
 
     public boolean isConnected() {
         return channel.isActive();
+    }
+
+    public InventoryRepository getInventoryRepository() {
+        return inventoryRepository;
     }
 
     public void sendDisconnect(TextComponent textComponent){
@@ -183,7 +190,11 @@ public abstract class SessionWrapper {
 
    public abstract void sendOpenInventory(Inventory inventory);
 
+   public abstract void sendCloseInventory(Inventory inventory);
+
    public abstract void sendItemStacks(Inventory inventory);
+
+   public abstract void sendItemStack(Inventory inventory, int slot, ItemStack itemStack);
 
     @Override
     public String toString() {
