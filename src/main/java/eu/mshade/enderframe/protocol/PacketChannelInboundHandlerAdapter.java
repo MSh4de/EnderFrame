@@ -19,16 +19,15 @@ public class PacketChannelInboundHandlerAdapter extends ChannelInboundHandlerAda
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if (msg instanceof PacketIn){
-            PacketIn packetIn = (PacketIn) msg;
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        if (msg instanceof PacketIn packetIn){
             ProtocolPipeline protocolPipeline = ProtocolPipeline.get();
             protocolPipeline.getProtocol(channel).getEventBus().publish(packetIn, parameterContainer);
         }
     }
 
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+    public void channelInactive(ChannelHandlerContext ctx) {
         ProtocolPipeline protocolPipeline = ProtocolPipeline.get();
         if (protocolPipeline.getPlayer(channel) != null) {
             EnderFrame.get().getEnderFrameEventBus().publish(new PlayerQuitEvent(), parameterContainer);
@@ -37,7 +36,7 @@ public class PacketChannelInboundHandlerAdapter extends ChannelInboundHandlerAda
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
     }
 }
