@@ -1,6 +1,8 @@
 package eu.mshade.enderframe.mojang.chat;
 
 
+import java.util.Objects;
+
 public class TextComponentEntry {
 
     private String text;
@@ -103,7 +105,21 @@ public class TextComponentEntry {
                 ", italic=" + italic +
                 ", strikethrough=" + strikethrough +
                 ", obfuscated=" + obfuscated +
+                ", underlined=" + underlined +
                 ", clickEvent=" + clickEvent +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TextComponentEntry that = (TextComponentEntry) o;
+        return bold == that.bold && italic == that.italic && strikethrough == that.strikethrough && obfuscated == that.obfuscated && underlined == that.underlined && Objects.equals(text, that.text) && Objects.equals(color, that.color) && Objects.equals(clickEvent, that.clickEvent);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(text, color, bold, italic, strikethrough, obfuscated, underlined, clickEvent);
     }
 }

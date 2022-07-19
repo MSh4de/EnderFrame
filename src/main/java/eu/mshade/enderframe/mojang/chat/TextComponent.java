@@ -3,6 +3,7 @@ package eu.mshade.enderframe.mojang.chat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 public class TextComponent extends TextComponentEntry {
@@ -50,5 +51,18 @@ public class TextComponent extends TextComponentEntry {
                 ", clickEvent=" + this.getClickEvent() +
                 "extra=" + extra +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TextComponent that = (TextComponent) o;
+        return Objects.equals(extra, that.extra);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(extra);
     }
 }
