@@ -12,6 +12,10 @@ public interface InventoryKey {
         return new DefaultInventoryKey(name, slot);
     }
 
+    static InventoryKey from(String name){
+        return new DefaultInventoryKey(name, -1);
+    }
+
     class DefaultInventoryKey implements InventoryKey{
 
         private String name;
