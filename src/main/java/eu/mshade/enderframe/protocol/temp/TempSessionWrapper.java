@@ -3,6 +3,7 @@ package eu.mshade.enderframe.protocol.temp;
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.inventory.Inventory;
+import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialData;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
@@ -200,7 +201,17 @@ public class TempSessionWrapper extends SessionWrapper {
     }
 
     @Override
+    public void sendCloseInventory(Inventory inventory) {
+
+    }
+
+    @Override
     public void sendItemStacks(Inventory inventory) {
+
+    }
+
+    @Override
+    public void sendItemStack(Inventory inventory, int slot, ItemStack itemStack) {
 
     }
 }
