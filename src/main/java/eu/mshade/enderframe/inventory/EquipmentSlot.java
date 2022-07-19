@@ -1,4 +1,4 @@
-package eu.mshade.enderframe.item;
+package eu.mshade.enderframe.inventory;
 
 public enum EquipmentSlot {
 
