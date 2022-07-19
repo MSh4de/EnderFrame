@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.entity;
 
 import eu.mshade.enderframe.GameMode;
+import eu.mshade.enderframe.inventory.PlayerInventory;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.protocol.MinecraftProtocolVersion;
 import eu.mshade.enderframe.protocol.SessionWrapper;
@@ -29,6 +30,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     protected boolean instantBreak;
     protected float flyingSpeed;
     protected float walkSpeed;
+    protected PlayerInventory playerInventory = new PlayerInventory();
     protected Queue<Chunk> lookAtChunks = new ConcurrentLinkedQueue<>();
 
     public Player(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
@@ -46,6 +48,8 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     public Player(Location location, int entityId) {
         super(location, entityId, EntityType.PLAYER);
     }
+
+
 
 
     public String getName(){
@@ -154,6 +158,10 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
 
     public boolean hasLookAtChunk(Chunk chunk){
         return this.lookAtChunks.contains(chunk);
+    }
+
+    public PlayerInventory getPlayerInventory() {
+        return playerInventory;
     }
 
     public abstract SessionWrapper getSessionWrapper();
