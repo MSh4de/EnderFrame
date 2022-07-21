@@ -11,7 +11,6 @@ public class PlayerInventory extends Inventory {
 
     @Override
     public void setItemStack(int slot, ItemStack itemStack) {
-        System.out.println(accurateSlot(slot));
         super.setItemStack(accurateSlot(slot), itemStack);
     }
 
