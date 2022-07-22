@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Material {
 
@@ -46,8 +47,7 @@ public class Material {
         try {
             for (Field field : declaredFields) {
                 Object o = field.get(null);
-                if (o instanceof MaterialKey) {
-                    MaterialKey materialKey = (MaterialKey) o;
+                if (o instanceof MaterialKey materialKey) {
                     LOGGER.debug("Register "+materialKey);
                     registerMaterialKey(materialKey);
                 }
