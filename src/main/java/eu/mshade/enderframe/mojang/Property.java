@@ -47,4 +47,13 @@ public class Property {
     public int hashCode() {
         return Objects.hash(name, value, signature);
     }
+
+    @Override
+    public String toString() {
+        return "Property{" +
+                "name='" + name + '\'' +
+                ", value='" + value + '\'' +
+                ", signature='" + signature + '\'' +
+                '}';
+    }
 }

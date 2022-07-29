@@ -54,4 +54,13 @@ public class GameProfile {
     public int hashCode() {
         return Objects.hash(id, name, properties);
     }
+
+    @Override
+    public String toString() {
+        return "GameProfile{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", properties=" + properties +
+                '}';
+    }
 }
