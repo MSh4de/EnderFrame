@@ -35,7 +35,7 @@ public class Inventory {
         return inventoryKey;
     }
 
-    public void setItemStack(int slot, ItemStack itemStack){
+    public void setItemStack(int slot, ItemStack itemStack) {
         if (!itemStack.getMaterial().equals(Material.AIR)) this.itemStacks[slot] = itemStack;
     }
 
@@ -49,7 +49,6 @@ public class Inventory {
         return "Inventory{" +
                 "textComponent=" + textComponent +
                 ", inventoryKey=" + inventoryKey +
-                ", itemStacks=" + Arrays.toString(itemStacks) +
                 '}';
     }
 }
