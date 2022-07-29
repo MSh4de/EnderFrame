@@ -4,7 +4,7 @@ import eu.mshade.enderframe.inventory.ClickType;
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.item.ItemStack;
 
-public class PacketInventoryClickEvent implements PacketEvent {
+public class PacketClickInventoryEvent implements PacketEvent {
 
     protected Inventory inventory;
     protected ClickType clickType;
@@ -12,7 +12,7 @@ public class PacketInventoryClickEvent implements PacketEvent {
     protected int slot;
     protected int key;
 
-    public PacketInventoryClickEvent(Inventory inventory, ClickType clickType, ItemStack itemStack, int slot, int key) {
+    public PacketClickInventoryEvent(Inventory inventory, ClickType clickType, ItemStack itemStack, int slot, int key) {
         this.inventory = inventory;
         this.clickType = clickType;
         this.itemStack = itemStack;
@@ -20,7 +20,7 @@ public class PacketInventoryClickEvent implements PacketEvent {
         this.key = key;
     }
 
-    public PacketInventoryClickEvent(Inventory inventory, ClickType clickType, ItemStack itemStack, int slot) {
+    public PacketClickInventoryEvent(Inventory inventory, ClickType clickType, ItemStack itemStack, int slot) {
         this.inventory = inventory;
         this.clickType = clickType;
         this.itemStack = itemStack;
@@ -45,5 +45,16 @@ public class PacketInventoryClickEvent implements PacketEvent {
 
     public int getKey() {
         return key;
+    }
+
+    @Override
+    public String toString() {
+        return "PacketInventoryClickEvent{" +
+                "inventory=" + inventory +
+                ", clickType=" + clickType +
+                ", itemStack=" + itemStack +
+                ", slot=" + slot +
+                ", key=" + key +
+                '}';
     }
 }
