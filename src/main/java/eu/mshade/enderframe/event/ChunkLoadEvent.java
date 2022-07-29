@@ -2,15 +2,17 @@ package eu.mshade.enderframe.event;
 
 import eu.mshade.enderframe.world.Chunk;
 
+import java.util.concurrent.CompletableFuture;
+
 public class ChunkLoadEvent extends EnderFrameEvent {
 
-    private final Chunk chunk;
+    private final CompletableFuture<Chunk> chunk;
 
-    public ChunkLoadEvent(Chunk chunk) {
+    public ChunkLoadEvent(CompletableFuture<Chunk> chunk) {
         this.chunk = chunk;
     }
 
-    public Chunk getChunkBuffer() {
+    public CompletableFuture<Chunk> getChunk() {
         return chunk;
     }
 
