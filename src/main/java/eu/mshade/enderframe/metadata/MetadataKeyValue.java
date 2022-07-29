@@ -1,5 +1,7 @@
 package eu.mshade.enderframe.metadata;
 
+import java.util.Objects;
+
 public abstract class MetadataKeyValue<V> {
 
     protected MetadataKey metadataKey;
@@ -28,5 +30,18 @@ public abstract class MetadataKeyValue<V> {
                 "metadataKey=" + metadataKey +
                 ", metadataValue=" + metadataValue +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MetadataKeyValue<?> that = (MetadataKeyValue<?>) o;
+        return Objects.equals(metadataKey, that.metadataKey) && Objects.equals(metadataValue, that.metadataValue);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(metadataKey, metadataValue);
     }
 }
