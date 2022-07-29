@@ -13,4 +13,8 @@ public class ChestInventory extends Inventory {
     public ChestInventory(String name) {
         super(name, InventoryType.CHEST);
     }
+
+    public int getLine() {
+        return line;
+    }
 }
