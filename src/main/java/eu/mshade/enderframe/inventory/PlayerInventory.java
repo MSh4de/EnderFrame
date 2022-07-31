@@ -14,6 +14,16 @@ public class PlayerInventory extends Inventory {
         super.setItemStack(accurateSlot(slot), itemStack);
     }
 
+    @Override
+    public ItemStack getItemStack(int slot) {
+        return super.getItemStack(accurateSlot(slot));
+    }
+
+    @Override
+    public void deleteItemStack(int slot) {
+        super.deleteItemStack(accurateSlot(slot));
+    }
+
     public static int accurateSlot(int index) {
         if (index <= 8) {
             return index + 36;
