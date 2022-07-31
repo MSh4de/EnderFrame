@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.world;
 
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 public class Location implements Cloneable {
 
@@ -126,7 +127,7 @@ public class Location implements Cloneable {
         return getBlockZ() >> 4;
     }
 
-    public Chunk getChunk(){
+    public CompletableFuture<Chunk> getChunk(){
         return world.getChunk(getChunkX(), getChunkZ());
     }
 
