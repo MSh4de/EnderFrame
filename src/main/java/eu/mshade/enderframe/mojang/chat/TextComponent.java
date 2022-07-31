@@ -43,7 +43,7 @@ public class TextComponent extends TextComponentEntry {
     public String toString() {
         return "TextComponent{" +
                 "text='" + this.getText() + '\'' +
-                ", color='" + this.getColor() + '\'' +
+                ", color='" + this.getChatColor() + '\'' +
                 ", bold=" + this.isBold() +
                 ", italic=" + this.isItalic() +
                 ", strikethrough=" + this.isStrikethrough() +
