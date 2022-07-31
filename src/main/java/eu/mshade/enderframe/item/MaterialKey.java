@@ -97,8 +97,8 @@ public interface MaterialKey {
         @Override
         public boolean equals(Object o) {
             if (o == null) return false;
-            if (!(o instanceof MaterialKey)) return false;
-            MaterialKey materialKey = (MaterialKey) o;
+            if (!(o instanceof MaterialKey materialKey)) return false;
+            if (this == o) return true;
             return id == materialKey.getId() && metadata == materialKey.getMetadata();
         }
 
