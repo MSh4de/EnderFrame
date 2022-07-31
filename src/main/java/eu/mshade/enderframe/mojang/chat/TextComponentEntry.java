@@ -6,7 +6,7 @@ import java.util.Objects;
 public class TextComponentEntry {
 
     private String text;
-    private String color = ChatColor.WHITE.getName();
+    private ChatColor chatColor;
     private boolean bold = false;
     private boolean italic = false;
     private boolean strikethrough = false;
@@ -29,12 +29,12 @@ public class TextComponentEntry {
         return text;
     }
 
-    public String getColor() {
-        return color;
+    public ChatColor getChatColor() {
+        return chatColor;
     }
 
-    public TextComponentEntry withColor(String color) {
-        this.color = color;
+    public TextComponentEntry withColor(ChatColor chatColor) {
+        this.chatColor = chatColor;
         return this;
     }
 
@@ -83,9 +83,18 @@ public class TextComponentEntry {
         return this;
     }
 
+    public boolean isUnderlined() {
+        return underlined;
+    }
+
+    public TextComponentEntry withUnderlined(boolean underlined) {
+        this.underlined = underlined;
+        return this;
+    }
+
     public String toLegacyText(){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(ChatColor.of(getColor()));
+        if (getChatColor() != null) stringBuilder.append(getChatColor());
         if (bold) stringBuilder.append(ChatColor.BOLD);
         if (italic) stringBuilder.append(ChatColor.ITALIC);
         if (strikethrough) stringBuilder.append(ChatColor.STRIKETHROUGH);
@@ -100,7 +109,7 @@ public class TextComponentEntry {
     public String toString() {
         return "TextComponentEntry{" +
                 "text='" + text + '\'' +
-                ", color='" + color + '\'' +
+                ", color='" + chatColor + '\'' +
                 ", bold=" + bold +
                 ", italic=" + italic +
                 ", strikethrough=" + strikethrough +
@@ -115,11 +124,11 @@ public class TextComponentEntry {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TextComponentEntry that = (TextComponentEntry) o;
-        return bold == that.bold && italic == that.italic && strikethrough == that.strikethrough && obfuscated == that.obfuscated && underlined == that.underlined && Objects.equals(text, that.text) && Objects.equals(color, that.color) && Objects.equals(clickEvent, that.clickEvent);
+        return bold == that.bold && italic == that.italic && strikethrough == that.strikethrough && obfuscated == that.obfuscated && underlined == that.underlined && Objects.equals(text, that.text) && Objects.equals(chatColor, that.chatColor) && Objects.equals(clickEvent, that.clickEvent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, color, bold, italic, strikethrough, obfuscated, underlined, clickEvent);
+        return Objects.hash(text, chatColor, bold, italic, strikethrough, obfuscated, underlined, clickEvent);
     }
 }
