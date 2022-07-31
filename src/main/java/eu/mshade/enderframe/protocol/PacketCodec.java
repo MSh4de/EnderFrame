@@ -46,7 +46,7 @@ public class PacketCodec extends MessageToMessageCodec<ByteBuf, PacketOut> {
 
             int packetId = protocolBuffer.readVarInt();
 
-            protocol.getProtocolRegistry().getPacketByID(sessionWrapper.getProtocolStatus(), packetId).ifPresent(packetIn -> {
+            protocol.getProtocolRegistry().getPacketByID(sessionWrapper.getProtocolStatus(), packetId).exception(Throwable::printStackTrace).ifPresent(packetIn -> {
                 packetIn.deserialize(protocolBuffer);
                 out.add(packetIn);
             }).ifNotPresent(unused -> {
