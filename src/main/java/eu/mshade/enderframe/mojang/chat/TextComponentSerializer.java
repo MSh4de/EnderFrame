@@ -12,10 +12,11 @@ public class TextComponentSerializer extends JsonSerializer<TextComponentEntry> 
         gen.writeStartObject();
         gen.writeStringField("text", value.getText());
 
-        if (!value.getColor().equals(ChatColor.WHITE.getName())) gen.writeStringField("color", value.getColor());
+        if (value.getChatColor() != null) gen.writeStringField("color", value.getChatColor().getName());
         if (value.isBold()) gen.writeBooleanField("bold", true);
         if (value.isItalic()) gen.writeBooleanField("italic", true);
         if (value.isStrikethrough()) gen.writeBooleanField("strikethrough", true);
+        if (value.isUnderlined()) gen.writeBooleanField("underlined", true);
         if (value.isObfuscated()) gen.writeBooleanField("obfuscated", true);
 
         if (value.getClickEvent() != null) serializers.defaultSerializeField("clickEvent", value.getClickEvent(), gen);
