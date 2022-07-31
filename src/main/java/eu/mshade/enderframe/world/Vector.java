@@ -75,6 +75,13 @@ public class Vector implements Cloneable {
         return this;
     }
 
+    public Vector add(double x, double y, double z){
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        return this;
+    }
+
     public Vector subtract(Vector vec) {
         x -= vec.x;
         y -= vec.y;
