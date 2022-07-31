@@ -4,9 +4,7 @@ package eu.mshade.enderframe.world;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.item.MaterialKey;
-import eu.mshade.mwork.binarytag.poet.BinaryTagPoet;
 
-import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Queue;
 import java.util.UUID;
@@ -22,11 +20,19 @@ public interface Chunk {
 
     Queue<Player> getViewers();
 
+    void addViewer(Player player);
+
+    void removeViewer(Player player);
+
     World getWorld();
 
     Section[] getSections();
 
-    AtomicLong getHealth();
+    AtomicLong getLastInteract();
+
+    ChunkStatus getChunkStatus();
+
+    void setChunkStatus(ChunkStatus chunkStatus);
 
     int getBitMask();
 
