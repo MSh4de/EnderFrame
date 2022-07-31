@@ -10,6 +10,7 @@ import eu.mshade.mwork.binarytag.poet.BinaryTagPoet;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -20,7 +21,8 @@ public abstract class World extends Tickable {
     protected final File indicesFolder;
 
     protected final MetadataKeyValueBucket metadataKeyValueBucket;
-    protected final Map<UUID, Chunk> chunks = new ConcurrentHashMap<>();
+    protected final Map<UUID, CompletableFuture<Chunk>> chunkById = new ConcurrentHashMap<>();
+    protected final Queue<CompletableFuture<Chunk>> chunks = new ConcurrentLinkedQueue<>();
     protected final Queue<Entity> entities = new ConcurrentLinkedQueue<>();
     protected ChunkGenerator chunkGenerator;
 
@@ -42,11 +44,9 @@ public abstract class World extends Tickable {
 
    public abstract void flushChunk(Chunk chunk, boolean save);
 
-   public abstract Chunk getChunk(int chunkX, int chunkZ);
+   public abstract CompletableFuture<Chunk> getChunk(int chunkX, int chunkZ);
 
-   public abstract Chunk getChunk(UUID id);
-
-   public abstract void addChunkBuffer(Chunk chunk);
+   public abstract CompletableFuture<Chunk> getChunk(UUID id);
 
    public abstract boolean hasChunkBuffer(int x, int z);
 
@@ -88,8 +88,8 @@ public abstract class World extends Tickable {
         return this.entities;
     }
 
-    public Collection<Chunk> getChunks(){
-        return this.chunks.values();
+    public Collection<CompletableFuture<Chunk>> getChunks(){
+        return this.chunks;
     }
 
     public MetadataKeyValueBucket getMetadataKeyValueBucket() {
