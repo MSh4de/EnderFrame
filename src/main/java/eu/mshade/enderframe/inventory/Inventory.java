@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.inventory;
 
 import eu.mshade.enderframe.UniqueIdManager;
+import eu.mshade.enderframe.entity.Item;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.Material;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
@@ -36,7 +37,15 @@ public class Inventory {
     }
 
     public void setItemStack(int slot, ItemStack itemStack) {
-        if (!itemStack.getMaterial().equals(Material.AIR)) this.itemStacks[slot] = itemStack;
+        if (itemStack != null && !itemStack.getMaterial().equals(Material.AIR)) this.itemStacks[slot] = itemStack;
+    }
+
+    public void deleteItemStack(int slot){
+        this.itemStacks[slot] = null;
+    }
+
+    public ItemStack getItemStack(int slot){
+        return this.itemStacks[slot];
     }
 
     public ItemStack[] getItemStacks() {
