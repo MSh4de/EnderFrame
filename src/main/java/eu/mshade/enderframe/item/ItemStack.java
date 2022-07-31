@@ -1,30 +1,29 @@
 package eu.mshade.enderframe.item;
 
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
-import eu.mshade.enderframe.mojang.chat.TextComponent;
 
-import java.util.*;
+import java.util.function.Function;
 
 public class ItemStack implements Cloneable {
 
     protected MaterialKey material;
-    protected int count;
+    protected int amount;
     protected int durability;
     protected MetadataKeyValueBucket metadataKeyValueBucket;
 
-    public ItemStack(MaterialKey material, int count, int durability, MetadataKeyValueBucket metadataKeyValueBucket) {
+    public ItemStack(MaterialKey material, int amount, int durability, MetadataKeyValueBucket metadataKeyValueBucket) {
         this.material = material;
-        this.count = count;
+        this.amount = amount;
         this.durability = durability;
         this.metadataKeyValueBucket = metadataKeyValueBucket;
     }
 
-    public ItemStack(MaterialKey material, int count, int durability) {
-        this(material, count, durability, new MetadataKeyValueBucket());
+    public ItemStack(MaterialKey material, int amount, int durability) {
+        this(material, amount, durability, new MetadataKeyValueBucket());
     }
 
-    public ItemStack(MaterialKey material, int count) {
-        this(material, count, 0, new MetadataKeyValueBucket());
+    public ItemStack(MaterialKey material, int amount) {
+        this(material, amount, 0, new MetadataKeyValueBucket());
     }
 
     public ItemStack(MaterialKey materialKey){
@@ -42,12 +41,18 @@ public class ItemStack implements Cloneable {
         return this;
     }
 
-    public int getCount() {
-        return count;
+    public int getAmount() {
+        return amount;
     }
 
-    public ItemStack setCount(int count) {
-        this.count = count;
+    public ItemStack modifyAmount(Function<Integer, Integer> function){
+        Integer apply = function.apply(getAmount());
+        setAmount(apply);
+        return this;
+    }
+
+    public ItemStack setAmount(int amount) {
+        this.amount = amount;
         return this;
     }
 
@@ -65,7 +70,7 @@ public class ItemStack implements Cloneable {
     }
 
     @Override
-    protected ItemStack clone() {
+    public ItemStack clone() {
         try {
             return (ItemStack) super.clone();
         } catch (CloneNotSupportedException e) {
@@ -77,7 +82,7 @@ public class ItemStack implements Cloneable {
     public String toString() {
         return "ItemStack{" +
                 "material=" + material +
-                ", count=" + count +
+                ", amount=" + amount +
                 ", durability=" + durability +
                 ", metadataKeyValueBucket=" + metadataKeyValueBucket +
                 '}';
