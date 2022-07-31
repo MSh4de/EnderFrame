@@ -15,16 +15,13 @@ public interface Section {
 
     int[] getBlocks();
 
-    NibbleArray getData();
-
     NibbleArray getBlockLight();
 
     NibbleArray getSkyLight();
 
     default MaterialKey getBlock(int index){
         int id = getBlocks()[index];
-        byte data = getData().get(index);
-        return MaterialKey.from(id, data, Material.getNamespacedKeyOfMaterialKey(id, data));
+        return Material.fromId(id);
     }
 
 
