@@ -3,7 +3,6 @@ package eu.mshade.enderframe.protocol;
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.inventory.Inventory;
-import eu.mshade.enderframe.item.MaterialData;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.mojang.GameProfile;
@@ -11,6 +10,10 @@ import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.protocol.packet.PacketOutDisconnect;
 import eu.mshade.enderframe.protocol.packet.PacketOutPluginMessage;
+import eu.mshade.enderframe.scoreboard.Scoreboard;
+import eu.mshade.enderframe.scoreboard.ScoreboardMode;
+import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
+import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjectiveAction;
 import eu.mshade.enderframe.world.*;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
@@ -117,9 +120,9 @@ public abstract class SessionWrapper {
 
    public abstract void sendJoinGame(World world, boolean reducedDebugInfo);
 
-   public abstract void sendHeadAndFooter(String header, String footer);
+   public abstract void sendHeaderAndFooter(String header, String footer);
 
-   public abstract void sendHeadAndFooter(TextComponent header, TextComponent footer);
+   public abstract void sendHeaderAndFooter(TextComponent header, TextComponent footer);
 
    public abstract void sendAbilities(boolean invulnerable, boolean flying, boolean allowFlying, boolean instantBreak, float flyingSpeed, float walkSpeed);
 
@@ -185,15 +188,21 @@ public abstract class SessionWrapper {
 
    public abstract void sendItemStacks(Inventory inventory);
 
-    @Override
-    public String toString() {
-        return "SessionWrapper{" +
-                "channel=" + channel +
-                ", sessionId='" + sessionId + '\'' +
-                ", verifyToken=" + Arrays.toString(verifyToken) +
-                ", gameProfile=" + gameProfile +
-                ", handshake=" + handshake +
-                ", protocolStatus=" + protocolStatus +
-                '}';
-    }
+   public abstract void sendDisplayScoreboard(Scoreboard<?> scoreboard);
+
+   public abstract void sendScoreboardObjective(Scoreboard<?> scoreboard, ScoreboardMode scoreboardMode);
+
+   public abstract void sendUpdateScoreboard(ScoreboardObjective<?> scoreboardObjective, ScoreboardObjectiveAction scoreboardObjectiveAction);
+
+   @Override
+   public String toString() {
+       return "SessionWrapper{" +
+               "channel=" + channel +
+               ", sessionId='" + sessionId + '\'' +
+               ", verifyToken=" + Arrays.toString(verifyToken) +
+               ", gameProfile=" + gameProfile +
+               ", handshake=" + handshake +
+               ", protocolStatus=" + protocolStatus +
+               '}';
+   }
 }

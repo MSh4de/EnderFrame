@@ -4,6 +4,7 @@ import eu.mshade.enderframe.GameMode;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.protocol.MinecraftProtocolVersion;
 import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.scoreboard.Scoreboard;
 import eu.mshade.enderframe.world.Chunk;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
@@ -30,6 +31,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     protected float flyingSpeed;
     protected float walkSpeed;
     protected Queue<Chunk> lookAtChunks = new ConcurrentLinkedQueue<>();
+    protected Queue<Scoreboard> lookAtScoreboard = new ConcurrentLinkedQueue<>();
 
     public Player(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
         super(location, velocity, entityId, uuid, entityType);
@@ -154,6 +156,14 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
 
     public boolean hasLookAtChunk(Chunk chunk){
         return this.lookAtChunks.contains(chunk);
+    }
+
+    public Collection<Scoreboard> getLookAtScoreboard(){
+        return this.lookAtScoreboard;
+    }
+
+    public boolean hasLookAtScoreboard(Chunk chunk){
+        return this.lookAtScoreboard.contains(chunk);
     }
 
     public abstract SessionWrapper getSessionWrapper();

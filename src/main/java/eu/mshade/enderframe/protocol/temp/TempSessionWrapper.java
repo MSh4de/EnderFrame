@@ -3,12 +3,15 @@ package eu.mshade.enderframe.protocol.temp;
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.inventory.Inventory;
-import eu.mshade.enderframe.item.MaterialData;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.scoreboard.Scoreboard;
+import eu.mshade.enderframe.scoreboard.ScoreboardMode;
+import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
+import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjectiveAction;
 import eu.mshade.enderframe.world.*;
 import io.netty.channel.Channel;
 
@@ -37,12 +40,12 @@ public class TempSessionWrapper extends SessionWrapper {
     }
 
     @Override
-    public void sendHeadAndFooter(String header, String footer) {
+    public void sendHeaderAndFooter(String header, String footer) {
 
     }
 
     @Override
-    public void sendHeadAndFooter(TextComponent header, TextComponent footer) {
+    public void sendHeaderAndFooter(TextComponent header, TextComponent footer) {
 
     }
 
@@ -201,6 +204,21 @@ public class TempSessionWrapper extends SessionWrapper {
 
     @Override
     public void sendItemStacks(Inventory inventory) {
+
+    }
+
+    @Override
+    public void sendDisplayScoreboard(Scoreboard<?> scoreboard) {
+
+    }
+
+    @Override
+    public void sendScoreboardObjective(Scoreboard<?> scoreboard, ScoreboardMode scoreboardMode) {
+
+    }
+
+    @Override
+    public void sendUpdateScoreboard(ScoreboardObjective<?> scoreboardObjective, ScoreboardObjectiveAction scoreboardObjectiveAction) {
 
     }
 }
