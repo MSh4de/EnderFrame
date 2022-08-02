@@ -23,4 +23,13 @@ public class TitleTime {
     public int getFadeOut() {
         return fadeOut;
     }
+
+    @Override
+    public String toString() {
+        return "TitleTime{" +
+                "fadeIn=" + fadeIn +
+                ", stay=" + stay +
+                ", fadeOut=" + fadeOut +
+                '}';
+    }
 }

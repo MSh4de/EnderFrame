@@ -57,4 +57,13 @@ public class Title {
     public TitleTime getTitleTime() {
         return titleTime;
     }
+
+    @Override
+    public String toString() {
+        return "Title{" +
+                "title=" + title +
+                ", subtitle=" + subtitle +
+                ", titleTime=" + titleTime +
+                '}';
+    }
 }
