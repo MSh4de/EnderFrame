@@ -9,6 +9,8 @@ import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.title.Title;
+import eu.mshade.enderframe.title.TitleAction;
 import eu.mshade.enderframe.world.*;
 import io.netty.channel.Channel;
 
@@ -201,6 +203,11 @@ public class TempSessionWrapper extends SessionWrapper {
 
     @Override
     public void sendItemStacks(Inventory inventory) {
+
+    }
+
+    @Override
+    public void sendTitle(TitleAction titleAction, Title title) {
 
     }
 }

@@ -11,6 +11,8 @@ import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.protocol.packet.PacketOutDisconnect;
 import eu.mshade.enderframe.protocol.packet.PacketOutPluginMessage;
+import eu.mshade.enderframe.title.Title;
+import eu.mshade.enderframe.title.TitleAction;
 import eu.mshade.enderframe.world.*;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
@@ -184,6 +186,8 @@ public abstract class SessionWrapper {
    public abstract void sendOpenInventory(Inventory inventory);
 
    public abstract void sendItemStacks(Inventory inventory);
+
+    public abstract void sendTitle(TitleAction titleAction, Title title);
 
     @Override
     public String toString() {
