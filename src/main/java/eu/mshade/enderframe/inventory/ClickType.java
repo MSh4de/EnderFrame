@@ -19,6 +19,8 @@ public enum ClickType {
     END_DRAG_LEFT,
     START_DRAG_RIGHT,
     END_DRAG_RIGHT,
+    START_DRAG_MIDDLE,
+    END_DRAG_MIDDLE,
     ADD_ITEM_FROM_DRAG;
 
 }
