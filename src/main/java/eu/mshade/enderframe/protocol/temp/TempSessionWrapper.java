@@ -10,6 +10,8 @@ import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.protocol.SessionWrapper;
 import eu.mshade.enderframe.world.*;
+import eu.mshade.enderframe.world.border.WorldBorder;
+import eu.mshade.enderframe.world.border.WorldBorderAction;
 import io.netty.channel.Channel;
 
 import java.security.PublicKey;
@@ -201,6 +203,11 @@ public class TempSessionWrapper extends SessionWrapper {
 
     @Override
     public void sendItemStacks(Inventory inventory) {
+
+    }
+
+    @Override
+    public void sendWorldBorder(WorldBorderAction worldBorderAction, WorldBorder worldBorder) {
 
     }
 }
