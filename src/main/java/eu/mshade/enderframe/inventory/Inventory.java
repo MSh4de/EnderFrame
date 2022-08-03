@@ -72,7 +72,11 @@ public class Inventory {
     }
 
     public ItemStack findItemStack(MaterialKey materialKey, Function<ItemStack, Boolean> filter){
-        for (int i = 0; i < itemStacks.length; i++) {
+        return findItemStack(0, materialKey, filter);
+    }
+
+    public ItemStack findItemStack(int start, MaterialKey materialKey, Function<ItemStack, Boolean> filter){
+        for (int i = start; i < itemStacks.length; i++) {
             ItemStack itemStack = getItemStack(i);
             if (itemStack == null || !itemStack.getMaterial().equals(materialKey)) continue;
             if (filter.apply(itemStack)) {
