@@ -9,7 +9,7 @@ import java.util.List;
 public class InventoryBufferStore {
 
     protected ItemStack pickedItemStack;
-    protected int pickedSlot = 0;
+    protected PlacedItemStack lastPlacedItemStack;
     protected ClickType lastClickType = ClickType.UNKNOWN;
     protected List<PlacedItemStack> placedItemStacks = new ArrayList<>();
 
@@ -21,12 +21,22 @@ public class InventoryBufferStore {
         this.pickedItemStack = pickedItemStack;
     }
 
-    public int getPickedSlot() {
-        return pickedSlot;
+    public PlacedItemStack getLastPlacedItemStack() {
+        return lastPlacedItemStack;
     }
 
-    public void setPickedSlot(int pickedSlot) {
-        this.pickedSlot = pickedSlot;
+    public InventoryBufferStore setLastPlacedItemStack(PlacedItemStack lastPlacedItemStack) {
+        this.lastPlacedItemStack = lastPlacedItemStack;
+        return this;
+    }
+
+    public List<PlacedItemStack> getPlacedItemStacks() {
+        return placedItemStacks;
+    }
+
+    public InventoryBufferStore setPlacedItemStacks(List<PlacedItemStack> placedItemStacks) {
+        this.placedItemStacks = placedItemStacks;
+        return this;
     }
 
     public ClickType getLastClickType() {
