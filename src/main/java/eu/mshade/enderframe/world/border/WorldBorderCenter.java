@@ -17,4 +17,12 @@ public class WorldBorderCenter {
     public double getZ() {
         return z;
     }
+
+    @Override
+    public String toString() {
+        return "WorldBorderCenter{" +
+                "x=" + x +
+                ", z=" + z +
+                '}';
+    }
 }

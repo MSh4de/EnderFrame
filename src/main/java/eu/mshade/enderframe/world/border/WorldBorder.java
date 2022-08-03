@@ -92,4 +92,18 @@ public class WorldBorder {
     public Queue<Player> getViewers() {
         return viewers;
     }
+
+    @Override
+    public String toString() {
+        return "WorldBorder{" +
+                "worldBorderCenter=" + worldBorderCenter +
+                ", oldRadius=" + oldRadius +
+                ", radius=" + radius +
+                ", speed=" + speed +
+                ", portalTeleportLimit=" + portalTeleportLimit +
+                ", warningTime=" + warningTime +
+                ", warningBlocks=" + warningBlocks +
+                ", viewers=" + viewers +
+                '}';
+    }
 }
