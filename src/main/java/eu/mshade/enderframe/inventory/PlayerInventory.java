@@ -24,6 +24,24 @@ public class PlayerInventory extends Inventory {
         super.deleteItemStack(accurateSlot(slot));
     }
 
+    @Override
+    public int findFirstEmptySlot() {
+        for (int i = 0; i < 9*4; i++) {
+            ItemStack itemStack = getItemStack(i);
+            if (itemStack == null) return i;
+        }
+        return -1;
+    }
+
+    @Override
+    public int findFirstEmptySlot(int start) {
+        for (int i = start; i < 9*4; i++) {
+            ItemStack itemStack = getItemStack(i);
+            if (itemStack == null) return i;
+        }
+        return -1;
+    }
+
     public static int accurateSlot(int index) {
         if (index <= 8) {
             return index + 36;
