@@ -14,6 +14,8 @@ public interface MaterialKey {
 
     Set<MaterialCategoryKey> getMaterialCategoryKeys();
 
+    int getMaxStackSize();
+
     default boolean inMaterialCategoryKey(MaterialCategoryKey... materialCategoryKeys){
         for (MaterialCategoryKey materialCategoryKey : materialCategoryKeys) {
             if (getMaterialCategoryKeys().contains(materialCategoryKey)) return true;
@@ -28,48 +30,66 @@ public interface MaterialKey {
         return false;
     }
 
-    static MaterialKey from(int id, int data, NamespacedKey namespacedKey){
-        return new DefaultMaterialKey(id, data, namespacedKey, new HashSet<>());
+    static MaterialKey from(int id, int data, int maxStackSize, NamespacedKey namespacedKey){
+        return new DefaultMaterialKey(id, data, maxStackSize, namespacedKey, new HashSet<>());
     }
 
-    static MaterialKey from(int id, int data, NamespacedKey namespacedKey, Set<MaterialCategoryKey> materialCategoryKeys){
-        return new DefaultMaterialKey(id, data, namespacedKey, materialCategoryKeys);
+    static MaterialKey from(int id, int data, int maxStackSize, NamespacedKey namespacedKey, Set<MaterialCategoryKey> materialCategoryKeys){
+        return new DefaultMaterialKey(id, data, maxStackSize, namespacedKey, materialCategoryKeys);
     }
 
     static MaterialKey from(int id, int data){
-        return new DefaultMaterialKey(id, data, null, new HashSet<>());
+        return new DefaultMaterialKey(id, data, -1,null, new HashSet<>());
+    }
+
+    static MaterialKey from(int id, int data, int maxStackSize){
+        return new DefaultMaterialKey(id, data, maxStackSize,null, new HashSet<>());
     }
 
     static MaterialKey from(int id, int data, Set<MaterialCategoryKey> materialCategoryKeys){
-        return new DefaultMaterialKey(id, data, null, materialCategoryKeys);
+        return new DefaultMaterialKey(id, data, -1, null, materialCategoryKeys);
+    }
+
+    static MaterialKey from(int id, int data, int maxStackSize, Set<MaterialCategoryKey> materialCategoryKeys){
+        return new DefaultMaterialKey(id, data, maxStackSize, null, materialCategoryKeys);
     }
 
     static MaterialKey from(int id, NamespacedKey namespacedKey){
-        return new DefaultMaterialKey(id, 0, namespacedKey, new HashSet<>());
+        return new DefaultMaterialKey(id, 0, -1, namespacedKey, new HashSet<>());
+    }
+
+    static MaterialKey from(int id, int maxStackSize,  NamespacedKey namespacedKey){
+        return new DefaultMaterialKey(id, 0, maxStackSize, namespacedKey, new HashSet<>());
+    }
+
+    static MaterialKey from(int id, int maxStackSize, NamespacedKey namespacedKey, Set<MaterialCategoryKey> materialCategoryKeys){
+        return new DefaultMaterialKey(id, 0, maxStackSize, namespacedKey, materialCategoryKeys);
     }
 
     static MaterialKey from(int id, NamespacedKey namespacedKey, Set<MaterialCategoryKey> materialCategoryKeys){
-        return new DefaultMaterialKey(id, 0, namespacedKey, materialCategoryKeys);
+        return new DefaultMaterialKey(id, 0, -1, namespacedKey, materialCategoryKeys);
     }
 
     static MaterialKey from(int id){
-        return new DefaultMaterialKey(id, 0, null, new HashSet<>());
+        return new DefaultMaterialKey(id, 0, -1, null, new HashSet<>());
     }
 
     static MaterialKey from(int id, Set<MaterialCategoryKey> materialCategoryKeys){
-        return new DefaultMaterialKey(id, 0, null, materialCategoryKeys);
+        return new DefaultMaterialKey(id, 0, -1,null, materialCategoryKeys);
     }
 
     class DefaultMaterialKey implements MaterialKey{
 
         private int id;
         private int metadata;
+        private int maxStackSize;
         private NamespacedKey namespacedKey;
         private Set<MaterialCategoryKey> materialCategoryKeys;
 
-        public DefaultMaterialKey(int id, int metadata, NamespacedKey namespacedKey, Set<MaterialCategoryKey> materialCategoryKeys) {
+        public DefaultMaterialKey(int id, int metadata, int maxStackSize, NamespacedKey namespacedKey, Set<MaterialCategoryKey> materialCategoryKeys) {
             this.id = id;
             this.metadata = metadata;
+            this.maxStackSize = maxStackSize;
             this.namespacedKey = namespacedKey;
             this.materialCategoryKeys = materialCategoryKeys;
         }
@@ -92,6 +112,11 @@ public interface MaterialKey {
         @Override
         public Set<MaterialCategoryKey> getMaterialCategoryKeys() {
             return this.materialCategoryKeys;
+        }
+
+        @Override
+        public int getMaxStackSize() {
+            return this.maxStackSize;
         }
 
         @Override
