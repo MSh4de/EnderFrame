@@ -30,6 +30,34 @@ public class TextComponent extends TextComponentEntry {
         return extra;
     }
 
+    public TextComponent withColor(ChatColor chatColor) {
+        return (TextComponent) super.withColor(chatColor);
+    }
+
+    public TextComponent withBold(boolean bold) {
+        return (TextComponent) super.withBold(bold);
+    }
+
+    public TextComponent withItalic(boolean italic) {
+        return (TextComponent) super.withItalic(italic);
+    }
+
+    public TextComponent withStrikethrough(boolean strikethrough) {
+        return (TextComponent) super.withStrikethrough(strikethrough);
+    }
+
+    public TextComponent withObfuscated(boolean obfuscated) {
+        return (TextComponent) super.withObfuscated(obfuscated);
+    }
+
+    public TextComponent withClickEvent(TextClickEvent clickEvent) {
+        return (TextComponent) super.withClickEvent(clickEvent);
+    }
+
+    public TextComponent withUnderlined(boolean underlined) {
+        return (TextComponent) super.withUnderlined(underlined);
+    }
+
     public String toLegacyText(){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toLegacyText());
@@ -42,14 +70,15 @@ public class TextComponent extends TextComponentEntry {
     @Override
     public String toString() {
         return "TextComponent{" +
-                "text='" + this.getText() + '\'' +
-                ", color='" + this.getChatColor() + '\'' +
-                ", bold=" + this.isBold() +
-                ", italic=" + this.isItalic() +
-                ", strikethrough=" + this.isStrikethrough() +
-                ", obfuscated=" + this.isObfuscated() +
-                ", clickEvent=" + this.getClickEvent() +
                 "extra=" + extra +
+                ", text='" + text + '\'' +
+                ", chatColor=" + chatColor +
+                ", bold=" + bold +
+                ", italic=" + italic +
+                ", strikethrough=" + strikethrough +
+                ", obfuscated=" + obfuscated +
+                ", underlined=" + underlined +
+                ", clickEvent=" + clickEvent +
                 '}';
     }
 
@@ -57,12 +86,13 @@ public class TextComponent extends TextComponentEntry {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         TextComponent that = (TextComponent) o;
         return Objects.equals(extra, that.extra);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(extra);
+        return Objects.hash(super.hashCode(), extra);
     }
 }
