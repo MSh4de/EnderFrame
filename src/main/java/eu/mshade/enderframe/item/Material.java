@@ -18,29 +18,29 @@ public class Material {
     private final static Map<MaterialCategoryKey, Set<MaterialKey>> MATERIAL_KEYS_BY_CATEGORY = new HashMap<>();
 
     public static MaterialKey AIR = MaterialKey.from(0, NamespacedKey.minecraft("air"),  Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey STONE = MaterialKey.from(1, NamespacedKey.minecraft("stone"), Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey GRANITE = MaterialKey.from(2, NamespacedKey.minecraft("granite"),  Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey POLISHED_GRANITE = MaterialKey.from(3, NamespacedKey.minecraft("polished_granite"),  Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey DIORITE = MaterialKey.from(4, NamespacedKey.minecraft("diorite"),  Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey POLISHED_DIORITE = MaterialKey.from(5, NamespacedKey.minecraft("polished_diorite"),  Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey ANDESITE = MaterialKey.from(6, NamespacedKey.minecraft("andesite"),  Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey POLISHED_ANDESITE = MaterialKey.from(7, NamespacedKey.minecraft("polished_andesite"),  Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey GRASS = MaterialKey.from(8, NamespacedKey.minecraft("grass"),  Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey DIRT = MaterialKey.from(9, NamespacedKey.minecraft("dirt"),  Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey COARSE_DIRT = MaterialKey.from(10, NamespacedKey.minecraft("coarse_dirt"),  Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey PODZOL = MaterialKey.from(11, NamespacedKey.minecraft("podzol"), Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey COBBLESTONE = MaterialKey.from(12, NamespacedKey.minecraft("cobblestone"), Set.of(MaterialCategory.BLOCK));
-    public static MaterialKey OAK_WOOD_PLANKS = MaterialKey.from(13, NamespacedKey.minecraft("oak_wood_planks"), Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey STONE = MaterialKey.from(1, 64, NamespacedKey.minecraft("stone"), Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey GRANITE = MaterialKey.from(2, 64, NamespacedKey.minecraft("granite"),  Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey POLISHED_GRANITE = MaterialKey.from(3, 64, NamespacedKey.minecraft("polished_granite"),  Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey DIORITE = MaterialKey.from(4, 64, NamespacedKey.minecraft("diorite"),  Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey POLISHED_DIORITE = MaterialKey.from(5, 64, NamespacedKey.minecraft("polished_diorite"),  Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey ANDESITE = MaterialKey.from(6, 64, NamespacedKey.minecraft("andesite"),  Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey POLISHED_ANDESITE = MaterialKey.from(7, 64, NamespacedKey.minecraft("polished_andesite"),  Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey GRASS = MaterialKey.from(8, 64, NamespacedKey.minecraft("grass"),  Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey DIRT = MaterialKey.from(9, 64, NamespacedKey.minecraft("dirt"),  Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey COARSE_DIRT = MaterialKey.from(10, 64,NamespacedKey.minecraft("coarse_dirt"),  Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey PODZOL = MaterialKey.from(11, 64, NamespacedKey.minecraft("podzol"), Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey COBBLESTONE = MaterialKey.from(12, 64,NamespacedKey.minecraft("cobblestone"), Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey OAK_WOOD_PLANKS = MaterialKey.from(13, 64, NamespacedKey.minecraft("oak_wood_planks"), Set.of(MaterialCategory.BLOCK));
 
 
-    public static MaterialKey OAK_WOOD = MaterialKey.from(14, NamespacedKey.minecraft("oak_wood"), Set.of(MaterialCategory.BLOCK));
+    public static MaterialKey OAK_WOOD = MaterialKey.from(14, 64, NamespacedKey.minecraft("oak_wood"), Set.of(MaterialCategory.BLOCK));
 
     /**
      * Item tested with metadata
      */
-    public static MaterialKey WOODEN_PICKAXE = MaterialKey.from(15, NamespacedKey.minecraft("wooden_pickaxe"), Set.of(MaterialCategory.TOOLS));
-    public static MaterialKey LEATHER_HELMET = MaterialKey.from(16, NamespacedKey.minecraft("leather_helmet"), Set.of(MaterialCategory.ARMOR));
-    public static MaterialKey PLAYER_SKULL = MaterialKey.from(17, NamespacedKey.minecraft("player_skull"));
+    public static MaterialKey WOODEN_PICKAXE = MaterialKey.from(15, 1, NamespacedKey.minecraft("wooden_pickaxe"), Set.of(MaterialCategory.TOOLS));
+    public static MaterialKey LEATHER_HELMET = MaterialKey.from(16, 1, NamespacedKey.minecraft("leather_helmet"), Set.of(MaterialCategory.ARMOR));
+    public static MaterialKey PLAYER_SKULL = MaterialKey.from(17, 64, NamespacedKey.minecraft("player_skull"));
 
     static {
         Field[] declaredFields = Material.class.getDeclaredFields();
