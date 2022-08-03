@@ -5,14 +5,14 @@ import java.util.Objects;
 
 public class TextComponentEntry {
 
-    private String text;
-    private ChatColor chatColor;
-    private boolean bold = false;
-    private boolean italic = false;
-    private boolean strikethrough = false;
-    private boolean obfuscated = false;
-    private boolean underlined;
-    private TextClickEvent clickEvent;
+    protected String text;
+    protected ChatColor chatColor;
+    protected boolean bold = false;
+    protected boolean italic = false;
+    protected boolean strikethrough = false;
+    protected boolean obfuscated = false;
+    protected boolean underlined;
+    protected TextClickEvent clickEvent;
 
     private TextComponentEntry() {
     }
