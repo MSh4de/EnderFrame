@@ -7,6 +7,7 @@ import eu.mshade.enderframe.protocol.SessionWrapper;
 import eu.mshade.enderframe.world.Chunk;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
+import eu.mshade.enderframe.world.border.WorldBorder;
 
 import java.net.SocketAddress;
 import java.util.Collection;
@@ -30,6 +31,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     protected float flyingSpeed;
     protected float walkSpeed;
     protected Queue<Chunk> lookAtChunks = new ConcurrentLinkedQueue<>();
+    protected Queue<WorldBorder> lookAtWorldBorders = new ConcurrentLinkedQueue<>();
 
     public Player(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
         super(location, velocity, entityId, uuid, entityType);
@@ -154,6 +156,14 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
 
     public boolean hasLookAtChunk(Chunk chunk){
         return this.lookAtChunks.contains(chunk);
+    }
+
+    public Collection<WorldBorder> getLookAtWorldBorders(){
+        return this.lookAtWorldBorders;
+    }
+
+    public boolean hasLookAtWorldBorder(WorldBorder worldBorder){
+        return this.lookAtWorldBorders.contains(worldBorder);
     }
 
     public abstract SessionWrapper getSessionWrapper();
