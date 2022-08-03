@@ -4,9 +4,11 @@ import eu.mshade.enderframe.UniqueIdManager;
 import eu.mshade.enderframe.entity.Item;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.Material;
+import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
 public class Inventory {
 
@@ -38,6 +40,7 @@ public class Inventory {
 
     public void setItemStack(int slot, ItemStack itemStack) {
         if (itemStack != null && !itemStack.getMaterial().equals(Material.AIR)) this.itemStacks[slot] = itemStack;
+        else this.itemStacks[slot] = null;
     }
 
     public void deleteItemStack(int slot){
@@ -51,6 +54,34 @@ public class Inventory {
     public ItemStack[] getItemStacks() {
         return itemStacks;
     }
+
+    public int findFirstEmptySlot(){
+        for (int i = 0; i < itemStacks.length; i++) {
+            ItemStack itemStack = getItemStack(i);
+            if (itemStack == null) return i;
+        }
+        return -1;
+    }
+
+    public int findFirstEmptySlot(int start){
+        for (int i = start; i < itemStacks.length; i++) {
+            ItemStack itemStack = getItemStack(i);
+            if (itemStack == null) return i;
+        }
+        return -1;
+    }
+
+    public ItemStack findItemStack(MaterialKey materialKey, Function<ItemStack, Boolean> filter){
+        for (int i = 0; i < itemStacks.length; i++) {
+            ItemStack itemStack = getItemStack(i);
+            if (itemStack == null || !itemStack.getMaterial().equals(materialKey)) continue;
+            if (filter.apply(itemStack)) {
+                return itemStack;
+            }
+        }
+        return null;
+    }
+
 
 
     @Override
