@@ -3,13 +3,12 @@ package eu.mshade.enderframe.protocol.temp;
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.inventory.Inventory;
-import eu.mshade.enderframe.item.MaterialData;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.protocol.SessionWrapper;
-import eu.mshade.enderframe.sound.Sound;
+import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.world.*;
 import io.netty.channel.Channel;
 
@@ -206,7 +205,7 @@ public class TempSessionWrapper extends SessionWrapper {
     }
 
     @Override
-    public void sendSoundEffect(Sound sound) {
+    public void sendSoundEffect(SoundEffect soundEffect) {
 
     }
 }

@@ -3,7 +3,6 @@ package eu.mshade.enderframe.protocol;
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.inventory.Inventory;
-import eu.mshade.enderframe.item.MaterialData;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.mojang.GameProfile;
@@ -11,7 +10,7 @@ import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.protocol.packet.PacketOutDisconnect;
 import eu.mshade.enderframe.protocol.packet.PacketOutPluginMessage;
-import eu.mshade.enderframe.sound.Sound;
+import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.world.*;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
@@ -186,7 +185,7 @@ public abstract class SessionWrapper {
 
    public abstract void sendItemStacks(Inventory inventory);
 
-   public abstract void sendSoundEffect(Sound sound);
+   public abstract void sendSoundEffect(SoundEffect soundEffect);
 
     @Override
     public String toString() {
