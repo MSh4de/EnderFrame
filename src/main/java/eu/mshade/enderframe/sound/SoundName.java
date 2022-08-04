@@ -1,6 +1,6 @@
 package eu.mshade.enderframe.sound;
 
-public enum SoundEffect {
+public enum SoundName {
 
     AMBIENT_CAVE("ambient.cave.cave"),
     AMBIENT_WEATHER_RAIN("ambient.weather.rain"),
@@ -165,13 +165,13 @@ public enum SoundEffect {
     RANDOM_ANVIL_LAND("random.anvil_land"),
     RANDOM_ANVIL_USE("random.anvil_use");
 
-    private final String soundName;
+    private final String name;
 
-    SoundEffect(String soundName) {
-        this.soundName = soundName;
+    SoundName(String name) {
+        this.name = name;
     }
 
-    public String getSoundName() {
-        return soundName;
+    public String getName() {
+        return name;
     }
 }
