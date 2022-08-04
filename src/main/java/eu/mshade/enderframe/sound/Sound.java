@@ -7,11 +7,13 @@ public class Sound {
     protected final SoundName soundName;
     protected final SoundPosition soundPosition;
     protected final float soundVolume;
+    protected final int soundPitch;
 
-    public Sound(SoundName soundName, SoundPosition soundPosition, float soundVolume) {
+    public Sound(SoundName soundName, SoundPosition soundPosition, float soundVolume, int soundPitch) {
         this.soundName = soundName;
         this.soundPosition = soundPosition;
         this.soundVolume = soundVolume;
+        this.soundPitch = soundPitch;
     }
 
     public void createSound(Player player) {
@@ -28,5 +30,9 @@ public class Sound {
 
     public float getSoundVolume() {
         return soundVolume;
+    }
+
+    public int getSoundPitch() {
+        return soundPitch;
     }
 }
