@@ -7,6 +7,7 @@ import eu.mshade.enderframe.inventory.PlayerInventory;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.protocol.MinecraftProtocolVersion;
 import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.scoreboard.Scoreboard;
 import eu.mshade.enderframe.world.Chunk;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
@@ -36,6 +37,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
     protected Inventory openedInventory;
     protected Queue<Chunk> lookAtChunks = new ConcurrentLinkedQueue<>();
     protected InventoryBufferStore inventoryBufferStore = new InventoryBufferStore();
+    protected Queue<Scoreboard> lookAtScoreboard = new ConcurrentLinkedQueue<>();
 
     public Player(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
         super(location, velocity, entityId, uuid, entityType);
@@ -176,6 +178,10 @@ public abstract class Player extends LivingEntity implements ProjectileSource {
 
     public InventoryBufferStore getInventoryBufferStore() {
         return inventoryBufferStore;
+    }
+
+    public Collection<Scoreboard> getLookAtScoreboard(){
+        return this.lookAtScoreboard;
     }
 
     public abstract SessionWrapper getSessionWrapper();
