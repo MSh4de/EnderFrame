@@ -82,12 +82,12 @@ public abstract class SessionWrapper {
         return protocolStatus;
     }
 
-    public void toggleProtocol(Protocol protocol){
+    public void toggleProtocol(Protocol protocol) {
         this.channel.flush();
         ProtocolPipeline.get().setProtocol(this.channel, protocol);
     }
 
-    public void toggleProtocolStatus(ProtocolStatus protocolStatus){
+    public void toggleProtocolStatus(ProtocolStatus protocolStatus) {
         this.protocolStatus = protocolStatus;
     }
 
@@ -95,7 +95,7 @@ public abstract class SessionWrapper {
         updatePipeline("encryption", new PacketEncryption(sharedSecret));
     }
 
-    public void enableCompression(int threshold){
+    public void enableCompression(int threshold) {
         updatePipeline("compression", new PacketCompression(threshold));
     }
 
@@ -119,104 +119,105 @@ public abstract class SessionWrapper {
         return inventoryRepository;
     }
 
-    public void sendDisconnect(TextComponent textComponent){
+    public void sendDisconnect(TextComponent textComponent) {
         this.sendPacketAndClose(new PacketOutDisconnect(textComponent));
     }
 
-    public void sendDisconnect(String s){
+    public void sendDisconnect(String s) {
         sendDisconnect(TextComponent.of(s));
     }
+
     public abstract void sendCompression(int threshold);
 
-   public abstract void sendLoginSuccess();
+    public abstract void sendLoginSuccess();
 
-   public abstract void sendJoinGame(World world, boolean reducedDebugInfo);
+    public abstract void sendJoinGame(World world, boolean reducedDebugInfo);
 
-   public abstract void sendHeaderAndFooter(String header, String footer);
+    public abstract void sendHeaderAndFooter(String header, String footer);
 
-   public abstract void sendHeaderAndFooter(TextComponent header, TextComponent footer);
+    public abstract void sendHeaderAndFooter(TextComponent header, TextComponent footer);
 
-   public abstract void sendAbilities(boolean invulnerable, boolean flying, boolean allowFlying, boolean instantBreak, float flyingSpeed, float walkSpeed);
+    public abstract void sendAbilities(boolean invulnerable, boolean flying, boolean allowFlying, boolean instantBreak, float flyingSpeed, float walkSpeed);
 
-   public abstract void sendKeepAlive(int threshold);
+    public abstract void sendKeepAlive(int threshold);
 
-   public abstract void sendEncryption(PublicKey publicKey);
+    public abstract void sendEncryption(PublicKey publicKey);
 
-   public abstract void sendPlayerInfo(PlayerInfoBuilder playerInfoBuilder);
+    public abstract void sendPlayerInfo(PlayerInfoBuilder playerInfoBuilder);
 
-   public abstract void sendMessage(TextComponent textComponent, TextPosition textPosition);
+    public abstract void sendMessage(TextComponent textComponent, TextPosition textPosition);
 
-   public abstract void sendMessage(TextComponent textComponent);
+    public abstract void sendMessage(TextComponent textComponent);
 
-   public abstract void sendMessage(String message);
+    public abstract void sendMessage(String message);
 
-   public abstract void disconnect(String message);
+    public abstract void disconnect(String message);
 
-   public abstract void disconnect(TextComponent message);
+    public abstract void disconnect(TextComponent message);
 
-   public abstract void teleport(Location location);
+    public abstract void teleport(Location location);
 
-   public abstract void sendUpdateLocation(Entity entity);
+    public abstract void sendUpdateLocation(Entity entity);
 
-   public abstract void sendUpdateLocation(Entity entity, Location before, Location now);
+    public abstract void sendUpdateLocation(Entity entity, Location before, Location now);
 
-   public abstract void sendTeleport(Entity entity);
+    public abstract void sendTeleport(Entity entity);
 
-   public abstract void sendTeleport(Entity entity, Location location);
-   public abstract void sendMove(Entity entity);
+    public abstract void sendTeleport(Entity entity, Location location);
 
-   public abstract void sendMove(Entity entity, Location before, Location now);
+    public abstract void sendMove(Entity entity);
 
-   public abstract void sendMoveAndLook(Entity entity);
+    public abstract void sendMove(Entity entity, Location before, Location now);
 
-   public abstract void sendMoveAndLook(Entity entity, Location before, Location now);
+    public abstract void sendMoveAndLook(Entity entity);
 
-   public abstract void sendLook(Entity entity);
+    public abstract void sendMoveAndLook(Entity entity, Location before, Location now);
 
-   public abstract void sendLook(Entity entity, Location location);
-   public abstract void sendHeadLook(Entity entity);
+    public abstract void sendLook(Entity entity);
 
-   public abstract void sendHeadLook(Entity entity, Location location);
+    public abstract void sendLook(Entity entity, Location location);
 
-   public abstract void sendEntity(Entity... entities);
+    public abstract void sendHeadLook(Entity entity);
 
-   public abstract void removeEntity(Entity... entities);
+    public abstract void sendHeadLook(Entity entity, Location location);
 
-   public abstract void sendMetadata(Entity entity, EntityMetadataKey... entityMetadataKeys);
+    public abstract void sendEntity(Entity... entities);
 
-   public abstract void sendChunk(Chunk chunk);
+    public abstract void removeEntity(Entity... entities);
 
-   public abstract void sendSection(Section section);
+    public abstract void sendMetadata(Entity entity, EntityMetadataKey... entityMetadataKeys);
 
-   public abstract void sendUnloadChunk(Chunk chunk);
+    public abstract void sendChunk(Chunk chunk);
 
-   public void sendPluginMessage(String channel, Consumer<ProtocolBuffer> payload){
-       sendPacket(new PacketOutPluginMessage(channel, payload));
-   }
+    public abstract void sendSection(Section section);
 
-   public abstract void sendBlockChange(Vector blockPosition, MaterialKey materialKey);
+    public abstract void sendUnloadChunk(Chunk chunk);
 
-   public abstract void sendOpenInventory(Inventory inventory);
+    public void sendPluginMessage(String channel, Consumer<ProtocolBuffer> payload) {
+        sendPacket(new PacketOutPluginMessage(channel, payload));
+    }
 
-   public abstract void sendCloseInventory(Inventory inventory);
+    public abstract void sendBlockChange(Vector blockPosition, MaterialKey materialKey);
 
-   public abstract void sendItemStacks(Inventory inventory);
+    public abstract void sendOpenInventory(Inventory inventory);
 
-<<<<<<< HEAD
-   public abstract void sendItemStack(Inventory inventory, int slot, ItemStack itemStack);
+    public abstract void sendCloseInventory(Inventory inventory);
 
-   public abstract void sendDisplayScoreboard(Scoreboard<?> scoreboard);
+    public abstract void sendItemStacks(Inventory inventory);
 
-   public abstract void sendScoreboardObjective(Scoreboard<?> scoreboard, ScoreboardMode scoreboardMode);
+    public abstract void sendItemStack(Inventory inventory, int slot, ItemStack itemStack);
 
-   public abstract void sendUpdateScoreboard(ScoreboardObjective<?> scoreboardObjective, ScoreboardObjectiveAction scoreboardObjectiveAction);
+    public abstract void sendDisplayScoreboard(Scoreboard<?> scoreboard);
 
-   public abstract void sendSoundEffect(SoundEffect soundEffect);
+    public abstract void sendScoreboardObjective(Scoreboard<?> scoreboard, ScoreboardMode scoreboardMode);
 
-   public abstract void sendTitle(TitleAction titleAction, Title title);
-=======
+    public abstract void sendUpdateScoreboard(ScoreboardObjective<?> scoreboardObjective, ScoreboardObjectiveAction scoreboardObjectiveAction);
+
+    public abstract void sendSoundEffect(SoundEffect soundEffect);
+
+    public abstract void sendTitle(TitleAction titleAction, Title title);
+
     public abstract void sendWorldBorder(WorldBorderAction worldBorderAction, WorldBorder worldBorder);
->>>>>>> world-border
 
     @Override
     public String toString() {
