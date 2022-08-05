@@ -17,6 +17,8 @@ import eu.mshade.enderframe.scoreboard.ScoreboardMode;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjectiveAction;
 import eu.mshade.enderframe.sound.SoundEffect;
+import eu.mshade.enderframe.title.Title;
+import eu.mshade.enderframe.title.TitleAction;
 import eu.mshade.enderframe.world.*;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
@@ -207,6 +209,8 @@ public abstract class SessionWrapper {
    public abstract void sendUpdateScoreboard(ScoreboardObjective<?> scoreboardObjective, ScoreboardObjectiveAction scoreboardObjectiveAction);
 
    public abstract void sendSoundEffect(SoundEffect soundEffect);
+
+   public abstract void sendTitle(TitleAction titleAction, Title title);
 
     @Override
     public String toString() {
