@@ -217,7 +217,7 @@ public class TempSessionWrapper extends SessionWrapper {
     public void sendItemStack(Inventory inventory, int slot, ItemStack itemStack) {
 
     }
-    
+
     public void sendDisplayScoreboard(Scoreboard<?> scoreboard) {
 
     }
