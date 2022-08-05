@@ -17,6 +17,8 @@ import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.title.Title;
 import eu.mshade.enderframe.title.TitleAction;
 import eu.mshade.enderframe.world.*;
+import eu.mshade.enderframe.world.border.WorldBorder;
+import eu.mshade.enderframe.world.border.WorldBorderAction;
 import io.netty.channel.Channel;
 
 import java.security.PublicKey;
@@ -242,6 +244,11 @@ public class TempSessionWrapper extends SessionWrapper {
 
     @Override
     public void sendTitle(TitleAction titleAction, Title title) {
+
+    }
+
+    @Override
+    public void sendWorldBorder(WorldBorderAction worldBorderAction, WorldBorder worldBorder) {
 
     }
 }

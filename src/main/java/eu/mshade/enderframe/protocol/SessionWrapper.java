@@ -20,6 +20,8 @@ import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.title.Title;
 import eu.mshade.enderframe.title.TitleAction;
 import eu.mshade.enderframe.world.*;
+import eu.mshade.enderframe.world.border.WorldBorder;
+import eu.mshade.enderframe.world.border.WorldBorderAction;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
@@ -200,6 +202,7 @@ public abstract class SessionWrapper {
 
    public abstract void sendItemStacks(Inventory inventory);
 
+<<<<<<< HEAD
    public abstract void sendItemStack(Inventory inventory, int slot, ItemStack itemStack);
 
    public abstract void sendDisplayScoreboard(Scoreboard<?> scoreboard);
@@ -211,6 +214,9 @@ public abstract class SessionWrapper {
    public abstract void sendSoundEffect(SoundEffect soundEffect);
 
    public abstract void sendTitle(TitleAction titleAction, Title title);
+=======
+    public abstract void sendWorldBorder(WorldBorderAction worldBorderAction, WorldBorder worldBorder);
+>>>>>>> world-border
 
     @Override
     public String toString() {
