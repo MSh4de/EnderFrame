@@ -31,7 +31,7 @@ public class Material {
     public static MaterialKey PODZOL = MaterialKey.from(11, 64, NamespacedKey.minecraft("podzol"), Set.of(MaterialCategory.BLOCK));
     public static MaterialKey COBBLESTONE = MaterialKey.from(12, 64,NamespacedKey.minecraft("cobblestone"), Set.of(MaterialCategory.BLOCK));
     public static MaterialKey OAK_WOOD_PLANKS = MaterialKey.from(13, 64, NamespacedKey.minecraft("oak_wood_planks"), Set.of(MaterialCategory.BLOCK));
-    
+
     public static MaterialKey OAK_WOOD = MaterialKey.from(14, 64, NamespacedKey.minecraft("oak_wood"), Set.of(MaterialCategory.BLOCK));
 
     /**
