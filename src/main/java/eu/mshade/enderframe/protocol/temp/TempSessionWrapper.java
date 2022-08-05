@@ -13,6 +13,7 @@ import eu.mshade.enderframe.scoreboard.Scoreboard;
 import eu.mshade.enderframe.scoreboard.ScoreboardMode;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjectiveAction;
+import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.world.*;
 import io.netty.channel.Channel;
 
@@ -229,6 +230,11 @@ public class TempSessionWrapper extends SessionWrapper {
 
     @Override
     public void sendUpdateScoreboard(ScoreboardObjective<?> scoreboardObjective, ScoreboardObjectiveAction scoreboardObjectiveAction) {
+
+    }
+
+    @Override
+    public void sendSoundEffect(SoundEffect soundEffect) {
 
     }
 }

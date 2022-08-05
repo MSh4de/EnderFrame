@@ -16,6 +16,7 @@ import eu.mshade.enderframe.scoreboard.Scoreboard;
 import eu.mshade.enderframe.scoreboard.ScoreboardMode;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjectiveAction;
+import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.world.*;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
@@ -199,23 +200,23 @@ public abstract class SessionWrapper {
 
    public abstract void sendItemStack(Inventory inventory, int slot, ItemStack itemStack);
 
-
    public abstract void sendDisplayScoreboard(Scoreboard<?> scoreboard);
 
    public abstract void sendScoreboardObjective(Scoreboard<?> scoreboard, ScoreboardMode scoreboardMode);
 
    public abstract void sendUpdateScoreboard(ScoreboardObjective<?> scoreboardObjective, ScoreboardObjectiveAction scoreboardObjectiveAction);
 
-   @Override
-   public String toString() {
-       return "SessionWrapper{" +
-               "channel=" + channel +
-               ", sessionId='" + sessionId + '\'' +
-               ", verifyToken=" + Arrays.toString(verifyToken) +
-               ", gameProfile=" + gameProfile +
-               ", handshake=" + handshake +
-               ", protocolStatus=" + protocolStatus +
-               '}';
-   }
+   public abstract void sendSoundEffect(SoundEffect soundEffect);
 
+    @Override
+    public String toString() {
+        return "SessionWrapper{" +
+                "channel=" + channel +
+                ", sessionId='" + sessionId + '\'' +
+                ", verifyToken=" + Arrays.toString(verifyToken) +
+                ", gameProfile=" + gameProfile +
+                ", handshake=" + handshake +
+                ", protocolStatus=" + protocolStatus +
+                '}';
+    }
 }
