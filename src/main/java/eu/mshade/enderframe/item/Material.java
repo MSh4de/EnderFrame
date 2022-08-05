@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Material {
 
@@ -39,7 +38,8 @@ public class Material {
      */
     public static MaterialKey WOODEN_PICKAXE = MaterialKey.from(15, 1, NamespacedKey.minecraft("wooden_pickaxe"), Set.of(MaterialCategory.TOOLS));
     public static MaterialKey LEATHER_HELMET = MaterialKey.from(16, 1, NamespacedKey.minecraft("leather_helmet"), Set.of(MaterialCategory.ARMOR));
-    public static MaterialKey PLAYER_SKULL = MaterialKey.from(17, 64, NamespacedKey.minecraft("player_skull"));
+    public static MaterialKey PLAYER_HEAD = MaterialKey.from(17, 64, NamespacedKey.minecraft("pleasant_head"));
+
 
     static {
         Field[] declaredFields = Material.class.getDeclaredFields();
