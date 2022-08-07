@@ -8,6 +8,7 @@ import eu.mshade.enderframe.item.MaterialKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Queue;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public interface Chunk {
@@ -54,9 +55,9 @@ public interface Chunk {
 
     byte[] getBiomes();
 
-    int getHighest(int x, int z);
+    AtomicInteger getAge();
 
-    boolean hasChange();
+    int getHighest(int x, int z);
 
     static UUID ofId(int x, int z){
         return UUID.nameUUIDFromBytes(String.format("%d,%d", x, z).getBytes(StandardCharsets.UTF_8));
