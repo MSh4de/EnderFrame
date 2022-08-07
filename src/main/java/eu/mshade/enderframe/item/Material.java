@@ -33,12 +33,13 @@ public class Material {
 
     public static MaterialKey OAK_WOOD = MaterialKey.from(14, 64, NamespacedKey.minecraft("oak_wood"), Set.of(MaterialCategory.BLOCK));
 
+
     /**
      * Item tested with metadata
      */
     public static MaterialKey WOODEN_PICKAXE = MaterialKey.from(15, 1, NamespacedKey.minecraft("wooden_pickaxe"), Set.of(MaterialCategory.TOOLS));
     public static MaterialKey LEATHER_HELMET = MaterialKey.from(16, 1, NamespacedKey.minecraft("leather_helmet"), Set.of(MaterialCategory.ARMOR));
-    public static MaterialKey PLAYER_HEAD = MaterialKey.from(17, 64, NamespacedKey.minecraft("pleasant_head"));
+    public static MaterialKey PLAYER_HEAD = MaterialKey.from(17, 64, NamespacedKey.minecraft("player_head"), Set.of(MaterialCategory.BLOCK));
 
 
     static {
