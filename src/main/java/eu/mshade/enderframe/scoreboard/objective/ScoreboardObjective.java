@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.scoreboard.objective;
 
 import eu.mshade.enderframe.scoreboard.Scoreboard;
-import eu.mshade.enderframe.scoreboard.ShrinkingUUID;
+import eu.mshade.mwork.ShrinkingUUID;
 
 public class ScoreboardObjective<T> {
 
