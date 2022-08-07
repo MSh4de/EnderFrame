@@ -7,7 +7,7 @@ public interface Section {
 
     int getY();
 
-    Chunk getChunkBuffer();
+    Chunk getChunk();
 
     int getRealBlock();
 
