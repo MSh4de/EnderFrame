@@ -147,6 +147,10 @@ public abstract class SessionWrapper {
 
     public abstract void sendMessage(TextComponent textComponent, TextPosition textPosition);
 
+    public void sendMessage(String s, TextPosition textPosition){
+        sendMessage(TextComponent.of(s), textPosition);
+    }
+
     public abstract void sendMessage(TextComponent textComponent);
 
     public abstract void sendMessage(String message);
