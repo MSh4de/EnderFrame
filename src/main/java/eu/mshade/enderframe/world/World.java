@@ -38,41 +38,47 @@ public abstract class World extends Tickable {
         this(worldFolder, new MetadataKeyValueBucket());
     }
 
-    public void flushChunk(Chunk chunk){
+    public void flushChunk(Chunk chunk) {
         flushChunk(chunk, true);
-   }
+    }
 
-   public abstract void flushChunk(Chunk chunk, boolean save);
+    public abstract void saveChunk(Chunk chunk);
 
-   public abstract CompletableFuture<Chunk> getChunk(int chunkX, int chunkZ);
+    public abstract void flushChunk(Chunk chunk, boolean save);
 
-   public abstract CompletableFuture<Chunk> getChunk(UUID id);
+    public abstract CompletableFuture<Chunk> getChunk(int chunkX, int chunkZ);
 
-   public abstract boolean hasChunkBuffer(int x, int z);
+    public abstract CompletableFuture<Chunk> getChunk(UUID id);
 
-   public abstract void addEntity(Entity entity);
+    public abstract boolean hasChunkBuffer(int x, int z);
 
-   public abstract void removeEntity(Entity entity);
+    public abstract void addEntity(Entity entity);
 
-   public abstract Entity spawnEntity(EntityType entityType, Location location);
+    public abstract void removeEntity(Entity entity);
 
-   public abstract Collection<BinaryTagPoet> getRegionBinaryTagPoets();
+    public abstract Entity spawnEntity(EntityType entityType, Location location);
 
-   public abstract void setBlock(int x, int y, int z, MaterialKey materialKey);
+    public abstract Collection<BinaryTagPoet> getRegionBinaryTagPoets();
 
-   public String getName(){
-       return this.metadataKeyValueBucket.getValueOfMetadataKeyValue(WorldMetadataType.NAME, String.class);
-   }
+    public abstract void setBlock(int x, int y, int z, MaterialKey materialKey);
 
-    public ChunkGenerator getChunkGenerator(){
+    public String getName() {
+        return this.metadataKeyValueBucket.getValueOfMetadataKeyValue(WorldMetadataType.NAME, String.class);
+    }
+
+    public Dimension getDimension() {
+        return this.metadataKeyValueBucket.getValueOfMetadataKeyValue(WorldMetadataType.DIMENSION, Dimension.class);
+    }
+
+    public ChunkGenerator getChunkGenerator() {
         return chunkGenerator;
     }
 
-    public void setChunkGenerator(ChunkGenerator chunkGenerator){
+    public void setChunkGenerator(ChunkGenerator chunkGenerator) {
         this.chunkGenerator = chunkGenerator;
     }
 
-    public File getRegionFolder(){
+    public File getRegionFolder() {
         return this.regionFolder;
     }
 
@@ -80,15 +86,15 @@ public abstract class World extends Tickable {
         return indicesFolder;
     }
 
-    public File getWorldFolder(){
+    public File getWorldFolder() {
         return this.worldFolder;
     }
 
-    public Queue<Entity> getEntities(){
+    public Queue<Entity> getEntities() {
         return this.entities;
     }
 
-    public Collection<CompletableFuture<Chunk>> getChunks(){
+    public Collection<CompletableFuture<Chunk>> getChunks() {
         return this.chunks;
     }
 
