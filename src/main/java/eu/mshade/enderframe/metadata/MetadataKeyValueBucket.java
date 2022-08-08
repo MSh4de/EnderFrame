@@ -1,14 +1,14 @@
 package eu.mshade.enderframe.metadata;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MetadataKeyValueBucket {
 
     protected final Map<MetadataKey, MetadataKeyValue<?>> metadataKeyValueByMetadataKey = new HashMap<>();
+    protected final Set<MetadataKey> metadataKeyUpdated = new HashSet<>();
 
     public void setMetadataKeyValue(MetadataKeyValue<?> entityMetadata){
+        this.metadataKeyUpdated.add(entityMetadata.getMetadataKey());
         this.metadataKeyValueByMetadataKey.put(entityMetadata.getMetadataKey(), entityMetadata);
     }
 
@@ -31,6 +31,12 @@ public class MetadataKeyValueBucket {
 
     public Collection<MetadataKeyValue<?>> getMetadataKeyValues(){
         return this.metadataKeyValueByMetadataKey.values();
+    }
+
+    public Collection<MetadataKey> consumeUpdatedMetadataKeyValue(){
+        Set<MetadataKey> copy = new HashSet<>(this.metadataKeyUpdated);
+        this.metadataKeyUpdated.clear();
+        return copy;
     }
 
     @Override
