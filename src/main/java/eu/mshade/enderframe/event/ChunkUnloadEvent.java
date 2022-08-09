@@ -1,6 +1,6 @@
 package eu.mshade.enderframe.event;
 
-import eu.mshade.enderframe.world.Chunk;
+import eu.mshade.enderframe.world.chunk.Chunk;
 
 public class ChunkUnloadEvent extends EnderFrameEvent {
 

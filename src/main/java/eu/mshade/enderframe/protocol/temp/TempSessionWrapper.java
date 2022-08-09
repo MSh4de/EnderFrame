@@ -19,6 +19,8 @@ import eu.mshade.enderframe.title.TitleAction;
 import eu.mshade.enderframe.world.*;
 import eu.mshade.enderframe.world.border.WorldBorder;
 import eu.mshade.enderframe.world.border.WorldBorderAction;
+import eu.mshade.enderframe.world.chunk.Chunk;
+import eu.mshade.enderframe.world.chunk.Section;
 import io.netty.channel.Channel;
 
 import java.security.PublicKey;
@@ -190,6 +192,11 @@ public class TempSessionWrapper extends SessionWrapper {
 
     @Override
     public void sendSection(Section section) {
+
+    }
+
+    @Override
+    public void sendSectionFromChunk(Chunk chunk) {
 
     }
 

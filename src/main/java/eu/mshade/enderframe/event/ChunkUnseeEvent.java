@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.event;
 
 import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.world.Chunk;
+import eu.mshade.enderframe.world.chunk.Chunk;
 
 public class ChunkUnseeEvent extends EnderFrameEvent {
 
