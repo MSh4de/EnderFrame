@@ -1,7 +1,9 @@
-package eu.mshade.enderframe.world;
+package eu.mshade.enderframe.world.chunk;
 
 import eu.mshade.enderframe.item.Material;
 import eu.mshade.enderframe.item.MaterialKey;
+import eu.mshade.enderframe.world.chunk.Chunk;
+import eu.mshade.enderframe.world.chunk.NibbleArray;
 
 public abstract class Section {
 

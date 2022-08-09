@@ -1,11 +1,12 @@
-package eu.mshade.enderframe.world;
+package eu.mshade.enderframe.world.chunk;
 
 
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.item.MaterialKey;
+import eu.mshade.enderframe.world.ChunkStatus;
+import eu.mshade.enderframe.world.World;
 
-import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,6 +19,7 @@ public abstract class Chunk {
     private final int z;
     private final long id;
     private final World world;
+    private final Section[] sections = new Section[16];
 
     public Chunk(int x, int z, World world) {
         this.x = x;

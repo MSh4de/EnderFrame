@@ -1,4 +1,4 @@
-package eu.mshade.enderframe.world;
+package eu.mshade.enderframe.world.chunk;
 
 import java.util.Arrays;
 
