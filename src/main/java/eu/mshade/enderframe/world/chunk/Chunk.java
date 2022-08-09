@@ -5,19 +5,40 @@ import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.item.MaterialKey;
 
-import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Queue;
-import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-public interface Chunk {
+public abstract class Chunk {
 
-    int getX();
 
-    int getZ();
+    private final int x;
+    private final int z;
+    private final long id;
+    private final World world;
 
-    UUID getId();
+    public Chunk(int x, int z, World world) {
+        this.x = x;
+        this.z = z;
+        this.id = Chunk.key(x, z);
+        this.world = world;
+    }
+
+    public int getX(){
+        return this.x;
+    }
+
+    public int getZ(){
+        return this.z;
+    }
+
+    public long getId(){
+        return this.id;
+    }
+
+    AtomicBoolean getInChunkSafeguard();
 
     Queue<Player> getViewers();
 
@@ -59,10 +80,6 @@ public interface Chunk {
 
     int getHighest(int x, int z);
 
-    static UUID ofId(int x, int z){
-        return UUID.nameUUIDFromBytes(String.format("%d,%d", x, z).getBytes(StandardCharsets.UTF_8));
-    }
-
     Queue<Entity> getEntities();
 
     void addEntity(Entity entity);
@@ -71,7 +88,10 @@ public interface Chunk {
 
     void clearEntities();
 
+    Section getSection(int y);
 
-
-
+    // create unique key from two ints and return positive long
+    public static long key(int x, int z){
+        return ((long) x & 0xFFFF) << 32 | ((long) z & 0xFFFF);
+    }
 }
