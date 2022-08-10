@@ -1,5 +1,7 @@
 package eu.mshade.enderframe.world;
 
+import eu.mshade.enderframe.world.chunk.Chunk;
+
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
