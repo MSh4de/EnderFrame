@@ -22,6 +22,8 @@ import eu.mshade.enderframe.title.TitleAction;
 import eu.mshade.enderframe.world.*;
 import eu.mshade.enderframe.world.border.WorldBorder;
 import eu.mshade.enderframe.world.border.WorldBorderAction;
+import eu.mshade.enderframe.world.chunk.Chunk;
+import eu.mshade.enderframe.world.chunk.Section;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
@@ -194,6 +196,8 @@ public abstract class SessionWrapper {
     public abstract void sendChunk(Chunk chunk);
 
     public abstract void sendSection(Section section);
+
+    public abstract void sendSectionFromChunk(Chunk chunk);
 
     public abstract void sendUnloadChunk(Chunk chunk);
 
