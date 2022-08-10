@@ -6,6 +6,8 @@ import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
 import eu.mshade.enderframe.metadata.world.WorldMetadataType;
 import eu.mshade.enderframe.tick.Tickable;
+import eu.mshade.enderframe.world.chunk.Chunk;
+import eu.mshade.enderframe.world.chunk.ChunkGenerator;
 import eu.mshade.mwork.binarytag.poet.BinaryTagPoet;
 
 import java.io.File;
@@ -21,8 +23,7 @@ public abstract class World extends Tickable {
     protected final File indicesFolder;
 
     protected final MetadataKeyValueBucket metadataKeyValueBucket;
-    protected final Map<UUID, CompletableFuture<Chunk>> chunkById = new ConcurrentHashMap<>();
-    protected final Queue<CompletableFuture<Chunk>> chunks = new ConcurrentLinkedQueue<>();
+    protected final Map<Long, CompletableFuture<Chunk>> chunkById = new ConcurrentHashMap<>();
     protected final Queue<Entity> entities = new ConcurrentLinkedQueue<>();
     protected ChunkGenerator chunkGenerator;
 
@@ -48,7 +49,7 @@ public abstract class World extends Tickable {
 
     public abstract CompletableFuture<Chunk> getChunk(int chunkX, int chunkZ);
 
-    public abstract CompletableFuture<Chunk> getChunk(UUID id);
+    public abstract CompletableFuture<Chunk> getChunk(long id);
 
     public abstract boolean hasChunkBuffer(int x, int z);
 
@@ -61,6 +62,12 @@ public abstract class World extends Tickable {
     public abstract Collection<BinaryTagPoet> getRegionBinaryTagPoets();
 
     public abstract void setBlock(int x, int y, int z, MaterialKey materialKey);
+
+    public void setBlock(Vector vector, MaterialKey materialKey) {
+        setBlock(vector.getBlockX(), vector.getBlockY(), vector.getBlockZ(), materialKey);
+    }
+
+    public abstract void saveWorld();
 
     public String getName() {
         return this.metadataKeyValueBucket.getValueOfMetadataKeyValue(WorldMetadataType.NAME, String.class);
@@ -95,7 +102,7 @@ public abstract class World extends Tickable {
     }
 
     public Collection<CompletableFuture<Chunk>> getChunks() {
-        return this.chunks;
+        return this.chunkById.values();
     }
 
     public MetadataKeyValueBucket getMetadataKeyValueBucket() {
