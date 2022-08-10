@@ -1,5 +1,6 @@
 package eu.mshade.enderframe.entity;
 
+import eu.mshade.enderframe.Agent;
 import eu.mshade.enderframe.GameMode;
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.inventory.InventoryBufferStore;
@@ -8,7 +9,7 @@ import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.protocol.MinecraftProtocolVersion;
 import eu.mshade.enderframe.protocol.SessionWrapper;
 import eu.mshade.enderframe.scoreboard.Scoreboard;
-import eu.mshade.enderframe.world.Chunk;
+import eu.mshade.enderframe.world.chunk.Chunk;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 import eu.mshade.enderframe.world.border.WorldBorder;
@@ -19,7 +20,7 @@ import java.util.Queue;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class Player extends LivingEntity implements ProjectileSource {
+public abstract class Player extends LivingEntity implements ProjectileSource, Agent {
 
 
     protected SocketAddress socketAddress;
