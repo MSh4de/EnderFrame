@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.world.chunk;
 
 
+import eu.mshade.enderframe.Watchable;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.item.MaterialKey;
@@ -8,18 +9,21 @@ import eu.mshade.enderframe.world.ChunkStatus;
 import eu.mshade.enderframe.world.World;
 
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-public abstract class Chunk {
+public abstract class Chunk implements Watchable {
 
 
-    private final int x;
-    private final int z;
-    private final long id;
-    private final World world;
-    private final Section[] sections = new Section[16];
+    protected final int x;
+    protected final int z;
+    protected final long id;
+    protected final World world;
+    protected final Section[] sections = new Section[16];
+    protected final Queue<Entity> entities = new ConcurrentLinkedQueue<>();
+    protected final ChunkStateStore chunkStateStore = new ChunkStateStore();
 
     public Chunk(int x, int z, World world) {
         this.x = x;
@@ -28,72 +32,56 @@ public abstract class Chunk {
         this.world = world;
     }
 
-    public int getX(){
+    public int getX() {
         return this.x;
     }
 
-    public int getZ(){
+    public int getZ() {
         return this.z;
     }
 
-    public long getId(){
+    public long getId() {
         return this.id;
     }
 
-    AtomicBoolean getInChunkSafeguard();
-
-    Queue<Player> getViewers();
-
-    void addViewer(Player player);
-
-    void removeViewer(Player player);
-
-    World getWorld();
-
-    Section[] getSections();
-
-    AtomicLong getLastInteract();
-
-    ChunkStatus getChunkStatus();
-
-    void setChunkStatus(ChunkStatus chunkStatus);
-
-    int getBitMask();
-
-    int getBlock(int x, int y, int z);
-
-    void setBlock(int x, int y, int z, MaterialKey block);
-
-    byte getBlockLight(int x, int y, int z);
-
-    void setBlockLight(int x, int y, int z, byte light);
-
-    byte getSkyLight(int x, int y, int z);
-
-    void setSkyLight(int x, int y, int z, byte light);
-
-    void setBiome(int x, int z, int biome);
-
-    int getBiome(int x, int z);
-
-    byte[] getBiomes();
-
-    AtomicInteger getAge();
-
-    int getHighest(int x, int z);
-
-    Queue<Entity> getEntities();
-
-    void addEntity(Entity entity);
-
-    void removeEntity(Entity entity);
-
-    void clearEntities();
-
-    Section getSection(int y);
-
-    // create unique key from two ints and return positive long
-    public static long key(int x, int z){
-        return ((long) x & 0xFFFF) << 32 | ((long) z & 0xFFFF);
+    public World getWorld() {
+        return this.world;
     }
+
+    public Section[] getSections() {
+        return this.sections;
+    }
+
+    public ChunkStateStore getChunkStateStore() {
+        return chunkStateStore;
+    }
+
+    public abstract int getBitMask();
+
+    public abstract int getBlock(int x, int y, int z);
+
+    public abstract void setBlock(int x, int y, int z, MaterialKey block);
+
+    public abstract byte getBlockLight(int x, int y, int z);
+
+    public abstract void setBlockLight(int x, int y, int z, byte light);
+
+    public abstract byte getSkyLight(int x, int y, int z);
+
+    public abstract void setSkyLight(int x, int y, int z, byte light);
+
+    public abstract void setBiome(int x, int z, int biome);
+
+    public abstract int getBiome(int x, int z);
+
+    public abstract Section getSection(int y);
+
+    public abstract byte[] getBiomes();
+
+    public abstract int getHighest(int x, int z);
+
+    public static long key(int x, int z) {
+        return ((long) x & Integer.MAX_VALUE) << 32 | (long) z & Integer.MAX_VALUE;
+    }
+
 }
