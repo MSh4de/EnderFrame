@@ -1,4 +1,4 @@
-package eu.mshade.enderframe.world;
+package eu.mshade.enderframe.world.chunk;
 
 @FunctionalInterface
 public interface ChunkGenerator {
