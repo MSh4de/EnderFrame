@@ -11,11 +11,11 @@ public abstract class Tickable {
 
     public abstract void tick();
 
-    public boolean isPeriod(int period){
+    public boolean isPeriod(int period) {
         return tick % period == 0;
     }
 
-    public void addTick(){
+    public void addTick() {
         this.tick++;
     }
 
@@ -23,9 +23,10 @@ public abstract class Tickable {
         return tick;
     }
 
-    public void resetTick(){
+    public void resetTick() {
         this.tick = 0;
     }
+
     public TickState getTickState() {
         return tickState;
     }
@@ -34,12 +35,12 @@ public abstract class Tickable {
         this.tickState = tickState;
     }
 
-    public void joinTickBus(TickBus tickBus){
+    public void joinTickBus(TickBus tickBus) {
         this.tickBus = tickBus;
         tickBus.addTickable(this);
     }
 
-    public void leaveTickBus(){
+    public void leaveTickBus() {
         if (this.tickBus != null) {
             tickBus.removeTickable(this);
             tickBus = null;
