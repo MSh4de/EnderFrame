@@ -81,7 +81,7 @@ public abstract class Chunk implements Watchable {
     public abstract int getHighest(int x, int z);
 
     public static long key(int x, int z) {
-        return ((long) x & Integer.MAX_VALUE) << 32 | (long) z & Integer.MAX_VALUE;
+        return ((long) x & 0xffffffffL) << 32 | (long) z & 0xffffffffL;
     }
 
 }
