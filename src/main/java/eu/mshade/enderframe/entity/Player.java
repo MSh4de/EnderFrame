@@ -167,7 +167,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
         return this.lookAtChunks.contains(chunk);
     }
 
-    public PlayerInventory getPlayerInventory() {
+    public PlayerInventory getInventory() {
         return playerInventory;
     }
 
