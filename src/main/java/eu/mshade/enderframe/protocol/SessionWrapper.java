@@ -121,6 +121,10 @@ public abstract class SessionWrapper {
         return inventoryRepository;
     }
 
+    public Protocol getProtocol() {
+        return ProtocolPipeline.get().getProtocol(this.channel);
+    }
+
     public void sendDisconnect(TextComponent textComponent) {
         this.sendPacketAndClose(new PacketOutDisconnect(textComponent));
     }
@@ -226,6 +230,8 @@ public abstract class SessionWrapper {
     public abstract void sendTitle(TitleAction titleAction, Title title);
 
     public abstract void sendWorldBorder(WorldBorderAction worldBorderAction, WorldBorder worldBorder);
+
+
 
     @Override
     public String toString() {
