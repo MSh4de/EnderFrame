@@ -5,12 +5,13 @@ import io.netty.channel.Channel;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ProtocolPipeline {
 
-    private Map<Channel, SessionWrapper> sessionWrapperByChannel = new HashMap<>();
-    private Map<Channel, Player> playerByChannel = new HashMap<>();
-    private Map<Channel, Protocol> protocolByChannel = new HashMap<>();
+    private final Map<Channel, SessionWrapper> sessionWrapperByChannel = new ConcurrentHashMap<>();
+    private final Map<Channel, Player> playerByChannel = new ConcurrentHashMap<>();
+    private final Map<Channel, Protocol> protocolByChannel = new ConcurrentHashMap<>();
 
     private static ProtocolPipeline protocolPipeline;
 
