@@ -1,6 +1,6 @@
 package eu.mshade.enderframe.wrapper
 
-open class Wrapper<I, O> {
+open abstract class Wrapper<I, O> {
 
     private var outputByInput: MutableMap<I, O> = HashMap()
     private var inputByOutput: MutableMap<O, I> = HashMap()
