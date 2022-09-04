@@ -9,22 +9,23 @@ public class PacketClickInventoryEvent implements PacketEvent {
     protected Inventory inventory;
     protected ClickType clickType;
     protected ItemStack itemStack;
-    protected int slot;
-    protected int key;
+    protected int id, slot, key;
 
-    public PacketClickInventoryEvent(Inventory inventory, ClickType clickType, ItemStack itemStack, int slot, int key) {
+    public PacketClickInventoryEvent(Inventory inventory, ClickType clickType, ItemStack itemStack, int id, int slot, int key) {
         this.inventory = inventory;
         this.clickType = clickType;
         this.itemStack = itemStack;
         this.slot = slot;
         this.key = key;
+        this.id = id;
     }
 
-    public PacketClickInventoryEvent(Inventory inventory, ClickType clickType, ItemStack itemStack, int slot) {
+    public PacketClickInventoryEvent(Inventory inventory, ClickType clickType, ItemStack itemStack, int id, int slot) {
         this.inventory = inventory;
         this.clickType = clickType;
         this.itemStack = itemStack;
         this.slot = slot;
+        this.id = id;
     }
 
     public Inventory getInventory() {
