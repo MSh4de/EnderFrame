@@ -1,13 +1,10 @@
 package eu.mshade.enderframe.inventory;
 
-import eu.mshade.enderframe.UniqueIdManager;
-import eu.mshade.enderframe.entity.Item;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.Material;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 
-import java.util.Arrays;
 import java.util.function.Function;
 
 public class Inventory {
@@ -30,6 +27,9 @@ public class Inventory {
         this(TextComponent.of(name), inventoryKey);
     }
 
+    public Inventory(String name, InventoryKey inventoryKey, ItemStack[] itemStacks) {
+        this(TextComponent.of(name), inventoryKey, itemStacks);
+    }
     public TextComponent getTextComponent() {
         return textComponent;
     }
@@ -87,6 +87,9 @@ public class Inventory {
     }
 
 
+    public int getSize() {
+        return itemStacks.length;
+    }
 
     @Override
     public String toString() {
