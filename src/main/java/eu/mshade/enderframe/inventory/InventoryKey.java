@@ -1,5 +1,7 @@
 package eu.mshade.enderframe.inventory;
 
+import eu.mshade.enderframe.mojang.NamespacedKey;
+
 import java.util.Objects;
 
 public interface InventoryKey {
@@ -10,6 +12,10 @@ public interface InventoryKey {
 
     static InventoryKey from(String name, int slot){
         return new DefaultInventoryKey(name, slot);
+    }
+
+    static InventoryKey from(NamespacedKey namespacedKey, int slot){
+        return new DefaultInventoryKey(namespacedKey.toString(), slot);
     }
 
     static InventoryKey from(String name){
