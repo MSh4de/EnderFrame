@@ -2,7 +2,6 @@ package eu.mshade.enderframe.protocol.packet;
 
 import eu.mshade.enderframe.protocol.PacketOut;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
-import eu.mshade.enderframe.world.BlockPosition;
 import eu.mshade.enderframe.world.Vector;
 
 public class PacketOutSpawnPosition implements PacketOut {

@@ -1,8 +1,6 @@
 package eu.mshade.enderframe.packetevent;
 
-import eu.mshade.enderframe.event.EnderFrameEvent;
 import eu.mshade.enderframe.item.ItemStack;
-import eu.mshade.enderframe.world.BlockPosition;
 import eu.mshade.enderframe.world.Vector;
 import eu.mshade.enderframe.world.block.BlockFace;
 
