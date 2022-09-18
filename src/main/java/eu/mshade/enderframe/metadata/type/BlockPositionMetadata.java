@@ -2,18 +2,18 @@ package eu.mshade.enderframe.metadata.type;
 
 import eu.mshade.enderframe.metadata.Metadata;
 import eu.mshade.enderframe.metadata.MetadataType;
-import eu.mshade.enderframe.world.BlockPosition;
+import eu.mshade.enderframe.world.Vector;
 
-public class BlockPositionMetadata implements Metadata<BlockPosition> {
+public class BlockPositionMetadata implements Metadata<Vector> {
 
-    private final BlockPosition blockPosition;
+    private final Vector blockPosition;
 
-    public BlockPositionMetadata(BlockPosition blockPosition) {
+    public BlockPositionMetadata(Vector blockPosition) {
         this.blockPosition = blockPosition;
     }
 
     @Override
-    public BlockPosition get() {
+    public Vector get() {
         return blockPosition;
     }
 

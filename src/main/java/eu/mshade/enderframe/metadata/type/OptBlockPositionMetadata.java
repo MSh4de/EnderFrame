@@ -1,11 +1,11 @@
 package eu.mshade.enderframe.metadata.type;
 
 import eu.mshade.enderframe.metadata.MetadataType;
-import eu.mshade.enderframe.world.BlockPosition;
+import eu.mshade.enderframe.world.Vector;
 
 public class OptBlockPositionMetadata extends BlockPositionMetadata {
 
-    public OptBlockPositionMetadata(BlockPosition blockPosition) {
+    public OptBlockPositionMetadata(Vector blockPosition) {
         super(blockPosition);
     }
 
