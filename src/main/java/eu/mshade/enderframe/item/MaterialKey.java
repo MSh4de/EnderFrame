@@ -1,6 +1,8 @@
 package eu.mshade.enderframe.item;
 
+import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
 import eu.mshade.enderframe.mojang.NamespacedKey;
+import eu.mshade.enderframe.world.block.Block;
 
 import java.util.*;
 
@@ -28,6 +30,10 @@ public interface MaterialKey {
             if (getMaterialCategoryKeys().contains(materialCategoryKey)) return true;
         }
         return false;
+    }
+
+    default Block toBlock(){
+        return new Block(this, new MetadataKeyValueBucket());
     }
 
     static MaterialKey from(int id, int data, int maxStackSize, NamespacedKey namespacedKey){
