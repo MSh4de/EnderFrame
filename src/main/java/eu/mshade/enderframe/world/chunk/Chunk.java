@@ -7,12 +7,14 @@ import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.world.ChunkStatus;
 import eu.mshade.enderframe.world.World;
+import eu.mshade.enderframe.world.block.Block;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 
 public abstract class Chunk implements Watchable {
 
@@ -28,7 +30,7 @@ public abstract class Chunk implements Watchable {
     public Chunk(int x, int z, World world) {
         this.x = x;
         this.z = z;
-        this.id = Chunk.key(x, z);
+        this.id = key(x, z);
         this.world = world;
     }
 
@@ -58,9 +60,9 @@ public abstract class Chunk implements Watchable {
 
     public abstract int getBitMask();
 
-    public abstract int getBlock(int x, int y, int z);
+    public abstract Block getBlock(int x, int y, int z);
 
-    public abstract void setBlock(int x, int y, int z, MaterialKey block);
+    public abstract void setBlock(int x, int y, int z, Block block);
 
     public abstract byte getBlockLight(int x, int y, int z);
 

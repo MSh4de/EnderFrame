@@ -1,27 +1,29 @@
 package eu.mshade.enderframe.world.chunk;
 
-import eu.mshade.enderframe.item.Material;
-import eu.mshade.enderframe.item.MaterialKey;
-import eu.mshade.enderframe.world.chunk.Chunk;
-import eu.mshade.enderframe.world.chunk.NibbleArray;
+import eu.mshade.enderframe.UniqueId;
+import eu.mshade.enderframe.world.block.Block;
 
 public abstract class Section {
 
     protected Chunk chunk;
     protected int y;
     protected int realBlock;
+    protected Palette palette;
     protected int[] blocks;
     protected NibbleArray blockLight;
     protected NibbleArray skyLight;
+    protected UniqueId uniqueId;
 
     public Section(Chunk chunk, int y) {
-        this(chunk, y, new int[4096], NibbleArray.allocate(4096), NibbleArray.allocate(4096));
+        this(chunk, y, new Palette(), new int[4096], new UniqueId(1), NibbleArray.allocate(4096), NibbleArray.allocate(4096));
     }
 
-    public Section(Chunk chunk, int y, int[] blocks, NibbleArray blockLight, NibbleArray skyLight) {
+    public Section(Chunk chunk, int y, Palette palette, int[] blocks, UniqueId uniqueId, NibbleArray blockLight, NibbleArray skyLight) {
         this.chunk = chunk;
         this.y = y;
+        this.palette = palette;
         this.blocks = blocks;
+        this.uniqueId = uniqueId;
         this.blockLight = blockLight;
         this.skyLight = skyLight;
     }
@@ -42,8 +44,20 @@ public abstract class Section {
         this.realBlock = realBlock;
     }
 
-    public int[] getBlocks(){
-        return this.blocks;
+    public Palette getPalette() {
+        return palette;
+    }
+
+    public Block getBlock(int index){
+        return palette.getBlock(blocks[index]);
+    }
+
+    public int[] getBlocks() {
+        return blocks;
+    }
+
+    public UniqueId getUniqueId() {
+        return uniqueId;
     }
 
     public NibbleArray getBlockLight(){
@@ -53,11 +67,5 @@ public abstract class Section {
     public NibbleArray getSkyLight(){
         return this.skyLight;
     }
-
-    public MaterialKey getBlock(int index){
-        int id = getBlocks()[index];
-        return Material.fromId(id);
-    }
-
 
 }
