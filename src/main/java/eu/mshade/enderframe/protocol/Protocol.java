@@ -1,7 +1,5 @@
 package eu.mshade.enderframe.protocol;
 
-import eu.mshade.enderframe.entity.EntityRepository;
-import eu.mshade.enderframe.wrapper.Wrapper;
 import eu.mshade.enderframe.wrapper.WrapperRepository;
 import eu.mshade.mwork.event.EventBus;
 import io.netty.buffer.ByteBuf;
