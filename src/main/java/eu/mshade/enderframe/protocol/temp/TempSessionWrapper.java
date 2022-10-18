@@ -17,6 +17,7 @@ import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.title.Title;
 import eu.mshade.enderframe.title.TitleAction;
 import eu.mshade.enderframe.world.*;
+import eu.mshade.enderframe.world.block.Block;
 import eu.mshade.enderframe.world.border.WorldBorder;
 import eu.mshade.enderframe.world.border.WorldBorderAction;
 import eu.mshade.enderframe.world.chunk.Chunk;
@@ -24,6 +25,7 @@ import eu.mshade.enderframe.world.chunk.Section;
 import io.netty.channel.Channel;
 
 import java.security.PublicKey;
+import java.util.List;
 
 public class TempSessionWrapper extends SessionWrapper {
 
@@ -207,6 +209,21 @@ public class TempSessionWrapper extends SessionWrapper {
 
     @Override
     public void sendBlockChange(Vector blockPosition, MaterialKey materialData) {
+
+    }
+
+    @Override
+    public void sendBlockChange(Vector blockPosition, Block block) {
+
+    }
+
+    @Override
+    public void sendUnsafeBlockChange(Vector blockPosition, MaterialKey materialKey) {
+
+    }
+
+    @Override
+    public void sendSign(Vector vector, List<TextComponent> textComponents) {
 
     }
 
