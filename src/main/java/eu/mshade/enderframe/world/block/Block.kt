@@ -1,10 +1,7 @@
 package eu.mshade.enderframe.world.block
 
-import eu.mshade.enderframe.item.Material
 import eu.mshade.enderframe.item.MaterialKey
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket
-import eu.mshade.enderframe.world.Location
-import eu.mshade.enderframe.world.Vector
 import eu.mshade.enderframe.world.World
 import eu.mshade.enderframe.world.chunk.Section
 
