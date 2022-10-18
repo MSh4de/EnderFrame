@@ -22,8 +22,7 @@ class Palette {
 
     //delete block from palette
     fun deleteBlock(id: Int) {
-        blockById.remove(id)
-        idByBlock.remove(blockById[id])
+        idByBlock.remove(blockById.remove(id))
         countBlock.remove(id)
     }
 
