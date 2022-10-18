@@ -182,6 +182,10 @@ public class Location implements Cloneable {
         return this;
     }
 
+    public Vector toVector() {
+        return new Vector(x, y, z);
+    }
+
 
 
     @Override
