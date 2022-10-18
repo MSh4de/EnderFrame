@@ -1,5 +1,6 @@
 package eu.mshade.enderframe.protocol;
 
+import eu.mshade.enderframe.world.block.BlockTransformerRepository;
 import eu.mshade.enderframe.wrapper.WrapperRepository;
 import eu.mshade.mwork.event.EventBus;
 import io.netty.buffer.ByteBuf;
@@ -10,6 +11,7 @@ public abstract class Protocol {
     protected final ProtocolRegistry protocolRegistry = new ProtocolRegistry();
     protected final EventBus<PacketIn> eventBus = new EventBus<>();
     protected final WrapperRepository wrapperRepository = new WrapperRepository();
+    protected final BlockTransformerRepository blockTransformerRepository = new BlockTransformerRepository();
 
     public abstract ProtocolBuffer getProtocolBuffer(ByteBuf byteBuf);
 
@@ -27,6 +29,10 @@ public abstract class Protocol {
 
     public WrapperRepository getWrapperRepository(){
         return wrapperRepository;
+    }
+
+    public BlockTransformerRepository getBlockTransformerRepository(){
+        return blockTransformerRepository;
     }
 
 }
