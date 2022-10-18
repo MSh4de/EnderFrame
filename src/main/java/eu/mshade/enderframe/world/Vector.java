@@ -8,6 +8,8 @@ public class Vector implements Cloneable {
     protected double y;
     protected double z;
 
+    public static final Vector ZERO = new Vector(0, 0, 0);
+
     public Vector() {
         this(0, 0, 0);
     }
