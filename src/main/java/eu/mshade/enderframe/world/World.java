@@ -6,6 +6,7 @@ import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
 import eu.mshade.enderframe.metadata.world.WorldMetadataType;
 import eu.mshade.enderframe.tick.Tickable;
+import eu.mshade.enderframe.world.block.Block;
 import eu.mshade.enderframe.world.chunk.Chunk;
 import eu.mshade.enderframe.world.chunk.ChunkGenerator;
 import eu.mshade.mwork.binarytag.poet.BinaryTagPoet;
@@ -65,6 +66,18 @@ public abstract class World extends Tickable {
 
     public void setBlock(Vector vector, MaterialKey materialKey) {
         setBlock(vector.getBlockX(), vector.getBlockY(), vector.getBlockZ(), materialKey);
+    }
+
+    public abstract void setBlock(int x, int y, int z, Block block);
+
+    public void setBlock(Vector vector, Block block) {
+        setBlock(vector.getBlockX(), vector.getBlockY(), vector.getBlockZ(), block);
+    }
+
+    public abstract Block getBlock(int x, int y, int z);
+
+    public Block getBlock(Vector vector) {
+        return getBlock(vector.getBlockX(), vector.getBlockY(), vector.getBlockZ());
     }
 
     public abstract void saveWorld();
