@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.world.chunk;
 
 import eu.mshade.enderframe.UniqueId;
+import eu.mshade.enderframe.item.Material;
 import eu.mshade.enderframe.world.block.Block;
 
 public abstract class Section {
@@ -37,12 +38,14 @@ public abstract class Section {
     }
 
     public int getRealBlock(){
-        return this.realBlock;
+        Block airBlock = palette.getBlock().stream().filter(block -> block.getMaterialKey().equals(Material.AIR)).findFirst().orElse(null);
+        if (airBlock == null) return 4096;
+        return 4096 - this.palette.getCount(palette.getId(airBlock));
     }
 
-    public void setRealBlock(int realBlock){
+/*    public void setRealBlock(int realBlock){
         this.realBlock = realBlock;
-    }
+    }*/
 
     public Palette getPalette() {
         return palette;
