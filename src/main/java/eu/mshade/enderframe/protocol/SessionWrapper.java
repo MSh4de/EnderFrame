@@ -20,6 +20,7 @@ import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.title.Title;
 import eu.mshade.enderframe.title.TitleAction;
 import eu.mshade.enderframe.world.*;
+import eu.mshade.enderframe.world.block.Block;
 import eu.mshade.enderframe.world.border.WorldBorder;
 import eu.mshade.enderframe.world.border.WorldBorderAction;
 import eu.mshade.enderframe.world.chunk.Chunk;
@@ -31,6 +32,7 @@ import io.netty.channel.ChannelHandler;
 import javax.crypto.SecretKey;
 import java.security.PublicKey;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 
@@ -210,6 +212,16 @@ public abstract class SessionWrapper {
     }
 
     public abstract void sendBlockChange(Vector blockPosition, MaterialKey materialKey);
+
+    public abstract void sendBlockChange(Vector blockPosition, Block block);
+
+    public abstract void sendUnsafeBlockChange(Vector blockPosition, MaterialKey materialKey);
+
+    public abstract void sendSign(Vector vector, List<TextComponent> textComponents);
+
+    public void sendSign(Vector vector, TextComponent... textComponents){
+        sendSign(vector, Arrays.asList(textComponents));
+    }
 
     public abstract void sendOpenInventory(Inventory inventory);
 
