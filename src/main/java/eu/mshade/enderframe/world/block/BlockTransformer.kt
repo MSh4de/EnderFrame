@@ -44,7 +44,6 @@ class BlockTransformerRepository {
         return blockTransformer.transform(materialKey, materialWrapper)
     }
 
-
 }
 
 
