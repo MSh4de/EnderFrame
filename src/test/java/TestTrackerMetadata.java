@@ -1,14 +1,22 @@
-import eu.mshade.enderframe.entity.metadata.HealthEntityMetadata;
-import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+
+import eu.mshade.enderframe.world.chunk.Chunk;
+
 
 public class TestTrackerMetadata {
 
     public static void main(String[] args) {
-        MetadataKeyValueBucket metadataKeyValueBucket = new MetadataKeyValueBucket();
-        metadataKeyValueBucket.setMetadataKeyValue(new HealthEntityMetadata(1F));
-        System.out.println(metadataKeyValueBucket.hashCode());
-        metadataKeyValueBucket.getMetadataKeyValue(EntityMetadataKey.HEALTH, HealthEntityMetadata.class).setMetadataValue(2F);
-        System.out.println(metadataKeyValueBucket.hashCode());
+        String a = null;
+        if ("a".equalsIgnoreCase(a)) {
+            System.out.println("a");
+        }
+
+
+
     }
+
+
+    public static long key(int x, int z) {
+        return ((long) x & 0xFFFF) << 32 | ((long) z & 0xFFFF);
+    }
+
 }
