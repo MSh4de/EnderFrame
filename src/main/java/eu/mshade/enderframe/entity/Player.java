@@ -35,6 +35,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
     protected boolean instantBreak;
     protected float flyingSpeed;
     protected float walkSpeed;
+    protected boolean sneaking;
     protected PlayerInventory playerInventory = new PlayerInventory();
     protected Inventory openedInventory;
     protected Queue<Chunk> lookAtChunks = new ConcurrentLinkedQueue<>();
@@ -157,6 +158,14 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
 
     public void setWalkSpeed(float walkSpeed) {
         this.walkSpeed = walkSpeed;
+    }
+
+    public boolean isSneaking() {
+        return sneaking;
+    }
+
+    public void setSneaking(boolean sneaking) {
+        this.sneaking = sneaking;
     }
 
     public Collection<Chunk> getLookAtChunks(){
