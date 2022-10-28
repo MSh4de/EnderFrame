@@ -13,6 +13,9 @@ object BlockMetadataType {
     val AXIS: MetadataKey = MetadataKey.from("BLOCK_AXIS")
     val POWER: MetadataKey = MetadataKey.from("BLOCK_POWER")
     val POWERED: MetadataKey = MetadataKey.from("BLOCK_POWERED")
+    val DECAYABLE: MetadataKey = MetadataKey.from("BLOCK_DECAYABLE")
+    val CHECK_DECAY: MetadataKey = MetadataKey.from("BLOCK_CHECK_DECAY")
+    val SEAMLESS: MetadataKey = MetadataKey.from("BLOCK_SEAMLESS")
 
 }
 
@@ -27,6 +30,15 @@ class ExtraBlockMetadata(extra: CompoundBinaryTag): MetadataKeyValue<CompoundBin
 class AxisBlockMetadata(blockAxis: BlockAxis): MetadataKeyValue<BlockAxis>(BlockMetadataType.AXIS, blockAxis)
 
 class PoweredBlockMetadata(powered: Boolean): MetadataKeyValue<Boolean>(BlockMetadataType.POWERED, powered)
+
+class PowerBlockMetadata(power: Int): MetadataKeyValue<Int>(BlockMetadataType.POWER, power)
+
+class DecayableBlockMetadata(decayable: Boolean): MetadataKeyValue<Boolean>(BlockMetadataType.DECAYABLE, decayable)
+
+class CheckDecayBlockMetadata(checkDecay: Boolean): MetadataKeyValue<Boolean>(BlockMetadataType.CHECK_DECAY, checkDecay)
+
+class SeamlessBlockMetadata(seamless: Boolean): MetadataKeyValue<Boolean>(BlockMetadataType.SEAMLESS, seamless)
+
 
 
 
