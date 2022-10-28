@@ -26,11 +26,9 @@ public class ItemStack implements Cloneable {
         this(material, amount, 0, new MetadataKeyValueBucket());
     }
 
-    public ItemStack(MaterialKey materialKey){
+    public ItemStack(MaterialKey materialKey) {
         this(materialKey, 1, 0, new MetadataKeyValueBucket());
     }
-
-
 
     public MaterialKey getMaterial() {
         return material;
@@ -45,7 +43,7 @@ public class ItemStack implements Cloneable {
         return amount;
     }
 
-    public ItemStack modifyAmount(Function<Integer, Integer> function){
+    public ItemStack modifyAmount(Function<Integer, Integer> function) {
         Integer apply = function.apply(getAmount());
         setAmount(apply);
         return this;
@@ -65,9 +63,11 @@ public class ItemStack implements Cloneable {
         return this;
     }
 
+
     public MetadataKeyValueBucket getMetadataKeyValueBucket() {
         return metadataKeyValueBucket;
     }
+
 
     @Override
     public ItemStack clone() {
@@ -80,11 +80,6 @@ public class ItemStack implements Cloneable {
 
     @Override
     public String toString() {
-        return "ItemStack{" +
-                "material=" + material +
-                ", amount=" + amount +
-                ", durability=" + durability +
-                ", metadataKeyValueBucket=" + metadataKeyValueBucket +
-                '}';
+        return "ItemStack{" + "material=" + material + ", amount=" + amount + ", durability=" + durability + ", metadataKeyValueBucket=" + metadataKeyValueBucket + '}';
     }
 }
