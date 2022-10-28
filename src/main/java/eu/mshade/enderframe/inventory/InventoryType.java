@@ -14,4 +14,5 @@ public class InventoryType {
     public static InventoryKey BEACON = InventoryKey.from("BEACON", 4);
 
 
+
 }
