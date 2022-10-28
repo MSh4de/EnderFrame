@@ -14,6 +14,7 @@ import eu.mshade.enderframe.scoreboard.Scoreboard;
 import eu.mshade.enderframe.scoreboard.ScoreboardMode;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjectiveAction;
+import eu.mshade.enderframe.scoreboard.team.Team;
 import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.title.Title;
 import eu.mshade.enderframe.title.TitleAction;
@@ -235,6 +236,11 @@ public class TempSessionWrapper extends SessionWrapper {
 
     @Override
     public void sendUpdateScoreboard(ScoreboardObjective<?> scoreboardObjective, ScoreboardObjectiveAction scoreboardObjectiveAction) {
+
+    }
+
+    @Override
+    public void sendTeams(Team team) {
 
     }
 

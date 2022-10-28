@@ -17,6 +17,7 @@ import eu.mshade.enderframe.scoreboard.Scoreboard;
 import eu.mshade.enderframe.scoreboard.ScoreboardMode;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjectiveAction;
+import eu.mshade.enderframe.scoreboard.team.Team;
 import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.title.Title;
 import eu.mshade.enderframe.title.TitleAction;
@@ -213,6 +214,8 @@ public abstract class SessionWrapper {
     public abstract void sendScoreboardObjective(Scoreboard<?> scoreboard, ScoreboardMode scoreboardMode);
 
     public abstract void sendUpdateScoreboard(ScoreboardObjective<?> scoreboardObjective, ScoreboardObjectiveAction scoreboardObjectiveAction);
+
+    public abstract void sendTeams(Team team);
 
     public abstract void sendSoundEffect(SoundEffect soundEffect);
 
