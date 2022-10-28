@@ -37,6 +37,16 @@ public class MaterialCategory {
     public static MaterialCategoryKey NETHER = MaterialCategoryKey.from("NETHER");
     public static MaterialCategoryKey END = MaterialCategoryKey.from("END");
     public static MaterialCategoryKey DOUBLE_SLAB = MaterialCategoryKey.from("DOUBLE_SLAB");
+    public static MaterialCategoryKey SANDSTONE = MaterialCategoryKey.from("SANDSTONE");
+    public static MaterialCategoryKey STONE = MaterialCategoryKey.from("STONE");
+    public static MaterialCategoryKey FLUID = MaterialCategoryKey.from("FLUID");
+    public static MaterialCategoryKey BUTTON = MaterialCategoryKey.from("BUTTON");
+    public static MaterialCategoryKey LEVER = MaterialCategoryKey.from("LEVER");
+    public static MaterialCategoryKey TERRACOTTA = MaterialCategoryKey.from("TERRACOTTA");
+    public static MaterialCategoryKey CLAY = MaterialCategoryKey.from("CLAY");
+    public static MaterialCategoryKey SAND = MaterialCategoryKey.from("SAND");
+
+
 
 
 }
