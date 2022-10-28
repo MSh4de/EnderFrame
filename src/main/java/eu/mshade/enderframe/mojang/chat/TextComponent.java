@@ -8,6 +8,8 @@ import java.util.Objects;
 
 public class TextComponent extends TextComponentEntry {
 
+    private static final TextComponent EMPTY = new TextComponent("");
+
     private List<TextComponentEntry> extra = new ArrayList<>();
 
     private TextComponent() {
@@ -65,6 +67,10 @@ public class TextComponent extends TextComponentEntry {
             stringBuilder.append(textComponentEntry.toLegacyText());
         });
         return stringBuilder.toString();
+    }
+
+    public static TextComponent empty(){
+        return EMPTY;
     }
 
     @Override
