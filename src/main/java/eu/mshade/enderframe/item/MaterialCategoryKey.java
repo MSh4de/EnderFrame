@@ -6,6 +6,7 @@ public interface MaterialCategoryKey {
 
     String getName();
 
+
     static MaterialCategoryKey from(String name){
         return new DefaultMaterialCategoryKey(name);
     }
