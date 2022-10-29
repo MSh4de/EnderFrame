@@ -8,8 +8,8 @@ import eu.mshade.mwork.event.EventListener;
 
 public class PacketStatusListener implements EventListener<PacketInStatus> {
     @Override
-    public void onEvent(PacketInStatus event, ParameterContainer eventContainer) {
-        EnderFrame.get().getPacketEventBus().publish(new ServerStatusEvent(), eventContainer);
+    public void onEvent(PacketInStatus event) {
+        EnderFrame.get().getPacketEventBus().publish(new ServerStatusEvent(event.getSessionWrapper()));
     }
 
     /*

@@ -12,9 +12,9 @@ import java.net.InetSocketAddress;
 public class PacketHandshakeListener implements EventListener<PacketInHandshake> {
 
     @Override
-    public void onEvent(PacketInHandshake event, ParameterContainer eventContainer) {
+    public void onEvent(PacketInHandshake event) {
         Handshake handshake = new Handshake(event.getVersion(), InetSocketAddress.createUnresolved(event.getHost(), event.getPort()), event.getHandshakeStatus());
-        EnderFrame.get().getPacketEventBus().publish(new PacketHandshakeEvent(handshake), eventContainer);
+        EnderFrame.get().getPacketEventBus().publish(new PacketHandshakeEvent(event.getSessionWrapper(), handshake));
     }
 
 }

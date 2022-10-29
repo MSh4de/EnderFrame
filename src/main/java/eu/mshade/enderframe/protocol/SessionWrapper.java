@@ -2,6 +2,7 @@ package eu.mshade.enderframe.protocol;
 
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
+import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.inventory.InventoryRepository;
 import eu.mshade.enderframe.item.ItemStack;
@@ -125,6 +126,10 @@ public abstract class SessionWrapper {
 
     public Protocol getProtocol() {
         return ProtocolPipeline.get().getProtocol(this.channel);
+    }
+
+    public Player getPlayer() {
+        return ProtocolPipeline.get().getPlayer(this.channel);
     }
 
     public void sendDisconnect(TextComponent textComponent) {

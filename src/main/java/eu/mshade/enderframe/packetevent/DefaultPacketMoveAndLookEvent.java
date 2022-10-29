@@ -1,18 +1,27 @@
 package eu.mshade.enderframe.packetevent;
 
+import eu.mshade.enderframe.entity.Player;
+
 public class DefaultPacketMoveAndLookEvent implements PacketMoveAndLookEvent{
 
+    private Player player;
     private double x, y, z;
     private float yaw, pitch;
     private boolean ground;
 
-    public DefaultPacketMoveAndLookEvent(double x, double y, double z, float yaw, float pitch, boolean ground) {
+    public DefaultPacketMoveAndLookEvent(Player player, double x, double y, double z, float yaw, float pitch, boolean ground) {
+        this.player = player;
         this.x = x;
         this.y = y;
         this.z = z;
         this.yaw = yaw;
         this.pitch = pitch;
         this.ground = ground;
+    }
+
+    @Override
+    public Player getPlayer() {
+        return player;
     }
 
     @Override

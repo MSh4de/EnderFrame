@@ -1,17 +1,20 @@
 package eu.mshade.enderframe.packetevent;
 
+import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.inventory.ClickType;
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.item.ItemStack;
 
 public class PacketClickInventoryEvent implements PacketEvent {
 
+    protected Player player;
     protected Inventory inventory;
     protected ClickType clickType;
     protected ItemStack itemStack;
     protected int id, slot, key;
 
-    public PacketClickInventoryEvent(Inventory inventory, ClickType clickType, ItemStack itemStack, int id, int slot, int key) {
+    public PacketClickInventoryEvent(Player player, Inventory inventory, ClickType clickType, ItemStack itemStack, int id, int slot, int key) {
+        this.player = player;
         this.inventory = inventory;
         this.clickType = clickType;
         this.itemStack = itemStack;
@@ -20,12 +23,17 @@ public class PacketClickInventoryEvent implements PacketEvent {
         this.id = id;
     }
 
-    public PacketClickInventoryEvent(Inventory inventory, ClickType clickType, ItemStack itemStack, int id, int slot) {
+    public PacketClickInventoryEvent(Player player, Inventory inventory, ClickType clickType, ItemStack itemStack, int id, int slot) {
+        this.player = player;
         this.inventory = inventory;
         this.clickType = clickType;
         this.itemStack = itemStack;
         this.slot = slot;
         this.id = id;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public Inventory getInventory() {

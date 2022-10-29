@@ -9,8 +9,8 @@ import eu.mshade.mwork.event.EventListener;
 public class PacketPingListener implements EventListener<PacketInPing> {
 
     @Override
-    public void onEvent(PacketInPing event, ParameterContainer eventContainer) {
-        EnderFrame.get().getPacketEventBus().publish(new ServerPingEvent(event.getPayload()), eventContainer);
+    public void onEvent(PacketInPing event) {
+        EnderFrame.get().getPacketEventBus().publish(new ServerPingEvent(event.getSessionWrapper(), event.getPayload()));
     }
 
     /*

@@ -47,7 +47,7 @@ public class PacketCodec extends MessageToMessageCodec<ByteBuf, PacketOut> {
             int packetId = protocolBuffer.readVarInt();
 
             protocol.getProtocolRegistry().getPacketByID(sessionWrapper.getProtocolStatus(), packetId).exception(Throwable::printStackTrace).ifPresent(packetIn -> {
-                packetIn.deserialize(protocolBuffer);
+                packetIn.deserialize(sessionWrapper, protocolBuffer);
                 out.add(packetIn);
             }).ifNotPresent(unused -> {
                 logger.info(String.format("Undefined incoming packet: %s", packetId));

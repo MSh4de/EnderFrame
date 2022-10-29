@@ -9,20 +9,17 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class PacketChannelInboundHandlerAdapter extends ChannelInboundHandlerAdapter {
 
-    private final ParameterContainer parameterContainer;
     private final Channel channel;
 
     public PacketChannelInboundHandlerAdapter(Channel channel) {
         this.channel = channel;
-        this.parameterContainer = ParameterContainer.of()
-                .putContainer(Channel.class.getSimpleName(), channel);
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if (msg instanceof PacketIn packetIn){
             ProtocolPipeline protocolPipeline = ProtocolPipeline.get();
-            protocolPipeline.getProtocol(channel).getEventBus().publish(packetIn, parameterContainer);
+            protocolPipeline.getProtocol(channel).getEventBus().publish(packetIn);
         }
     }
 
@@ -30,7 +27,7 @@ public class PacketChannelInboundHandlerAdapter extends ChannelInboundHandlerAda
     public void channelInactive(ChannelHandlerContext ctx) {
         ProtocolPipeline protocolPipeline = ProtocolPipeline.get();
         if (protocolPipeline.getPlayer(channel) != null) {
-            EnderFrame.get().getEnderFrameEventBus().publish(new PlayerQuitEvent(), parameterContainer);
+            EnderFrame.get().getEnderFrameEventBus().publish(new PlayerQuitEvent(protocolPipeline.getSessionWrapper(channel)));
         }
         protocolPipeline.flush(channel);
     }

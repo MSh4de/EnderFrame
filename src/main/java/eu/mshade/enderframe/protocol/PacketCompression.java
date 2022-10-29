@@ -17,7 +17,7 @@ public class PacketCompression extends MessageToMessageCodec<ByteBuf, ByteBuf> {
     private final Inflater inflater = new Inflater();
     private final byte[] buffer = new byte[8192];
     private final Deflater deflater = new Deflater();
-    private final Protocol protocol = TempProtocol.getInstance();
+    private final Protocol protocol = TempProtocol.Companion.getINSTANCE();
 
     /**
      * Creates an instance that compresses messages using an {@link Inflater} and {@link Deflater}.

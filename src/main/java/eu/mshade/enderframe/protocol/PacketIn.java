@@ -2,6 +2,8 @@ package eu.mshade.enderframe.protocol;
 
 public interface PacketIn {
 
-    void deserialize(ProtocolBuffer protocolBuffer);
+    void deserialize(SessionWrapper sessionWrapper, ProtocolBuffer protocolBuffer);
+
+    SessionWrapper getSessionWrapper();
 
 }
