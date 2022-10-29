@@ -8,6 +8,7 @@ import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
+import eu.mshade.enderframe.particle.Particle;
 import eu.mshade.enderframe.protocol.SessionWrapper;
 import eu.mshade.enderframe.scoreboard.Scoreboard;
 import eu.mshade.enderframe.scoreboard.ScoreboardMode;
@@ -273,6 +274,11 @@ public class TempSessionWrapper extends SessionWrapper {
 
     @Override
     public void sendWorldBorder(WorldBorderAction worldBorderAction, WorldBorder worldBorder) {
+
+    }
+
+    @Override
+    public void sendParticle(Particle particle) {
 
     }
 }

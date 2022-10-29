@@ -11,6 +11,7 @@ import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
+import eu.mshade.enderframe.particle.Particle;
 import eu.mshade.enderframe.protocol.packet.PacketOutDisconnect;
 import eu.mshade.enderframe.protocol.packet.PacketOutPluginMessage;
 import eu.mshade.enderframe.scoreboard.Scoreboard;
@@ -248,7 +249,7 @@ public abstract class SessionWrapper {
 
     public abstract void sendWorldBorder(WorldBorderAction worldBorderAction, WorldBorder worldBorder);
 
-
+    public abstract void sendParticle(Particle particle);
 
     @Override
     public String toString() {

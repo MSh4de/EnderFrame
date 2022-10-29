@@ -58,6 +58,14 @@ public abstract class ProtocolBuffer extends ByteBuf {
         } while (value != 0);
     }
 
+    public void writeVarIntArray(int[] value) {
+        writeVarInt(value.length);
+
+        for (int i = 0; i < value.length; i++) {
+            writeVarInt(value[i]);
+        }
+    }
+
     public long readVarLong() {
         int numRead = 0;
         long result = 0;
