@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.protocol.temp;
 
 import eu.mshade.enderframe.entity.Entity;
+import eu.mshade.enderframe.entity.metadata.EntityMetadataKey;
 import eu.mshade.enderframe.item.ItemStack;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
 import io.netty.buffer.ByteBuf;
 

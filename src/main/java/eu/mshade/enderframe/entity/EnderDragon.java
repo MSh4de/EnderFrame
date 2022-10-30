@@ -7,7 +7,6 @@ import java.util.UUID;
 
 public abstract class EnderDragon extends LivingEntity {
 
-
     public EnderDragon(Location location, Vector velocity, int entityId, UUID uuid) {
         super(location, velocity, entityId, uuid, EntityType.ENDER_DRAGON);
     }

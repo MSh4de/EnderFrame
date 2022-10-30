@@ -1,6 +1,4 @@
-import eu.mshade.enderframe.entity.metadata.HealthEntityMetadata;
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 
 public class TestTrackerMetadata {
 

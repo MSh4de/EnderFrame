@@ -5,7 +5,7 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public abstract class Rabbit extends LivingEntity implements Ageable{
+public abstract class Rabbit extends LivingEntity implements Ageable {
 
     /*
     protected byte rabbitType;

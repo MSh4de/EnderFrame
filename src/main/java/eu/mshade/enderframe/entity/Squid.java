@@ -7,7 +7,6 @@ import java.util.UUID;
 
 public abstract class Squid extends LivingEntity {
 
-
     public Squid(Location location, Vector velocity, int entityId, UUID uuid) {
         super(location, velocity, entityId, uuid, EntityType.SQUID);
     }

@@ -1,9 +1,10 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.metadata.MetadataKey;
-import eu.mshade.enderframe.metadata.MetadataKeyValue;
+import eu.mshade.enderchest.entity.AgeEntityMetadataAdapter;
+import eu.mshade.enderchest.entity.BreedableEntityMetadataAdapter;
+import eu.mshade.enderchest.entity.TameableEntityMetadataAdapter;
+import eu.mshade.enderframe.entity.metadata.AgeEntityMetadata;
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.tick.Tickable;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
@@ -11,14 +12,13 @@ import eu.mshade.enderframe.world.Vector;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-
 /**
  * use uuid for create entityID and not create dynamicly
  */
 
 public abstract class Entity extends Tickable {
 
-    protected Location beforeLocation, location, beforeServerLocation, serverLocation;
+    protected Location beforeLocation, location, tickBeforeLocation, tickLocation;
     protected Vector velocity;
     protected int entityId;
     protected UUID uuid;
@@ -30,8 +30,8 @@ public abstract class Entity extends Tickable {
     public Entity(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
         this.beforeLocation = location.clone();
         this.location = location;
-        this.beforeServerLocation = location.clone();
-        this.serverLocation = location.clone();
+        this.tickBeforeLocation = location.clone();
+        this.tickLocation = location.clone();
         this.velocity = velocity;
         this.entityId = entityId;
         this.uuid = uuid;
@@ -40,6 +40,18 @@ public abstract class Entity extends Tickable {
 
     public Entity(Location location, int entityId, EntityType entityType) {
         this(location, new Vector(), entityId, UUID.randomUUID(), entityType);
+    }
+
+    public void tick() {
+        if (location.equals(tickLocation))
+            return;
+
+        this.tickBeforeLocation = tickLocation.clone();
+        this.tickLocation = location.clone();
+
+        this.watchedEntity.stream().filter(entity -> entity instanceof Player).forEach(player -> {
+            ((Player) player).getSessionWrapper().sendMove(this, tickBeforeLocation, tickLocation);
+        });
     }
 
     public Location getBeforeLocation() {
@@ -55,70 +67,18 @@ public abstract class Entity extends Tickable {
         this.location = location;
     }
 
-    public Location getBeforeServerLocation() {
-        return beforeServerLocation;
+    public Location getTickBeforeLocation() {
+        return tickBeforeLocation;
     }
 
-    public Location getServerLocation() {
-        return serverLocation;
+    public Location getTickLocation() {
+        return tickLocation;
     }
 
-    public void setServerLocation(Location location) {
-        this.beforeServerLocation = this.serverLocation.clone();
-        this.serverLocation = location;
+    public void setTickLocation(Location location) {
+        this.tickBeforeLocation = this.tickLocation.clone();
+        this.tickLocation = location;
     }
-
-    /*
-    public void teleport(Location location) {
-        EntityTeleportEvent entityTeleportEvent = new EntityTeleportEvent(this, location);
-        EnderFrame.get().getEnderFrameEventBus().publish(entityTeleportEvent);
-
-        if (!entityTeleportEvent.isCancelled()) {
-            this.setUnsafeLocation(this.getLocation());
-            this.getViewers()
-                    .stream()
-                    .map(Player::getEnderFrameSessionHandler)
-                    .map(EnderFrameSessionHandler::getEnderFrameSession)
-                    .forEach(session -> session.sendTeleport(this));
-
-            if (!this.getBeforeLocation().getChunkBuffer().equals(this.getLocation().getChunkBuffer()))
-                sendEntityChunkChange();
-        }
-    }
-
-
-
-    public void move(Location location) {
-        EntityMoveEvent entityMoveEvent = new EntityMoveEvent(this, location);
-        EnderFrame.get().getEnderFrameEventBus().publish(entityMoveEvent);
-
-        if (!entityMoveEvent.isCancelled()) {
-            this.setUnsafeLocation(location.clone());
-            System.out.println(this.getViewers());
-            System.out.println(this.getLocation());
-            this.getViewers()
-                    .stream()
-                    .map(Player::getEnderFrameSessionHandler)
-                    .map(EnderFrameSessionHandler::getEnderFrameSession)
-                    .forEach(session -> session.moveTo(this));
-
-            if (!this.getBeforeLocation().getChunkBuffer().equals(this.getLocation().getChunkBuffer()))
-                sendEntityChunkChange();
-        }
-    }
-
-    private void sendEntityChunkChange() {
-        EntityChunkChangeEvent entityChunkChangeEvent = new EntityChunkChangeEvent(this);
-        EnderFrame.get().getEnderFrameEventBus().publish(entityChunkChangeEvent);
-
-        if (!entityChunkChangeEvent.isCancelled()) {
-            this.getBeforeLocation().getChunkBuffer().removeEntity(this);
-            this.getLocation().getChunkBuffer().addEntity(this);
-        }
-    }
-
-     */
-
 
     public Vector getVelocity() {
         return this.velocity;
@@ -156,7 +116,6 @@ public abstract class Entity extends Tickable {
         return this.lookAtEntity.contains(entity);
     }
 
-
     public Collection<Entity> getWatchedEntity() {
         return watchedEntity;
     }
@@ -177,36 +136,15 @@ public abstract class Entity extends Tickable {
         return metadataKeyValueBucket;
     }
 
-    /*
-
-    public Set<Player> getViewers() {
-            return viewers;
-        }
-
-
-    public void addViewer(Player player) {
-        EntitySeeEvent entitySeeEvent = new EntitySeeEvent(this, player);
-        EnderFrame.get().getEnderFrameEventBus().publish(entitySeeEvent);
-        if (!entitySeeEvent.isCancelled()) {
-            EnderFrameSession enderFrameSession = player.getEnderFrameSessionHandler().getEnderFrameSession();
-            enderFrameSession.sendEntity(this);
-            this.getViewers().add(player);
-        }
+    public AgeEntityMetadataAdapter toAgeAdapter() {
+        return new AgeEntityMetadataAdapter(this);
     }
 
-    public void removeViewer(Player player) {
-        EntityUnseeEvent entityUnseeEvent = new EntityUnseeEvent(this, player);
-        EnderFrame.get().getEnderFrameEventBus().publish(entityUnseeEvent);
-        if (!entityUnseeEvent.isCancelled()) {
-            player.getEnderFrameSessionHandler().getEnderFrameSession().removeEntities(this);
-            this.getViewers().remove(player);
-        }
-
+    public BreedableEntityMetadataAdapter toBreedableAdapter() {
+        return new BreedableEntityMetadataAdapter(this);
     }
 
-
-    public abstract void tick();
-
-     */
-
+    public TameableEntityMetadataAdapter toTameableAdapter() {
+        return new TameableEntityMetadataAdapter(this);
+    }
 }
