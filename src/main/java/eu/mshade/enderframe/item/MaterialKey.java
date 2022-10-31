@@ -110,6 +110,10 @@ public interface MaterialKey {
             return this.id;
         }
 
+        public void setId(int id) {
+            this.id = id;
+        }
+
         @Override
         public int getMetadata() {
             return this.metadata;
