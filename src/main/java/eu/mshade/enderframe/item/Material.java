@@ -14,6 +14,7 @@ public class Material {
 
     private final static Map<String, NamespacedKey> NAMESPACED_BY_MATERIAL = new HashMap<>();
     private final static Map<Integer, MaterialKey> MATERIAL_BY_ID = new HashMap<>();
+    private final static Map<NamespacedKey, MaterialKey> NAMESPACED_KEY_BY_MATERIAL_KEY = new HashMap<>();
     private final static Map<MaterialCategoryKey, Set<MaterialKey>> MATERIAL_KEYS_BY_CATEGORY = new HashMap<>();
 
     public static MaterialKey AIR = MaterialKey.from(0, NamespacedKey.minecraft("air"), MaterialCategory.BLOCK, Set.of(MaterialCategory.BLOCK));
