@@ -9,7 +9,7 @@ import eu.mshade.enderframe.tick.Tickable;
 import eu.mshade.enderframe.world.block.Block;
 import eu.mshade.enderframe.world.chunk.Chunk;
 import eu.mshade.enderframe.world.chunk.ChunkGenerator;
-import eu.mshade.mwork.binarytag.poet.BinaryTagPoet;
+import eu.mshade.mwork.binarytag.carbon.CarbonBinaryTag;
 
 import java.io.File;
 import java.util.*;
@@ -60,7 +60,7 @@ public abstract class World extends Tickable {
 
     public abstract Entity spawnEntity(EntityType entityType, Location location);
 
-    public abstract Collection<BinaryTagPoet> getRegionBinaryTagPoets();
+    public abstract Collection<CarbonBinaryTag> getRegionBinaryTagPoets();
 
     public abstract void setBlock(int x, int y, int z, MaterialKey materialKey);
 
