@@ -1,14 +1,14 @@
 package eu.mshade.enderframe.protocol.packet;
 
 import eu.mshade.enderframe.mojang.chat.TextComponent;
-import eu.mshade.enderframe.protocol.PacketOut;
+import eu.mshade.enderframe.protocol.MinecraftPacketOut;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketOutPlayerList implements PacketOut {
+public class MinecraftPacketOutPlayerList implements MinecraftPacketOut {
 
     private TextComponent header, footer;
 
-    public PacketOutPlayerList(TextComponent header, TextComponent footer) {
+    public MinecraftPacketOutPlayerList(TextComponent header, TextComponent footer) {
         this.header = header;
         this.footer = footer;
     }

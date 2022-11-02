@@ -1,9 +1,9 @@
 package eu.mshade.enderframe.protocol.packet;
 
-import eu.mshade.enderframe.protocol.PacketOut;
+import eu.mshade.enderframe.protocol.MinecraftPacketOut;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketOutPlayerAbilities implements PacketOut {
+public class MinecraftPacketOutPlayerAbilities implements MinecraftPacketOut {
 
     private boolean invulnerable;
     private boolean flying;
@@ -12,7 +12,7 @@ public class PacketOutPlayerAbilities implements PacketOut {
     private float flyingSpeed;
     private float walkSpeed;
 
-    public PacketOutPlayerAbilities(boolean invulnerable, boolean flying, boolean allowFlying, boolean instantBreak, float flyingSpeed, float walkSpeed) {
+    public MinecraftPacketOutPlayerAbilities(boolean invulnerable, boolean flying, boolean allowFlying, boolean instantBreak, float flyingSpeed, float walkSpeed) {
         this.invulnerable = invulnerable;
         this.flying = flying;
         this.allowFlying = allowFlying;

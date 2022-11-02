@@ -1,13 +1,13 @@
 package eu.mshade.enderframe.protocol.temp.packet;
 
-import eu.mshade.enderframe.protocol.PacketOut;
+import eu.mshade.enderframe.protocol.MinecraftPacketOut;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketOutPong implements PacketOut {
+public class MinecraftPacketOutPong implements MinecraftPacketOut {
 
     private final long payload;
 
-    public PacketOutPong(long payload) {
+    public MinecraftPacketOutPong(long payload) {
         this.payload = payload;
     }
 

@@ -1,13 +1,13 @@
 package eu.mshade.enderframe.protocol.packet;
 
-import eu.mshade.enderframe.protocol.PacketOut;
+import eu.mshade.enderframe.protocol.MinecraftPacketOut;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
-public class PacketOutSetCompression implements PacketOut {
+public class MinecraftPacketOutSetCompression implements MinecraftPacketOut {
 
     private int threshold;
 
-    public PacketOutSetCompression(int threshold) {
+    public MinecraftPacketOutSetCompression(int threshold) {
         this.threshold = threshold;
     }
 

@@ -2,7 +2,7 @@ package eu.mshade.enderframe.protocol.temp.packet;
 
 import eu.mshade.enderframe.protocol.*;
 
-public class PacketInHandshake implements PacketIn {
+public class MinecraftPacketInHandshake implements MinecraftPacketIn {
 
     private SessionWrapper sessionWrapper;
     private MinecraftProtocolVersion version;

@@ -5,16 +5,16 @@ import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.PlayerInfoType;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.mojang.GameProfile;
-import eu.mshade.enderframe.protocol.PacketOut;
+import eu.mshade.enderframe.protocol.MinecraftPacketOut;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
 import java.util.List;
 
-public class PacketOutPlayerInfo implements PacketOut {
+public class MinecraftPacketOutPlayerInfo implements MinecraftPacketOut {
 
     private final PlayerInfo playerInfo;
 
-    public PacketOutPlayerInfo(PlayerInfoBuilder playerInfoBuilder) {
+    public MinecraftPacketOutPlayerInfo(PlayerInfoBuilder playerInfoBuilder) {
         this.playerInfo = playerInfoBuilder.build();
     }
 
