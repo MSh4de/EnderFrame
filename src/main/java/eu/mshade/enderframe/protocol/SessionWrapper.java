@@ -7,7 +7,7 @@ import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.inventory.InventoryRepository;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.MetadataKey;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
@@ -204,7 +204,7 @@ public abstract class SessionWrapper {
 
     public abstract void removeEntity(Entity... entities);
 
-    public abstract void sendMetadata(Entity entity, EntityMetadataKey... entityMetadataKeys);
+    public abstract void sendMetadata(Entity entity, MetadataKey... entityMetadataKeys);
 
     public abstract void sendChunk(Chunk chunk);
 

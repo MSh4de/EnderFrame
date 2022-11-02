@@ -5,7 +5,7 @@ import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.MetadataKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.particle.Particle;
@@ -185,7 +185,7 @@ public class TempSessionWrapper extends SessionWrapper {
     }
 
     @Override
-    public void sendMetadata(Entity entity, EntityMetadataKey... entityMetadataKeys) {
+    public void sendMetadata(Entity entity, MetadataKey... entityMetadataKeys) {
 
     }
 

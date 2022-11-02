@@ -2,7 +2,7 @@ package eu.mshade.enderframe.protocol.temp;
 
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.item.ItemStack;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.MetadataKey;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
 import io.netty.buffer.ByteBuf;
 
@@ -24,7 +24,7 @@ public class TempProtocolBuffer extends ProtocolBuffer {
     }
 
     @Override
-    public void writeEntityMetadata(Entity entity, EntityMetadataKey... entityMetadataKey) {
+    public void writeEntityMetadata(Entity entity, MetadataKey... entityMetadataKey) {
 
     }
 }

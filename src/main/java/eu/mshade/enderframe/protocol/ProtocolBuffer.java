@@ -3,7 +3,7 @@ package eu.mshade.enderframe.protocol;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.item.ItemStack;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+import eu.mshade.enderframe.metadata.MetadataKey;
 import eu.mshade.enderframe.world.Vector;
 import eu.mshade.mwork.MWork;
 import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag;
@@ -176,7 +176,7 @@ public abstract class ProtocolBuffer extends ByteBuf {
         this.byteBuf.readBytes(payload);
         return payload;
     }
-    public abstract void writeEntityMetadata(Entity entity, EntityMetadataKey... entityMetadataKey);
+    public abstract void writeEntityMetadata(Entity entity, MetadataKey... entityMetadataKey);
 
     @Override
     public int capacity() {
