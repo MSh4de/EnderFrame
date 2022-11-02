@@ -1,5 +1,6 @@
 package eu.mshade.enderframe.protocol;
 
+import eu.mshade.enderframe.entity.EntityMapper;
 import eu.mshade.enderframe.world.block.BlockTransformerRepository;
 import eu.mshade.enderframe.wrapper.WrapperRepository;
 import eu.mshade.mwork.event.EventBus;
@@ -16,6 +17,8 @@ public abstract class Protocol {
     public abstract ProtocolBuffer getProtocolBuffer(ByteBuf byteBuf);
 
     public abstract SessionWrapper getSessionWrapper(Channel channel);
+
+    public abstract EntityMapper getEntityMapper();
 
     public ProtocolRegistry getProtocolRegistry(){
         return protocolRegistry;
