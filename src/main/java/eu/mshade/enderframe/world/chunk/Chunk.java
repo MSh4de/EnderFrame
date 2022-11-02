@@ -18,7 +18,6 @@ import java.util.function.Consumer;
 
 public abstract class Chunk implements Watchable {
 
-
     protected final int x;
     protected final int z;
     protected final long id;
@@ -81,6 +80,10 @@ public abstract class Chunk implements Watchable {
     public abstract byte[] getBiomes();
 
     public abstract int getHighest(int x, int z);
+
+    public Queue<Entity> getEntities() {
+        return entities;
+    }
 
     public static long key(int x, int z) {
         return ((long) x & 0xffffffffL) << 32 | (long) z & 0xffffffffL;
