@@ -13,7 +13,7 @@ public abstract class EnderCrystal extends Entity {
      */
 
     public EnderCrystal(Location location, Vector velocity, int entityId, UUID uuid) {
-        super(location, velocity, entityId, uuid, EntityType.END_CRYSTAL);
+        super(location, velocity, entityId, uuid, EntityType.ENDER_CRYSTAL);
     }
 
     public EnderCrystal(Location location, int entityId) {
