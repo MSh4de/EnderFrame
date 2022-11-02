@@ -20,7 +20,7 @@ import java.util.Queue;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class Player extends LivingEntity implements ProjectileSource, Agent {
+public abstract class Player extends LivingEntity implements Agent {
 
 
     protected SocketAddress socketAddress;
