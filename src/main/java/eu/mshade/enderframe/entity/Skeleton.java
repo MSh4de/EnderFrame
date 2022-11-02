@@ -5,7 +5,7 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public abstract class Skeleton extends LivingEntity implements ProjectileSource {
+public abstract class Skeleton extends LivingEntity {
     public Skeleton(Location location, Vector velocity, int entityId, UUID uuid) {
         super(location, velocity, entityId, uuid, EntityType.SKELETON);
     }
