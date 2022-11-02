@@ -1,8 +1,5 @@
 package eu.mshade.enderframe;
 
-import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.protocol.SessionWrapper;
-
 import java.util.Collection;
 import java.util.function.Consumer;
 
@@ -12,7 +9,7 @@ public interface Watchable {
 
     void removeWatcher(Agent agent);
 
-    Collection<Agent> getWatching();
+    Collection<Agent> getWatchers();
 
     boolean isWatching(Agent agent);
 
