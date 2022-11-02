@@ -2,13 +2,12 @@ package eu.mshade.enderframe.protocol.temp.listener;
 
 import eu.mshade.enderframe.EnderFrame;
 import eu.mshade.enderframe.packetevent.ServerStatusEvent;
-import eu.mshade.enderframe.protocol.temp.packet.PacketInStatus;
-import eu.mshade.mwork.ParameterContainer;
+import eu.mshade.enderframe.protocol.temp.packet.MinecraftPacketInStatus;
 import eu.mshade.mwork.event.EventListener;
 
-public class PacketStatusListener implements EventListener<PacketInStatus> {
+public class PacketStatusListener implements EventListener<MinecraftPacketInStatus> {
     @Override
-    public void onEvent(PacketInStatus event) {
+    public void onEvent(MinecraftPacketInStatus event) {
         EnderFrame.get().getPacketEventBus().publish(new ServerStatusEvent(event.getSessionWrapper()));
     }
 
