@@ -1,9 +1,6 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.metadata.MetadataKey;
-import eu.mshade.enderframe.metadata.MetadataKeyValue;
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.tick.Tickable;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
@@ -40,6 +37,18 @@ public abstract class Entity extends Tickable {
 
     public Entity(Location location, int entityId, EntityType entityType) {
         this(location, new Vector(), entityId, UUID.randomUUID(), entityType);
+    }
+
+    public void tick() {
+        if (location.equals(serverLocation))
+            return;
+
+        this.beforeServerLocation = serverLocation.clone();
+        this.serverLocation = location.clone();
+
+        this.watchedEntity.stream().filter(entity -> entity instanceof Player).forEach(player -> {
+            ((Player) player).getSessionWrapper().sendMove(this, beforeServerLocation, serverLocation);
+        });
     }
 
     public Location getBeforeLocation() {
