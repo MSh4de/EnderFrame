@@ -8,7 +8,6 @@ public abstract class Section {
 
     protected Chunk chunk;
     protected int y;
-    protected int realBlock;
     protected Palette palette;
     protected int[] blocks;
     protected NibbleArray blockLight;
@@ -38,14 +37,15 @@ public abstract class Section {
     }
 
     public int getRealBlock(){
-        Block airBlock = palette.getBlock().stream().filter(block -> block.getMaterialKey().equals(Material.AIR)).findFirst().orElse(null);
-        if (airBlock == null) return 4096;
-        return 4096 - this.palette.getCount(palette.getId(airBlock));
-    }
+        int air = 0;
+        for (Block block : palette.getBlock()) {
+            if (block.getMaterialKey() == Material.AIR) {
+                air += palette.getCount(palette.getId(block));
+            }
+        }
 
-/*    public void setRealBlock(int realBlock){
-        this.realBlock = realBlock;
-    }*/
+        return 4096 - air;
+    }
 
     public Palette getPalette() {
         return palette;
