@@ -3,8 +3,10 @@ package eu.mshade.enderframe.world.block
 import eu.mshade.enderframe.item.Material
 import eu.mshade.enderframe.item.MaterialCategoryKey
 import eu.mshade.enderframe.item.MaterialKey
+import eu.mshade.enderframe.metadata.MetadataKeyValueBucket
 import eu.mshade.enderframe.world.Location
 import eu.mshade.enderframe.world.Vector
+import eu.mshade.enderframe.world.block.BlockMetadataType.MULTIPLE_FACE
 
 abstract class BlockRule {
 
@@ -176,5 +178,39 @@ class SlabBlockRule : BlockRule() {
         return null
     }
 
+
+}
+
+class VineBlockRule : BlockRule() {
+
+    override fun apply(
+        pov: Location,
+        blockPosition: Vector,
+        blockFace: BlockFace,
+        cursorPosition: Vector,
+        block: Block
+    ): Block {
+        val previousBlock = pov.world.getBlock(blockPosition)
+
+        val vineBlock : Block = if (previousBlock.getMaterialKey() == Material.VINE){
+            previousBlock
+        }else {
+            block
+        }
+
+        val metadataKeyValueBucket = vineBlock.getMetadataKeyValueBucket()
+        var metadataKeyValue = metadataKeyValueBucket.getMetadataKeyValue(
+            MULTIPLE_FACE,
+            MultipleFaceBlockMetadata::class.java
+        )
+        if (metadataKeyValue == null) {
+            metadataKeyValue = MultipleFaceBlockMetadata()
+            metadataKeyValueBucket.setMetadataKeyValue(metadataKeyValue)
+        }
+
+        metadataKeyValue.metadataValue.add(blockFace)
+
+        return vineBlock
+    }
 
 }
