@@ -13,12 +13,12 @@ import java.nio.ByteBuffer;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
-public class PacketEncryption extends MessageToMessageCodec<ByteBuf, ByteBuf>  {
+public class MinecraftPacketEncryption extends MessageToMessageCodec<ByteBuf, ByteBuf>  {
 
     private final CryptBuf encodeBuf;
     private final CryptBuf decodeBuf;
 
-    public PacketEncryption(SecretKey sharedSecret) {
+    public MinecraftPacketEncryption(SecretKey sharedSecret) {
         try {
             encodeBuf = new CryptBuf(Cipher.ENCRYPT_MODE, sharedSecret);
             decodeBuf = new CryptBuf(Cipher.DECRYPT_MODE, sharedSecret);
@@ -29,13 +29,13 @@ public class PacketEncryption extends MessageToMessageCodec<ByteBuf, ByteBuf>  {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
-        encodeBuf.crypt(msg, out);
+        encodeBuf.apply(msg, out);
     }
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out)
             throws Exception {
-        decodeBuf.crypt(msg, out);
+        decodeBuf.apply(msg, out);
     }
 
     private static class CryptBuf {
@@ -47,7 +47,7 @@ public class PacketEncryption extends MessageToMessageCodec<ByteBuf, ByteBuf>  {
             cipher.init(mode, sharedSecret, new IvParameterSpec(sharedSecret.getEncoded()));
         }
 
-        public void crypt(ByteBuf msg, List<Object> out) {
+        public void apply(ByteBuf msg, List<Object> out) {
             ByteBuffer outBuffer = ByteBuffer.allocate(msg.readableBytes());
 
             try {

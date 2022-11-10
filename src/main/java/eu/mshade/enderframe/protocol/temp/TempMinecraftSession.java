@@ -9,7 +9,7 @@ import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.particle.Particle;
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 import eu.mshade.enderframe.scoreboard.Scoreboard;
 import eu.mshade.enderframe.scoreboard.ScoreboardMode;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
@@ -29,10 +29,10 @@ import io.netty.channel.Channel;
 import java.security.PublicKey;
 import java.util.List;
 
-public class TempSessionWrapper extends SessionWrapper {
+public class TempMinecraftSession extends MinecraftSession {
 
 
-    public TempSessionWrapper(Channel channel) {
+    public TempMinecraftSession(Channel channel) {
         super(channel);
     }
 

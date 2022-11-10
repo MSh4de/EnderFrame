@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-public class PacketCompression extends MessageToMessageCodec<ByteBuf, ByteBuf> {
+public class MinecraftPacketCompression extends MessageToMessageCodec<ByteBuf, ByteBuf> {
 
     private final int threshold;
     private final Inflater inflater = new Inflater();
@@ -24,7 +24,7 @@ public class PacketCompression extends MessageToMessageCodec<ByteBuf, ByteBuf> {
      *
      * @param threshold the smallest message length, in bytes, to compress
      */
-    public PacketCompression(int threshold) {
+    public MinecraftPacketCompression(int threshold) {
         this.threshold = threshold;
     }
 

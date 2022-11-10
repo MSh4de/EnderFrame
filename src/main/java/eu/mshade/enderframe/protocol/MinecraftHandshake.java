@@ -2,13 +2,13 @@ package eu.mshade.enderframe.protocol;
 
 import java.net.InetSocketAddress;
 
-public class Handshake {
+public class MinecraftHandshake {
 
     private MinecraftProtocolVersion version;
     private InetSocketAddress inetSocketAddress;
     private HandshakeStatus handshakeStatus;
 
-    public Handshake(MinecraftProtocolVersion version, InetSocketAddress inetSocketAddress, HandshakeStatus handshakeStatus) {
+    public MinecraftHandshake(MinecraftProtocolVersion version, InetSocketAddress inetSocketAddress, HandshakeStatus handshakeStatus) {
         this.version = version;
         this.inetSocketAddress = inetSocketAddress;
         this.handshakeStatus = handshakeStatus;

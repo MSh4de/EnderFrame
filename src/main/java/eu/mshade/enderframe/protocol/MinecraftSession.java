@@ -12,8 +12,8 @@ import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.particle.Particle;
-import eu.mshade.enderframe.protocol.packet.PacketOutDisconnect;
-import eu.mshade.enderframe.protocol.packet.PacketOutPluginMessage;
+import eu.mshade.enderframe.protocol.packet.MinecraftPacketOutDisconnect;
+import eu.mshade.enderframe.protocol.packet.MinecraftPacketOutPluginMessage;
 import eu.mshade.enderframe.scoreboard.Scoreboard;
 import eu.mshade.enderframe.scoreboard.ScoreboardMode;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
@@ -39,17 +39,17 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 
-public abstract class SessionWrapper {
+public abstract class MinecraftSession {
 
     protected final Channel channel;
     protected final String sessionId;
     protected final byte[] verifyToken = new byte[4];
     protected GameProfile gameProfile;
-    protected Handshake handshake;
-    protected ProtocolStatus protocolStatus = ProtocolStatus.HANDSHAKE;
+    protected MinecraftHandshake minecraftHandshake;
+    protected MinecraftProtocolStatus minecraftProtocolStatus = MinecraftProtocolStatus.HANDSHAKE;
     protected InventoryRepository inventoryRepository = new InventoryRepository();
 
-    public SessionWrapper(Channel channel) {
+    public MinecraftSession(Channel channel) {
         this.channel = channel;
         this.sessionId = Long.toString(ThreadLocalRandom.current().nextLong(), 16).trim();
         ThreadLocalRandom.current().nextBytes(verifyToken);
@@ -59,12 +59,12 @@ public abstract class SessionWrapper {
         return channel;
     }
 
-    public void sendPacket(PacketOut packet) {
+    public void sendPacket(MinecraftPacketOut packet) {
         if (isConnected())
             channel.writeAndFlush(packet);
     }
 
-    public void sendPacketAndClose(PacketOut packet) {
+    public void sendPacketAndClose(MinecraftPacketOut packet) {
         if (isConnected())
             channel.writeAndFlush(packet).addListener(ChannelFutureListener.CLOSE);
     }
@@ -77,16 +77,16 @@ public abstract class SessionWrapper {
         this.gameProfile = gameProfile;
     }
 
-    public Handshake getHandshake() {
-        return handshake;
+    public MinecraftHandshake getHandshake() {
+        return minecraftHandshake;
     }
 
-    public void setHandshake(Handshake handshake) {
-        this.handshake = handshake;
+    public void setHandshake(MinecraftHandshake minecraftHandshake) {
+        this.minecraftHandshake = minecraftHandshake;
     }
 
-    public ProtocolStatus getProtocolStatus() {
-        return protocolStatus;
+    public MinecraftProtocolStatus getProtocolStatus() {
+        return minecraftProtocolStatus;
     }
 
     public void toggleProtocol(Protocol protocol) {
@@ -94,16 +94,16 @@ public abstract class SessionWrapper {
         ProtocolPipeline.get().setProtocol(this.channel, protocol);
     }
 
-    public void toggleProtocolStatus(ProtocolStatus protocolStatus) {
-        this.protocolStatus = protocolStatus;
+    public void toggleProtocolStatus(MinecraftProtocolStatus minecraftProtocolStatus) {
+        this.minecraftProtocolStatus = minecraftProtocolStatus;
     }
 
     public void enableEncryption(SecretKey sharedSecret) {
-        updatePipeline("encryption", new PacketEncryption(sharedSecret));
+        updatePipeline("encryption", new MinecraftPacketEncryption(sharedSecret));
     }
 
     public void enableCompression(int threshold) {
-        updatePipeline("compression", new PacketCompression(threshold));
+        updatePipeline("compression", new MinecraftPacketCompression(threshold));
     }
 
     private void updatePipeline(String key, ChannelHandler handler) {
@@ -135,7 +135,7 @@ public abstract class SessionWrapper {
     }
 
     public void sendDisconnect(TextComponent textComponent) {
-        this.sendPacketAndClose(new PacketOutDisconnect(textComponent));
+        this.sendPacketAndClose(new MinecraftPacketOutDisconnect(textComponent));
     }
 
     public void sendDisconnect(String s) {
@@ -215,7 +215,7 @@ public abstract class SessionWrapper {
     public abstract void sendUnloadChunk(Chunk chunk);
 
     public void sendPluginMessage(String channel, Consumer<ProtocolBuffer> payload) {
-        sendPacket(new PacketOutPluginMessage(channel, payload));
+        sendPacket(new MinecraftPacketOutPluginMessage(channel, payload));
     }
 
     public abstract void sendBlockChange(Vector blockPosition, MaterialKey materialKey);
@@ -261,8 +261,8 @@ public abstract class SessionWrapper {
                 ", sessionId='" + sessionId + '\'' +
                 ", verifyToken=" + Arrays.toString(verifyToken) +
                 ", gameProfile=" + gameProfile +
-                ", handshake=" + handshake +
-                ", protocolStatus=" + protocolStatus +
+                ", handshake=" + minecraftHandshake +
+                ", protocolStatus=" + minecraftProtocolStatus +
                 '}';
     }
 }
