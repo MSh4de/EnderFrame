@@ -17,6 +17,9 @@ object BlockMetadataType {
     val CHECK_DECAY: MetadataKey = MetadataKey.from("BLOCK_CHECK_DECAY")
     val SEAMLESS: MetadataKey = MetadataKey.from("BLOCK_SEAMLESS")
 
+
+    val MULTIPLE_FACE: MetadataKey = MetadataKey.from("BLOCK_MULTIPLE_FACE")
+
 }
 
 class FaceBlockMetadata(blockFace: BlockFace): MetadataKeyValue<BlockFace>(BlockMetadataType.FACE, blockFace)
@@ -38,6 +41,8 @@ class DecayableBlockMetadata(decayable: Boolean): MetadataKeyValue<Boolean>(Bloc
 class CheckDecayBlockMetadata(checkDecay: Boolean): MetadataKeyValue<Boolean>(BlockMetadataType.CHECK_DECAY, checkDecay)
 
 class SeamlessBlockMetadata(seamless: Boolean): MetadataKeyValue<Boolean>(BlockMetadataType.SEAMLESS, seamless)
+
+class MultipleFaceBlockMetadata(multipleFace: MutableSet<BlockFace> = mutableSetOf()): MetadataKeyValue<MutableSet<BlockFace>>(BlockMetadataType.MULTIPLE_FACE, multipleFace)
 
 
 
