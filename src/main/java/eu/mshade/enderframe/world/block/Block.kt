@@ -5,7 +5,7 @@ import eu.mshade.enderframe.metadata.MetadataKeyValueBucket
 import eu.mshade.enderframe.world.World
 import eu.mshade.enderframe.world.chunk.Section
 
-class Block(private val materialKey: MaterialKey, private val metadataKeyValueBucket: MetadataKeyValueBucket = MetadataKeyValueBucket()) {
+class Block(private val materialKey: MaterialKey, private val metadataKeyValueBucket: MetadataKeyValueBucket = MetadataKeyValueBucket()): Cloneable {
 
     fun getMaterialKey(): MaterialKey {
         return materialKey
@@ -37,5 +37,7 @@ class Block(private val materialKey: MaterialKey, private val metadataKeyValueBu
         return "Block(materialKey=$materialKey, metadataKeyValueBucket=$metadataKeyValueBucket)"
     }
 
-
+    public override fun clone(): Block {
+        return Block(materialKey, metadataKeyValueBucket.clone())
+    }
 }
