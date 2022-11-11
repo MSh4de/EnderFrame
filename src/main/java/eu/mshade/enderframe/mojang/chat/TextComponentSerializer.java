@@ -20,9 +20,12 @@ public class TextComponentSerializer extends JsonSerializer<TextComponentEntry> 
         if (value.isObfuscated()) gen.writeBooleanField("obfuscated", true);
 
         if (value.getClickEvent() != null) serializers.defaultSerializeField("clickEvent", value.getClickEvent(), gen);
+        if (value.getHoverEvent() != null) serializers.defaultSerializeField("hoverEvent", value.getHoverEvent(), gen);
 
-        if (value instanceof TextComponent) {
-            if (!((TextComponent) value).getExtra().isEmpty()) serializers.defaultSerializeField("extra", value.getClickEvent(), gen);
+        if (value instanceof TextComponent textComponent) {
+            if (!textComponent.getExtra().isEmpty()) {
+                serializers.defaultSerializeField("extra", textComponent.getExtra(), gen);
+            }
         }
 
         gen.writeEndObject();
