@@ -14,7 +14,7 @@ public class Material {
 
     private final static Map<String, NamespacedKey> NAMESPACED_BY_MATERIAL = new HashMap<>();
     private final static Map<Integer, MaterialKey> MATERIAL_BY_ID = new HashMap<>();
-    private final static Map<NamespacedKey, MaterialKey> NAMESPACED_KEY_BY_MATERIAL_KEY = new HashMap<>();
+    private final static Map<NamespacedKey, MaterialKey> MATERIAL_KEY_BY_NAMESPACED_KEY = new HashMap<>();
     private final static Map<MaterialCategoryKey, Set<MaterialKey>> MATERIAL_KEYS_BY_CATEGORY = new HashMap<>();
 
     public static MaterialKey AIR = MaterialKey.from(0, NamespacedKey.minecraft("air"), MaterialCategory.BLOCK, Set.of(MaterialCategory.BLOCK));
@@ -307,6 +307,7 @@ public class Material {
     public static MaterialKey CHISELED_RED_SANDSTONE = MaterialKey.from(264, 64, NamespacedKey.minecraft("chiseled_red_sandstone"), MaterialCategory.SANDSTONE, Set.of(MaterialCategory.BLOCK, MaterialCategory.SANDSTONE));
 
 
+    public static MaterialKey VINE = MaterialKey.from(265, 64, NamespacedKey.minecraft("vine"), MaterialCategory.VINE, Set.of(MaterialCategory.BLOCK, MaterialCategory.VINE));
 
 
 
@@ -601,6 +602,7 @@ public class Material {
                 Object o = field.get(null);
                 if (o instanceof MaterialKey materialKey) {
                     LOGGER.debug("Register " + materialKey);
+//                    MATERIAL_KEY_BY_NAMESPACED_KEY.put(materialKey.getNamespacedKey(), materialKey);
                     registerMaterialKey(materialKey);
                 }
             }
