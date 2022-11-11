@@ -7,8 +7,9 @@ import eu.mshade.enderframe.inventory.InventoryBufferStore;
 import eu.mshade.enderframe.inventory.PlayerInventory;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.protocol.MinecraftProtocolVersion;
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 import eu.mshade.enderframe.scoreboard.Scoreboard;
+import eu.mshade.enderframe.world.World;
 import eu.mshade.enderframe.world.chunk.Chunk;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
@@ -204,6 +205,9 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
         return this.lookAtWorldBorders.contains(worldBorder);
     }
 
-    public abstract SessionWrapper getSessionWrapper();
+
+    public abstract void joinWorld(World world);
+
+    public abstract MinecraftSession getMinecraftSession();
 
 }
