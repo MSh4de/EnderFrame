@@ -1,30 +1,30 @@
 package eu.mshade.enderframe.packetevent;
 
-import eu.mshade.enderframe.protocol.Handshake;
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftHandshake;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 
 public class PacketHandshakeEvent implements PacketEvent {
 
-    private final Handshake handshake;
-    private final SessionWrapper sessionWrapper;
+    private final MinecraftHandshake minecraftHandshake;
+    private final MinecraftSession minecraftSession;
 
-    public PacketHandshakeEvent(SessionWrapper sessionWrapper, Handshake handshake) {
-        this.handshake = handshake;
-        this.sessionWrapper = sessionWrapper;
+    public PacketHandshakeEvent(MinecraftSession minecraftSession, MinecraftHandshake minecraftHandshake) {
+        this.minecraftHandshake = minecraftHandshake;
+        this.minecraftSession = minecraftSession;
     }
 
-    public Handshake getHandshake() {
-        return handshake;
+    public MinecraftHandshake getHandshake() {
+        return minecraftHandshake;
     }
 
-    public SessionWrapper getSessionWrapper() {
-        return sessionWrapper;
+    public MinecraftSession getSessionWrapper() {
+        return minecraftSession;
     }
 
     @Override
     public String toString() {
         return "HandshakeEvent{" +
-                "handshake=" + handshake +
+                "handshake=" + minecraftHandshake +
                 '}';
     }
 }

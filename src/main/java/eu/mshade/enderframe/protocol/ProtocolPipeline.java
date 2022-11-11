@@ -3,13 +3,12 @@ package eu.mshade.enderframe.protocol;
 import eu.mshade.enderframe.entity.Player;
 import io.netty.channel.Channel;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ProtocolPipeline {
 
-    private final Map<Channel, SessionWrapper> sessionWrapperByChannel = new ConcurrentHashMap<>();
+    private final Map<Channel, MinecraftSession> sessionWrapperByChannel = new ConcurrentHashMap<>();
     private final Map<Channel, Player> playerByChannel = new ConcurrentHashMap<>();
     private final Map<Channel, Protocol> protocolByChannel = new ConcurrentHashMap<>();
 
@@ -19,12 +18,12 @@ public class ProtocolPipeline {
         protocolPipeline = this;
     }
 
-    public SessionWrapper getSessionWrapper(Channel channel){
+    public MinecraftSession getSessionWrapper(Channel channel){
         return this.sessionWrapperByChannel.get(channel);
     }
 
-    public void setSessionWrapper(Channel channel, SessionWrapper sessionWrapper){
-        this.sessionWrapperByChannel.put(channel, sessionWrapper);
+    public void setSessionWrapper(Channel channel, MinecraftSession minecraftSession){
+        this.sessionWrapperByChannel.put(channel, minecraftSession);
     }
 
     public Player getPlayer(Channel channel){

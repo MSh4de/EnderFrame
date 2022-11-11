@@ -1,20 +1,20 @@
 package eu.mshade.enderframe.packetevent;
 
 
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 
 public class PacketLoginEvent implements PacketEvent {
 
-    private SessionWrapper sessionWrapper;
+    private MinecraftSession minecraftSession;
     private final String name;
 
-    public PacketLoginEvent(SessionWrapper sessionWrapper, String name) {
-        this.sessionWrapper = sessionWrapper;
+    public PacketLoginEvent(MinecraftSession minecraftSession, String name) {
+        this.minecraftSession = minecraftSession;
         this.name = name;
     }
 
-    public SessionWrapper getSessionWrapper() {
-        return sessionWrapper;
+    public MinecraftSession getSessionWrapper() {
+        return minecraftSession;
     }
 
     public String getName() {

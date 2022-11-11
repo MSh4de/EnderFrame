@@ -1,22 +1,22 @@
 package eu.mshade.enderframe.packetevent;
 
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 
 public class ServerPingEvent implements PacketEvent {
 
-    private SessionWrapper sessionWrapper;
+    private MinecraftSession minecraftSession;
     private final long payload;
 
-    public ServerPingEvent(SessionWrapper sessionWrapper, long payload) {
+    public ServerPingEvent(MinecraftSession minecraftSession, long payload) {
         this.payload = payload;
-        this.sessionWrapper = sessionWrapper;
+        this.minecraftSession = minecraftSession;
     }
     public long getPayload() {
         return payload;
     }
 
-    public SessionWrapper getSessionWrapper() {
-        return sessionWrapper;
+    public MinecraftSession getSessionWrapper() {
+        return minecraftSession;
     }
 
     @Override

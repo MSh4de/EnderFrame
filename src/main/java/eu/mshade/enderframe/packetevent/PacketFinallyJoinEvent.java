@@ -1,18 +1,17 @@
 package eu.mshade.enderframe.packetevent;
 
 
-import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 
 public class PacketFinallyJoinEvent implements PacketEvent {
 
-    private SessionWrapper sessionWrapper;
+    private MinecraftSession minecraftSession;
 
-    public PacketFinallyJoinEvent(SessionWrapper sessionWrapper) {
-        this.sessionWrapper = sessionWrapper;
+    public PacketFinallyJoinEvent(MinecraftSession minecraftSession) {
+        this.minecraftSession = minecraftSession;
     }
 
-    public SessionWrapper getSessionWrapper() {
-        return sessionWrapper;
+    public MinecraftSession getSessionWrapper() {
+        return minecraftSession;
     }
 }

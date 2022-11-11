@@ -1,18 +1,18 @@
 
 package eu.mshade.enderframe.packetevent;
 
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 
 public class ServerStatusEvent implements PacketEvent {
 
-    private SessionWrapper sessionWrapper;
+    private MinecraftSession minecraftSession;
 
-    public ServerStatusEvent(SessionWrapper sessionWrapper) {
-        this.sessionWrapper = sessionWrapper;
+    public ServerStatusEvent(MinecraftSession minecraftSession) {
+        this.minecraftSession = minecraftSession;
     }
 
-    public SessionWrapper getSessionWrapper() {
-        return sessionWrapper;
+    public MinecraftSession getSessionWrapper() {
+        return minecraftSession;
     }
 
 }

@@ -8,22 +8,22 @@ import io.netty.channel.Channel;
 
 public abstract class Protocol {
 
-    protected final ProtocolRegistry protocolRegistry = new ProtocolRegistry();
-    protected final EventBus<PacketIn> eventBus = new EventBus<>();
+    protected final MinecraftPacketRegistry minecraftPacketRegistry = new MinecraftPacketRegistry();
+    protected final EventBus<MinecraftPacketIn> eventBus = new EventBus<>();
     protected final WrapperRepository wrapperRepository = new WrapperRepository();
     protected final BlockTransformerRepository blockTransformerRepository = new BlockTransformerRepository();
 
     public abstract ProtocolBuffer getProtocolBuffer(ByteBuf byteBuf);
 
-    public abstract SessionWrapper getSessionWrapper(Channel channel);
+    public abstract MinecraftSession getSessionWrapper(Channel channel);
 
-    public ProtocolRegistry getProtocolRegistry(){
-        return protocolRegistry;
+    public MinecraftPacketRegistry getProtocolRegistry(){
+        return minecraftPacketRegistry;
     }
 
     public abstract MinecraftProtocolVersion getMinecraftProtocolVersion();
 
-    public EventBus<PacketIn> getEventBus(){
+    public EventBus<MinecraftPacketIn> getEventBus(){
         return eventBus;
     };
 

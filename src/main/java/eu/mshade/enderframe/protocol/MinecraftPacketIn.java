@@ -2,8 +2,8 @@ package eu.mshade.enderframe.protocol;
 
 public interface MinecraftPacketIn {
 
-    void deserialize(SessionWrapper sessionWrapper, ProtocolBuffer protocolBuffer);
+    void deserialize(MinecraftSession minecraftSession, ProtocolBuffer protocolBuffer);
 
-    SessionWrapper getSessionWrapper();
+    MinecraftSession getSessionWrapper();
 
 }

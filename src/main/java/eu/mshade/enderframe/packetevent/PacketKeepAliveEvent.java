@@ -1,22 +1,22 @@
 package eu.mshade.enderframe.packetevent;
 
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 
 public class PacketKeepAliveEvent implements PacketEvent {
 
-    private SessionWrapper sessionWrapper;
+    private MinecraftSession minecraftSession;
     private final int threshold;
 
-    public PacketKeepAliveEvent(SessionWrapper sessionWrapper, int threshold) {
+    public PacketKeepAliveEvent(MinecraftSession minecraftSession, int threshold) {
         this.threshold = threshold;
-        this.sessionWrapper = sessionWrapper;
+        this.minecraftSession = minecraftSession;
     }
 
     public int getThreshold() {
         return threshold;
     }
 
-    public SessionWrapper getSessionWrapper() {
-        return sessionWrapper;
+    public MinecraftSession getSessionWrapper() {
+        return minecraftSession;
     }
 }
