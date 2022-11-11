@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class MetadataKeyValueBucket implements PrettyString {
+public class MetadataKeyValueBucket implements PrettyString, Cloneable {
 
     protected final Map<MetadataKey, MetadataKeyValue<?>> metadataKeyValueByMetadataKey = new HashMap<>();
     protected final Set<MetadataKey> metadataKeyUpdated = new HashSet<>();
@@ -111,4 +111,18 @@ public class MetadataKeyValueBucket implements PrettyString {
     }
 
 
+    @NotNull
+    @Override
+    public String toPrettyString() {
+        return toPrettyString(0);
+    }
+
+    @Override
+    public MetadataKeyValueBucket clone()  {
+        try {
+            return (MetadataKeyValueBucket) super.clone();
+        }catch (CloneNotSupportedException e){
+            throw new RuntimeException(e);
+        }
+    }
 }
