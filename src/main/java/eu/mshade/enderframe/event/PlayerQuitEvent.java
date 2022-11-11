@@ -1,16 +1,16 @@
 package eu.mshade.enderframe.event;
 
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 
 public class PlayerQuitEvent extends EnderFrameEvent{
 
-    private SessionWrapper sessionWrapper;
+    private MinecraftSession minecraftSession;
 
-    public PlayerQuitEvent(SessionWrapper sessionWrapper) {
-        this.sessionWrapper = sessionWrapper;
+    public PlayerQuitEvent(MinecraftSession minecraftSession) {
+        this.minecraftSession = minecraftSession;
     }
 
-    public SessionWrapper getSessionWrapper() {
-        return sessionWrapper;
+    public MinecraftSession getSessionWrapper() {
+        return minecraftSession;
     }
 }

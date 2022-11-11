@@ -22,7 +22,7 @@ public class Particle {
     }
 
     public void showParticle(Player player) {
-        player.getSessionWrapper().sendParticle(this);
+        player.getMinecraftSession().sendParticle(this);
     }
 
     public ParticleKey getParticleKey() {
