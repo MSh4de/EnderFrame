@@ -4,15 +4,15 @@ import eu.mshade.enderframe.protocol.*;
 
 public class MinecraftPacketInHandshake implements MinecraftPacketIn {
 
-    private SessionWrapper sessionWrapper;
+    private MinecraftSession minecraftSession;
     private MinecraftProtocolVersion version;
     private String host;
     private int port;
     private HandshakeStatus handshakeStatus;
 
     @Override
-    public void deserialize(SessionWrapper sessionWrapper, ProtocolBuffer protocolBuffer) {
-        this.sessionWrapper = sessionWrapper;
+    public void deserialize(MinecraftSession minecraftSession, ProtocolBuffer protocolBuffer) {
+        this.minecraftSession = minecraftSession;
         this.version = MinecraftProtocolVersion.getProtocolVersion(protocolBuffer.readVarInt());
         this.host = protocolBuffer.readString();
         this.port = protocolBuffer.readUnsignedShort();
@@ -20,8 +20,8 @@ public class MinecraftPacketInHandshake implements MinecraftPacketIn {
     }
 
     @Override
-    public SessionWrapper getSessionWrapper() {
-        return sessionWrapper;
+    public MinecraftSession getSessionWrapper() {
+        return minecraftSession;
     }
 
     public MinecraftProtocolVersion getVersion() {

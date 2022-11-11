@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.protocol.temp
 
 import eu.mshade.enderframe.protocol.*
-import eu.mshade.enderframe.protocol.packet.PacketOutDisconnect
+import eu.mshade.enderframe.protocol.packet.MinecraftPacketOutDisconnect
 import eu.mshade.enderframe.protocol.temp.listener.PacketHandshakeListener
 import eu.mshade.enderframe.protocol.temp.listener.PacketPingListener
 import eu.mshade.enderframe.protocol.temp.listener.PacketStatusListener
@@ -12,25 +12,25 @@ import io.netty.channel.Channel
 class TempProtocol : Protocol() {
 
     init {
-        getEventBus().subscribe(PacketInHandshake::class.java, PacketHandshakeListener())
-        getEventBus().subscribe(PacketInStatus::class.java, PacketStatusListener())
-        getEventBus().subscribe(PacketInPing::class.java, PacketPingListener())
+        getEventBus().subscribe(MinecraftPacketInHandshake::class.java, PacketHandshakeListener())
+        getEventBus().subscribe(MinecraftPacketInStatus::class.java, PacketStatusListener())
+        getEventBus().subscribe(MinecraftPacketInPing::class.java, PacketPingListener())
 
-        getProtocolRegistry().registerIn(ProtocolStatus.HANDSHAKE, 0x00, PacketInHandshake::class.java)
+        getProtocolRegistry().registerIn(MinecraftProtocolStatus.HANDSHAKE, 0x00, MinecraftPacketInHandshake::class.java)
 
-        getProtocolRegistry().registerOut(ProtocolStatus.STATUS, 0x00, PacketOutStatus::class.java)
-        getProtocolRegistry().registerOut(ProtocolStatus.STATUS, 0x01, PacketOutPong::class.java)
-        getProtocolRegistry().registerIn(ProtocolStatus.STATUS, 0x00, PacketInStatus::class.java)
-        getProtocolRegistry().registerIn(ProtocolStatus.STATUS, 0x01, PacketInPing::class.java)
-        getProtocolRegistry().registerOut(ProtocolStatus.LOGIN, 0x00, PacketOutDisconnect::class.java)
+        getProtocolRegistry().registerOut(MinecraftProtocolStatus.STATUS, 0x00, MinecraftPacketOutStatus::class.java)
+        getProtocolRegistry().registerOut(MinecraftProtocolStatus.STATUS, 0x01, MinecraftPacketOutPong::class.java)
+        getProtocolRegistry().registerIn(MinecraftProtocolStatus.STATUS, 0x00, MinecraftPacketInStatus::class.java)
+        getProtocolRegistry().registerIn(MinecraftProtocolStatus.STATUS, 0x01, MinecraftPacketInPing::class.java)
+        getProtocolRegistry().registerOut(MinecraftProtocolStatus.LOGIN, 0x00, MinecraftPacketOutDisconnect::class.java)
     }
 
     override fun getProtocolBuffer(byteBuf: ByteBuf): ProtocolBuffer {
         return TempProtocolBuffer(byteBuf)
     }
 
-    override fun getSessionWrapper(channel: Channel): SessionWrapper {
-        return TempSessionWrapper(channel)
+    override fun getSessionWrapper(channel: Channel): MinecraftSession {
+        return TempMinecraftSession(channel)
     }
 
     override fun getMinecraftProtocolVersion(): MinecraftProtocolVersion {

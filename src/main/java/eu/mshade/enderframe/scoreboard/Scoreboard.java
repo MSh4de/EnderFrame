@@ -2,7 +2,7 @@ package eu.mshade.enderframe.scoreboard;
 
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjectiveAction;
 import eu.mshade.mwork.ShrinkingUUID;
@@ -32,13 +32,13 @@ public class Scoreboard<T> {
         viewers.add(player);
         player.getLookAtScoreboard().add(this);
 
-        SessionWrapper sessionWrapper = player.getSessionWrapper();
+        MinecraftSession minecraftSession = player.getSessionWrapper();
 
-        sessionWrapper.sendScoreboardObjective(this, ScoreboardMode.CREATE);
-        sessionWrapper.sendDisplayScoreboard(this);
+        minecraftSession.sendScoreboardObjective(this, ScoreboardMode.CREATE);
+        minecraftSession.sendDisplayScoreboard(this);
 
         for (ScoreboardObjective<T> objective : this.objectives) {
-            sessionWrapper.sendUpdateScoreboard(objective, ScoreboardObjectiveAction.CREATE_OR_UPDATE);
+            minecraftSession.sendUpdateScoreboard(objective, ScoreboardObjectiveAction.CREATE_OR_UPDATE);
         }
     }
 

@@ -2,7 +2,7 @@ package eu.mshade.enderframe.title;
 
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 
 public class Title {
 
@@ -11,15 +11,15 @@ public class Title {
     protected TitleTime titleTime;
 
     public void showTitle(Player player) {
-        SessionWrapper sessionWrapper = player.getSessionWrapper();
-        sessionWrapper.sendTitle(TitleAction.SET_TITLE, this);
+        MinecraftSession minecraftSession = player.getSessionWrapper();
+        minecraftSession.sendTitle(TitleAction.SET_TITLE, this);
 
         if (subtitle != null) {
-            sessionWrapper.sendTitle(TitleAction.SET_SUBTITLE, this);
+            minecraftSession.sendTitle(TitleAction.SET_SUBTITLE, this);
         }
 
         if (titleTime != null) {
-            sessionWrapper.sendTitle(TitleAction.SET_TIME, this);
+            minecraftSession.sendTitle(TitleAction.SET_TIME, this);
         }
     }
 

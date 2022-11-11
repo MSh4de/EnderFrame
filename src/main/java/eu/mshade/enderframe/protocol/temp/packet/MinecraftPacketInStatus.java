@@ -2,19 +2,19 @@ package eu.mshade.enderframe.protocol.temp.packet;
 
 import eu.mshade.enderframe.protocol.MinecraftPacketIn;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 
 public class MinecraftPacketInStatus implements MinecraftPacketIn {
 
-    private SessionWrapper sessionWrapper;
+    private MinecraftSession minecraftSession;
 
     @Override
-    public void deserialize(SessionWrapper sessionWrapper, ProtocolBuffer protocolBuffer) {
-        this.sessionWrapper = sessionWrapper;
+    public void deserialize(MinecraftSession minecraftSession, ProtocolBuffer protocolBuffer) {
+        this.minecraftSession = minecraftSession;
     }
 
     @Override
-    public SessionWrapper getSessionWrapper() {
-        return sessionWrapper;
+    public MinecraftSession getSessionWrapper() {
+        return minecraftSession;
     }
 }
