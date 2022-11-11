@@ -11,7 +11,7 @@ public class Title {
     protected TitleTime titleTime;
 
     public void showTitle(Player player) {
-        MinecraftSession minecraftSession = player.getSessionWrapper();
+        MinecraftSession minecraftSession = player.getMinecraftSession();
         minecraftSession.sendTitle(TitleAction.SET_TITLE, this);
 
         if (subtitle != null) {
@@ -24,11 +24,11 @@ public class Title {
     }
 
     public void hide(Player player) {
-        player.getSessionWrapper().sendTitle(TitleAction.HIDE, null);
+        player.getMinecraftSession().sendTitle(TitleAction.HIDE, null);
     }
 
     public void reset(Player player) {
-        player.getSessionWrapper().sendTitle(TitleAction.RESET, null);
+        player.getMinecraftSession().sendTitle(TitleAction.RESET, null);
     }
 
     public Title setTitle(TextComponent title) {

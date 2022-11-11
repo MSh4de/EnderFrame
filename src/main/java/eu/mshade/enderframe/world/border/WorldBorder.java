@@ -19,12 +19,12 @@ public class WorldBorder {
 
     public void createWorldBorder(Player player) {
         viewers.add(player);
-        player.getSessionWrapper().sendWorldBorder(WorldBorderAction.INITIALIZE, this);
+        player.getMinecraftSession().sendWorldBorder(WorldBorderAction.INITIALIZE, this);
     }
 
     private void updateWorldBorder() {
         for (Player viewer : viewers) {
-            viewer.getSessionWrapper().sendWorldBorder(WorldBorderAction.CHANGE_SIZE, this);
+            viewer.getMinecraftSession().sendWorldBorder(WorldBorderAction.CHANGE_SIZE, this);
         }
     }
 

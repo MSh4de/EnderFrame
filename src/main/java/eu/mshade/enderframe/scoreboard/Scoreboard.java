@@ -32,7 +32,7 @@ public class Scoreboard<T> {
         viewers.add(player);
         player.getLookAtScoreboard().add(this);
 
-        MinecraftSession minecraftSession = player.getSessionWrapper();
+        MinecraftSession minecraftSession = player.getMinecraftSession();
 
         minecraftSession.sendScoreboardObjective(this, ScoreboardMode.CREATE);
         minecraftSession.sendDisplayScoreboard(this);
@@ -46,7 +46,7 @@ public class Scoreboard<T> {
         viewers.remove(player);
 
         player.getLookAtScoreboard().remove(this);
-        player.getSessionWrapper().sendScoreboardObjective(this, ScoreboardMode.REMOVE);
+        player.getMinecraftSession().sendScoreboardObjective(this, ScoreboardMode.REMOVE);
     }
 
     public Scoreboard<T> addObjective(T objective, int objectiveValue) {
@@ -55,7 +55,7 @@ public class Scoreboard<T> {
         this.objectives.add(scoreboardObjective);
 
         for (Player viewer : this.viewers) {
-            viewer.getSessionWrapper().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.CREATE_OR_UPDATE);
+            viewer.getMinecraftSession().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.CREATE_OR_UPDATE);
         }
 
         return this;
@@ -66,13 +66,13 @@ public class Scoreboard<T> {
         consumer.accept(scoreboardObjective);
 
         for (Player viewer : this.viewers) {
-            viewer.getSessionWrapper().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.CREATE_OR_UPDATE);
+            viewer.getMinecraftSession().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.CREATE_OR_UPDATE);
         }
     }
 
     public void removeObjective(ScoreboardObjective<T> scoreboardObjective) {
         for (Player viewer : this.viewers) {
-            viewer.getSessionWrapper().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.REMOVE);
+            viewer.getMinecraftSession().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.REMOVE);
         }
 
         this.objectives.remove(scoreboardObjective);
@@ -90,7 +90,7 @@ public class Scoreboard<T> {
         this.scoreboardName = scoreboardName;
 
         for (Player viewer : viewers) {
-            viewer.getSessionWrapper().sendScoreboardObjective(this, ScoreboardMode.UPDATE_DISPLAY_TEXT);
+            viewer.getMinecraftSession().sendScoreboardObjective(this, ScoreboardMode.UPDATE_DISPLAY_TEXT);
         }
     }
 
