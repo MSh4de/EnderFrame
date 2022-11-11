@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.protocol;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import eu.mshade.enderframe.EnderFrame;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
@@ -9,6 +10,8 @@ import eu.mshade.mwork.MWork;
 import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag;
 import io.netty.buffer.*;
 import io.netty.util.ByteProcessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +26,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public abstract class ProtocolBuffer extends ByteBuf {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(ProtocolBuffer.class);
 
     private final ByteBuf byteBuf;
 
@@ -154,11 +159,11 @@ public abstract class ProtocolBuffer extends ByteBuf {
     public abstract ItemStack readItemStack();
 
     public CompoundBinaryTag readCompoundBinaryTag() {
-        return MWork.get().getBinaryTagDriver().readCompoundBinaryTag(new ByteBufInputStream(byteBuf));
+        return EnderFrame.get().getBinaryTagDriver().readCompoundBinaryTag(new ByteBufInputStream(byteBuf));
     }
 
     public void writeCompoundBinaryTag(CompoundBinaryTag compoundTag) {
-        MWork.get().getBinaryTagDriver().writeCompoundBinaryTag(compoundTag, new ByteBufOutputStream(byteBuf));
+        EnderFrame.get().getBinaryTagDriver().writeCompoundBinaryTag(compoundTag, new ByteBufOutputStream(byteBuf));
     }
 
     public void writeValueAsString(Object o){
@@ -166,7 +171,7 @@ public abstract class ProtocolBuffer extends ByteBuf {
             String s = MWork.get().getObjectMapper().writeValueAsString(o);
             this.writeString(s);
         }catch (JsonProcessingException e){
-            //LOGGER.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
