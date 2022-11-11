@@ -1,7 +1,5 @@
 package eu.mshade.enderframe.mojang;
 
-import eu.mshade.mwork.MOptional;
-
 import java.util.Objects;
 
 public class Property {
