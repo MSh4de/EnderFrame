@@ -13,6 +13,7 @@ public class TextComponentEntry {
     protected boolean obfuscated = false;
     protected boolean underlined;
     protected TextClickEvent clickEvent;
+    protected TextHoverEvent hoverEvent;
 
     private TextComponentEntry() {
     }
@@ -81,6 +82,15 @@ public class TextComponentEntry {
     public TextComponentEntry withClickEvent(TextClickEvent clickEvent) {
         this.clickEvent = clickEvent;
         return this;
+    }
+
+    public TextComponentEntry withHoverEvent(TextHoverEvent hoverEvent) {
+        this.hoverEvent = hoverEvent;
+        return this;
+    }
+
+    public TextHoverEvent getHoverEvent() {
+        return hoverEvent;
     }
 
     public boolean isUnderlined() {
