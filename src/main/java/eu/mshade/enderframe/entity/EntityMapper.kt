@@ -1,16 +1,14 @@
 package eu.mshade.enderframe.entity
 
-import java.util.*
-
 open class EntityMapper {
 
-    private val categoryByEntityType: MutableMap<EntityType, EntityCategory> = EnumMap(EntityType::class.java)
+    private val categoryByEntityKey =  mutableMapOf<EntityKey, EntityCategory>()
 
-    fun register(entityType: EntityType, entityCategory: EntityCategory) {
-        this.categoryByEntityType[entityType] = entityCategory
+    fun register(EntityKey: EntityKey, entityCategory: EntityCategory) {
+        this.categoryByEntityKey[EntityKey] = entityCategory
     }
 
-    fun getCategory(entityType: EntityType): EntityCategory? {
-        return categoryByEntityType[entityType]
+    fun getCategory(EntityKey: EntityKey): EntityCategory? {
+        return categoryByEntityKey[EntityKey]
     }
 }
