@@ -28,6 +28,7 @@ public abstract class World extends Tickable {
     protected final Queue<Entity> entities = new ConcurrentLinkedQueue<>();
     protected ChunkGenerator chunkGenerator;
 
+    protected final Map<UUID, Entity> entityByUuid = new ConcurrentHashMap<>();
 
     public World(File worldFolder, MetadataKeyValueBucket metadataKeyValueBucket) {
         this.worldFolder = worldFolder;
@@ -38,6 +39,11 @@ public abstract class World extends Tickable {
 
     public World(File worldFolder) {
         this(worldFolder, new MetadataKeyValueBucket());
+    }
+
+    @Deprecated
+    public void putEntity(Entity entity) {
+        entityByUuid.put(entity.getUniqueId(), entity);
     }
 
     public void flushChunk(Chunk chunk) {
@@ -122,5 +128,7 @@ public abstract class World extends Tickable {
         return metadataKeyValueBucket;
     }
 
-
+    public Entity getEntityByUuid(UUID uuid) {
+        return entityByUuid.get(uuid);
+    }
 }
