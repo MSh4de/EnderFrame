@@ -16,7 +16,7 @@ public class MetadataKeyValueBucket implements PrettyString, Cloneable {
     }
 
     public MetadataKeyValueBucket() {
-        this(true);
+        this(false);
     }
 
     public void setMetadataKeyValue(MetadataKeyValue<?> entityMetadata){

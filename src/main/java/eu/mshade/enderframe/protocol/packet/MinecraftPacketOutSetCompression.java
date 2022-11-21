@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.protocol.packet;
 
 import eu.mshade.enderframe.protocol.MinecraftPacketOut;
-import eu.mshade.enderframe.protocol.ProtocolBuffer;
+import eu.mshade.enderframe.protocol.MinecraftByteBuf;
 
 public class MinecraftPacketOutSetCompression implements MinecraftPacketOut {
 
@@ -12,7 +12,7 @@ public class MinecraftPacketOutSetCompression implements MinecraftPacketOut {
     }
 
     @Override
-    public void serialize(ProtocolBuffer protocolBuffer) {
-        protocolBuffer.writeVarInt(threshold);
+    public void serialize(MinecraftByteBuf minecraftByteBuf) {
+        minecraftByteBuf.writeVarInt(threshold);
     }
 }

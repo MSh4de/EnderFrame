@@ -18,20 +18,20 @@ public class MinecraftPacketCodec extends MessageToMessageCodec<ByteBuf, Minecra
     protected void encode(ChannelHandlerContext ctx, MinecraftPacketOut msg, List<Object> out) throws Exception {
         ByteBuf buffer = ctx.alloc().buffer();
         Channel channel = ctx.channel();
-        ProtocolPipeline protocolPipeline = ProtocolPipeline.get();
+        MinecraftProtocolPipeline minecraftProtocolPipeline = MinecraftProtocolPipeline.get();
 
-        MinecraftSession minecraftSession = protocolPipeline.getSessionWrapper(channel);
-        Protocol protocol = protocolPipeline.getProtocol(channel);
-        ProtocolBuffer protocolBuffer = protocol.getProtocolBuffer(buffer);
+        MinecraftSession minecraftSession = minecraftProtocolPipeline.getMinecraftSession(channel);
+        MinecraftProtocol minecraftProtocol = minecraftProtocolPipeline.getProtocol(channel);
+        MinecraftByteBuf minecraftByteBuf = minecraftProtocol.getProtocolBuffer(buffer);
 
-        int id = protocol.getProtocolRegistry().getPacketID(minecraftSession.getProtocolStatus(), msg);
+        int id = minecraftProtocol.getProtocolRegistry().getPacketID(minecraftSession.getProtocolStatus(), msg);
         if (id == -1) {
             LOGGER.error("Undefined outgoing packet of class {}", msg.getClass());
             return;
         }
 
-        protocolBuffer.writeVarInt(id);
-        msg.serialize(protocolBuffer);
+        minecraftByteBuf.writeVarInt(id);
+        msg.serialize(minecraftByteBuf);
         out.add(buffer);
 
     }
@@ -40,17 +40,17 @@ public class MinecraftPacketCodec extends MessageToMessageCodec<ByteBuf, Minecra
     protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
         if (!ctx.channel().isActive()) return;
         Channel channel = ctx.channel();
-        ProtocolPipeline protocolPipeline = ProtocolPipeline.get();
+        MinecraftProtocolPipeline minecraftProtocolPipeline = MinecraftProtocolPipeline.get();
 
-        MinecraftSession minecraftSession = protocolPipeline.getSessionWrapper(channel);
-        Protocol protocol = protocolPipeline.getProtocol(channel);
-        ProtocolBuffer protocolBuffer = protocol.getProtocolBuffer(msg);
+        MinecraftSession minecraftSession = minecraftProtocolPipeline.getMinecraftSession(channel);
+        MinecraftProtocol minecraftProtocol = minecraftProtocolPipeline.getProtocol(channel);
+        MinecraftByteBuf minecraftByteBuf = minecraftProtocol.getProtocolBuffer(msg);
 
-        int packetId = protocolBuffer.readVarInt();
+        int packetId = minecraftByteBuf.readVarInt();
 
-        MinecraftPacketIn packetByID = protocol.getProtocolRegistry().getPacketByID(minecraftSession.getProtocolStatus(), packetId);
+        MinecraftPacketIn packetByID = minecraftProtocol.getProtocolRegistry().getPacketByID(minecraftSession.getProtocolStatus(), packetId);
         if (packetByID != null) {
-            packetByID.deserialize(minecraftSession, protocolBuffer);
+            packetByID.deserialize(minecraftSession, minecraftByteBuf);
             out.add(packetByID);
         } else {
             LOGGER.info("Undefined incoming packet of id {}", packetId);

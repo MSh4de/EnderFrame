@@ -5,7 +5,7 @@ import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
 
-public abstract class Slime extends LivingEntity{
+public abstract class Slime extends LivingEntity {
 
     public Slime(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
         super(location, velocity, entityId, uuid, entityType);
@@ -30,7 +30,6 @@ public abstract class Slime extends LivingEntity{
     protected byte size;
 
      */
-
 
 
 }

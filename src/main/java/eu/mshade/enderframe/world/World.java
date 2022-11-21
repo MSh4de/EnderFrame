@@ -37,7 +37,7 @@ public abstract class World extends Tickable {
     }
 
     public World(File worldFolder) {
-        this(worldFolder, new MetadataKeyValueBucket());
+        this(worldFolder, new MetadataKeyValueBucket(true));
     }
 
     /**

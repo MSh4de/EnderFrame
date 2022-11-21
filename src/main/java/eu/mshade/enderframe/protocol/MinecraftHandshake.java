@@ -6,12 +6,12 @@ public class MinecraftHandshake {
 
     private MinecraftProtocolVersion version;
     private InetSocketAddress inetSocketAddress;
-    private HandshakeStatus handshakeStatus;
+    private MinecraftHandshakeStatus minecraftHandshakeStatus;
 
-    public MinecraftHandshake(MinecraftProtocolVersion version, InetSocketAddress inetSocketAddress, HandshakeStatus handshakeStatus) {
+    public MinecraftHandshake(MinecraftProtocolVersion version, InetSocketAddress inetSocketAddress, MinecraftHandshakeStatus minecraftHandshakeStatus) {
         this.version = version;
         this.inetSocketAddress = inetSocketAddress;
-        this.handshakeStatus = handshakeStatus;
+        this.minecraftHandshakeStatus = minecraftHandshakeStatus;
     }
 
     public MinecraftProtocolVersion getVersion() {
@@ -22,8 +22,8 @@ public class MinecraftHandshake {
         return inetSocketAddress;
     }
 
-    public HandshakeStatus getHandshakeStatus() {
-        return handshakeStatus;
+    public MinecraftHandshakeStatus getHandshakeStatus() {
+        return minecraftHandshakeStatus;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MinecraftHandshake {
         return "Handshake{" +
                 "version=" + version +
                 ", inetSocketAddress=" + inetSocketAddress +
-                ", handshakeStatus=" + handshakeStatus +
+                ", handshakeStatus=" + minecraftHandshakeStatus +
                 '}';
     }
 }

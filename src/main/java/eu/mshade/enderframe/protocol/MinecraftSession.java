@@ -5,6 +5,7 @@ import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.inventory.InventoryRepository;
+import eu.mshade.enderframe.inventory.NamedInventory;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
@@ -33,6 +34,7 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 
 import javax.crypto.SecretKey;
+import java.net.InetSocketAddress;
 import java.security.PublicKey;
 import java.util.Arrays;
 import java.util.List;
@@ -57,6 +59,10 @@ public abstract class MinecraftSession {
 
     public Channel getChannel() {
         return channel;
+    }
+
+    public InetSocketAddress getRemoteAddress() {
+        return (InetSocketAddress) channel.remoteAddress();
     }
 
     public void sendPacket(MinecraftPacketOut packet) {
@@ -89,9 +95,9 @@ public abstract class MinecraftSession {
         return minecraftProtocolStatus;
     }
 
-    public void toggleProtocol(Protocol protocol) {
+    public void toggleProtocol(MinecraftProtocol minecraftProtocol) {
         this.channel.flush();
-        ProtocolPipeline.get().setProtocol(this.channel, protocol);
+        MinecraftProtocolPipeline.get().setProtocol(this.channel, minecraftProtocol);
     }
 
     public void toggleProtocolStatus(MinecraftProtocolStatus minecraftProtocolStatus) {
@@ -126,12 +132,12 @@ public abstract class MinecraftSession {
         return inventoryRepository;
     }
 
-    public Protocol getProtocol() {
-        return ProtocolPipeline.get().getProtocol(this.channel);
+    public MinecraftProtocol getProtocol() {
+        return MinecraftProtocolPipeline.get().getProtocol(this.channel);
     }
 
     public Player getPlayer() {
-        return ProtocolPipeline.get().getPlayer(this.channel);
+        return MinecraftProtocolPipeline.get().getPlayer(this.channel);
     }
 
     public void sendDisconnect(TextComponent textComponent) {
@@ -214,7 +220,7 @@ public abstract class MinecraftSession {
 
     public abstract void sendUnloadChunk(Chunk chunk);
 
-    public void sendPluginMessage(String channel, Consumer<ProtocolBuffer> payload) {
+    public void sendPluginMessage(String channel, Consumer<MinecraftByteBuf> payload) {
         sendPacket(new MinecraftPacketOutPluginMessage(channel, payload));
     }
 
@@ -230,7 +236,7 @@ public abstract class MinecraftSession {
         sendSign(vector, Arrays.asList(textComponents));
     }
 
-    public abstract void sendOpenInventory(Inventory inventory);
+    public abstract void sendOpenInventory(NamedInventory inventory);
 
     public abstract void sendCloseInventory(Inventory inventory);
 

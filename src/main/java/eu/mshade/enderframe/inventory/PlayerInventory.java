@@ -9,7 +9,7 @@ import java.util.function.Function;
 public class PlayerInventory extends Inventory {
 
     public PlayerInventory() {
-        super(TextComponent.of(""), InventoryType.PLAYER);
+        super(InventoryType.PLAYER);
     }
 
     @Override
@@ -29,16 +29,12 @@ public class PlayerInventory extends Inventory {
 
     @Override
     public int findFirstEmptySlot() {
-        for (int i = 0; i < 9*4; i++) {
-            ItemStack itemStack = getItemStack(i);
-            if (itemStack == null) return i;
-        }
-        return -1;
+        return findFirstEmptySlot(0);
     }
 
     @Override
-    public int findFirstEmptySlot(int start) {
-        for (int i = start; i < 9*4; i++) {
+    public int findFirstEmptySlot(int offset) {
+        for (int i = offset; i < 9*4; i++) {
             ItemStack itemStack = getItemStack(i);
             if (itemStack == null) return i;
         }

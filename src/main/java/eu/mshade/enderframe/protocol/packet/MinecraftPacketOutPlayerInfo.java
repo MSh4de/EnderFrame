@@ -6,7 +6,7 @@ import eu.mshade.enderframe.PlayerInfoType;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.protocol.MinecraftPacketOut;
-import eu.mshade.enderframe.protocol.ProtocolBuffer;
+import eu.mshade.enderframe.protocol.MinecraftByteBuf;
 
 import java.util.List;
 
@@ -19,44 +19,44 @@ public class MinecraftPacketOutPlayerInfo implements MinecraftPacketOut {
     }
 
     @Override
-    public void serialize(ProtocolBuffer protocolBuffer) {
+    public void serialize(MinecraftByteBuf minecraftByteBuf) {
         PlayerInfoType playerInfoType = playerInfo.getPlayerInfoType();
         List<Player> players = playerInfo.getPlayers();
 
-        protocolBuffer.writeVarInt(playerInfoType.ordinal());
-        protocolBuffer.writeVarInt(players.size());
+        minecraftByteBuf.writeVarInt(playerInfoType.ordinal());
+        minecraftByteBuf.writeVarInt(players.size());
 
         for (Player player : players) {
             GameProfile gameProfile = player.getGameProfile();
-            protocolBuffer.writeUUID(gameProfile.getId());
+            minecraftByteBuf.writeUUID(gameProfile.getId());
             boolean present = player.getDisplayName() != null;
 
             switch (playerInfoType) {
                 case ADD_PLAYER:
-                    protocolBuffer.writeString(gameProfile.getName());
-                    protocolBuffer.writeVarInt(gameProfile.getProperties().size());
+                    minecraftByteBuf.writeString(gameProfile.getName());
+                    minecraftByteBuf.writeVarInt(gameProfile.getProperties().size());
                     gameProfile.getProperties().forEach((s, property) -> {
-                        protocolBuffer.writeString(property.getName());
-                        protocolBuffer.writeString(property.getValue());
-                        protocolBuffer.writeBoolean(property.getSignature() != null);
-                        if (property.getSignature() != null) protocolBuffer.writeString(property.getSignature());
+                        minecraftByteBuf.writeString(property.getName());
+                        minecraftByteBuf.writeString(property.getValue());
+                        minecraftByteBuf.writeBoolean(property.getSignature() != null);
+                        if (property.getSignature() != null) minecraftByteBuf.writeString(property.getSignature());
 
                     });
-                    protocolBuffer.writeVarInt(player.getGameMode().getId());
-                    protocolBuffer.writeVarInt(player.getPing());
+                    minecraftByteBuf.writeVarInt(player.getGameMode().getId());
+                    minecraftByteBuf.writeVarInt(player.getPing());
 
-                    protocolBuffer.writeBoolean(present);
-                    if (present) protocolBuffer.writeString(player.getDisplayName());
+                    minecraftByteBuf.writeBoolean(present);
+                    if (present) minecraftByteBuf.writeString(player.getDisplayName());
                 break;
                 case UPDATE_GAMEMODE:
-                    protocolBuffer.writeVarInt(player.getGameMode().getId());
+                    minecraftByteBuf.writeVarInt(player.getGameMode().getId());
                     break;
                 case UPDATE_LATENCY:
-                    protocolBuffer.writeVarInt(player.getPing());
+                    minecraftByteBuf.writeVarInt(player.getPing());
                     break;
                 case UPDATE_DISPLAY_NAME:
-                    protocolBuffer.writeBoolean(present);
-                    if (present) protocolBuffer.writeString(player.getDisplayName());
+                    minecraftByteBuf.writeBoolean(present);
+                    if (present) minecraftByteBuf.writeString(player.getDisplayName());
                 break;
                 case REMOVE_PLAYER:
                     break;

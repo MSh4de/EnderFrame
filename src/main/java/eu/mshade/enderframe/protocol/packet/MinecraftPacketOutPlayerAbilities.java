@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.protocol.packet;
 
 import eu.mshade.enderframe.protocol.MinecraftPacketOut;
-import eu.mshade.enderframe.protocol.ProtocolBuffer;
+import eu.mshade.enderframe.protocol.MinecraftByteBuf;
 
 public class MinecraftPacketOutPlayerAbilities implements MinecraftPacketOut {
 
@@ -22,7 +22,7 @@ public class MinecraftPacketOutPlayerAbilities implements MinecraftPacketOut {
     }
 
     @Override
-    public void serialize(ProtocolBuffer protocolBuffer) {
+    public void serialize(MinecraftByteBuf minecraftByteBuf) {
         byte b = 0;
 
         if (this.invulnerable) b |= 1;
@@ -30,8 +30,8 @@ public class MinecraftPacketOutPlayerAbilities implements MinecraftPacketOut {
         if (this.allowFlying) b |= 4;
         if (this.instantBreak) b |= 8;
 
-        protocolBuffer.writeByte(b);
-        protocolBuffer.writeFloat(this.flyingSpeed);
-        protocolBuffer.writeFloat(this.walkSpeed);
+        minecraftByteBuf.writeByte(b);
+        minecraftByteBuf.writeFloat(this.flyingSpeed);
+        minecraftByteBuf.writeFloat(this.walkSpeed);
     }
 }

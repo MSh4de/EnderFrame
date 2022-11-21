@@ -3,17 +3,18 @@ package eu.mshade.enderframe.inventory;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 
-public class ChestInventory extends Inventory {
+public class ChestInventory extends NamedInventory {
 
     protected final int row;
 
+
     public ChestInventory(TextComponent textComponent, int row) {
-        super(textComponent, InventoryType.CHEST, new ItemStack[row * 9]);
+        super(textComponent, InventoryType.CHEST, new ItemStack[(row & 6) * 9]);
         this.row = row;
     }
 
     public ChestInventory(String name, int row) {
-        super(name, InventoryType.CHEST, new ItemStack[row * 9]);
+        super(TextComponent.of(name), InventoryType.CHEST, new ItemStack[(row & 6) * 9]);
         this.row = row;
     }
 

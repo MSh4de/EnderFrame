@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.protocol.temp.packet;
 
 import eu.mshade.enderframe.protocol.MinecraftPacketIn;
-import eu.mshade.enderframe.protocol.ProtocolBuffer;
+import eu.mshade.enderframe.protocol.MinecraftByteBuf;
 import eu.mshade.enderframe.protocol.MinecraftSession;
 
 public class MinecraftPacketInPing implements MinecraftPacketIn {
@@ -10,9 +10,9 @@ public class MinecraftPacketInPing implements MinecraftPacketIn {
     private MinecraftSession minecraftSession;
 
     @Override
-    public void deserialize(MinecraftSession minecraftSession, ProtocolBuffer protocolBuffer) {
+    public void deserialize(MinecraftSession minecraftSession, MinecraftByteBuf minecraftByteBuf) {
         this.minecraftSession = minecraftSession;
-        payload = protocolBuffer.readLong();
+        payload = minecraftByteBuf.readLong();
     }
 
     public long getPayload() {

@@ -2,7 +2,7 @@ package eu.mshade.enderframe.protocol.packet;
 
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.protocol.MinecraftPacketOut;
-import eu.mshade.enderframe.protocol.ProtocolBuffer;
+import eu.mshade.enderframe.protocol.MinecraftByteBuf;
 
 public class MinecraftPacketOutPlayerList implements MinecraftPacketOut {
 
@@ -14,8 +14,8 @@ public class MinecraftPacketOutPlayerList implements MinecraftPacketOut {
     }
 
     @Override
-    public void serialize(ProtocolBuffer protocolBuffer) {
-        protocolBuffer.writeValueAsString(header);
-        protocolBuffer.writeValueAsString(footer);
+    public void serialize(MinecraftByteBuf minecraftByteBuf) {
+        minecraftByteBuf.writeValueAsString(header);
+        minecraftByteBuf.writeValueAsString(footer);
     }
 }

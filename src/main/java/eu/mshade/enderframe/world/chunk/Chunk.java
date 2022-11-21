@@ -101,11 +101,11 @@ public abstract class Chunk implements Watchable {
 
     public abstract byte[] getBiomes();
 
+    public abstract void setBiomes(byte[] biomes);
+
     public int getHighest(int x, int z){
         for (int i = 255; i > 0; i--) {
-            Block block = getBlock(x, i, z);
-            if (block == null) continue;
-            if (sections[i >> 4] != null && block.getMaterialKey() != Material.AIR) {
+            if (getBlock(x, i, z).getMaterialKey() != Material.AIR) {
                 return i;
             }
         }

@@ -8,15 +8,15 @@ public class MinecraftPacketInHandshake implements MinecraftPacketIn {
     private MinecraftProtocolVersion version;
     private String host;
     private int port;
-    private HandshakeStatus handshakeStatus;
+    private MinecraftHandshakeStatus minecraftHandshakeStatus;
 
     @Override
-    public void deserialize(MinecraftSession minecraftSession, ProtocolBuffer protocolBuffer) {
+    public void deserialize(MinecraftSession minecraftSession, MinecraftByteBuf minecraftByteBuf) {
         this.minecraftSession = minecraftSession;
-        this.version = MinecraftProtocolVersion.getProtocolVersion(protocolBuffer.readVarInt());
-        this.host = protocolBuffer.readString();
-        this.port = protocolBuffer.readUnsignedShort();
-        this.handshakeStatus = HandshakeStatus.getHandShakeStatus(protocolBuffer.readVarInt());
+        this.version = MinecraftProtocolVersion.getProtocolVersion(minecraftByteBuf.readVarInt());
+        this.host = minecraftByteBuf.readString();
+        this.port = minecraftByteBuf.readUnsignedShort();
+        this.minecraftHandshakeStatus = MinecraftHandshakeStatus.getHandShakeStatus(minecraftByteBuf.readVarInt());
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MinecraftPacketInHandshake implements MinecraftPacketIn {
         return port;
     }
 
-    public HandshakeStatus getHandshakeStatus() {
-        return handshakeStatus;
+    public MinecraftHandshakeStatus getHandshakeStatus() {
+        return minecraftHandshakeStatus;
     }
 }

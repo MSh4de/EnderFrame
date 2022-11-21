@@ -3,7 +3,7 @@ package eu.mshade.enderframe.entity;
 import eu.mshade.enderframe.Agent;
 import eu.mshade.enderframe.GameMode;
 import eu.mshade.enderframe.inventory.Inventory;
-import eu.mshade.enderframe.inventory.InventoryBufferStore;
+import eu.mshade.enderframe.inventory.InventoryClickStore;
 import eu.mshade.enderframe.inventory.PlayerInventory;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.protocol.MinecraftProtocolVersion;
@@ -15,7 +15,7 @@ import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 import eu.mshade.enderframe.world.border.WorldBorder;
 
-import java.net.SocketAddress;
+import java.net.InetSocketAddress;
 import java.util.Collection;
 import java.util.Queue;
 import java.util.UUID;
@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public abstract class Player extends LivingEntity implements ProjectileSource, Agent {
 
 
-    protected SocketAddress socketAddress;
+    protected InetSocketAddress inetSocketAddress;
     protected MinecraftProtocolVersion minecraftProtocolVersion;
     protected int ping;
     protected String displayName;
@@ -40,7 +40,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
     protected PlayerInventory playerInventory = new PlayerInventory();
     protected Inventory openedInventory;
     protected Queue<Chunk> lookAtChunks = new ConcurrentLinkedQueue<>();
-    protected InventoryBufferStore inventoryBufferStore = new InventoryBufferStore();
+    protected InventoryClickStore inventoryClickStore = new InventoryClickStore();
     protected Queue<Scoreboard> lookAtScoreboard = new ConcurrentLinkedQueue<>();
     protected Queue<WorldBorder> lookAtWorldBorders = new ConcurrentLinkedQueue<>();
 
@@ -65,19 +65,19 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
         return getGameProfile().getName();
     }
 
-    public SocketAddress getSocketAddress(){
-        return this.socketAddress;
+    public InetSocketAddress getInetSocketAddress(){
+        return this.inetSocketAddress;
     }
 
-    public void setSocketAddress(SocketAddress socketAddress){
-        this.socketAddress = socketAddress;
+    public void setInetSocketAddress(InetSocketAddress inetSocketAddress){
+        this.inetSocketAddress = inetSocketAddress;
     }
 
     public void setMinecraftProtocolVersion(MinecraftProtocolVersion minecraftProtocolVersion) {
         this.minecraftProtocolVersion = minecraftProtocolVersion;
     }
 
-    public MinecraftProtocolVersion getProtocolVersion(){
+    public MinecraftProtocolVersion getMinecraftProtocolVersion(){
         return this.minecraftProtocolVersion;
     }
 
@@ -189,8 +189,8 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
         this.openedInventory = openedInventory;
     }
 
-    public InventoryBufferStore getInventoryBufferStore() {
-        return inventoryBufferStore;
+    public InventoryClickStore getInventoryBufferStore() {
+        return inventoryClickStore;
     }
 
     public Collection<Scoreboard> getLookAtScoreboard() {

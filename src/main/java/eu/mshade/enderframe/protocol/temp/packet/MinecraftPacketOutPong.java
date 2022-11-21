@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.protocol.temp.packet;
 
 import eu.mshade.enderframe.protocol.MinecraftPacketOut;
-import eu.mshade.enderframe.protocol.ProtocolBuffer;
+import eu.mshade.enderframe.protocol.MinecraftByteBuf;
 
 public class MinecraftPacketOutPong implements MinecraftPacketOut {
 
@@ -12,7 +12,7 @@ public class MinecraftPacketOutPong implements MinecraftPacketOut {
     }
 
     @Override
-    public void serialize(ProtocolBuffer protocolBuffer) {
-        protocolBuffer.writeLong(payload);
+    public void serialize(MinecraftByteBuf minecraftByteBuf) {
+        minecraftByteBuf.writeLong(payload);
     }
 }

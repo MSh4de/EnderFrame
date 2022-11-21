@@ -2,7 +2,7 @@ package eu.mshade.enderframe.protocol.temp.packet;
 
 import eu.mshade.enderframe.motd.MotdComponent;
 import eu.mshade.enderframe.protocol.MinecraftPacketOut;
-import eu.mshade.enderframe.protocol.ProtocolBuffer;
+import eu.mshade.enderframe.protocol.MinecraftByteBuf;
 
 public class MinecraftPacketOutStatus implements MinecraftPacketOut {
 
@@ -13,7 +13,7 @@ public class MinecraftPacketOutStatus implements MinecraftPacketOut {
     }
 
     @Override
-    public void serialize(ProtocolBuffer protocolBuffer) {
-        protocolBuffer.writeValueAsString(motdComponent);
+    public void serialize(MinecraftByteBuf minecraftByteBuf) {
+        minecraftByteBuf.writeValueAsString(motdComponent);
     }
 }

@@ -1,6 +1,6 @@
 package eu.mshade.enderframe.protocol;
 
-import eu.mshade.enderframe.protocol.temp.TempProtocol;
+import eu.mshade.enderframe.protocol.temp.TempMinecraftProtocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -17,7 +17,7 @@ public class MinecraftPacketCompression extends MessageToMessageCodec<ByteBuf, B
     private final Inflater inflater = new Inflater();
     private final byte[] buffer = new byte[8192];
     private final Deflater deflater = new Deflater();
-    private final Protocol protocol = TempProtocol.Companion.getINSTANCE();
+    private final MinecraftProtocol minecraftProtocol = TempMinecraftProtocol.Companion.getINSTANCE();
 
     /**
      * Creates an instance that compresses messages using an {@link Inflater} and {@link Deflater}.
@@ -33,15 +33,15 @@ public class MinecraftPacketCompression extends MessageToMessageCodec<ByteBuf, B
             throws Exception {
         int i = byteBuf.readableBytes();
         ByteBuf buffer = ctx.alloc().buffer();
-        ProtocolBuffer protocolBuffer = protocol.getProtocolBuffer(buffer);
+        MinecraftByteBuf minecraftByteBuf = minecraftProtocol.getProtocolBuffer(buffer);
 
         if (i < threshold) {
-            protocolBuffer.writeVarInt(0);
+            minecraftByteBuf.writeVarInt(0);
             buffer.writeBytes(byteBuf);
         } else {
             byte[] abyte = new byte[i];
             byteBuf.readBytes(abyte);
-            protocolBuffer.writeVarInt(abyte.length);
+            minecraftByteBuf.writeVarInt(abyte.length);
             this.deflater.setInput(abyte, 0, i);
             this.deflater.finish();
 
@@ -60,9 +60,9 @@ public class MinecraftPacketCompression extends MessageToMessageCodec<ByteBuf, B
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf byteBuf, List<Object> out)
             throws Exception {
-        ProtocolBuffer protocolBuffer = protocol.getProtocolBuffer(byteBuf);
+        MinecraftByteBuf minecraftByteBuf = minecraftProtocol.getProtocolBuffer(byteBuf);
         if (byteBuf.readableBytes() != 0) {
-            int i = protocolBuffer.readVarInt();
+            int i = minecraftByteBuf.readVarInt();
             if (i == 0) {
                 out.add(byteBuf.readBytes(byteBuf.readableBytes()));
             } else {

@@ -1,23 +1,23 @@
 package eu.mshade.enderframe.protocol.packet;
 
 import eu.mshade.enderframe.protocol.MinecraftPacketOut;
-import eu.mshade.enderframe.protocol.ProtocolBuffer;
+import eu.mshade.enderframe.protocol.MinecraftByteBuf;
 
 import java.util.function.Consumer;
 
 public class MinecraftPacketOutPluginMessage implements MinecraftPacketOut {
 
     private String channel;
-    private Consumer<ProtocolBuffer> payload;
+    private Consumer<MinecraftByteBuf> payload;
 
-    public MinecraftPacketOutPluginMessage(String channel, Consumer<ProtocolBuffer> payload) {
+    public MinecraftPacketOutPluginMessage(String channel, Consumer<MinecraftByteBuf> payload) {
         this.channel = channel;
         this.payload = payload;
     }
 
     @Override
-    public void serialize(ProtocolBuffer protocolBuffer) {
-        protocolBuffer.writeString(channel);
-        payload.accept(protocolBuffer);
+    public void serialize(MinecraftByteBuf minecraftByteBuf) {
+        minecraftByteBuf.writeString(channel);
+        payload.accept(minecraftByteBuf);
     }
 }

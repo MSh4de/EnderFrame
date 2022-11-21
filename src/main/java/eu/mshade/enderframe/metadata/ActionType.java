@@ -3,6 +3,7 @@ package eu.mshade.enderframe.metadata;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO: Move to other package
 public enum ActionType {
 
     START_SNEAKING(0),
