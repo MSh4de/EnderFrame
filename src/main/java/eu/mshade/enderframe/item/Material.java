@@ -600,15 +600,14 @@ public class Material {
             for (Field field : declaredFields) {
                 Object o = field.get(null);
                 if (o instanceof MaterialKey materialKey) {
-                    LOGGER.debug("Register " + materialKey);
-                    MATERIAL_BY_NAMESPACED_KEY.put(materialKey.getNamespacedKey(), materialKey);
+                    LOGGER.debug("Register " + MATERIAL_BY_NAMESPACED_KEY.put(materialKey.getNamespacedKey(), materialKey));
                 }
             }
         } catch (IllegalAccessException e) {
             LOGGER.error("", e);
         }
 
-        LOGGER.info("Register {} materialKeys", MATERIAL_BY_ID.size());
+        LOGGER.info("Register {} materialKeys", MATERIAL_BY_NAMESPACED_KEY.size());
     }
 
     public static NamespacedKey getNamespacedKeyOfMaterialKey(int id, int data) {
