@@ -2,8 +2,6 @@ package eu.mshade.enderframe.world.block
 
 import eu.mshade.enderframe.metadata.MetadataKey
 import eu.mshade.enderframe.metadata.MetadataKeyValue
-import eu.mshade.enderframe.world.block.window.IWindowProperty
-import eu.mshade.enderframe.world.block.window.WindowType
 import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag
 
 object BlockMetadataType {
@@ -18,8 +16,6 @@ object BlockMetadataType {
     val DECAYABLE: MetadataKey = MetadataKey.from("BLOCK_DECAYABLE")
     val CHECK_DECAY: MetadataKey = MetadataKey.from("BLOCK_CHECK_DECAY")
     val SEAMLESS: MetadataKey = MetadataKey.from("BLOCK_SEAMLESS")
-    val WINDOW_TYPE: MetadataKey = MetadataKey.from("BLOCK_WINDOW_TYPE")
-    val WINDOW_PROPERTY: MetadataKey = MetadataKey.from("BLOCK_WINDOW_PROPERTY")
 }
 
 class FaceBlockMetadata(blockFace: BlockFace): MetadataKeyValue<BlockFace>(BlockMetadataType.FACE, blockFace)
@@ -41,7 +37,3 @@ class DecayableBlockMetadata(decayable: Boolean): MetadataKeyValue<Boolean>(Bloc
 class CheckDecayBlockMetadata(checkDecay: Boolean): MetadataKeyValue<Boolean>(BlockMetadataType.CHECK_DECAY, checkDecay)
 
 class SeamlessBlockMetadata(seamless: Boolean): MetadataKeyValue<Boolean>(BlockMetadataType.SEAMLESS, seamless)
-
-class WindowTypeMetadata(windowType: WindowType): MetadataKeyValue<WindowType>(BlockMetadataType.WINDOW_TYPE, windowType)
-
-class WindowPropertyMetadata(windowProperty: IWindowProperty): MetadataKeyValue<IWindowProperty>(BlockMetadataType.WINDOW_PROPERTY, windowProperty)

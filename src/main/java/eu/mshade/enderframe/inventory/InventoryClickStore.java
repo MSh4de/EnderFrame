@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class InventoryBufferStore {
+public class InventoryClickStore {
 
     protected ItemStack pickedItemStack;
     protected PlacedItemStack lastPlacedItemStack;
@@ -25,7 +25,7 @@ public class InventoryBufferStore {
         return lastPlacedItemStack;
     }
 
-    public InventoryBufferStore setLastPlacedItemStack(PlacedItemStack lastPlacedItemStack) {
+    public InventoryClickStore setLastPlacedItemStack(PlacedItemStack lastPlacedItemStack) {
         this.lastPlacedItemStack = lastPlacedItemStack;
         return this;
     }
@@ -34,7 +34,7 @@ public class InventoryBufferStore {
         return placedItemStacks;
     }
 
-    public InventoryBufferStore setPlacedItemStacks(List<PlacedItemStack> placedItemStacks) {
+    public InventoryClickStore setPlacedItemStacks(List<PlacedItemStack> placedItemStacks) {
         this.placedItemStacks = placedItemStacks;
         return this;
     }

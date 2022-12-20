@@ -4,9 +4,9 @@ import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.inventory.Inventory;
-import eu.mshade.enderframe.inventory.InventoryRepository;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
+import eu.mshade.enderframe.metadata.MetadataKey;
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
@@ -253,6 +253,8 @@ public abstract class SessionWrapper {
     public abstract void sendWorldBorder(WorldBorderAction worldBorderAction, WorldBorder worldBorder);
 
     public abstract void sendParticle(Particle particle);
+
+    public abstract void sendInventoryUpdate(Block block, MetadataKey... metadataKeys);
 
     @Override
     public String toString() {

@@ -3,82 +3,72 @@ package eu.mshade.enderframe.inventory;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.Material;
 import eu.mshade.enderframe.item.MaterialKey;
-import eu.mshade.enderframe.mojang.chat.TextComponent;
+import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
 
 import java.util.function.Function;
 
-public class Inventory {
+public abstract class Inventory {
 
-    protected TextComponent textComponent;
-    protected InventoryKey inventoryKey;
-    protected ItemStack[] itemStacks;
+    protected InventoryKey key;
+    protected ItemStack[] items;
+    protected MetadataKeyValueBucket bucket;
 
-    public Inventory(TextComponent textComponent, InventoryKey inventoryKey, ItemStack[] itemStacks) {
-        this.textComponent = textComponent;
-        this.inventoryKey = inventoryKey;
-        this.itemStacks = itemStacks;
+    public Inventory(InventoryKey key, int size) {
+        this.key = key;
+        this.items = new ItemStack[size];
     }
 
-    public Inventory(TextComponent textComponent, InventoryKey inventoryKey) {
-        this(textComponent, inventoryKey, new ItemStack[inventoryKey.getDefaultSlot()]);
-    }
-
-    public Inventory(String name, InventoryKey inventoryKey) {
-        this(TextComponent.of(name), inventoryKey);
-    }
-
-    public Inventory(String name, InventoryKey inventoryKey, ItemStack[] itemStacks) {
-        this(TextComponent.of(name), inventoryKey, itemStacks);
-    }
-    public TextComponent getTextComponent() {
-        return textComponent;
+    public Inventory(InventoryKey key) {
+        this(key, key.getDefaultSlot());
     }
 
     public InventoryKey getInventoryKey() {
-        return inventoryKey;
+        return this.key;
     }
 
-    public void setItemStack(int slot, ItemStack itemStack) {
-        if (itemStack != null && !itemStack.getMaterial().equals(Material.AIR)) this.itemStacks[slot] = itemStack;
-        else this.itemStacks[slot] = null;
+    public void setItem(int slot, ItemStack item) {
+        if (item != null && !item.getMaterial().equals(Material.AIR)) {
+            this.items[slot] = item;
+        } else {
+            this.deleteItem(slot);
+        }
     }
 
-    public void deleteItemStack(int slot){
-        this.itemStacks[slot] = null;
+    public void deleteItem(int slot){
+        this.items[slot] = null;
     }
 
-    public ItemStack getItemStack(int slot){
-        return this.itemStacks[slot];
+    public ItemStack getItem(int slot){
+        return this.items[slot];
     }
 
-    public ItemStack[] getItemStacks() {
-        return itemStacks;
+    public ItemStack[] getItems() {
+        return this.items;
     }
 
     public int findFirstEmptySlot(){
-        for (int i = 0; i < itemStacks.length; i++) {
-            ItemStack itemStack = getItemStack(i);
-            if (itemStack == null) return i;
-        }
-        return -1;
+        return this.findFirstEmptySlot(0);
     }
 
-    public int findFirstEmptySlot(int start){
-        for (int i = start; i < itemStacks.length; i++) {
-            ItemStack itemStack = getItemStack(i);
+    public int findFirstEmptySlot(int offset){
+        for (int i = offset; i < this.items.length; i++) {
+            final ItemStack itemStack = this.getItem(i);
+
             if (itemStack == null) return i;
         }
         return -1;
     }
 
     public ItemStack findItemStack(MaterialKey materialKey, Function<ItemStack, Boolean> filter){
-        return findItemStack(0, materialKey, filter);
+        return this.findItemStack(0, materialKey, filter);
     }
 
-    public ItemStack findItemStack(int start, MaterialKey materialKey, Function<ItemStack, Boolean> filter){
-        for (int i = start; i < itemStacks.length; i++) {
-            ItemStack itemStack = getItemStack(i);
+    public ItemStack findItemStack(int offset, MaterialKey materialKey, Function<ItemStack, Boolean> filter){
+        for (int i = offset; i < this.items.length; i++) {
+            final ItemStack itemStack = this.getItem(i);
+
             if (itemStack == null || !itemStack.getMaterial().equals(materialKey)) continue;
+
             if (filter.apply(itemStack)) {
                 return itemStack;
             }
@@ -88,14 +78,16 @@ public class Inventory {
 
 
     public int getSize() {
-        return itemStacks.length;
+        return this.items.length;
     }
 
-    @Override
-    public String toString() {
-        return "Inventory{" +
-                "textComponent=" + textComponent +
-                ", inventoryKey=" + inventoryKey +
-                '}';
+    public void fill(ItemStack[] itemStacks) {
+        for (int i = 0; i < itemStacks.length; i++) {
+            this.setItem(i, itemStacks[i]);
+        }
+    }
+
+    public MetadataKeyValueBucket getMetadata() {
+        return this.bucket;
     }
 }
