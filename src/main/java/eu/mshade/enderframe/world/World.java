@@ -89,11 +89,11 @@ public abstract class World extends Tickable {
     public abstract void saveWorld();
 
     public String getName() {
-        return this.metadataKeyValueBucket.getValueOfMetadataKeyValue(WorldMetadataType.NAME, String.class);
+        return (String) this.metadataKeyValueBucket.getMetadataKeyValue(WorldMetadataType.NAME).getMetadataValue();
     }
 
     public Dimension getDimension() {
-        return this.metadataKeyValueBucket.getValueOfMetadataKeyValue(WorldMetadataType.DIMENSION, Dimension.class);
+        return (Dimension) this.metadataKeyValueBucket.getMetadataKeyValue(WorldMetadataType.DIMENSION).getMetadataValue();
     }
 
     public ChunkGenerator getChunkGenerator() {
