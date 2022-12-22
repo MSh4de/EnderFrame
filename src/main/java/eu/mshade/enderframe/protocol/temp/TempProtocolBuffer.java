@@ -6,6 +6,8 @@ import eu.mshade.enderframe.metadata.MetadataKey;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
 import io.netty.buffer.ByteBuf;
 
+import java.util.Collection;
+
 public class TempProtocolBuffer extends ProtocolBuffer {
 
 
@@ -26,5 +28,10 @@ public class TempProtocolBuffer extends ProtocolBuffer {
     @Override
     public void writeEntityMetadata(Entity entity, MetadataKey... entityMetadataKey) {
 
+    }
+
+    @Override
+    public Collection<MetadataKey> getSupportedMetadataKeys(Entity entity) {
+        return null;
     }
 }

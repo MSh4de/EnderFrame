@@ -148,6 +148,10 @@ public class ChatColor {
         this.color = new Color(rgb);
     }
 
+    public int getOrdinal() {
+        return ordinal;
+    }
+
     public String getName() {
         return name;
     }

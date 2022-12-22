@@ -27,6 +27,7 @@ import eu.mshade.enderframe.world.chunk.Section;
 import io.netty.channel.Channel;
 
 import java.security.PublicKey;
+import java.util.Collection;
 import java.util.List;
 
 public class TempSessionWrapper extends SessionWrapper {
@@ -186,6 +187,11 @@ public class TempSessionWrapper extends SessionWrapper {
 
     @Override
     public void sendMetadata(Entity entity, MetadataKey... entityMetadataKeys) {
+
+    }
+
+    @Override
+    public void sendMetadata(Entity entity, Collection<MetadataKey> entityMetadataKeys) {
 
     }
 

@@ -20,6 +20,7 @@ import java.nio.channels.GatheringByteChannel;
 import java.nio.channels.ScatteringByteChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.UUID;
 
 public abstract class ProtocolBuffer extends ByteBuf {
@@ -1145,4 +1146,5 @@ public abstract class ProtocolBuffer extends ByteBuf {
         return byteBuf.release(decrement);
     }
 
+    public abstract Collection<MetadataKey> getSupportedMetadataKeys(Entity entity);
 }

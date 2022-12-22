@@ -35,6 +35,7 @@ import io.netty.channel.ChannelHandler;
 import javax.crypto.SecretKey;
 import java.security.PublicKey;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
@@ -205,6 +206,8 @@ public abstract class SessionWrapper {
     public abstract void removeEntity(Entity... entities);
 
     public abstract void sendMetadata(Entity entity, MetadataKey... entityMetadataKeys);
+
+    public abstract void sendMetadata(Entity entity, Collection<MetadataKey> entityMetadataKeys);
 
     public abstract void sendChunk(Chunk chunk);
 
