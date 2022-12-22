@@ -4,7 +4,6 @@ import eu.mshade.enderframe.world.Location
 import eu.mshade.enderframe.world.Vector
 import java.util.*
 
-
 abstract class ArmorStand(location: Location, velocity: Vector, entityId: Int, uuid: UUID) : LivingEntity(location, velocity, entityId, uuid, EntityType.ARMOR_STAND) {
 
     constructor(location: Location, entityId: Int) : this(location, Vector(), entityId, UUID.randomUUID())
