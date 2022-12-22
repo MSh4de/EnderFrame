@@ -46,7 +46,7 @@ abstract class Llama(location: Location, velocity: Vector, entityId: Int, uuid: 
     constructor(location: Location, entityId: Int) : this(location, Vector(), entityId, UUID.randomUUID())
 }
 
-abstract class PiglinAdult(location: Location, velocity: Vector, entityId: Int, uuid: UUID): LivingEntity(location, velocity, entityId, uuid, EntityType.ADULT_PIGLIN) {
+abstract class Piglin(location: Location, velocity: Vector, entityId: Int, uuid: UUID): LivingEntity(location, velocity, entityId, uuid, EntityType.PIGLIN) {
 
     constructor(location: Location, entityId: Int) : this(location, Vector(), entityId, UUID.randomUUID())
 }
@@ -56,20 +56,20 @@ abstract class Panda(location: Location, velocity: Vector, entityId: Int, uuid: 
     constructor(location: Location, entityId: Int) : this(location, Vector(), entityId, UUID.randomUUID())
 }
 
-abstract class PolarBearAdult(location: Location, velocity: Vector, entityId: Int, uuid: UUID): LivingEntity(location, velocity, entityId, uuid, EntityType.POLAR_BEAR) {
+abstract class PolarBear(location: Location, velocity: Vector, entityId: Int, uuid: UUID): LivingEntity(location, velocity, entityId, uuid, EntityType.POLAR_BEAR) {
 
     constructor(location: Location, entityId: Int) : this(location, Vector(), entityId, UUID.randomUUID())
 }
 
 abstract class Spider : LivingEntity {
 
-    protected constructor(
+    constructor(
         location: Location,
         velocity: Vector,
         entityId: Int,
         uuid: UUID,
-        EntityKey: EntityKey
-    ): super(location, velocity, entityId, uuid, EntityKey)
+        entityKey: EntityKey
+    ): super(location, velocity, entityId, uuid, entityKey)
 
     constructor(location: Location, velocity: Vector, entityId: Int, uuid: UUID) : super(
         location,
