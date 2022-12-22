@@ -22,7 +22,7 @@ abstract class Wrapper<I, O> {
         outputByInput[i] = o
     }
 
-    fun registerOutput(o: O, i: I) {
+    fun registerOutput(i: I, o: O) {
         inputByOutput[o] = i
     }
 

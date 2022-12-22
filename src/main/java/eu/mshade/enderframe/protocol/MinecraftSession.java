@@ -4,7 +4,6 @@ import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.inventory.Inventory;
-import eu.mshade.enderframe.inventory.InventoryRepository;
 import eu.mshade.enderframe.inventory.NamedInventory;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
@@ -49,7 +48,6 @@ public abstract class MinecraftSession {
     protected GameProfile gameProfile;
     protected MinecraftHandshake minecraftHandshake;
     protected MinecraftProtocolStatus minecraftProtocolStatus = MinecraftProtocolStatus.HANDSHAKE;
-    protected InventoryRepository inventoryRepository = new InventoryRepository();
 
     public MinecraftSession(Channel channel) {
         this.channel = channel;
@@ -126,10 +124,6 @@ public abstract class MinecraftSession {
 
     public boolean isConnected() {
         return channel.isActive();
-    }
-
-    public InventoryRepository getInventoryRepository() {
-        return inventoryRepository;
     }
 
     public MinecraftProtocol getProtocol() {

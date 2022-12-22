@@ -17,7 +17,7 @@ public class MinecraftPacketHandshakeEvent implements MinecraftPacketEvent {
         return minecraftHandshake;
     }
 
-    public MinecraftSession getSessionWrapper() {
+    public MinecraftSession getMinecraftSession() {
         return minecraftSession;
     }
 

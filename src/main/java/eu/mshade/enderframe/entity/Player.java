@@ -4,6 +4,7 @@ import eu.mshade.enderframe.Agent;
 import eu.mshade.enderframe.GameMode;
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.inventory.InventoryClickStore;
+import eu.mshade.enderframe.inventory.NamedInventory;
 import eu.mshade.enderframe.inventory.PlayerInventory;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.protocol.MinecraftProtocolVersion;
@@ -37,7 +38,7 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
     protected float flyingSpeed;
     protected float walkSpeed;
     protected boolean sneaking;
-    protected PlayerInventory playerInventory = new PlayerInventory();
+    protected PlayerInventory playerInventory;
     protected Inventory openedInventory;
     protected Queue<Chunk> lookAtChunks = new ConcurrentLinkedQueue<>();
     protected InventoryClickStore inventoryClickStore = new InventoryClickStore();
@@ -188,6 +189,15 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
     public void setOpenedInventory(Inventory openedInventory) {
         this.openedInventory = openedInventory;
     }
+
+    public void openInventory(NamedInventory inventory){
+        setOpenedInventory(inventory);
+        getMinecraftSession().sendOpenInventory(inventory);
+        getMinecraftSession().sendItemStacks(inventory);
+        inventory.addWatcher(this);
+    }
+
+
 
     public InventoryClickStore getInventoryBufferStore() {
         return inventoryClickStore;

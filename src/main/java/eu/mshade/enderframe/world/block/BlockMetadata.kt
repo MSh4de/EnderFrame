@@ -1,5 +1,8 @@
 package eu.mshade.enderframe.world.block
 
+import eu.mshade.enderframe.Flushable
+import eu.mshade.enderframe.inventory.InventoryRepository
+import eu.mshade.enderframe.inventory.NamedInventory
 import eu.mshade.enderframe.metadata.MetadataKey
 import eu.mshade.enderframe.metadata.MetadataKeyValue
 import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag
@@ -19,6 +22,7 @@ object BlockMetadataType {
 
 
     val MULTIPLE_FACE: MetadataKey = MetadataKey.from("BLOCK_MULTIPLE_FACE")
+    val INVENTORY: MetadataKey = MetadataKey.from("BLOCK_INVENTORY")
 
 }
 
@@ -43,6 +47,8 @@ class CheckDecayBlockMetadata(checkDecay: Boolean): MetadataKeyValue<Boolean>(Bl
 class SeamlessBlockMetadata(seamless: Boolean): MetadataKeyValue<Boolean>(BlockMetadataType.SEAMLESS, seamless)
 
 class MultipleFaceBlockMetadata(multipleFace: MutableSet<BlockFace> = mutableSetOf()): MetadataKeyValue<MutableSet<BlockFace>>(BlockMetadataType.MULTIPLE_FACE, multipleFace)
+
+class InventoryBlockMetadata(inventory: NamedInventory): MetadataKeyValue<NamedInventory>(BlockMetadataType.INVENTORY, inventory)
 
 
 

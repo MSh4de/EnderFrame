@@ -311,6 +311,9 @@ public class Material {
 
 
 
+    //register ice and packed ice and snow
+    public static MaterialKey ICE = MaterialKey.from(266, 64, NamespacedKey.minecraft("ice"), MaterialCategory.ICE, Set.of(MaterialCategory.BLOCK, MaterialCategory.ICE));
+    public static MaterialKey SNOW = MaterialKey.from(267, 64, NamespacedKey.minecraft("snow"), MaterialCategory.SNOW, Set.of(MaterialCategory.BLOCK, MaterialCategory.SNOW));
 
 
 

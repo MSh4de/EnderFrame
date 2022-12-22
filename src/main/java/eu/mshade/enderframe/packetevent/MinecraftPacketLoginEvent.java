@@ -13,7 +13,7 @@ public class MinecraftPacketLoginEvent implements MinecraftPacketEvent {
         this.name = name;
     }
 
-    public MinecraftSession getSessionWrapper() {
+    public MinecraftSession getMinecraftSession() {
         return minecraftSession;
     }
 

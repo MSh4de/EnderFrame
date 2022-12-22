@@ -1,12 +1,15 @@
 package eu.mshade.enderframe.world.chunk;
 
 
+import eu.mshade.enderframe.Agent;
 import eu.mshade.enderframe.Watchable;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.item.Material;
 import eu.mshade.enderframe.world.World;
 import eu.mshade.enderframe.world.block.Block;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -21,6 +24,7 @@ public abstract class Chunk implements Watchable {
     protected final Section[] sections = new Section[16];
     protected final Queue<Entity> entities = new ConcurrentLinkedQueue<>();
     protected final ChunkStateStore chunkStateStore = new ChunkStateStore();
+    protected final Agent agent = Agent.from("Chunk");
 
     public Chunk(int x, int z, World world) {
         this.x = x;
@@ -58,6 +62,19 @@ public abstract class Chunk implements Watchable {
 
     public ChunkStateStore getChunkStateStore() {
         return chunkStateStore;
+    }
+
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public Collection<Block> getBlocks() {
+        Collection<Block> blocks = new ArrayList<>();
+        for (Section section : sections) {
+            if (section == null) continue;
+            blocks.addAll(section.getPalette().getBlock());
+        }
+        return blocks;
     }
 
     public int getBitMask(){

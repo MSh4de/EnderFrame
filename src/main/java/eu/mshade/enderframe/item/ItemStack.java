@@ -10,6 +10,7 @@ public class ItemStack implements Cloneable {
     protected int amount;
     protected int durability;
     protected MetadataKeyValueBucket metadataKeyValueBucket;
+    protected boolean modified;
 
     public ItemStack(MaterialKey material, int amount, int durability, MetadataKeyValueBucket metadataKeyValueBucket) {
         this.material = material;
@@ -19,15 +20,15 @@ public class ItemStack implements Cloneable {
     }
 
     public ItemStack(MaterialKey material, int amount, int durability) {
-        this(material, amount, durability, new MetadataKeyValueBucket());
+        this(material, amount, durability, new MetadataKeyValueBucket(true));
     }
 
     public ItemStack(MaterialKey material, int amount) {
-        this(material, amount, 0, new MetadataKeyValueBucket());
+        this(material, amount, 0, new MetadataKeyValueBucket(true));
     }
 
     public ItemStack(MaterialKey materialKey) {
-        this(materialKey, 1, 0, new MetadataKeyValueBucket());
+        this(materialKey, 1, 0, new MetadataKeyValueBucket(true));
     }
 
     public MaterialKey getMaterial() {
@@ -36,6 +37,7 @@ public class ItemStack implements Cloneable {
 
     public ItemStack setMaterial(MaterialKey material) {
         this.material = material;
+        modified = true;
         return this;
     }
 
@@ -51,6 +53,7 @@ public class ItemStack implements Cloneable {
 
     public ItemStack setAmount(int amount) {
         this.amount = amount;
+        modified = true;
         return this;
     }
 
@@ -60,6 +63,7 @@ public class ItemStack implements Cloneable {
 
     public ItemStack setDurability(int durability) {
         this.durability = durability;
+        modified = true;
         return this;
     }
 
@@ -68,6 +72,11 @@ public class ItemStack implements Cloneable {
         return metadataKeyValueBucket;
     }
 
+    public boolean visitModified() {
+        boolean modified = this.modified;
+        this.modified = false;
+        return modified;
+    }
 
     @Override
     public ItemStack clone() {

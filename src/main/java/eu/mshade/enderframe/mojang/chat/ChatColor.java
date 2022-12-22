@@ -299,4 +299,9 @@ public class ChatColor {
         return ordinal;
     }
 
+
+    public static ChatColor fromName(String name) {
+        return BY_NAME.get(name.toUpperCase(Locale.ROOT));
+    }
+
 }

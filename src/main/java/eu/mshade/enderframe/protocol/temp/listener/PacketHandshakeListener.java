@@ -13,7 +13,7 @@ public class PacketHandshakeListener implements EventListener<MinecraftPacketInH
     @Override
     public void onEvent(MinecraftPacketInHandshake event) {
         MinecraftHandshake minecraftHandshake = new MinecraftHandshake(event.getVersion(), InetSocketAddress.createUnresolved(event.getHost(), event.getPort()), event.getHandshakeStatus());
-        EnderFrame.get().getPacketEventBus().publish(new MinecraftPacketHandshakeEvent(event.getSessionWrapper(), minecraftHandshake));
+        EnderFrame.get().getPacketEventBus().publish(new MinecraftPacketHandshakeEvent(event.getMinecraftSession(), minecraftHandshake));
     }
 
 }

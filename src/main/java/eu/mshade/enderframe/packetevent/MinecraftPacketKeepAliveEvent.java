@@ -16,7 +16,7 @@ public class MinecraftPacketKeepAliveEvent implements MinecraftPacketEvent {
         return threshold;
     }
 
-    public MinecraftSession getSessionWrapper() {
+    public MinecraftSession getMinecraftSession() {
         return minecraftSession;
     }
 }

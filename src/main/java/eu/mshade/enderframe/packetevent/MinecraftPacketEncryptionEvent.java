@@ -15,7 +15,7 @@ public class MinecraftPacketEncryptionEvent implements MinecraftPacketEvent {
         this.verifyToken = verifyToken;
     }
 
-    public MinecraftSession getSessionWrapper() {
+    public MinecraftSession getMinecraftSession() {
         return minecraftSession;
     }
 

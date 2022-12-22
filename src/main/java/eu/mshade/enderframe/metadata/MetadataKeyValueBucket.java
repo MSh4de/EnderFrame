@@ -55,6 +55,10 @@ public class MetadataKeyValueBucket implements PrettyString, Cloneable {
         return copy;
     }
 
+    public boolean visitModified(){
+        return !consumeUpdatedMetadataKeyValue().isEmpty();
+    }
+
     public void clear(){
         this.metadataKeyValueByMetadataKey.clear();
         this.metadataKeyUpdated.clear();

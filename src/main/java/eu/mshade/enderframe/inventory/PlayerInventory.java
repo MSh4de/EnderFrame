@@ -4,12 +4,13 @@ import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 
+import java.util.UUID;
 import java.util.function.Function;
 
 public class PlayerInventory extends Inventory {
 
-    public PlayerInventory() {
-        super(InventoryType.PLAYER);
+    public PlayerInventory(UUID uniqueId) {
+        super(InventoryType.PLAYER, uniqueId);
     }
 
     @Override
@@ -51,4 +52,12 @@ public class PlayerInventory extends Inventory {
         return index;
     }
 
+    public static int indexFromAccurateSlot(int accurateSlot) {
+        if (accurateSlot <= 44 && accurateSlot >= 36) {
+            return 8 - (44 - accurateSlot);
+        } else if (accurateSlot <= 8) {
+            return 44 - accurateSlot;
+        }
+        return accurateSlot;
+    }
 }

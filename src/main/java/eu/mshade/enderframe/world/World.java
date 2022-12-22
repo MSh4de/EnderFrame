@@ -134,6 +134,10 @@ public abstract class World extends Tickable {
         return this.metadataKeyValueBucket.getValueOfMetadataKeyValue(WorldMetadataType.DIMENSION, Dimension.class);
     }
 
+    public long getSeed() {
+        return this.metadataKeyValueBucket.getValueOfMetadataKeyValue(WorldMetadataType.SEED, Long.class);
+    }
+
     public ChunkGenerator getChunkGenerator() {
         return chunkGenerator;
     }

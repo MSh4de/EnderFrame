@@ -20,7 +20,7 @@ public class MinecraftPacketInPing implements MinecraftPacketIn {
     }
 
     @Override
-    public MinecraftSession getSessionWrapper() {
+    public MinecraftSession getMinecraftSession() {
         return minecraftSession;
     }
 }

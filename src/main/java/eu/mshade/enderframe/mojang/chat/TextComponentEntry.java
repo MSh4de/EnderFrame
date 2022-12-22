@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.mojang.chat;
 
 
+import java.util.Map;
 import java.util.Objects;
 
 public class TextComponentEntry {

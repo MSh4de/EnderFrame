@@ -45,6 +45,8 @@ public class MaterialCategory {
     public static MaterialCategoryKey TERRACOTTA = MaterialCategoryKey.from("TERRACOTTA");
     public static MaterialCategoryKey CLAY = MaterialCategoryKey.from("CLAY");
     public static MaterialCategoryKey SAND = MaterialCategoryKey.from("SAND");
+    public static MaterialCategoryKey ICE = MaterialCategoryKey.from("ICE");
+    public static MaterialCategoryKey SNOW = MaterialCategoryKey.from("SNOW");
 
 
 
