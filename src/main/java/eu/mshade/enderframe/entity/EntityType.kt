@@ -5,8 +5,6 @@ object EntityType {
 
     //Every EntityType of Minecraft
 
-    val NON_PLAYER_CHARACTER = EntityKey.of("NON_PLAYER_CHARACTER")
-
     val ALLAY = EntityKey.of("ALLAY")
     val AREA_EFFECT_CLOUD = EntityKey.of("AREA_EFFECT_CLOUD")
     val ARMOR_STAND = EntityKey.of("ARMOR_STAND")
@@ -81,12 +79,12 @@ object EntityType {
     val PHANTOM = EntityKey.of("PHANTOM")
     val PIG = EntityKey.of("PIG")
     val BABY_PIGLIN = EntityKey.of("BABY_PIGLIN")
-    val ADULT_PIGLIN = EntityKey.of("ADULT_PIGLIN")
+    val PIGLIN = EntityKey.of("PIGLIN")
     val PIGLIN_BRUTE = EntityKey.of("PIGLIN_BRUTE")
     val PILLAGER = EntityKey.of("PILLAGER")
     val PLAYER = EntityKey.of("PLAYER")
-    val POLAR_BEAR = EntityKey.of("POLAR_BEAR")
     val BABY_POLAR_BEAR = EntityKey.of("BABY_POLAR_BEAR")
+    val POLAR_BEAR = EntityKey.of("POLAR_BEAR")
     val PRIMED_TNT = EntityKey.of("PRIMED_TNT")
     val PUFFERFISH = EntityKey.of("PUFFERFISH")
     val RABBIT = EntityKey.of("RABBIT")
