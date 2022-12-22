@@ -28,25 +28,16 @@ public class MetadataKeyValueBucket implements PrettyString {
         return this.metadataKeyValueByMetadataKey.containsKey(metadataKey);
     }
 
-    public <T> MetadataKeyValue<T> getMetadataKeyValueOrDefault(MetadataKey metadataKey, MetadataKeyValue<T> t){
-        return (MetadataKeyValue<T>) this.metadataKeyValueByMetadataKey.getOrDefault(metadataKey, t);
+    public MetadataKeyValue<?> getMetadataKeyValue(MetadataKey metadataKey){
+        return this.metadataKeyValueByMetadataKey.get(metadataKey);
     }
 
-    public <T extends MetadataKeyValue<?>> T getMetadataKeyValue(MetadataKey metadataKey, Class<T> type){
-        MetadataKeyValue<?> metadataKeyValue = this.metadataKeyValueByMetadataKey.get(metadataKey);
-        if (metadataKeyValue == null) return null;
-        return type.cast(metadataKeyValue);
-    }
-
-    public <T> T getValueOfMetadataKeyValue(MetadataKey metadataKey, Class<T> type){
-        MetadataKeyValue<?> metadataKeyValue = this.metadataKeyValueByMetadataKey.get(metadataKey);
-        if (metadataKeyValue == null) return null;
-        return type.cast(metadataKeyValue.getMetadataValue());
-    }
-
-
-    public Collection<MetadataKeyValue<?>> getMetadataKeyValues(){
+    public Collection<MetadataKeyValue<?>> getMetadataKeyValues() {
         return this.metadataKeyValueByMetadataKey.values();
+    }
+
+    public Collection<MetadataKey> getMetadataKeys() {
+        return this.metadataKeyValueByMetadataKey.keySet();
     }
 
     public Collection<MetadataKey> consumeUpdatedMetadataKeyValue(){
