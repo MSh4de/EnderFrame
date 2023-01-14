@@ -14,7 +14,7 @@ public class Material {
 
     private final static Map<String, NamespacedKey> NAMESPACED_BY_MATERIAL = new HashMap<>();
     private final static Map<Integer, MaterialKey> MATERIAL_BY_ID = new HashMap<>();
-    private final static Map<NamespacedKey, MaterialKey> MATERIAL_KEY_BY_NAMESPACED_KEY = new HashMap<>();
+    private final static Map<NamespacedKey, MaterialKey> MATERIAL_BY_NAMESPACED_KEY = new HashMap<>();
     private final static Map<MaterialCategoryKey, Set<MaterialKey>> MATERIAL_KEYS_BY_CATEGORY = new HashMap<>();
 
     public static MaterialKey AIR = MaterialKey.from(0, NamespacedKey.minecraft("air"), MaterialCategory.BLOCK, Set.of(MaterialCategory.BLOCK));
@@ -604,16 +604,14 @@ public class Material {
             for (Field field : declaredFields) {
                 Object o = field.get(null);
                 if (o instanceof MaterialKey materialKey) {
-                    LOGGER.debug("Register " + materialKey);
-//                    MATERIAL_KEY_BY_NAMESPACED_KEY.put(materialKey.getNamespacedKey(), materialKey);
-                    registerMaterialKey(materialKey);
+                    LOGGER.debug("Register " + MATERIAL_BY_NAMESPACED_KEY.put(materialKey.getNamespacedKey(), materialKey));
                 }
             }
         } catch (IllegalAccessException e) {
             LOGGER.error("", e);
         }
 
-        LOGGER.info("Register {} materialKeys", MATERIAL_BY_ID.size());
+        LOGGER.info("Register {} materialKeys", MATERIAL_BY_NAMESPACED_KEY.size());
     }
 
     public static NamespacedKey getNamespacedKeyOfMaterialKey(int id, int data) {
@@ -624,11 +622,16 @@ public class Material {
         return MATERIAL_BY_ID.get(id);
     }
 
+    public static MaterialKey fromNamespacedKey(NamespacedKey namespacedKey) {
+        return MATERIAL_BY_NAMESPACED_KEY.get(namespacedKey);
+    }
+
     public static Collection<MaterialKey> getRegisteredMaterials() {
         return MATERIAL_BY_ID.values();
     }
 
     public static void registerMaterialKey(MaterialKey materialKey) {
+        MATERIAL_BY_NAMESPACED_KEY.put(materialKey.getNamespacedKey(), materialKey);
         MATERIAL_BY_ID.put(materialKey.getId(), materialKey);
         NAMESPACED_BY_MATERIAL.put(key(materialKey), materialKey.getNamespacedKey());
         for (MaterialCategoryKey materialCategoryKey : materialKey.getMaterialCategoryKeys()) {
