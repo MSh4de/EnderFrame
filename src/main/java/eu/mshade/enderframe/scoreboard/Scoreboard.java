@@ -1,5 +1,7 @@
 package eu.mshade.enderframe.scoreboard;
 
+import eu.mshade.enderframe.Agent;
+import eu.mshade.enderframe.Watchable;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.protocol.MinecraftSession;
@@ -8,20 +10,21 @@ import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjectiveAction;
 import eu.mshade.mwork.ShrinkingUUID;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class Scoreboard<T> {
+public class Scoreboard<T> implements Watchable {
 
     protected final String scoreboardId = ShrinkingUUID.randomUUID(12);
 
     protected TextComponent scoreboardName;
     protected ScoreboardPosition scoreboardPosition;
     protected ScoreboardType scoreboardType;
-    protected Queue<Player> viewers = new ConcurrentLinkedQueue<>();
+    protected Queue<Agent> agents = new ConcurrentLinkedQueue<>();
     protected List<ScoreboardObjective<T>> objectives = new ArrayList<>();
 
     public Scoreboard(TextComponent scoreboardName) {
@@ -29,7 +32,7 @@ public class Scoreboard<T> {
     }
 
     public void showScoreboard(Player player) {
-        viewers.add(player);
+        agents.add(player);
         player.getLookAtScoreboard().add(this);
 
         MinecraftSession minecraftSession = player.getMinecraftSession();
@@ -43,7 +46,7 @@ public class Scoreboard<T> {
     }
 
     public void hideScoreboard(Player player) {
-        viewers.remove(player);
+        agents.remove(player);
 
         player.getLookAtScoreboard().remove(this);
         player.getMinecraftSession().sendScoreboardObjective(this, ScoreboardMode.REMOVE);
@@ -54,8 +57,11 @@ public class Scoreboard<T> {
 
         this.objectives.add(scoreboardObjective);
 
-        for (Player viewer : this.viewers) {
-            viewer.getMinecraftSession().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.CREATE_OR_UPDATE);
+
+        for (Agent viewer : this.getWatchers()) {
+            if (viewer instanceof Player player) {
+                player.getMinecraftSession().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.CREATE_OR_UPDATE);
+            }
         }
 
         return this;
@@ -65,14 +71,18 @@ public class Scoreboard<T> {
         ScoreboardObjective<T> scoreboardObjective = this.objectives.get(index);
         consumer.accept(scoreboardObjective);
 
-        for (Player viewer : this.viewers) {
-            viewer.getMinecraftSession().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.CREATE_OR_UPDATE);
+        for (Agent agent : this.getWatchers()) {
+            if (agent instanceof Player player) {
+                player.getMinecraftSession().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.CREATE_OR_UPDATE);
+            }
         }
     }
 
     public void removeObjective(ScoreboardObjective<T> scoreboardObjective) {
-        for (Player viewer : this.viewers) {
-            viewer.getMinecraftSession().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.REMOVE);
+        for (Agent agent : this.getWatchers()) {
+            if (agent instanceof Player player) {
+                player.getMinecraftSession().sendUpdateScoreboard(scoreboardObjective, ScoreboardObjectiveAction.REMOVE);
+            }
         }
 
         this.objectives.remove(scoreboardObjective);
@@ -89,8 +99,10 @@ public class Scoreboard<T> {
     public void setScoreboardName(TextComponent scoreboardName) {
         this.scoreboardName = scoreboardName;
 
-        for (Player viewer : viewers) {
-            viewer.getMinecraftSession().sendScoreboardObjective(this, ScoreboardMode.UPDATE_DISPLAY_TEXT);
+        for (Agent agent : this.getWatchers()) {
+            if (agent instanceof Player player) {
+                player.getMinecraftSession().sendScoreboardObjective(this, ScoreboardMode.UPDATE_DISPLAY_TEXT);
+            }
         }
     }
 
@@ -120,7 +132,30 @@ public class Scoreboard<T> {
         return scoreboardName;
     }
 
-    public Queue<Player> getViewers() {
-        return viewers;
+    @Override
+    public void addWatcher(Agent agent) {
+        agents.add(agent);
+    }
+
+    @Override
+    public void removeWatcher(Agent agent) {
+        agents.remove(agent);
+    }
+
+    @Override
+    public boolean isWatching(Agent agent) {
+        return agents.contains(agent);
+    }
+
+    @Override
+    public Collection<Agent> getWatchers() {
+        return this.agents;
+    }
+
+    @Override
+    public void notify(Consumer<Agent> sessionWrapperConsumer) {
+        for (Agent agent : agents) {
+            sessionWrapperConsumer.accept(agent);
+        }
     }
 }

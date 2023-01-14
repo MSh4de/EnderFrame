@@ -1,12 +1,16 @@
 package eu.mshade.enderframe.world.border;
 
+import eu.mshade.enderframe.Agent;
+import eu.mshade.enderframe.Watchable;
 import eu.mshade.enderframe.entity.Player;
 
+import java.util.Collection;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class WorldBorder {
+public class WorldBorder implements Watchable {
 
     protected WorldBorderCenter worldBorderCenter;
     protected double oldRadius;
@@ -15,16 +19,19 @@ public class WorldBorder {
     protected int portalTeleportLimit;
     protected int warningTime;
     protected int warningBlocks;
-    protected Queue<Player> viewers = new ConcurrentLinkedQueue<>();
+
+    protected Queue<Agent> agents = new ConcurrentLinkedQueue<>();
 
     public void createWorldBorder(Player player) {
-        viewers.add(player);
+        agents.add(player);
         player.getMinecraftSession().sendWorldBorder(WorldBorderAction.INITIALIZE, this);
     }
 
     private void updateWorldBorder() {
-        for (Player viewer : viewers) {
-            viewer.getMinecraftSession().sendWorldBorder(WorldBorderAction.CHANGE_SIZE, this);
+        for (Agent agent : this.getWatchers()) {
+            if (agent instanceof Player player) {
+                player.getMinecraftSession().sendWorldBorder(WorldBorderAction.SET_SIZE, this);
+            }
         }
     }
 
@@ -89,8 +96,31 @@ public class WorldBorder {
         return this;
     }
 
-    public Queue<Player> getViewers() {
-        return viewers;
+    @Override
+    public void addWatcher(Agent agent) {
+        agents.add(agent);
+    }
+
+    @Override
+    public void removeWatcher(Agent agent) {
+        agents.remove(agent);
+    }
+
+    @Override
+    public Collection<Agent> getWatchers() {
+        return agents;
+    }
+
+    @Override
+    public boolean isWatching(Agent agent) {
+        return agents.contains(agent);
+    }
+
+    @Override
+    public void notify(Consumer<Agent> sessionWrapperConsumer) {
+        for (Agent agent : agents) {
+            sessionWrapperConsumer.accept(agent);
+        }
     }
 
     @Override
@@ -103,7 +133,7 @@ public class WorldBorder {
                 ", portalTeleportLimit=" + portalTeleportLimit +
                 ", warningTime=" + warningTime +
                 ", warningBlocks=" + warningBlocks +
-                ", viewers=" + viewers +
+                ", agents=" + agents +
                 '}';
     }
 }
