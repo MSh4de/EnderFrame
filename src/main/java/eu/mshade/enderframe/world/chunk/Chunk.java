@@ -15,6 +15,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Chunk implements Watchable {
 
+
     public static final int WIDTH = 16, HEIGHT = 16, DEPTH = 256, SEC_DEPTH = 16;
 
     protected final int x;
@@ -127,6 +128,10 @@ public abstract class Chunk implements Watchable {
             }
         }
         return 0;
+    }
+
+    public Queue<Entity> getEntities() {
+        return entities;
     }
 
     public static long key(int x, int z) {

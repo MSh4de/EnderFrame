@@ -7,6 +7,10 @@ import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.inventory.NamedInventory;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
+<<<<<<< HEAD:src/main/java/eu/mshade/enderframe/protocol/temp/TempMinecraftSession.java
+=======
+import eu.mshade.enderframe.metadata.MetadataKey;
+>>>>>>> rework-entities:src/main/java/eu/mshade/enderframe/protocol/temp/TempSessionWrapper.java
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.particle.Particle;
@@ -28,6 +32,7 @@ import eu.mshade.enderframe.world.chunk.Section;
 import io.netty.channel.Channel;
 
 import java.security.PublicKey;
+import java.util.Collection;
 import java.util.List;
 
 public class TempMinecraftSession extends MinecraftSession {
@@ -186,7 +191,12 @@ public class TempMinecraftSession extends MinecraftSession {
     }
 
     @Override
-    public void sendMetadata(Entity entity, EntityMetadataKey... entityMetadataKeys) {
+    public void sendMetadata(Entity entity, MetadataKey... entityMetadataKeys) {
+
+    }
+
+    @Override
+    public void sendMetadata(Entity entity, Collection<MetadataKey> entityMetadataKeys) {
 
     }
 

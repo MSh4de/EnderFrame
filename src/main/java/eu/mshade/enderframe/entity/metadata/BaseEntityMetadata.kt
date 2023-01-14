@@ -1,35 +1,46 @@
 package eu.mshade.enderframe.entity.metadata
 
 import eu.mshade.enderframe.metadata.MetadataKeyValue
-import java.util.UUID
 
-//All the class representing Entity Metadata like crouching, sneaking, etc.
-class IsOnFireEntityMetadata(isOnFire: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.IS_ON_FIRE, isOnFire)
+//Basic
+class VariantEntityMetadata(id: Int): MetadataKeyValue<Int>(EntityMetadataKey.VARIANT, id)
 
-class IsSneakingEntityMetadata(isSneaking: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.IS_SNEAKING, isSneaking)
+class FlyingEntityMetadata(flying: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.FLYING, flying)
 
-class IsSprintingEntityMetadata(isSprinting: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.IS_SPRINTING, isSprinting)
+class OwnerEntityMetadata(uuid: String): MetadataKeyValue<String>(EntityMetadataKey.OWNER, uuid)
 
-class IsSwimmingEntityMetadata(isSwimming: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.IS_SWIMMING, isSwimming)
+class HasSaddleEntityMetadata(hasSaddle: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.SADDLE, hasSaddle)
 
-class IsInvisibleEntityMetadata(isInvisible: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.IS_INVISIBLE, isInvisible)
+class IsPoweredEntityMetadata(powered: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.IS_POWERED, powered)
 
-class IsGlowingEntityMetadata(isGlowing: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.IS_GLOWING, isGlowing)
 
-class IsFlyingEntityMetadata(isFlying: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.IS_FLYING, isFlying)
+//Entity
+class OnFireEntityMetadata(onFire: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.ON_FIRE, onFire)
 
-class AgeEntityMetadata(age: Int): MetadataKeyValue<Int>(EntityMetadataKey.AGE, age)
+class CrouchedEntityMetadata(crouched: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.CROUCHED, crouched)
 
-class AgeLockedEntityMetadata(ageLocked: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.AGE_LOCKED, ageLocked)
+class SprintingEntityMetadata(sprinting: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.SPRINTING, sprinting)
 
-class BreedableEntityMetadata(breedable: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.BREEDABLE, breedable)
+class EatingEntityMetadata(eating: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.EATING, eating)
 
-class IsSittingEntityMetadata(isSitting: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.IS_SITTING, isSitting)
+class HandlingEntityMetadata(handling: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.HANDLING, handling)
 
-class IsTamedEntityMetadata(isTamed: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.IS_TAMED, isTamed)
+class InvisibleEntityMetadata(invisible: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.INVISIBLE, invisible)
 
-class OwnerEntityMetadata(owner: UUID?): MetadataKeyValue<UUID>(EntityMetadataKey.OWNER, owner)
+class AirTicksEntityMetadata(airTicks: Int): MetadataKeyValue<Int>(EntityMetadataKey.AIR_TICKS, airTicks)
 
-class IsShearedEntityMetadata(isSheared: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.IS_SHEARED, isSheared)
 
-class SaddleEntityMetadata(saddle: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.SADDLE, saddle)
+//Living Entity
+class CustomNameEntityMetadata(name: String) : MetadataKeyValue<String>(EntityMetadataKey.CUSTOM_NAME, name)
+
+class CustomNameVisibleEntityMetadata(visible: Boolean) : MetadataKeyValue<Boolean>(EntityMetadataKey.CUSTOM_NAME_VISIBLE, visible)
+
+class HealthEntityMetadata(health: Float) : MetadataKeyValue<Float>(EntityMetadataKey.HEALTH, health)
+
+class PotionEffectColorEntityMetadata(color: Int) : MetadataKeyValue<Int>(EntityMetadataKey.POTION_EFFECT_COLOR, color)
+
+class PotionEffectAmbientEntityMetadata(ambient: Boolean) : MetadataKeyValue<Boolean>(EntityMetadataKey.POTION_EFFECT_AMBIENT, ambient)
+
+class NumberOfArrowsInEntityEntityMetadata(numberOfArrows: Int) : MetadataKeyValue<Int>(EntityMetadataKey.NUMBER_OF_ARROWS_IN_ENTITY, numberOfArrows)
+
+class WhetherArtificialIntelligenceEntityMetadata(artificialIntelligence: Boolean) : MetadataKeyValue<Boolean>(EntityMetadataKey.WHETHER_ARTIFICIAL_INTELLIGENCE, artificialIntelligence)

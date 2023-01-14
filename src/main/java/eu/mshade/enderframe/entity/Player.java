@@ -22,8 +22,7 @@ import java.util.Queue;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class Player extends LivingEntity implements ProjectileSource, Agent {
-
+public abstract class Player extends Entity implements Agent {
 
     protected InetSocketAddress inetSocketAddress;
     protected MinecraftProtocolVersion minecraftProtocolVersion;
@@ -45,22 +44,21 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
     protected Queue<Scoreboard> lookAtScoreboard = new ConcurrentLinkedQueue<>();
     protected Queue<WorldBorder> lookAtWorldBorders = new ConcurrentLinkedQueue<>();
 
-    public Player(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
-        super(location, velocity, entityId, uuid, entityType);
+    public Player(Location location, Vector velocity, int entityId, UUID uuid, EntityKey entityKey) {
+        super(location, velocity, entityId, uuid, entityKey);
     }
 
-    public Player(Location location, int entityId, EntityType entityType) {
-        super(location, entityId, entityType);
+    public Player(Location location, int entityId, EntityKey entityKey) {
+        super(location, entityId, entityKey);
     }
 
     public Player(Location location, Vector velocity, int entityId, UUID uuid) {
-        super(location, velocity, entityId, uuid, EntityType.PLAYER);
+        super(location, velocity, entityId, uuid, EntityType.INSTANCE.getPLAYER());
     }
 
     public Player(Location location, int entityId) {
-        super(location, entityId, EntityType.PLAYER);
+        super(location, entityId, EntityType.INSTANCE.getPLAYER());
     }
-
 
     public String getName(){
         return getGameProfile().getName();

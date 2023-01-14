@@ -2,15 +2,13 @@ package eu.mshade.enderframe.protocol;
 
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
-<<<<<<< HEAD:src/main/java/eu/mshade/enderframe/protocol/MinecraftSession.java
 import eu.mshade.enderframe.entity.Player;
-=======
-import eu.mshade.enderframe.entity.metadata.EntityMetadataKey;
->>>>>>> entities:src/main/java/eu/mshade/enderframe/protocol/SessionWrapper.java
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.inventory.NamedInventory;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
+
+import eu.mshade.enderframe.metadata.MetadataKey;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
@@ -39,6 +37,7 @@ import javax.crypto.SecretKey;
 import java.net.InetSocketAddress;
 import java.security.PublicKey;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
@@ -207,7 +206,9 @@ public abstract class MinecraftSession {
 
     public abstract void removeEntity(Entity... entities);
 
-    public abstract void sendMetadata(Entity entity, EntityMetadataKey... entityMetadataKeys);
+    public abstract void sendMetadata(Entity entity, MetadataKey... entityMetadataKeys);
+
+    public abstract void sendMetadata(Entity entity, Collection<MetadataKey> entityMetadataKeys);
 
     public abstract void sendChunk(Chunk chunk);
 

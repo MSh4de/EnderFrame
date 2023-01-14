@@ -1,6 +1,5 @@
 package eu.mshade.enderframe.protocol.temp.packet;
 
-import eu.mshade.enderframe.protocol.PacketOut;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
 public class PacketOutPong implements PacketOut {

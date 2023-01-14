@@ -1,7 +1,6 @@
 package eu.mshade.enderframe.protocol.temp.packet;
 
 import eu.mshade.enderframe.motd.MotdComponent;
-import eu.mshade.enderframe.protocol.PacketOut;
 import eu.mshade.enderframe.protocol.ProtocolBuffer;
 
 public class PacketOutStatus implements PacketOut {

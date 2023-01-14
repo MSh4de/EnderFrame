@@ -1,8 +1,9 @@
 package eu.mshade.enderframe.world;
 
 import eu.mshade.enderframe.entity.Entity;
-import eu.mshade.enderframe.entity.EntityType;
+import eu.mshade.enderframe.entity.EntityKey;
 import eu.mshade.enderframe.item.MaterialKey;
+import eu.mshade.enderframe.metadata.MetadataKeyValue;
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
 import eu.mshade.enderframe.tick.Tickable;
 import eu.mshade.enderframe.world.block.Block;
@@ -28,6 +29,7 @@ public abstract class World extends Tickable {
     protected final Queue<Entity> entities = new ConcurrentLinkedQueue<>();
     protected ChunkGenerator chunkGenerator;
 
+    protected final Map<UUID, Entity> entityByUuid = new ConcurrentHashMap<>();
 
     public World(File worldFolder, MetadataKeyValueBucket metadataKeyValueBucket) {
         this.worldFolder = worldFolder;
@@ -38,6 +40,12 @@ public abstract class World extends Tickable {
 
     public World(File worldFolder) {
         this(worldFolder, new MetadataKeyValueBucket(true));
+    }
+
+
+    @Deprecated
+    public void putEntity(Entity entity) {
+        entityByUuid.put(entity.getUniqueId(), entity);
     }
 
     /**
@@ -99,7 +107,7 @@ public abstract class World extends Tickable {
 
     public abstract void removeEntity(Entity entity);
 
-    public abstract Entity spawnEntity(EntityType entityType, Location location);
+    public abstract Entity spawnEntity(EntityKey entityType, Location location);
     /**
      * Gets all the regions in the world
      * @return the regions
@@ -127,15 +135,17 @@ public abstract class World extends Tickable {
     public abstract void saveWorld();
 
     public String getName() {
-        return this.metadataKeyValueBucket.getValueOfMetadataKeyValue(WorldMetadataType.NAME, String.class);
+        return (String) this.metadataKeyValueBucket.getMetadataKeyValue(WorldMetadataType.NAME).getMetadataValue();
     }
 
     public Dimension getDimension() {
-        return this.metadataKeyValueBucket.getValueOfMetadataKeyValue(WorldMetadataType.DIMENSION, Dimension.class);
+        return (Dimension) this.metadataKeyValueBucket.getMetadataKeyValue(WorldMetadataType.DIMENSION).getMetadataValue();
     }
 
     public long getSeed() {
-        return this.metadataKeyValueBucket.getValueOfMetadataKeyValue(WorldMetadataType.SEED, Long.class);
+        MetadataKeyValue<?> metadataKeyValue = this.metadataKeyValueBucket.getMetadataKeyValue(WorldMetadataType.SEED);
+        if (metadataKeyValue == null) return 0;
+        return (long) metadataKeyValue.getMetadataValue();
     }
 
     public ChunkGenerator getChunkGenerator() {
@@ -170,5 +180,7 @@ public abstract class World extends Tickable {
         return metadataKeyValueBucket;
     }
 
-
+    public Entity getEntityByUuid(UUID uuid) {
+        return entityByUuid.get(uuid);
+    }
 }

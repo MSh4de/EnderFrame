@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.metadata.entity;
 
 import eu.mshade.enderframe.entity.Entity;
-import eu.mshade.enderframe.entity.EntityType;
+import eu.mshade.enderframe.entity.EntityKey;
 import eu.mshade.enderframe.metadata.MetadataBuffer;
 import eu.mshade.enderframe.metadata.MetadataType;
 
@@ -10,20 +10,20 @@ import java.util.Map;
 
 public abstract class EntityMetadataManager {
 
-    private Map<EntityType, EntityMetadataBucket> entityMetadataBucketByType = new HashMap<>();
+    private Map<EntityKey, EntityMetadataBucket> entityMetadataBucketByType = new HashMap<>();
     private final Map<MetadataType, Integer> indexByMetadataType = new HashMap<>();
     private final Map<MetadataType, MetadataBuffer<?>> metadataBufferByType = new HashMap<>();
 
-    public void registerEntityMetadataBucket(EntityType entityType, EntityMetadataBucket entityMetadataBucket){
-        this.entityMetadataBucketByType.put(entityType, entityMetadataBucket);
+    public void registerEntityMetadataBucket(EntityKey entityKey, EntityMetadataBucket entityMetadataBucket){
+        this.entityMetadataBucketByType.put(entityKey, entityMetadataBucket);
     }
 
     public EntityMetadataBucket getEntityMetadataBucket(Entity entity){
-        return getEntityMetadataBucket(entity.getEntityType());
+        return getEntityMetadataBucket(entity.getEntityKey());
     }
 
-    public EntityMetadataBucket getEntityMetadataBucket(EntityType entityType){
-        return this.entityMetadataBucketByType.get(entityType);
+    public EntityMetadataBucket getEntityMetadataBucket(EntityKey entityKey){
+        return this.entityMetadataBucketByType.get(entityKey);
     }
 
     public void registerMetadataIndex(int index, MetadataType metadataType, MetadataBuffer<?> metadataBuffer) {

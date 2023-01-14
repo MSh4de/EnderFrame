@@ -5,10 +5,8 @@ import eu.mshade.enderframe.EnderFrame;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.metadata.EntityMetadataKey;
 import eu.mshade.enderframe.item.ItemStack;
-<<<<<<< HEAD:src/main/java/eu/mshade/enderframe/protocol/MinecraftByteBuf.java
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
-=======
->>>>>>> entities:src/main/java/eu/mshade/enderframe/protocol/ProtocolBuffer.java
+
+import eu.mshade.enderframe.metadata.MetadataKey;
 import eu.mshade.enderframe.world.Vector;
 import eu.mshade.mwork.MWork;
 import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag;
@@ -27,6 +25,7 @@ import java.nio.channels.GatheringByteChannel;
 import java.nio.channels.ScatteringByteChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.UUID;
 
 public abstract class MinecraftByteBuf extends ByteBuf {
@@ -185,7 +184,7 @@ public abstract class MinecraftByteBuf extends ByteBuf {
         this.byteBuf.readBytes(payload);
         return payload;
     }
-    public abstract void writeEntityMetadata(Entity entity, EntityMetadataKey... entityMetadataKey);
+    public abstract void writeEntityMetadata(Entity entity, MetadataKey... entityMetadataKey);
 
     @Override
     public int capacity() {
@@ -1154,4 +1153,5 @@ public abstract class MinecraftByteBuf extends ByteBuf {
         return byteBuf.release(decrement);
     }
 
+    public abstract Collection<MetadataKey> getSupportedMetadataKeys(Entity entity);
 }
