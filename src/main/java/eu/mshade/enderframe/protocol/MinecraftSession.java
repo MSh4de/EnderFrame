@@ -258,6 +258,8 @@ public abstract class MinecraftSession {
 
     public abstract void sendParticle(Particle particle);
 
+    public abstract void sendInventoryUpdate(Block block, MetadataKey... metadataKeys);
+
     @Override
     public String toString() {
         return "SessionWrapper{" +

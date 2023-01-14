@@ -5,7 +5,7 @@ import eu.mshade.enderframe.Watchable;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.Material;
 import eu.mshade.enderframe.item.MaterialKey;
-import eu.mshade.enderframe.mojang.chat.TextComponent;
+import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -85,6 +85,10 @@ public abstract class Inventory implements Watchable {
 
     public int getSize() {
         return itemStacks.length;
+    }
+
+    public int getRows() {
+        return getSize() / 9;
     }
 
     public void fill(ItemStack[] itemStacks) {

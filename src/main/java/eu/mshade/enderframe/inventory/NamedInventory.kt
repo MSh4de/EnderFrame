@@ -1,8 +1,10 @@
 package eu.mshade.enderframe.inventory
 
+import eu.mshade.enderframe.Agent
 import eu.mshade.enderframe.item.ItemStack
 import eu.mshade.enderframe.mojang.chat.TextComponent
 import java.util.*
+import java.util.function.Consumer
 
 open class NamedInventory : Inventory {
 
@@ -23,5 +25,6 @@ open class NamedInventory : Inventory {
     ) {
         this.name = name
     }
+
 
 }

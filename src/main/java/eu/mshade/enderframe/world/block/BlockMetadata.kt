@@ -20,9 +20,9 @@ object BlockMetadataType {
     val CHECK_DECAY: MetadataKey = MetadataKey.from("BLOCK_CHECK_DECAY")
     val SEAMLESS: MetadataKey = MetadataKey.from("BLOCK_SEAMLESS")
 
-
     val MULTIPLE_FACE: MetadataKey = MetadataKey.from("BLOCK_MULTIPLE_FACE")
     val INVENTORY: MetadataKey = MetadataKey.from("BLOCK_INVENTORY")
+
 
 }
 
@@ -49,6 +49,7 @@ class SeamlessBlockMetadata(seamless: Boolean): MetadataKeyValue<Boolean>(BlockM
 class MultipleFaceBlockMetadata(multipleFace: MutableSet<BlockFace> = mutableSetOf()): MetadataKeyValue<MutableSet<BlockFace>>(BlockMetadataType.MULTIPLE_FACE, multipleFace)
 
 class InventoryBlockMetadata(inventory: NamedInventory): MetadataKeyValue<NamedInventory>(BlockMetadataType.INVENTORY, inventory)
+
 
 
 
