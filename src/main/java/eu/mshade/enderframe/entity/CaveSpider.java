@@ -7,7 +7,6 @@ import java.util.UUID;
 
 public abstract class CaveSpider extends Spider {
 
-
     public CaveSpider(Location location, Vector velocity, int entityId, UUID uuid) {
         super(location, velocity, entityId, uuid, EntityType.CAVE_SPIDER);
     }

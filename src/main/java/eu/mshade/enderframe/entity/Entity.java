@@ -1,9 +1,10 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.metadata.MetadataKey;
-import eu.mshade.enderframe.metadata.MetadataKeyValue;
+import eu.mshade.enderchest.entity.AgeEntityMetadataAdapter;
+import eu.mshade.enderchest.entity.BreedableEntityMetadataAdapter;
+import eu.mshade.enderchest.entity.TameableEntityMetadataAdapter;
+import eu.mshade.enderframe.entity.metadata.AgeEntityMetadata;
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.tick.Tickable;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
@@ -11,14 +12,13 @@ import eu.mshade.enderframe.world.Vector;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-
 /**
  * use uuid for create entityID and not create dynamicly
  */
 
 public abstract class Entity extends Tickable {
 
-    protected Location beforeLocation, location, beforeServerLocation, serverLocation;
+    protected Location beforeLocation, location, tickBeforeLocation, tickLocation;
     protected Vector velocity;
     protected int entityId;
     protected UUID uuid;
@@ -30,8 +30,8 @@ public abstract class Entity extends Tickable {
     public Entity(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
         this.beforeLocation = location.clone();
         this.location = location;
-        this.beforeServerLocation = location.clone();
-        this.serverLocation = location.clone();
+        this.tickBeforeLocation = location.clone();
+        this.tickLocation = location.clone();
         this.velocity = velocity;
         this.entityId = entityId;
         this.uuid = uuid;
@@ -40,6 +40,18 @@ public abstract class Entity extends Tickable {
 
     public Entity(Location location, int entityId, EntityType entityType) {
         this(location, new Vector(), entityId, UUID.randomUUID(), entityType);
+    }
+
+    public void tick() {
+        if (location.equals(tickLocation))
+            return;
+
+        this.tickBeforeLocation = tickLocation.clone();
+        this.tickLocation = location.clone();
+
+        this.watchedEntity.stream().filter(entity -> entity instanceof Player).forEach(player -> {
+            ((Player) player).getMinecraftSession().sendMove(this, tickBeforeLocation, tickLocation);
+        });
     }
 
     public Location getBeforeLocation() {
@@ -55,17 +67,17 @@ public abstract class Entity extends Tickable {
         this.location = location;
     }
 
-    public Location getBeforeServerLocation() {
-        return beforeServerLocation;
+    public Location getTickBeforeLocation() {
+        return tickBeforeLocation;
     }
 
-    public Location getServerLocation() {
-        return serverLocation;
+    public Location getTickLocation() {
+        return tickLocation;
     }
 
-    public void setServerLocation(Location location) {
-        this.beforeServerLocation = this.serverLocation.clone();
-        this.serverLocation = location;
+    public void setTickLocation(Location location) {
+        this.tickBeforeLocation = this.tickLocation.clone();
+        this.tickLocation = location;
     }
 
     public Vector getVelocity() {
@@ -124,5 +136,15 @@ public abstract class Entity extends Tickable {
         return metadataKeyValueBucket;
     }
 
+    public AgeEntityMetadataAdapter toAgeAdapter() {
+        return new AgeEntityMetadataAdapter(this);
+    }
 
+    public BreedableEntityMetadataAdapter toBreedableAdapter() {
+        return new BreedableEntityMetadataAdapter(this);
+    }
+
+    public TameableEntityMetadataAdapter toTameableAdapter() {
+        return new TameableEntityMetadataAdapter(this);
+    }
 }

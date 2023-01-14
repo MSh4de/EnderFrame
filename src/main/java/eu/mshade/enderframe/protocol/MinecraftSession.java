@@ -2,12 +2,15 @@ package eu.mshade.enderframe.protocol;
 
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
+<<<<<<< HEAD:src/main/java/eu/mshade/enderframe/protocol/MinecraftSession.java
 import eu.mshade.enderframe.entity.Player;
+=======
+import eu.mshade.enderframe.entity.metadata.EntityMetadataKey;
+>>>>>>> entities:src/main/java/eu/mshade/enderframe/protocol/SessionWrapper.java
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.inventory.NamedInventory;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
-import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;

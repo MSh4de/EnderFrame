@@ -3,8 +3,12 @@ package eu.mshade.enderframe.protocol;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.mshade.enderframe.EnderFrame;
 import eu.mshade.enderframe.entity.Entity;
+import eu.mshade.enderframe.entity.metadata.EntityMetadataKey;
 import eu.mshade.enderframe.item.ItemStack;
+<<<<<<< HEAD:src/main/java/eu/mshade/enderframe/protocol/MinecraftByteBuf.java
 import eu.mshade.enderframe.metadata.entity.EntityMetadataKey;
+=======
+>>>>>>> entities:src/main/java/eu/mshade/enderframe/protocol/ProtocolBuffer.java
 import eu.mshade.enderframe.world.Vector;
 import eu.mshade.mwork.MWork;
 import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag;

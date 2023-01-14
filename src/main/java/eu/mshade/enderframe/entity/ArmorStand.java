@@ -1,10 +1,6 @@
 package eu.mshade.enderframe.entity;
 
-import eu.mshade.enderframe.entity.metadata.BodyRotationEntityMetadata;
-import eu.mshade.enderframe.entity.metadata.CrouchedEntityMetadata;
-import eu.mshade.enderframe.entity.metadata.HealthEntityMetadata;
 import eu.mshade.enderframe.world.Location;
-import eu.mshade.enderframe.world.Rotation;
 import eu.mshade.enderframe.world.Vector;
 
 import java.util.UUID;
