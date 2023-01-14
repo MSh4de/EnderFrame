@@ -8,7 +8,7 @@ import eu.mshade.mwork.event.EventListener;
 
 import java.net.InetSocketAddress;
 
-public class PacketHandshakeListener implements EventListener<MinecraftPacketInHandshake> {
+public class MinecraftPacketHandshakeListener implements EventListener<MinecraftPacketInHandshake> {
 
     @Override
     public void onEvent(MinecraftPacketInHandshake event) {

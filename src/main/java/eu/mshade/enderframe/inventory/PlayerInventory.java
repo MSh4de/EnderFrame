@@ -1,10 +1,13 @@
 package eu.mshade.enderframe.inventory;
 
+import eu.mshade.enderframe.Agent;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class PlayerInventory extends Inventory {
@@ -60,4 +63,5 @@ public class PlayerInventory extends Inventory {
         }
         return accurateSlot;
     }
+
 }

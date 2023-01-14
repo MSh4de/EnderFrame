@@ -4,11 +4,11 @@ import eu.mshade.enderframe.motd.MotdComponent;
 import eu.mshade.enderframe.protocol.MinecraftPacketOut;
 import eu.mshade.enderframe.protocol.MinecraftByteBuf;
 
-public class MinecraftPacketOutStatus implements MinecraftPacketOut {
+public class MinecraftPacketOutServerStatus implements MinecraftPacketOut {
 
     private final MotdComponent motdComponent;
 
-    public MinecraftPacketOutStatus(MotdComponent motdComponent) {
+    public MinecraftPacketOutServerStatus(MotdComponent motdComponent) {
         this.motdComponent = motdComponent;
     }
 

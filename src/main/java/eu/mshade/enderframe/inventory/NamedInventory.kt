@@ -1,13 +1,8 @@
 package eu.mshade.enderframe.inventory
 
-import eu.mshade.enderframe.Agent
-import eu.mshade.enderframe.UniqueId
-import eu.mshade.enderframe.Watchable
 import eu.mshade.enderframe.item.ItemStack
 import eu.mshade.enderframe.mojang.chat.TextComponent
 import java.util.*
-import java.util.concurrent.ConcurrentLinkedQueue
-import java.util.function.Consumer
 
 open class NamedInventory : Inventory {
 
