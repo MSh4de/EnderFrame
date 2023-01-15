@@ -5,6 +5,8 @@ import eu.mshade.enderframe.metadata.MetadataKeyValue
 //Ageable
 class AgeEntityMetadata(age: Int): MetadataKeyValue<Int>(EntityMetadataKey.AGE, age)
 
+class AgeLockedEntityMetadata(ageLocked: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.AGE_LOCKED, ageLocked)
+
 class ChildEntityMetadata(child: Boolean): MetadataKeyValue<Boolean>(EntityMetadataKey.CHILD, child)
 
 

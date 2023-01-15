@@ -143,16 +143,4 @@ public abstract class Entity extends Tickable {
     }
 
 
-    public AgeEntityMetadataAdapter toAgeAdapter() {
-        return new AgeEntityMetadataAdapter(this);
-    }
-
-    public BreedableEntityMetadataAdapter toBreedableAdapter() {
-        return new BreedableEntityMetadataAdapter(this);
-    }
-
-    public TameableEntityMetadataAdapter toTameableAdapter() {
-        return new TameableEntityMetadataAdapter(this);
-    }
-
 }

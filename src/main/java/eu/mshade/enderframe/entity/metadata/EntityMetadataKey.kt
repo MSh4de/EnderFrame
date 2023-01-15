@@ -42,6 +42,7 @@ object EntityMetadataKey {
 
     //Ageable
     val AGE: MetadataKey = MetadataKey.from("ENTITY_AGE")
+    val AGE_LOCKED: MetadataKey = MetadataKey.from("ENTITY_AGE_LOCKED")
     val CHILD: MetadataKey = MetadataKey.from("ENTITY_CHILD")
 
     //Tameable
