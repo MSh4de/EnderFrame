@@ -1,9 +1,6 @@
 package eu.mshade.enderframe.entity;
 
 
-import eu.mshade.enderchest.entity.AgeEntityMetadataAdapter;
-import eu.mshade.enderchest.entity.BreedableEntityMetadataAdapter;
-import eu.mshade.enderchest.entity.TameableEntityMetadataAdapter;
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
 import eu.mshade.enderframe.tick.Tickable;
 import eu.mshade.enderframe.world.Location;
