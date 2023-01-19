@@ -6,10 +6,6 @@ object VillagerType {
     const val PRIEST = 2
     const val BLACKSMITH = 3
     const val BUTCHER = 4
-
-    init {
-
-    }
 }
 
 object SkeletonType {

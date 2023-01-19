@@ -2,6 +2,7 @@ package eu.mshade.enderframe.world;
 
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.EntityKey;
+import eu.mshade.enderframe.entity.EntityType;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.metadata.MetadataKeyValue;
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
