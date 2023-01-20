@@ -9,7 +9,7 @@ import java.io.File
 abstract class VirtualWorld(worldDirectory: File, metadataKeyValueBucket: MetadataKeyValueBucket): World(worldDirectory, metadataKeyValueBucket){
 
     fun getParentWorld(): World {
-        return metadataKeyValueBucket.getMetadataKeyValue(WorldMetadataType.PARENT, ParentWorldMetadata::class.java).metadataValue
+        return metadataKeyValueBucket.getMetadataKeyValue(WorldMetadataType.PARENT).metadataValue as World
     }
 
     fun setParentWorld(world: World) {

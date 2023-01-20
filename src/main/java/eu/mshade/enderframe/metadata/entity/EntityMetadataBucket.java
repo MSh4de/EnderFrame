@@ -1,11 +1,7 @@
 package eu.mshade.enderframe.metadata.entity;
 
 import eu.mshade.enderframe.entity.Entity;
-<<<<<<< HEAD
-import eu.mshade.enderframe.entity.metadata.EntityMetadataKey;
-=======
 import eu.mshade.enderframe.metadata.MetadataKey;
->>>>>>> rework-entities
 import eu.mshade.enderframe.metadata.MetadataWrapper;
 
 import java.util.Collection;

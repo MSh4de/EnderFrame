@@ -141,4 +141,5 @@ object EntityMetadataKey {
 
     //Wither
     val INVULNERABLE_TIME: MetadataKey = MetadataKey.from("ENTITY_INVULNERABLE_TIME")
+    val HEAD_TARGET: MetadataKey = MetadataKey.from("ENTITY_HEAD_TARGET")
 }

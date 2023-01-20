@@ -1,5 +1,6 @@
 package eu.mshade.enderframe.protocol.temp
 
+import eu.mshade.enderframe.entity.EntityMapper
 import eu.mshade.enderframe.protocol.*
 import eu.mshade.enderframe.protocol.packet.MinecraftPacketOutDisconnect
 import eu.mshade.enderframe.protocol.temp.listener.MinecraftPacketHandshakeListener
@@ -37,12 +38,16 @@ class TempMinecraftProtocol : MinecraftProtocol() {
         return TempMinecraftByteBuf(byteBuf)
     }
 
-    override fun getSessionWrapper(channel: Channel): MinecraftSession {
+    override fun getMinecraftSession(channel: Channel): MinecraftSession {
         return TempMinecraftSession(channel)
     }
 
     override fun getMinecraftProtocolVersion(): MinecraftProtocolVersion {
         return MinecraftProtocolVersion.UNKNOWN
+    }
+
+    override fun getEntityMapper(): EntityMapper {
+        TODO("Not yet implemented")
     }
 
     companion object {

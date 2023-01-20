@@ -2,15 +2,11 @@ package eu.mshade.enderframe.protocol.temp;
 
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
-import eu.mshade.enderframe.entity.metadata.EntityMetadataKey;
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.inventory.NamedInventory;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
-<<<<<<< HEAD:src/main/java/eu/mshade/enderframe/protocol/temp/TempMinecraftSession.java
-=======
 import eu.mshade.enderframe.metadata.MetadataKey;
->>>>>>> rework-entities:src/main/java/eu/mshade/enderframe/protocol/temp/TempSessionWrapper.java
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.particle.Particle;
@@ -23,7 +19,9 @@ import eu.mshade.enderframe.scoreboard.team.Team;
 import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.title.Title;
 import eu.mshade.enderframe.title.TitleAction;
-import eu.mshade.enderframe.world.*;
+import eu.mshade.enderframe.world.Location;
+import eu.mshade.enderframe.world.Vector;
+import eu.mshade.enderframe.world.World;
 import eu.mshade.enderframe.world.block.Block;
 import eu.mshade.enderframe.world.border.WorldBorder;
 import eu.mshade.enderframe.world.border.WorldBorderAction;
@@ -296,6 +294,11 @@ public class TempMinecraftSession extends MinecraftSession {
 
     @Override
     public void sendParticle(Particle particle) {
+
+    }
+
+    @Override
+    public void sendInventoryUpdate(Block block, MetadataKey... metadataKeys) {
 
     }
 }

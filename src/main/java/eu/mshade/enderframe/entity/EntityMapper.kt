@@ -4,11 +4,11 @@ open class EntityMapper {
 
     private val categoryByEntityKey =  mutableMapOf<EntityKey, EntityCategory>()
 
-    fun register(EntityKey: EntityKey, entityCategory: EntityCategory) {
-        this.categoryByEntityKey[EntityKey] = entityCategory
+    fun register(entityKey: EntityKey, entityCategory: EntityCategory) {
+        this.categoryByEntityKey[entityKey] = entityCategory
     }
 
-    fun getCategory(EntityKey: EntityKey): EntityCategory? {
-        return categoryByEntityKey[EntityKey]
+    fun getCategory(entityKey: EntityKey): EntityCategory? {
+        return categoryByEntityKey[entityKey]
     }
 }

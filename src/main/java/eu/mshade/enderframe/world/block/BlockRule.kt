@@ -199,10 +199,8 @@ class VineBlockRule : BlockRule() {
         }
 
         val metadataKeyValueBucket = vineBlock.getMetadataKeyValueBucket()
-        var metadataKeyValue = metadataKeyValueBucket.getMetadataKeyValue(
-            MULTIPLE_FACE,
-            MultipleFaceBlockMetadata::class.java
-        )
+        var metadataKeyValue = metadataKeyValueBucket.getMetadataKeyValue(MULTIPLE_FACE) as? MultipleFaceBlockMetadata
+
         if (metadataKeyValue == null) {
             metadataKeyValue = MultipleFaceBlockMetadata()
             metadataKeyValueBucket.setMetadataKeyValue(metadataKeyValue)

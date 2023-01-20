@@ -110,14 +110,10 @@ public interface MaterialKey {
             return this.id;
         }
 
-<<<<<<< HEAD
+
         public DefaultMaterialKey setId(int id) {
             this.id = id;
             return this;
-=======
-        public void setId(int id) {
-            this.id = id;
->>>>>>> itemstack
         }
 
         @Override

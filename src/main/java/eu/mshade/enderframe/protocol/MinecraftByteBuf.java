@@ -186,6 +186,8 @@ public abstract class MinecraftByteBuf extends ByteBuf {
     }
     public abstract void writeEntityMetadata(Entity entity, MetadataKey... entityMetadataKey);
 
+    public abstract Collection<MetadataKey> getSupportedMetadataKeys(Entity entity);
+
     @Override
     public int capacity() {
         return byteBuf.capacity();
@@ -1152,6 +1154,4 @@ public abstract class MinecraftByteBuf extends ByteBuf {
     public boolean release(int decrement) {
         return byteBuf.release(decrement);
     }
-
-    public abstract Collection<MetadataKey> getSupportedMetadataKeys(Entity entity);
 }

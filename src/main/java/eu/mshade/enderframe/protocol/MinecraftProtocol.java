@@ -1,5 +1,6 @@
 package eu.mshade.enderframe.protocol;
 
+import eu.mshade.enderframe.entity.EntityMapper;
 import eu.mshade.enderframe.world.block.BlockTransformerRepository;
 import eu.mshade.enderframe.wrapper.WrapperRepository;
 import eu.mshade.mwork.event.EventBus;
@@ -15,7 +16,7 @@ public abstract class MinecraftProtocol {
 
     public abstract MinecraftByteBuf getProtocolBuffer(ByteBuf byteBuf);
 
-    public abstract MinecraftSession getSessionWrapper(Channel channel);
+    public abstract MinecraftSession getMinecraftSession(Channel channel);
 
     public MinecraftPacketRegistry getProtocolRegistry(){
         return minecraftPacketRegistry;
@@ -34,5 +35,7 @@ public abstract class MinecraftProtocol {
     public BlockTransformerRepository getBlockTransformerRepository(){
         return blockTransformerRepository;
     }
+
+    public abstract EntityMapper getEntityMapper();
 
 }
