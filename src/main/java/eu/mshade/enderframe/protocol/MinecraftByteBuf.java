@@ -171,7 +171,7 @@ public abstract class MinecraftByteBuf extends ByteBuf {
 
     public void writeValueAsString(Object o){
         try {
-            String s = MWork.get().getObjectMapper().writeValueAsString(o);
+            String s = MWork.INSTANCE.getObjectMapper().writeValueAsString(o);
             this.writeString(s);
         }catch (JsonProcessingException e){
             LOGGER.error(e.getMessage(), e);
