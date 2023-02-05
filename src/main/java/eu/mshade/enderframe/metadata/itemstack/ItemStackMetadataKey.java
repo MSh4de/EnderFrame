@@ -43,6 +43,14 @@ public class ItemStackMetadataKey  {
      * FIREWORK SECTION
      */
 
-    ;
+    public static MetadataKey EXPLOSION = MetadataKey.from("EXPLOSION");
+    public static MetadataKey FIREWORKS = MetadataKey.from("FIREWORKS");
+
+    /**
+     * Maps
+     */
+
+    public static MetadataKey MAP_IS_SCALING = MetadataKey.from("MAP_IS_SCALING");
+    public static MetadataKey DECORATIONS = MetadataKey.from("DECORATIONS");
 
 }

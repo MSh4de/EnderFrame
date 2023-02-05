@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.metadata.entity;
 
 import eu.mshade.enderframe.entity.Entity;
+import eu.mshade.enderframe.metadata.MetadataKey;
 import eu.mshade.enderframe.metadata.MetadataWrapper;
 
 import java.util.Collection;
@@ -9,26 +10,26 @@ import java.util.Map;
 
 public abstract class EntityMetadataBucket {
 
-    private final Map<EntityMetadataKey, MetadataWrapper<?>> entityMetadataBufferByType = new HashMap<>();
-    private final Map<EntityMetadataKey, Integer> indexEntityMetadataByType = new HashMap<>();
+    private final Map<MetadataKey, MetadataWrapper<?>> entityMetadataBufferByType = new HashMap<>();
+    private final Map<MetadataKey, Integer> indexEntityMetadataByType = new HashMap<>();
 
 
-    public <T extends Entity> void registerEntityMetadata(int index, MetadataWrapper<T> metadataWrapper, EntityMetadataKey... entityMetadataKeys){
-        for (EntityMetadataKey entityMetadataKey : entityMetadataKeys) {
-            this.entityMetadataBufferByType.put(entityMetadataKey, metadataWrapper);
-            this.indexEntityMetadataByType.put(entityMetadataKey, index);
+    public <T extends Entity> void registerEntityMetadata(int index, MetadataWrapper<T> metadataWrapper, MetadataKey... entityMetadataKeys){
+        for (MetadataKey metadataKey : entityMetadataKeys) {
+            this.entityMetadataBufferByType.put(metadataKey, metadataWrapper);
+            this.indexEntityMetadataByType.put(metadataKey, index);
         }
     }
 
-    public int getIndexEntityMetadata(EntityMetadataKey entityMetadataKey){
+    public int getIndexEntityMetadata(MetadataKey entityMetadataKey){
         return this.indexEntityMetadataByType.get(entityMetadataKey);
     }
 
-    public MetadataWrapper getEntityMetadataBuffer(EntityMetadataKey entityMetadataKey){
+    public MetadataWrapper getEntityMetadataWrapper(MetadataKey entityMetadataKey){
         return this.entityMetadataBufferByType.get(entityMetadataKey);
     }
 
-    public Collection<EntityMetadataKey> getEntityMetadataTypes(){
+    public Collection<MetadataKey> getEntityMetadataTypes(){
         return this.entityMetadataBufferByType.keySet();
     }
 }

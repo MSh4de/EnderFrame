@@ -10,7 +10,7 @@ public class ChunkUnloadEvent extends EnderFrameEvent {
         this.chunk = chunk;
     }
 
-    public Chunk getChunkBuffer() {
+    public Chunk getChunk() {
         return chunk;
     }
 

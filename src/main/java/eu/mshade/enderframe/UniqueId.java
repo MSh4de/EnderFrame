@@ -1,12 +1,13 @@
 package eu.mshade.enderframe;
 
+
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class UniqueId {
+public class UniqueId implements Cloneable {
 
     private final Queue<Integer> freeId = new ConcurrentLinkedQueue<>();
     private final AtomicInteger atomicId;
@@ -38,5 +39,14 @@ public class UniqueId {
 
     public Queue<Integer> getFreeIdQueue() {
         return freeId;
+    }
+
+    @Override
+    public UniqueId clone() {
+        try {
+            return (UniqueId) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

@@ -117,6 +117,10 @@ public class Location implements Cloneable {
         return Math.abs(x - location.getX()) + Math.abs(y - location.getY()) + Math.abs(z - location.getZ());
     }
 
+    public double distance(Vector vector){
+        return Math.abs(x - vector.getX()) + Math.abs(y - vector.getY()) + Math.abs(z - vector.getZ());
+    }
+
     public double distanceXZ(Location location){
         return Math.abs(x - location.getX()) + Math.abs(z - location.getZ());
     }

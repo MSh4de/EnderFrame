@@ -1,7 +1,4 @@
 
-import eu.mshade.enderframe.world.chunk.Chunk;
-
-
 public class TestTrackerMetadata {
 
     public static void main(String[] args) {

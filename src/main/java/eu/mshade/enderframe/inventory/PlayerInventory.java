@@ -1,15 +1,19 @@
 package eu.mshade.enderframe.inventory;
 
+import eu.mshade.enderframe.Agent;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class PlayerInventory extends Inventory {
 
-    public PlayerInventory() {
-        super(TextComponent.of(""), InventoryType.PLAYER);
+    public PlayerInventory(UUID uniqueId) {
+        super(InventoryType.PLAYER, uniqueId);
     }
 
     @Override
@@ -29,16 +33,12 @@ public class PlayerInventory extends Inventory {
 
     @Override
     public int findFirstEmptySlot() {
-        for (int i = 0; i < 9*4; i++) {
-            ItemStack itemStack = getItemStack(i);
-            if (itemStack == null) return i;
-        }
-        return -1;
+        return findFirstEmptySlot(0);
     }
 
     @Override
-    public int findFirstEmptySlot(int start) {
-        for (int i = start; i < 9*4; i++) {
+    public int findFirstEmptySlot(int offset) {
+        for (int i = offset; i < 9*4; i++) {
             ItemStack itemStack = getItemStack(i);
             if (itemStack == null) return i;
         }
@@ -53,6 +53,15 @@ public class PlayerInventory extends Inventory {
             return 44 - index;
         }
         return index;
+    }
+
+    public static int indexFromAccurateSlot(int accurateSlot) {
+        if (accurateSlot <= 44 && accurateSlot >= 36) {
+            return 8 - (44 - accurateSlot);
+        } else if (accurateSlot <= 8) {
+            return 44 - accurateSlot;
+        }
+        return accurateSlot;
     }
 
 }

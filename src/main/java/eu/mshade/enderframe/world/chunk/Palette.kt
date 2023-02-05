@@ -2,11 +2,11 @@ package eu.mshade.enderframe.world.chunk
 
 import eu.mshade.enderframe.world.block.Block
 
-class Palette {
+class Palette: Cloneable{
 
     val blockById = mutableMapOf<Int, Block>()
-    val idByBlock = mutableMapOf<Block, Int>()
-    val countBlock = mutableMapOf<Int, Int>();
+    private val idByBlock = mutableMapOf<Block, Int>()
+    private val countBlock = mutableMapOf<Int, Int>();
 
     fun setBlock(id: Int, block: Block) {
         blockById[id] = block
@@ -55,9 +55,18 @@ class Palette {
         return blockById.values
     }
 
+    public override fun clone(): Palette {
+        val palette = Palette()
+        for (id in blockById.keys) {
+            palette.setBlock(id, countBlock[id]!!, blockById[id]!!.clone())
+        }
+        return palette
+    }
+
     override fun toString(): String {
         return "Palette(idByBlock=$idByBlock)"
     }
+
 
 
 }

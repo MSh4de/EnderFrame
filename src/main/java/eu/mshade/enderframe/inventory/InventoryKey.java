@@ -6,30 +6,39 @@ import java.util.Objects;
 
 public interface InventoryKey {
 
+    int getId();
+
     String getName();
 
     int getDefaultSlot();
 
-    static InventoryKey from(String name, int slot){
-        return new DefaultInventoryKey(name, slot);
+    static InventoryKey from(int id, String name, int slot){
+        return new DefaultInventoryKey(id, name, slot);
     }
 
-    static InventoryKey from(NamespacedKey namespacedKey, int slot){
-        return new DefaultInventoryKey(namespacedKey.toString(), slot);
+    static InventoryKey from(int id, NamespacedKey namespacedKey, int slot){
+        return new DefaultInventoryKey(id, namespacedKey.toString(), slot);
     }
 
-    static InventoryKey from(String name){
-        return new DefaultInventoryKey(name, -1);
+    static InventoryKey from(int id, String name){
+        return new DefaultInventoryKey(id, name, -1);
     }
 
     class DefaultInventoryKey implements InventoryKey{
 
         private String name;
         private int slot;
+        private int id;
 
-        public DefaultInventoryKey(String name, int slot) {
+        public DefaultInventoryKey(int id, String name, int slot) {
             this.name = name;
+            this.id = id;
             this.slot = slot;
+        }
+
+        @Override
+        public int getId() {
+            return this.id;
         }
 
         @Override

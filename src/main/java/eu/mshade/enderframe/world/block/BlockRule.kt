@@ -3,8 +3,10 @@ package eu.mshade.enderframe.world.block
 import eu.mshade.enderframe.item.Material
 import eu.mshade.enderframe.item.MaterialCategoryKey
 import eu.mshade.enderframe.item.MaterialKey
+import eu.mshade.enderframe.metadata.MetadataKeyValueBucket
 import eu.mshade.enderframe.world.Location
 import eu.mshade.enderframe.world.Vector
+import eu.mshade.enderframe.world.block.BlockMetadataType.MULTIPLE_FACE
 
 abstract class BlockRule {
 
@@ -118,7 +120,7 @@ class SlabBlockRule : BlockRule() {
 
     init {
         //register slab to double slab
-        slabToDoubleSlab[Material.STONE_SLAB] = Material.DOUBLE_STONE_SLAB
+/*        slabToDoubleSlab[Material.STONE_SLAB] = Material.DOUBLE_STONE_SLAB
         slabToDoubleSlab[Material.SANDSTONE_SLAB] = Material.DOUBLE_SANDSTONE_SLAB
         slabToDoubleSlab[Material.COBBLESTONE_SLAB] = Material.DOUBLE_COBBLESTONE_SLAB
         slabToDoubleSlab[Material.BRICK_SLAB] = Material.DOUBLE_BRICK_SLAB
@@ -133,7 +135,7 @@ class SlabBlockRule : BlockRule() {
         slabToDoubleSlab[Material.DARK_OAK_SLAB] = Material.DOUBLE_DARK_OAK_SLAB
         slabToDoubleSlab[Material.PURPUR_SLAB] = Material.DOUBLE_PURPUR_SLAB
         slabToDoubleSlab[Material.PRISMARINE_SLAB] = Material.DOUBLE_PRISMARINE_SLAB
-        slabToDoubleSlab[Material.PRISMARINE_BRICK_SLAB] = Material.DOUBLE_PRISMARINE_BRICK_SLAB
+        slabToDoubleSlab[Material.PRISMARINE_BRICK_SLAB] = Material.DOUBLE_PRISMARINE_BRICK_SLAB*/
 
     }
 
@@ -143,14 +145,14 @@ class SlabBlockRule : BlockRule() {
         blockFace: BlockFace,
         cursorPosition: Vector,
         block: Block
-    ): Block? {
+    ): Block {
         val metadataKeyValueBucket = block.getMetadataKeyValueBucket()
 
-        var blockHalf = BlockHalf.fromY(cursorPosition.y)
-        if (blockFace == BlockFace.UP) blockHalf = BlockHalf.TOP
-        else if (blockFace == BlockFace.DOWN) blockHalf = BlockHalf.BOTTOM
+        var slabType: SlabType? = null
+        if (blockFace == BlockFace.UP) slabType = SlabType.TOP
+        else if (blockFace == BlockFace.DOWN) slabType = SlabType.BOTTOM
 
-        metadataKeyValueBucket.setMetadataKeyValue(HalfBlockMetadata(blockHalf))
+        metadataKeyValueBucket.setMetadataKeyValue(SlabTypeBlockMetadata(slabType!!))
 
         val oppositeBlock = pov.world.getBlock(blockPosition.clone().add(blockFace.oppositeFace.vector))
         val previousBlock = pov.world.getBlock(blockPosition)
@@ -158,23 +160,54 @@ class SlabBlockRule : BlockRule() {
         if ((blockFace == BlockFace.UP || blockFace == BlockFace.DOWN)) {
             if (oppositeBlock.getMaterialKey() == block.getMaterialKey()) {
                 blockPosition.add(blockFace.oppositeFace.vector)
-                return Block(slabToDoubleSlab[block.getMaterialKey()]!!)
+                metadataKeyValueBucket.setMetadataKeyValue(SlabTypeBlockMetadata(SlabType.DOUBLE))
             }else {
                 if (previousBlock.getMaterialKey() == block.getMaterialKey()) {
-                    return Block(slabToDoubleSlab[block.getMaterialKey()]!!)
+                    metadataKeyValueBucket.setMetadataKeyValue(SlabTypeBlockMetadata(SlabType.DOUBLE))
                 }else {
-                    metadataKeyValueBucket.setMetadataKeyValue(HalfBlockMetadata(BlockHalf.BOTTOM))
-                    return block
+                    metadataKeyValueBucket.setMetadataKeyValue(SlabTypeBlockMetadata(SlabType.BOTTOM))
                 }
             }
         }else if (previousBlock.getMaterialKey() == block.getMaterialKey()) {
-            return Block(slabToDoubleSlab[block.getMaterialKey()]!!)
+            metadataKeyValueBucket.setMetadataKeyValue(SlabTypeBlockMetadata(SlabType.DOUBLE))
         }
 
         if (previousBlock.getMaterialKey() == Material.AIR) return block
 
-        return null
+        return block
     }
 
+
+}
+
+class VineBlockRule : BlockRule() {
+
+    override fun apply(
+        pov: Location,
+        blockPosition: Vector,
+        blockFace: BlockFace,
+        cursorPosition: Vector,
+        block: Block
+    ): Block {
+        val previousBlock = pov.world.getBlock(blockPosition)
+
+        val vineBlock : Block = if (previousBlock.getMaterialKey() == Material.VINE){
+            previousBlock
+        }else {
+            block
+        }
+
+        val metadataKeyValueBucket = vineBlock.getMetadataKeyValueBucket()
+        var metadataKeyValue = metadataKeyValueBucket.getMetadataKeyValue(MULTIPLE_FACE) as? MultipleFaceBlockMetadata
+
+        if (metadataKeyValue == null) {
+            metadataKeyValue = MultipleFaceBlockMetadata()
+            metadataKeyValueBucket.setMetadataKeyValue(metadataKeyValue)
+        }
+
+        metadataKeyValue.metadataValue.add(blockFace)
+
+        return vineBlock
+    }
 
 }

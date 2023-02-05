@@ -1,8 +1,5 @@
 package eu.mshade.enderframe;
 
-import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.protocol.SessionWrapper;
-
 import java.util.Collection;
 import java.util.function.Consumer;
 
@@ -12,10 +9,16 @@ public interface Watchable {
 
     void removeWatcher(Agent agent);
 
-    Collection<Agent> getWatching();
-
     boolean isWatching(Agent agent);
 
-    void notify(Consumer<Agent> sessionWrapperConsumer);
+    Collection<Agent> getWatchers();
+
+    void notify(Consumer<Agent> agent);
+
+    default <T extends Agent> void notify(Class<T> agentClass, Consumer<T> agent){
+        for (Agent a : getWatchers()) {
+            if (agentClass.isInstance(a)) agent.accept((T) a);
+        }
+    }
 
 }

@@ -24,7 +24,7 @@ public class SoundEffect {
     }
 
     public void createSound(Player player) {
-        player.getSessionWrapper().sendSoundEffect(this);
+        player.getMinecraftSession().sendSoundEffect(this);
     }
 
     public String getSoundName() {

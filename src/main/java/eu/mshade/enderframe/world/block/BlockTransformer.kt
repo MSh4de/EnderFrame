@@ -1,5 +1,6 @@
 package eu.mshade.enderframe.world.block
 
+import eu.mshade.enderframe.item.MaterialCategory
 import eu.mshade.enderframe.item.MaterialCategoryKey
 import eu.mshade.enderframe.item.MaterialKey
 import eu.mshade.enderframe.wrapper.Wrapper
@@ -10,39 +11,32 @@ abstract class BlockTransformer {
 
     abstract fun transform(materialKey: MaterialKey, materialWrapper: Wrapper<MaterialKey, MaterialKey>): Block?
 
+    abstract fun getTag(): MaterialCategoryKey
+
 }
 
-class BlockTransformerRepository {
+class BlockTransformerController(private val materialWrapper: Wrapper<MaterialKey, MaterialKey>) {
 
     private val transformerByMaterialKey = mutableMapOf<MaterialCategoryKey, BlockTransformer>()
-    private lateinit var defaultTransformer: BlockTransformer;
-    private lateinit var materialWrapper: Wrapper<MaterialKey, MaterialKey>;
 
-    fun registerDefaultTransformer(transformer: BlockTransformer) {
-        defaultTransformer = transformer
-    }
-
-    fun registerMaterialWrapper(materialWrapper: Wrapper<MaterialKey, MaterialKey>) {
-        this.materialWrapper = materialWrapper
-    }
-
-    fun register(materialCategoryKey: MaterialCategoryKey, blockTransformer: BlockTransformer) {
-        transformerByMaterialKey[materialCategoryKey] = blockTransformer
+    fun register(blockTransformer: BlockTransformer) {
+        transformerByMaterialKey[blockTransformer.getTag()] = blockTransformer
     }
 
     //server side
-    fun transform(block: Block): MaterialKey {
+    fun transform(block: Block): MaterialKey? {
         val materialKey = block.getMaterialKey()
-        val blockTransformer = transformerByMaterialKey.getOrDefault(materialKey.materialCategoryKey, defaultTransformer)
-        return blockTransformer.transform(block, materialWrapper)
+        val blockTransformer = transformerByMaterialKey[materialKey.tag] ?: transformerByMaterialKey[MaterialCategory.DEFAULT]
+        return blockTransformer?.transform(block, materialWrapper)
     }
 
     //client side
     fun reverse(materialKey: MaterialKey): Block? {
-        val materialCategoryKey = materialWrapper.reverse(MaterialKey.from(materialKey.id))?.materialCategoryKey
-        val blockTransformer = transformerByMaterialKey.getOrDefault(materialCategoryKey, defaultTransformer)
-        return blockTransformer.transform(materialKey, materialWrapper)
+        val reverseMaterial = materialWrapper.reverseMap(MaterialKey.from(materialKey.id))?: return null
+        val blockTransformer = transformerByMaterialKey[reverseMaterial.tag] ?: transformerByMaterialKey[MaterialCategory.DEFAULT]
+        return blockTransformer?.transform(materialKey, materialWrapper)
     }
+
 
 }
 

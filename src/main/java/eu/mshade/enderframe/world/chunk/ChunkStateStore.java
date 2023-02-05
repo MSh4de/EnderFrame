@@ -11,8 +11,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class ChunkStateStore {
 
-    protected ChunkStatus chunkStatus;
-    protected ChunkStatus lastChunkStatus;
+    protected ChunkStatus chunkStatus = ChunkStatus.PREPARE_TO_LOAD;
+    protected ChunkStatus lastChunkStatus = chunkStatus;
     protected Map<ChunkStatus, Long> trackedTime = new ConcurrentHashMap<>();
     protected AtomicBoolean inChunkSafeguard = new AtomicBoolean(false);
     protected AtomicLong lastInteract = new AtomicLong(System.currentTimeMillis());
@@ -21,8 +21,6 @@ public class ChunkStateStore {
     protected AtomicBoolean autoSave = new AtomicBoolean(true);
 
     public ChunkStateStore() {
-        this.chunkStatus = ChunkStatus.PREPARE_TO_LOAD;
-        this.lastChunkStatus = chunkStatus;
         this.trackedTime.put(chunkStatus, System.currentTimeMillis());
     }
 

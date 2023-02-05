@@ -19,7 +19,7 @@ public class ChatColor {
     /**
      * Colour instances keyed by their active character.
      */
-    private static final Map<Character, ChatColor> BY_CHAR = new HashMap<>();
+    private static final Map<String, ChatColor> BY_CHAR = new HashMap<>();
     /**
      * Colour instances keyed by their name.
      */
@@ -123,6 +123,7 @@ public class ChatColor {
     private final String name;
     private final int ordinal;
     private final Color color;
+    private String code;
 
     private ChatColor(char code, String name) {
         this(code, name, null);
@@ -130,6 +131,7 @@ public class ChatColor {
 
     private ChatColor(char code, String name, Color color) {
         this.name = name;
+        this.code = String.valueOf(code);
         this.toString = new String(new char[]
                 {
                         COLOR_CHAR, code
@@ -137,7 +139,7 @@ public class ChatColor {
         this.ordinal = count++;
         this.color = color;
 
-        BY_CHAR.put(code, this);
+        BY_CHAR.put(String.valueOf(code), this);
         BY_NAME.put(name.toUpperCase(Locale.ROOT), this);
     }
 
@@ -148,12 +150,20 @@ public class ChatColor {
         this.color = new Color(rgb);
     }
 
+    public int getOrdinal() {
+        return ordinal;
+    }
+
     public String getName() {
         return name;
     }
 
     public Color getColor() {
         return color;
+    }
+
+    public String getCode() {
+        return code;
     }
 
     @Override
@@ -212,7 +222,7 @@ public class ChatColor {
      * @param code the code to search for
      * @return the mapped colour, or null if non exists
      */
-    public static ChatColor getByChar(char code) {
+    public static ChatColor getByChar(String code) {
         return BY_CHAR.get(code);
     }
 
@@ -291,6 +301,11 @@ public class ChatColor {
     @Deprecated
     public int ordinal() {
         return ordinal;
+    }
+
+
+    public static ChatColor fromName(String name) {
+        return BY_NAME.get(name.toUpperCase(Locale.ROOT));
     }
 
 }

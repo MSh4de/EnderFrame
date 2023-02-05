@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class MetadataKeyValueBucket implements PrettyString {
+public class MetadataKeyValueBucket implements PrettyString, Cloneable {
 
     protected final Map<MetadataKey, MetadataKeyValue<?>> metadataKeyValueByMetadataKey = new HashMap<>();
     protected final Set<MetadataKey> metadataKeyUpdated = new HashSet<>();
@@ -16,7 +16,7 @@ public class MetadataKeyValueBucket implements PrettyString {
     }
 
     public MetadataKeyValueBucket() {
-        this(true);
+        this(false);
     }
 
     public void setMetadataKeyValue(MetadataKeyValue<?> entityMetadata){
@@ -28,31 +28,26 @@ public class MetadataKeyValueBucket implements PrettyString {
         return this.metadataKeyValueByMetadataKey.containsKey(metadataKey);
     }
 
-    public <T> MetadataKeyValue<T> getMetadataKeyValueOrDefault(MetadataKey metadataKey, MetadataKeyValue<T> t){
-        return (MetadataKeyValue<T>) this.metadataKeyValueByMetadataKey.getOrDefault(metadataKey, t);
+    public MetadataKeyValue<?> getMetadataKeyValue(MetadataKey metadataKey){
+        return this.metadataKeyValueByMetadataKey.get(metadataKey);
     }
 
-    public <T extends MetadataKeyValue<?>> T getMetadataKeyValue(MetadataKey metadataKey, Class<T> type){
-        MetadataKeyValue<?> metadataKeyValue = this.metadataKeyValueByMetadataKey.get(metadataKey);
-        if (metadataKeyValue == null) return null;
-        return type.cast(metadataKeyValue);
-    }
-
-    public <T> T getValueOfMetadataKeyValue(MetadataKey metadataKey, Class<T> type){
-        MetadataKeyValue<?> metadataKeyValue = this.metadataKeyValueByMetadataKey.get(metadataKey);
-        if (metadataKeyValue == null) return null;
-        return type.cast(metadataKeyValue.getMetadataValue());
-    }
-
-
-    public Collection<MetadataKeyValue<?>> getMetadataKeyValues(){
+    public Collection<MetadataKeyValue<?>> getMetadataKeyValues() {
         return this.metadataKeyValueByMetadataKey.values();
+    }
+
+    public Collection<MetadataKey> getMetadataKeys() {
+        return this.metadataKeyValueByMetadataKey.keySet();
     }
 
     public Collection<MetadataKey> consumeUpdatedMetadataKeyValue(){
         Set<MetadataKey> copy = new HashSet<>(this.metadataKeyUpdated);
         this.metadataKeyUpdated.clear();
         return copy;
+    }
+
+    public boolean visitModified(){
+        return !consumeUpdatedMetadataKeyValue().isEmpty();
     }
 
     public void clear(){
@@ -89,6 +84,7 @@ public class MetadataKeyValueBucket implements PrettyString {
     }
 
 
+
     @NotNull
     @Override
     public String toPrettyString(int deep) {
@@ -111,4 +107,19 @@ public class MetadataKeyValueBucket implements PrettyString {
     }
 
 
+    @NotNull
+    @Override
+    public String toPrettyString() {
+        return toPrettyString(0);
+    }
+
+    @Override
+    public MetadataKeyValueBucket clone()  {
+        try {
+            return (MetadataKeyValueBucket) super.clone();
+        }catch (CloneNotSupportedException e){
+            throw new RuntimeException(e);
+        }
+    }
 }
+

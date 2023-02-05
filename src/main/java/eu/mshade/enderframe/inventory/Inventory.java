@@ -1,37 +1,34 @@
 package eu.mshade.enderframe.inventory;
 
+import eu.mshade.enderframe.Agent;
+import eu.mshade.enderframe.Watchable;
 import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.Material;
 import eu.mshade.enderframe.item.MaterialKey;
-import eu.mshade.enderframe.mojang.chat.TextComponent;
+import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
 
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class Inventory {
+public abstract class Inventory implements Watchable {
 
-    protected TextComponent textComponent;
     protected InventoryKey inventoryKey;
     protected ItemStack[] itemStacks;
+    protected UUID uniqueId;
+    protected List<Integer> updateSlots = new ArrayList<>();
+    protected Queue<Agent> agents = new ConcurrentLinkedQueue<>();
 
-    public Inventory(TextComponent textComponent, InventoryKey inventoryKey, ItemStack[] itemStacks) {
-        this.textComponent = textComponent;
+    public Inventory(InventoryKey inventoryKey, ItemStack[] itemStacks, UUID uniqueId) {
         this.inventoryKey = inventoryKey;
+        this.uniqueId = uniqueId;
         this.itemStacks = itemStacks;
+        InventoryRepository.INSTANCE.add(this);
     }
 
-    public Inventory(TextComponent textComponent, InventoryKey inventoryKey) {
-        this(textComponent, inventoryKey, new ItemStack[inventoryKey.getDefaultSlot()]);
-    }
-
-    public Inventory(String name, InventoryKey inventoryKey) {
-        this(TextComponent.of(name), inventoryKey);
-    }
-
-    public Inventory(String name, InventoryKey inventoryKey, ItemStack[] itemStacks) {
-        this(TextComponent.of(name), inventoryKey, itemStacks);
-    }
-    public TextComponent getTextComponent() {
-        return textComponent;
+    public Inventory(InventoryKey inventoryKey, UUID uniqueId) {
+        this(inventoryKey, new ItemStack[inventoryKey.getDefaultSlot()], uniqueId);
     }
 
     public InventoryKey getInventoryKey() {
@@ -39,12 +36,15 @@ public class Inventory {
     }
 
     public void setItemStack(int slot, ItemStack itemStack) {
-        if (itemStack != null && !itemStack.getMaterial().equals(Material.AIR)) this.itemStacks[slot] = itemStack;
+        if (itemStack != null && itemStack.getMaterial() != null && !itemStack.getMaterial().equals(Material.AIR)) this.itemStacks[slot] = itemStack;
         else this.itemStacks[slot] = null;
+        updateSlots.add(slot);
     }
+
 
     public void deleteItemStack(int slot){
         this.itemStacks[slot] = null;
+        updateSlots.add(slot);
     }
 
     public ItemStack getItemStack(int slot){
@@ -56,15 +56,11 @@ public class Inventory {
     }
 
     public int findFirstEmptySlot(){
-        for (int i = 0; i < itemStacks.length; i++) {
-            ItemStack itemStack = getItemStack(i);
-            if (itemStack == null) return i;
-        }
-        return -1;
+        return findFirstEmptySlot(0);
     }
 
-    public int findFirstEmptySlot(int start){
-        for (int i = start; i < itemStacks.length; i++) {
+    public int findFirstEmptySlot(int offset){
+        for (int i = offset; i < itemStacks.length; i++) {
             ItemStack itemStack = getItemStack(i);
             if (itemStack == null) return i;
         }
@@ -75,8 +71,8 @@ public class Inventory {
         return findItemStack(0, materialKey, filter);
     }
 
-    public ItemStack findItemStack(int start, MaterialKey materialKey, Function<ItemStack, Boolean> filter){
-        for (int i = start; i < itemStacks.length; i++) {
+    public ItemStack findItemStack(int offset, MaterialKey materialKey, Function<ItemStack, Boolean> filter){
+        for (int i = offset; i < itemStacks.length; i++) {
             ItemStack itemStack = getItemStack(i);
             if (itemStack == null || !itemStack.getMaterial().equals(materialKey)) continue;
             if (filter.apply(itemStack)) {
@@ -91,11 +87,48 @@ public class Inventory {
         return itemStacks.length;
     }
 
+    public int getRows() {
+        return getSize() / 9;
+    }
+
+    public void fill(ItemStack[] itemStacks) {
+        for (int i = 0; i < itemStacks.length; i++) {
+            setItemStack(i, itemStacks[i]);
+        }
+    }
+
+    public UUID getUniqueId() {
+        return uniqueId;
+    }
+
+    public Collection<Integer> visitUpdateSlots() {
+        Collection<Integer> updateSlots = new ArrayList<>(this.updateSlots);
+        this.updateSlots.clear();
+        return updateSlots;
+    }
+
     @Override
-    public String toString() {
-        return "Inventory{" +
-                "textComponent=" + textComponent +
-                ", inventoryKey=" + inventoryKey +
-                '}';
+    public void addWatcher(Agent agent) {
+        agents.add(agent);
+    }
+
+    @Override
+    public void removeWatcher(Agent agent) {
+        agents.remove(agent);
+    }
+
+    @Override
+    public Collection<Agent> getWatchers() {
+        return agents;
+    }
+
+    @Override
+    public boolean isWatching(Agent agent) {
+        return agents.contains(agent);
+    }
+
+    @Override
+    public void notify(Consumer<Agent> agent) {
+        agents.forEach(agent);
     }
 }

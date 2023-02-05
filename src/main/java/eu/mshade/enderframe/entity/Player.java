@@ -3,27 +3,28 @@ package eu.mshade.enderframe.entity;
 import eu.mshade.enderframe.Agent;
 import eu.mshade.enderframe.GameMode;
 import eu.mshade.enderframe.inventory.Inventory;
-import eu.mshade.enderframe.inventory.InventoryBufferStore;
+import eu.mshade.enderframe.inventory.InventoryClickStore;
+import eu.mshade.enderframe.inventory.NamedInventory;
 import eu.mshade.enderframe.inventory.PlayerInventory;
 import eu.mshade.enderframe.mojang.GameProfile;
 import eu.mshade.enderframe.protocol.MinecraftProtocolVersion;
-import eu.mshade.enderframe.protocol.SessionWrapper;
+import eu.mshade.enderframe.protocol.MinecraftSession;
 import eu.mshade.enderframe.scoreboard.Scoreboard;
+import eu.mshade.enderframe.world.World;
 import eu.mshade.enderframe.world.chunk.Chunk;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 import eu.mshade.enderframe.world.border.WorldBorder;
 
-import java.net.SocketAddress;
+import java.net.InetSocketAddress;
 import java.util.Collection;
 import java.util.Queue;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class Player extends LivingEntity implements ProjectileSource, Agent {
+public abstract class Player extends Entity implements Agent {
 
-
-    protected SocketAddress socketAddress;
+    protected InetSocketAddress inetSocketAddress;
     protected MinecraftProtocolVersion minecraftProtocolVersion;
     protected int ping;
     protected String displayName;
@@ -36,47 +37,46 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
     protected float flyingSpeed;
     protected float walkSpeed;
     protected boolean sneaking;
-    protected PlayerInventory playerInventory = new PlayerInventory();
+    protected PlayerInventory playerInventory;
     protected Inventory openedInventory;
     protected Queue<Chunk> lookAtChunks = new ConcurrentLinkedQueue<>();
-    protected InventoryBufferStore inventoryBufferStore = new InventoryBufferStore();
+    protected InventoryClickStore inventoryClickStore = new InventoryClickStore();
     protected Queue<Scoreboard> lookAtScoreboard = new ConcurrentLinkedQueue<>();
     protected Queue<WorldBorder> lookAtWorldBorders = new ConcurrentLinkedQueue<>();
 
-    public Player(Location location, Vector velocity, int entityId, UUID uuid, EntityType entityType) {
-        super(location, velocity, entityId, uuid, entityType);
+    public Player(Location location, Vector velocity, int entityId, UUID uuid, EntityKey entityKey) {
+        super(location, velocity, entityId, uuid, entityKey);
     }
 
-    public Player(Location location, int entityId, EntityType entityType) {
-        super(location, entityId, entityType);
+    public Player(Location location, int entityId, EntityKey entityKey) {
+        super(location, entityId, entityKey);
     }
 
     public Player(Location location, Vector velocity, int entityId, UUID uuid) {
-        super(location, velocity, entityId, uuid, EntityType.PLAYER);
+        super(location, velocity, entityId, uuid, EntityType.INSTANCE.getPLAYER());
     }
 
     public Player(Location location, int entityId) {
-        super(location, entityId, EntityType.PLAYER);
+        super(location, entityId, EntityType.INSTANCE.getPLAYER());
     }
-
 
     public String getName(){
         return getGameProfile().getName();
     }
 
-    public SocketAddress getSocketAddress(){
-        return this.socketAddress;
+    public InetSocketAddress getInetSocketAddress(){
+        return this.inetSocketAddress;
     }
 
-    public void setSocketAddress(SocketAddress socketAddress){
-        this.socketAddress = socketAddress;
+    public void setInetSocketAddress(InetSocketAddress inetSocketAddress){
+        this.inetSocketAddress = inetSocketAddress;
     }
 
     public void setMinecraftProtocolVersion(MinecraftProtocolVersion minecraftProtocolVersion) {
         this.minecraftProtocolVersion = minecraftProtocolVersion;
     }
 
-    public MinecraftProtocolVersion getProtocolVersion(){
+    public MinecraftProtocolVersion getMinecraftProtocolVersion(){
         return this.minecraftProtocolVersion;
     }
 
@@ -188,8 +188,17 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
         this.openedInventory = openedInventory;
     }
 
-    public InventoryBufferStore getInventoryBufferStore() {
-        return inventoryBufferStore;
+    public void openInventory(NamedInventory inventory){
+        setOpenedInventory(inventory);
+        getMinecraftSession().sendOpenInventory(inventory);
+        getMinecraftSession().sendItemStacks(inventory);
+        inventory.addWatcher(this);
+    }
+
+
+
+    public InventoryClickStore getInventoryBufferStore() {
+        return inventoryClickStore;
     }
 
     public Collection<Scoreboard> getLookAtScoreboard() {
@@ -204,6 +213,9 @@ public abstract class Player extends LivingEntity implements ProjectileSource, A
         return this.lookAtWorldBorders.contains(worldBorder);
     }
 
-    public abstract SessionWrapper getSessionWrapper();
+
+    public abstract void joinWorld(World world);
+
+    public abstract MinecraftSession getMinecraftSession();
 
 }
