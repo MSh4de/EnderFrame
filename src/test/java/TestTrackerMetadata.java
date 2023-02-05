@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-
-import eu.mshade.enderframe.world.chunk.Chunk;
-
-=======
-import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
->>>>>>> entities
 
 public class TestTrackerMetadata {
 

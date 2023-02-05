@@ -1,54 +1,29 @@
 package eu.mshade.enderframe.item;
 
+
 public class MaterialCategory {
 
+    public static MaterialCategoryKey DEFAULT = MaterialCategoryKey.from("DEFAULT");
     public static MaterialCategoryKey BLOCK = MaterialCategoryKey.from("BLOCK");
-    public static MaterialCategoryKey ARMOR = MaterialCategoryKey.from("ARMOR");
-    public static MaterialCategoryKey TOOLS = MaterialCategoryKey.from("TOOLS");
     public static MaterialCategoryKey FOOD = MaterialCategoryKey.from("FOOD");
-    public static MaterialCategoryKey MISC = MaterialCategoryKey.from("MISC");
-    public static MaterialCategoryKey BED = MaterialCategoryKey.from("BED");
-    public static MaterialCategoryKey WOOD = MaterialCategoryKey.from("WOOD");
     public static MaterialCategoryKey LEAVES = MaterialCategoryKey.from("LEAVES");
-    public static MaterialCategoryKey PLANT = MaterialCategoryKey.from("PLANT");
-    public static MaterialCategoryKey FLOWER = MaterialCategoryKey.from("FLOWER");
-    public static MaterialCategoryKey WOOL = MaterialCategoryKey.from("WOOL");
-    public static MaterialCategoryKey GLASS = MaterialCategoryKey.from("GLASS");
-    public static MaterialCategoryKey STAINED_GLASS = MaterialCategoryKey.from("STAINED_GLASS");
-    public static MaterialCategoryKey STAINED_GLASS_PANE = MaterialCategoryKey.from("STAINED_GLASS_PANE");
-    public static MaterialCategoryKey CONCRETE = MaterialCategoryKey.from("CONCRETE");
     public static MaterialCategoryKey LOG = MaterialCategoryKey.from("LOG");
-    public static MaterialCategoryKey ORE = MaterialCategoryKey.from("ORE");
-    public static MaterialCategoryKey RAIL = MaterialCategoryKey.from("RAIL");
-    public static MaterialCategoryKey PISTON = MaterialCategoryKey.from("PISTON");
-    public static MaterialCategoryKey WEB = MaterialCategoryKey.from("WEB");
     public static MaterialCategoryKey SLAB = MaterialCategoryKey.from("SLAB");
     public static MaterialCategoryKey STAIRS = MaterialCategoryKey.from("STAIRS");
-    public static MaterialCategoryKey TRAPDOOR = MaterialCategoryKey.from("TRAPDOOR");
-    public static MaterialCategoryKey MONSTER_EGG = MaterialCategoryKey.from("MONSTER_EGG");
-    public static MaterialCategoryKey STONE_BRICK = MaterialCategoryKey.from("STONE_BRICK");
-    public static MaterialCategoryKey BARS = MaterialCategoryKey.from("BARS");
-    public static MaterialCategoryKey MUSHROOM = MaterialCategoryKey.from("MUSHROOM");
-    public static MaterialCategoryKey PANE = MaterialCategoryKey.from("PANE");
-    public static MaterialCategoryKey MELON = MaterialCategoryKey.from("MELON");
-    public static MaterialCategoryKey PUMPKIN = MaterialCategoryKey.from("PUMPKIN");
     public static MaterialCategoryKey VINE = MaterialCategoryKey.from("VINE");
-    public static MaterialCategoryKey FENCE_GATE = MaterialCategoryKey.from("FENCE_GATE");
-    public static MaterialCategoryKey NETHER = MaterialCategoryKey.from("NETHER");
-    public static MaterialCategoryKey END = MaterialCategoryKey.from("END");
     public static MaterialCategoryKey DOUBLE_SLAB = MaterialCategoryKey.from("DOUBLE_SLAB");
-    public static MaterialCategoryKey SANDSTONE = MaterialCategoryKey.from("SANDSTONE");
-    public static MaterialCategoryKey STONE = MaterialCategoryKey.from("STONE");
-    public static MaterialCategoryKey FLUID = MaterialCategoryKey.from("FLUID");
     public static MaterialCategoryKey BUTTON = MaterialCategoryKey.from("BUTTON");
     public static MaterialCategoryKey LEVER = MaterialCategoryKey.from("LEVER");
-    public static MaterialCategoryKey TERRACOTTA = MaterialCategoryKey.from("TERRACOTTA");
-    public static MaterialCategoryKey CLAY = MaterialCategoryKey.from("CLAY");
-    public static MaterialCategoryKey SAND = MaterialCategoryKey.from("SAND");
-    public static MaterialCategoryKey ICE = MaterialCategoryKey.from("ICE");
-    public static MaterialCategoryKey SNOW = MaterialCategoryKey.from("SNOW");
-
-
-
+    public static MaterialCategoryKey ITEM = MaterialCategoryKey.from("ITEM");
+    public static MaterialCategoryKey RECORD = MaterialCategoryKey.from("RECORD");
+    public static MaterialCategoryKey FUEL = MaterialCategoryKey.from("FUEL");
+    public static MaterialCategoryKey FLAMMABLE = MaterialCategoryKey.from("FLAMMABLE");
+    public static MaterialCategoryKey OCCLUDING = MaterialCategoryKey.from("OCCLUDING");
+    public static MaterialCategoryKey AIR = MaterialCategoryKey.from("AIR");
+    public static MaterialCategoryKey BURNABLE = MaterialCategoryKey.from("BURNABLE");
+    public static MaterialCategoryKey INTERACTABLE = MaterialCategoryKey.from("INTERACTABLE");
+    public static MaterialCategoryKey SOLID = MaterialCategoryKey.from("SOLID");
+    public static MaterialCategoryKey GRAVITY = MaterialCategoryKey.from("GRAVITY");
+    public static MaterialCategoryKey DURABILITY = MaterialCategoryKey.from("DURABILITY");
 
 }

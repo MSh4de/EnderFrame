@@ -12,6 +12,7 @@ object BlockMetadataType {
     val FACE: MetadataKey = MetadataKey.from("BLOCK_FACE")
     val EXTRA: MetadataKey = MetadataKey.from("BLOCK_EXTRA")
     val HALF : MetadataKey = MetadataKey.from("BLOCK_HALF")
+    val SLAB_TYPE: MetadataKey = MetadataKey.from("BLOCK_SLAB_TYPE")
     val SHAPE: MetadataKey = MetadataKey.from("BLOCK_SHAPE")
     val AXIS: MetadataKey = MetadataKey.from("BLOCK_AXIS")
     val POWER: MetadataKey = MetadataKey.from("BLOCK_POWER")
@@ -47,6 +48,8 @@ class CheckDecayBlockMetadata(checkDecay: Boolean): MetadataKeyValue<Boolean>(Bl
 class SeamlessBlockMetadata(seamless: Boolean): MetadataKeyValue<Boolean>(BlockMetadataType.SEAMLESS, seamless)
 
 class MultipleFaceBlockMetadata(multipleFace: MutableSet<BlockFace> = mutableSetOf()): MetadataKeyValue<MutableSet<BlockFace>>(BlockMetadataType.MULTIPLE_FACE, multipleFace)
+
+class SlabTypeBlockMetadata(slabType: SlabType): MetadataKeyValue<SlabType>(BlockMetadataType.SLAB_TYPE, slabType)
 
 class InventoryBlockMetadata(inventory: NamedInventory): MetadataKeyValue<NamedInventory>(BlockMetadataType.INVENTORY, inventory)
 

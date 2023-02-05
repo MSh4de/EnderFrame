@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.protocol;
 
 import eu.mshade.enderframe.entity.EntityMapper;
-import eu.mshade.enderframe.world.block.BlockTransformerRepository;
+import eu.mshade.enderframe.world.block.BlockTransformerController;
 import eu.mshade.enderframe.wrapper.WrapperRepository;
 import eu.mshade.mwork.event.EventBus;
 import io.netty.buffer.ByteBuf;
@@ -12,7 +12,6 @@ public abstract class MinecraftProtocol {
     protected final MinecraftPacketRegistry minecraftPacketRegistry = new MinecraftPacketRegistry();
     protected final EventBus<MinecraftPacketIn> eventBus = new EventBus<>();
     protected final WrapperRepository wrapperRepository = new WrapperRepository();
-    protected final BlockTransformerRepository blockTransformerRepository = new BlockTransformerRepository();
 
     public abstract MinecraftByteBuf getProtocolBuffer(ByteBuf byteBuf);
 
@@ -32,10 +31,10 @@ public abstract class MinecraftProtocol {
         return wrapperRepository;
     }
 
-    public BlockTransformerRepository getBlockTransformerRepository(){
-        return blockTransformerRepository;
-    }
+    public abstract BlockTransformerController getBlockTransformerController();
 
     public abstract EntityMapper getEntityMapper();
+
+
 
 }
