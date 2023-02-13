@@ -13,7 +13,9 @@ public interface Watchable {
 
     Collection<Agent> getWatchers();
 
-    void notify(Consumer<Agent> agent);
+    default void notify(Consumer<Agent> agent){
+        for (Agent a : getWatchers()) agent.accept(a);
+    }
 
     default <T extends Agent> void notify(Class<T> agentClass, Consumer<T> agent){
         for (Agent a : getWatchers()) {
