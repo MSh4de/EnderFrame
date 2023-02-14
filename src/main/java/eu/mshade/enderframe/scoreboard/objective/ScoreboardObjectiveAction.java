@@ -2,7 +2,7 @@ package eu.mshade.enderframe.scoreboard.objective;
 
 public enum ScoreboardObjectiveAction {
 
-    CREATE_OR_UPDATE(0),
+    CHANGE(0),
     REMOVE(1);
 
     private int action;
