@@ -16,6 +16,7 @@ import eu.mshade.enderframe.particle.Particle;
 import eu.mshade.enderframe.protocol.packet.MinecraftPacketOutDisconnect;
 import eu.mshade.enderframe.protocol.packet.MinecraftPacketOutPluginMessage;
 import eu.mshade.enderframe.scoreboard.Scoreboard;
+import eu.mshade.enderframe.scoreboard.ScoreboardLine;
 import eu.mshade.enderframe.scoreboard.ScoreboardMode;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
 import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjectiveAction;
@@ -242,11 +243,11 @@ public abstract class MinecraftSession {
 
     public abstract void sendItemStack(Inventory inventory, int slot, ItemStack itemStack);
 
-    public abstract void sendDisplayScoreboard(Scoreboard<?> scoreboard);
+    public abstract void sendDisplayScoreboard(Scoreboard scoreboard);
 
-    public abstract void sendScoreboardObjective(Scoreboard<?> scoreboard, ScoreboardMode scoreboardMode);
+    public abstract void sendScoreboard(Scoreboard scoreboard, ScoreboardMode mode);
 
-    public abstract void sendUpdateScoreboard(ScoreboardObjective<?> scoreboardObjective, ScoreboardObjectiveAction scoreboardObjectiveAction);
+    public abstract void sendUpdateScoreboardLine(ScoreboardLine scoreboardLine, ScoreboardObjectiveAction action);
 
     public abstract void sendTeams(Team team);
 
