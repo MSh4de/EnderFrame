@@ -13,7 +13,7 @@ abstract class Scoreboard(
     private var title: TextComponent, val scoreboardPosition: ScoreboardPosition, val scoreboardType: ScoreboardType
 ) : Watchable {
 
-    private val viewers = ConcurrentLinkedQueue<Agent>()
+    protected val viewers = ConcurrentLinkedQueue<Agent>()
     val id = UUID.randomUUID().toString()
 
     override fun addWatcher(agent: Agent) {
@@ -21,7 +21,7 @@ abstract class Scoreboard(
         if (add) {
             val player = agent as? Player ?: return
             val minecraftSession = player.minecraftSession
-            minecraftSession.sendScoreboardObjective(this, ScoreboardMode.CREATE)
+            minecraftSession.sendScoreboard(this, ScoreboardMode.CREATE)
             minecraftSession.sendDisplayScoreboard(this)
         }
     }
@@ -31,7 +31,7 @@ abstract class Scoreboard(
         if (remove) {
             val player = agent as? Player ?: return
             val minecraftSession = player.minecraftSession
-            minecraftSession.sendScoreboardObjective(this, ScoreboardMode.REMOVE)
+            minecraftSession.sendScoreboard(this, ScoreboardMode.REMOVE)
         }
 
     }
@@ -53,7 +53,7 @@ abstract class Scoreboard(
 
         notify(Player::class.java) {
             val minecraftSession = it.minecraftSession
-            minecraftSession.sendScoreboardObjective(this, ScoreboardMode.UPDATE_DISPLAY_TEXT)
+            minecraftSession.sendScoreboard(this, ScoreboardMode.UPDATE_DISPLAY_TEXT)
         }
 
     }
