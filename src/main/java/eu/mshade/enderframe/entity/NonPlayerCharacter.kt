@@ -6,7 +6,7 @@ import java.util.*
 
 abstract class NonPlayerCharacter : Player {
 
-    constructor(location: Location?, velocity: Vector?, entityId: Int, uuid: UUID?) : super(
+    constructor(location: Location, velocity: Vector, entityId: Int, uuid: UUID) : super(
         location,
         velocity,
         entityId,
@@ -14,5 +14,5 @@ abstract class NonPlayerCharacter : Player {
         EntityType.NO_PLAYER_CHARACTER
     )
 
-    constructor(location: Location?, entityId: Int) : super(location, entityId, EntityType.NO_PLAYER_CHARACTER)
+    constructor(location: Location, entityId: Int) : super(location, entityId, EntityType.NO_PLAYER_CHARACTER)
 }

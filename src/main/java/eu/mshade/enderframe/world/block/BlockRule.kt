@@ -147,10 +147,11 @@ class SlabBlockRule : BlockRule() {
         block: Block
     ): Block {
         val metadataKeyValueBucket = block.getMetadataKeyValueBucket()
+        val blockHalf = BlockHalf.fromY(cursorPosition.y)
 
         var slabType: SlabType? = null
-        if (blockFace == BlockFace.UP) slabType = SlabType.TOP
-        else if (blockFace == BlockFace.DOWN) slabType = SlabType.BOTTOM
+        if (blockHalf == BlockHalf.TOP) slabType = SlabType.TOP
+        else if (blockHalf == BlockHalf.BOTTOM) slabType = SlabType.BOTTOM
 
         metadataKeyValueBucket.setMetadataKeyValue(SlabTypeBlockMetadata(slabType!!))
 

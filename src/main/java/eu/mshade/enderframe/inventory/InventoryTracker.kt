@@ -59,7 +59,7 @@ object InventoryTracker : Tickable() {
     private fun calculateRealIndex(player: Player, slot: Int): Int {
         if (player.openedInventory is PlayerInventory || player.openedInventory == null) return slot
 
-        val openedInventory = player.openedInventory
+        val openedInventory = player.openedInventory!!
         val maxSize = openedInventory.size
         val maxSizeSlotWithPlayerInventory: Int = maxSize + 9 * 4
         val firstSlotHotBar = maxSizeSlotWithPlayerInventory - 9
@@ -74,7 +74,7 @@ object InventoryTracker : Tickable() {
     private fun itemSlotFromIndex(player: Player, slot: Int): Int {
         if (player.openedInventory is PlayerInventory || player.openedInventory == null) return slot
 
-        val openedInventory = player.openedInventory
+        val openedInventory = player.openedInventory!!
         val maxSize = openedInventory.size
         val maxSizeSlotWithPlayerInventory: Int = maxSize + 9 * 4
         val firstSlotHotBar = maxSizeSlotWithPlayerInventory - 9
@@ -89,14 +89,14 @@ object InventoryTracker : Tickable() {
 
     private fun updateItemStack(inventory: Inventory, index: Int) {
         inventory.notify(Player::class.java) { player ->
-            val inventory = if (player.openedInventory != null) player.openedInventory else player.inventory
+            val selected = (if (player.openedInventory != null) player.openedInventory else player.inventory)!!
             var slot = index
             var slotItem = PlayerInventory.indexFromAccurateSlot(index)
             if (player.openedInventory != null && player.openedInventory !is PlayerInventory) {
                 slot = calculateRealIndex(player, index)
                 slotItem = itemSlotFromIndex(player, slot)
             }
-            player.minecraftSession.sendItemStack(inventory, slot, player.inventory.getItemStack(slotItem))
+            player.minecraftSession.sendItemStack(selected, slot, player.inventory?.getItemStack(slotItem))
         }
     }
 

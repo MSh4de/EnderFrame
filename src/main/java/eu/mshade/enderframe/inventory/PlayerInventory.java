@@ -5,6 +5,7 @@ import eu.mshade.enderframe.item.ItemStack;
 import eu.mshade.enderframe.item.MaterialKey;
 import eu.mshade.enderframe.mojang.chat.TextComponent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -12,6 +13,7 @@ import java.util.function.Function;
 
 public class PlayerInventory extends Inventory {
 
+    private int heldItemSlot = 0;
     public PlayerInventory(UUID uniqueId) {
         super(InventoryType.PLAYER, uniqueId);
     }
@@ -45,6 +47,19 @@ public class PlayerInventory extends Inventory {
         return -1;
     }
 
+    @Override
+    public ItemStack getItemStack(EquipmentSlot equipmentSlot) {
+        int slot = switch (equipmentSlot) {
+            case MAIN_HAND -> heldItemSlot;
+            case OFF_HAND -> 45;
+            case BOOTS -> 36;
+            case LEGGINGS -> 37;
+            case CHEST_PLATE -> 38;
+            case HELMET -> 39;
+        };
+
+        return getItemStack(slot);
+    }
 
     public static int accurateSlot(int index) {
         if (index <= 8) {
@@ -62,6 +77,18 @@ public class PlayerInventory extends Inventory {
             return 44 - accurateSlot;
         }
         return accurateSlot;
+    }
+
+    public void setHeldItemSlot(int heldItemSlot) {
+        if (heldItemSlot < 0 || heldItemSlot > 8) {
+            throw new IllegalArgumentException("Held item slot must be between 0 and 8");
+        }
+
+        this.heldItemSlot = heldItemSlot;
+    }
+
+    public int getHeldItemSlot() {
+        return heldItemSlot;
     }
 
 }

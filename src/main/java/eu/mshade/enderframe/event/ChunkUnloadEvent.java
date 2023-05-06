@@ -2,7 +2,7 @@ package eu.mshade.enderframe.event;
 
 import eu.mshade.enderframe.world.chunk.Chunk;
 
-public class ChunkUnloadEvent extends EnderFrameEvent {
+public class ChunkUnloadEvent extends MinecraftEvent {
 
     private final Chunk chunk;
 

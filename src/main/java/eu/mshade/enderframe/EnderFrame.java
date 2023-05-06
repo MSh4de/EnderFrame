@@ -1,15 +1,15 @@
 
 package eu.mshade.enderframe;
 
-import eu.mshade.enderframe.event.EnderFrameEvent;
+import eu.mshade.enderframe.event.MinecraftEvent;
 import eu.mshade.enderframe.packetevent.MinecraftPacketEvent;
 import eu.mshade.mwork.binarytag.BinaryTagDriver;
 import eu.mshade.mwork.event.EventBus;
 
 public class EnderFrame {
 
-    private final EventBus<MinecraftPacketEvent> packetEventBus = new EventBus<>();
-    private final EventBus<EnderFrameEvent> enderFrameEventBus = new EventBus<>();
+    private final EventBus<MinecraftPacketEvent> packetEvents = new EventBus<>();
+    private final EventBus<MinecraftEvent> minecraftEvents = new EventBus<>();
     private final BinaryTagDriver binaryTagDriver = new BinaryTagDriver();
     private static EnderFrame ENDER_FRAME;
 
@@ -17,12 +17,12 @@ public class EnderFrame {
         ENDER_FRAME = this;
     }
 
-    public EventBus<MinecraftPacketEvent> getPacketEventBus() {
-        return packetEventBus;
+    public EventBus<MinecraftPacketEvent> getPacketEvents() {
+        return packetEvents;
     }
 
-    public EventBus<EnderFrameEvent> getEnderFrameEventBus() {
-        return enderFrameEventBus;
+    public EventBus<MinecraftEvent> getMinecraftEvents() {
+        return minecraftEvents;
     }
 
     public BinaryTagDriver getBinaryTagDriver() {

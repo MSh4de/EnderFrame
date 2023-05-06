@@ -15,8 +15,11 @@ public class Team {
     private String teamDisplayName = "";
     private String teamPrefix = "";
     private String teamSuffix = "";
-    private int playerCount = 0;
     private List<String> playersName = new ArrayList<>();
+
+    public static TeamBuilder builder() {
+        return new TeamBuilder();
+    }
 
     public Team(TeamBuilder teamBuilder) {
         this.teamMode = teamBuilder.teamMode;
@@ -27,7 +30,6 @@ public class Team {
         this.teamPrefix = teamBuilder.teamPrefix;
         this.teamSuffix = teamBuilder.teamSuffix;
         this.teamColor = teamBuilder.teamColor;
-        this.playerCount = teamBuilder.playersName.size();
         this.playersName = teamBuilder.playersName;
     }
 
@@ -64,7 +66,7 @@ public class Team {
     }
 
     public int getPlayerCount() {
-        return playerCount;
+        return playersName.size();
     }
 
     public List<String> getPlayersName() {
@@ -80,7 +82,7 @@ public class Team {
         private String teamDisplayName;
         private String teamPrefix;
         private String teamSuffix;
-        private List<String> playersName;
+        private List<String> playersName = new ArrayList<>();
 
         public TeamBuilder setTeamMode(TeamMode teamMode) {
             this.teamMode = teamMode;

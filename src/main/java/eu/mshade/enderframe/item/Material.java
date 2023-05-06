@@ -1349,17 +1349,6 @@ public class Material {
     public static MaterialKey POTTED_AZALEA_BUSH = MaterialKey.from(NamespacedKey.minecraft("potted_azalea_bush"), 64, 0, Set.of(MaterialCategory.BLOCK, MaterialCategory.INTERACTABLE));
     public static MaterialKey POTTED_FLOWERING_AZALEA_BUSH = MaterialKey.from(NamespacedKey.minecraft("potted_flowering_azalea_bush"), 64, 0, Set.of(MaterialCategory.BLOCK, MaterialCategory.INTERACTABLE));
 
-
-
-
-
-
-
-
-
-
-
-
     static {
         Field[] declaredFields = Material.class.getDeclaredFields();
         try {

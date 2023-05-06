@@ -12,7 +12,7 @@ class ScoreboardBelowName(textComponent: TextComponent, val entity: Entity) :
 
     override fun getValue(): String {
         if (entity is Player) {
-            return entity.name
+            return entity.name!!
         }
         return entity.uniqueId.toString()
     }

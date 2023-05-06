@@ -8,7 +8,7 @@ import eu.mshade.mwork.event.EventListener;
 public class MinecraftPacketServerStatusListener implements EventListener<MinecraftPacketInServerStatus> {
     @Override
     public void onEvent(MinecraftPacketInServerStatus event) {
-        EnderFrame.get().getPacketEventBus().publish(new MinecraftPacketServerStatusEvent(event.getMinecraftSession()));
+        EnderFrame.get().getPacketEvents().publish(new MinecraftPacketServerStatusEvent(event.getMinecraftSession()));
     }
 
 }

@@ -9,7 +9,7 @@ public class MinecraftPacketServerPingListener implements EventListener<Minecraf
 
     @Override
     public void onEvent(MinecraftPacketInServerPing event) {
-        EnderFrame.get().getPacketEventBus().publish(new MinecraftPacketServerPingEvent(event.getMinecraftSession(), event.getPayload()));
+        EnderFrame.get().getPacketEvents().publish(new MinecraftPacketServerPingEvent(event.getMinecraftSession(), event.getPayload()));
     }
 
 }

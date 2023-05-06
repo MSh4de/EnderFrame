@@ -11,7 +11,7 @@ class ScoreboardTabList(title: TextComponent, scoreboardType: ScoreboardType, va
 
     override fun getValue(): String {
         if (entity is Player) {
-            return entity.name
+            return entity.name!!
         }
         return entity.uniqueId.toString()
     }

@@ -2,7 +2,7 @@ package eu.mshade.enderframe.event;
 
 import eu.mshade.enderframe.world.chunk.Chunk;
 
-public class WatchdogSeeEvent extends EnderFrameEvent {
+public class WatchdogSeeEvent extends MinecraftEvent {
 
     private final Chunk chunk;
 

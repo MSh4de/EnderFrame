@@ -3,7 +3,7 @@ package eu.mshade.enderframe.event;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.world.Location;
 
-public class EntityTeleportEvent extends EnderFrameEvent {
+public class EntityTeleportEvent extends MinecraftEvent {
 
     private final Entity entity;
     private final Location location;

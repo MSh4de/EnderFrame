@@ -3,7 +3,7 @@ package eu.mshade.enderframe.event;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
 
-public class EntitySeeEvent extends EnderFrameEvent {
+public class EntitySeeEvent extends MinecraftEvent {
 
     private final Entity entity;
     private final Player player;

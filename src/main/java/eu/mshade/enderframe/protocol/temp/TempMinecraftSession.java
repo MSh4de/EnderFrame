@@ -2,6 +2,7 @@ package eu.mshade.enderframe.protocol.temp;
 
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.entity.Entity;
+import eu.mshade.enderframe.inventory.EquipmentSlot;
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.inventory.NamedInventory;
 import eu.mshade.enderframe.item.ItemStack;
@@ -12,13 +13,14 @@ import eu.mshade.enderframe.mojang.chat.TextPosition;
 import eu.mshade.enderframe.particle.Particle;
 import eu.mshade.enderframe.protocol.MinecraftSession;
 import eu.mshade.enderframe.scoreboard.Scoreboard;
-import eu.mshade.enderframe.scoreboard.ScoreboardMode;
-import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjective;
-import eu.mshade.enderframe.scoreboard.objective.ScoreboardObjectiveAction;
+import eu.mshade.enderframe.scoreboard.ScoreboardLine;
+import eu.mshade.enderframe.scoreboard.ScoreboardAction;
+import eu.mshade.enderframe.scoreboard.ScoreboardLineAction;
 import eu.mshade.enderframe.scoreboard.team.Team;
 import eu.mshade.enderframe.sound.SoundEffect;
 import eu.mshade.enderframe.title.Title;
 import eu.mshade.enderframe.title.TitleAction;
+import eu.mshade.enderframe.world.Difficulty;
 import eu.mshade.enderframe.world.Location;
 import eu.mshade.enderframe.world.Vector;
 import eu.mshade.enderframe.world.World;
@@ -28,6 +30,7 @@ import eu.mshade.enderframe.world.border.WorldBorderAction;
 import eu.mshade.enderframe.world.chunk.Chunk;
 import eu.mshade.enderframe.world.chunk.Section;
 import io.netty.channel.Channel;
+import org.jetbrains.annotations.NotNull;
 
 import java.security.PublicKey;
 import java.util.Collection;
@@ -52,6 +55,11 @@ public class TempMinecraftSession extends MinecraftSession {
 
     @Override
     public void sendJoinGame(World world, boolean reducedDebugInfo) {
+
+    }
+
+    @Override
+    public void sendServerDifficulty(Difficulty difficulty) {
 
     }
 
@@ -194,11 +202,6 @@ public class TempMinecraftSession extends MinecraftSession {
     }
 
     @Override
-    public void sendMetadata(Entity entity, Collection<MetadataKey> entityMetadataKeys) {
-
-    }
-
-    @Override
     public void sendChunk(Chunk chunk) {
 
     }
@@ -234,11 +237,6 @@ public class TempMinecraftSession extends MinecraftSession {
     }
 
     @Override
-    public void sendSign(Vector vector, List<TextComponent> textComponents) {
-
-    }
-
-    @Override
     public void sendOpenInventory(NamedInventory inventory) {
 
     }
@@ -258,19 +256,21 @@ public class TempMinecraftSession extends MinecraftSession {
 
     }
 
-    public void sendDisplayScoreboard(Scoreboard<?> scoreboard) {
+    @Override
+    public void sendDisplayScoreboard(Scoreboard scoreboard) {
 
     }
 
     @Override
-    public void sendScoreboardObjective(Scoreboard<?> scoreboard, ScoreboardMode scoreboardMode) {
+    public void sendScoreboard(Scoreboard scoreboard, ScoreboardAction mode) {
 
     }
 
     @Override
-    public void sendUpdateScoreboard(ScoreboardObjective<?> scoreboardObjective, ScoreboardObjectiveAction scoreboardObjectiveAction) {
+    public void sendUpdateScoreboardLine(Scoreboard scoreboard, ScoreboardLine scoreboardLine, ScoreboardLineAction action) {
 
     }
+
 
     @Override
     public void sendTeams(Team team) {
@@ -299,6 +299,21 @@ public class TempMinecraftSession extends MinecraftSession {
 
     @Override
     public void sendInventoryUpdate(Block block, MetadataKey... metadataKeys) {
+
+    }
+
+    @Override
+    public void sendMetadata(@NotNull Entity entity, @NotNull Collection<? extends MetadataKey> entityMetadataKeys) {
+
+    }
+
+    @Override
+    public void sendSign(@NotNull Vector vector, @NotNull List<? extends TextComponent> textComponents) {
+
+    }
+
+    @Override
+    public void sendEquipment(@NotNull Entity entity, @NotNull EquipmentSlot equipmentSlot, ItemStack itemStack) {
 
     }
 }

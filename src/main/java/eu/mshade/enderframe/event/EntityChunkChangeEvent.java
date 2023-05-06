@@ -2,7 +2,7 @@ package eu.mshade.enderframe.event;
 
 import eu.mshade.enderframe.entity.Entity;
 
-public class EntityChunkChangeEvent extends EnderFrameEvent {
+public class EntityChunkChangeEvent extends MinecraftEvent {
 
     private final Entity entity;
 

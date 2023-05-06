@@ -6,7 +6,7 @@ import java.util.*
 
 abstract class LivingEntity : Entity {
 
-    constructor(location: Location?, velocity: Vector?, entityId: Int, uuid: UUID?, entityKey: EntityKey?) : super(
+    constructor(location: Location, velocity: Vector, entityId: Int, uuid: UUID, entityKey: EntityKey) : super(
         location,
         velocity,
         entityId,
@@ -14,5 +14,5 @@ abstract class LivingEntity : Entity {
         entityKey
     )
 
-    constructor(location: Location?, entityId: Int, entityKey: EntityKey?) : super(location, entityId, entityKey)
+    constructor(location: Location, entityId: Int, entityKey: EntityKey) : super(location, entityId, entityKey)
 }

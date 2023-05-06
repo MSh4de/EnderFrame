@@ -22,19 +22,6 @@ public class WorldBorder implements Watchable {
 
     protected Queue<Agent> agents = new ConcurrentLinkedQueue<>();
 
-    public void createWorldBorder(Player player) {
-        agents.add(player);
-        player.getMinecraftSession().sendWorldBorder(WorldBorderAction.INITIALIZE, this);
-    }
-
-    private void updateWorldBorder() {
-        for (Agent agent : this.getWatchers()) {
-            if (agent instanceof Player player) {
-                player.getMinecraftSession().sendWorldBorder(WorldBorderAction.SET_SIZE, this);
-            }
-        }
-    }
-
     public WorldBorderCenter getWorldBorderCenter() {
         return worldBorderCenter;
     }
@@ -62,9 +49,23 @@ public class WorldBorder implements Watchable {
         this.radius = radiusFunction.apply(radius);
         this.speed = speed;
 
-        this.updateWorldBorder();
+        for (Agent agent : this.getWatchers()) {
+            if (agent instanceof Player player) {
+                player.getMinecraftSession().sendWorldBorder(WorldBorderAction.SET_SIZE, this);
+            }
+        }
     }
 
+    public void modifyCenter(long speed, Function<WorldBorderCenter, WorldBorderCenter> centerFunction) {
+        this.worldBorderCenter = centerFunction.apply(worldBorderCenter);
+        this.speed = speed;
+
+        for (Agent agent : this.getWatchers()) {
+            if (agent instanceof Player player) {
+                player.getMinecraftSession().sendWorldBorder(WorldBorderAction.SET_CENTER, this);
+            }
+        }
+    }
     public long getSpeed() {
         return speed;
     }
@@ -99,6 +100,10 @@ public class WorldBorder implements Watchable {
     @Override
     public void addWatcher(Agent agent) {
         agents.add(agent);
+        if (agent instanceof Player player) {
+            player.getMinecraftSession().sendWorldBorder(WorldBorderAction.INITIALIZE, this);
+            player.setWorldBorder(this);
+        }
     }
 
     @Override
