@@ -3,6 +3,7 @@ package eu.mshade.enderframe
 import eu.mshade.enderframe.entity.Entity
 import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.gamerule.GameRuleRepository
+import eu.mshade.enderframe.item.ItemRuleRepository
 import eu.mshade.enderframe.protocol.MinecraftProtocolRepository
 import eu.mshade.enderframe.world.World
 import eu.mshade.enderframe.world.block.BlockRuleRepository
@@ -32,6 +33,9 @@ interface MinecraftServer {
 
     fun getBlockRules(): BlockRuleRepository
 
+    fun getGameRules(): GameRuleRepository
+
+    fun getItemRules(): ItemRuleRepository
 
     /**
      * get all sound, material, particle loaded
@@ -42,8 +46,6 @@ interface MinecraftServer {
      * get port, server name, server icon, server version[range]
      * tick management
      */
-
-    fun getGameRules(): GameRuleRepository
 
 
 }

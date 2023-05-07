@@ -1,6 +1,9 @@
 package eu.mshade.enderframe.entity
 
+import eu.mshade.enderframe.EnderFrame
+import eu.mshade.enderframe.event.EquipmentChangeEvent
 import eu.mshade.enderframe.inventory.EquipmentSlot
+import eu.mshade.enderframe.item.ItemStack
 import eu.mshade.enderframe.tick.Tickable
 import eu.mshade.enderframe.world.chunk.Chunk
 import java.util.concurrent.ConcurrentHashMap
@@ -83,7 +86,7 @@ object EntityTracker : Tickable() {
         trackedEntities.remove(entity)
     }
 
-    fun getEntities(entities: Collection<Entity>, source: Entity, distance: Int): Collection<Entity> {
+    private fun getEntities(entities: Collection<Entity>, source: Entity, distance: Int): Collection<Entity> {
         val newEntities = HashSet<Entity>()
         for (entity in entities) {
             if (entity.getLocation().distanceXZ(source.getLocation()) <= distance) {
@@ -96,15 +99,30 @@ object EntityTracker : Tickable() {
 
 class EntityTrackerEntry(val entity: Entity){
 
-    private var lastHeldItemSlot: Int = -1
+    private var lastEquipment = mutableMapOf<EquipmentSlot, ItemStack>()
 
     fun update(player: Player){
-        if(entity is Player){
-            val inventory = entity.inventory!!
-            if(inventory.heldItemSlot != lastHeldItemSlot){
-                player.minecraftSession.sendEquipment(entity, EquipmentSlot.MAIN_HAND, inventory.getItemStack(EquipmentSlot.MAIN_HAND))
-                lastHeldItemSlot = inventory.heldItemSlot
+        if (entity is Equipable) {
+            val equipments = entity.getEquipments()
+            if (lastEquipment == equipments) return
+
+            for (value in EquipmentSlot.values()) {
+                val itemStack = equipments[value]
+                val lastItemStack = lastEquipment[value]
+                if (itemStack != lastItemStack) {
+                    val equipmentChangeEvent = EquipmentChangeEvent(entity, value, lastItemStack, itemStack)
+                    EnderFrame.get().minecraftEvents.publish(equipmentChangeEvent)
+                    if (equipmentChangeEvent.isCancelled) continue
+                    player.minecraftSession.sendEquipment(entity, value, itemStack)
+                    if (itemStack == null){
+                        lastEquipment.remove(value)
+                    }else {
+                        lastEquipment[value] = itemStack
+                    }
+                }
             }
+
+
         }
     }
 

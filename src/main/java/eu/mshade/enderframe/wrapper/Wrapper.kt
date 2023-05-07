@@ -1,6 +1,6 @@
 package eu.mshade.enderframe.wrapper
 
-abstract class Wrapper<I, O> {
+abstract class Wrapper<I, O>: Mapper<I, O> {
 
     private val outputByInput: MutableMap<I, O> = mutableMapOf()
     private val inputByOutput: MutableMap<O, I> = mutableMapOf()

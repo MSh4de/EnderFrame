@@ -31,7 +31,6 @@ class ScoreboardSidebar(title: TextComponent) : Scoreboard(title, ScoreboardPosi
         }else {
             val newScoreboardLine = DefaultScoreboardLine("NONE", MAX_LINES - lines.size)
             modifier.accept(newScoreboardLine)
-            println(newScoreboardLine)
             lines[key] = newScoreboardLine
             notify(Player::class.java) {
                 val minecraftSession = it.minecraftSession

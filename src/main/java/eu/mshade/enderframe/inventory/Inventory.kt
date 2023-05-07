@@ -44,6 +44,10 @@ abstract class Inventory(var inventoryKey: InventoryKey, @JvmField var itemStack
         return getItemStack(equipmentSlot.ordinal)
     }
 
+    open fun setItemStack(equipmentSlot: EquipmentSlot, itemStack: ItemStack?) {
+        setItemStack(equipmentSlot.ordinal, itemStack)
+    }
+
     open fun findFirstEmptySlot(): Int {
         return findFirstEmptySlot(0)
     }

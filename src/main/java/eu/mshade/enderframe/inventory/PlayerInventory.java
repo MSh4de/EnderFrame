@@ -1,15 +1,9 @@
 package eu.mshade.enderframe.inventory;
 
-import eu.mshade.enderframe.Agent;
+import eu.mshade.enderframe.entity.Item;
 import eu.mshade.enderframe.item.ItemStack;
-import eu.mshade.enderframe.item.MaterialKey;
-import eu.mshade.enderframe.mojang.chat.TextComponent;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class PlayerInventory extends Inventory {
 
@@ -49,7 +43,20 @@ public class PlayerInventory extends Inventory {
 
     @Override
     public ItemStack getItemStack(EquipmentSlot equipmentSlot) {
-        int slot = switch (equipmentSlot) {
+        return getItemStack(wrapEquipments(equipmentSlot));
+    }
+
+    @Override
+    public void setItemStack(EquipmentSlot equipmentSlot, ItemStack itemStack) {
+        setItemStack(wrapEquipments(equipmentSlot), itemStack);
+    }
+
+    public ItemStack getItemInHand() {
+        return getItemStack(heldItemSlot);
+    }
+
+    private int wrapEquipments(EquipmentSlot equipmentSlot) {
+        return switch (equipmentSlot) {
             case MAIN_HAND -> heldItemSlot;
             case OFF_HAND -> 45;
             case BOOTS -> 36;
@@ -57,9 +64,8 @@ public class PlayerInventory extends Inventory {
             case CHEST_PLATE -> 38;
             case HELMET -> 39;
         };
-
-        return getItemStack(slot);
     }
+
 
     public static int accurateSlot(int index) {
         if (index <= 8) {

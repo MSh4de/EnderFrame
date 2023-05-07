@@ -2,17 +2,17 @@ package eu.mshade.enderframe.wrapper
 
 class WrapperRepository {
 
-    private var wrappers = mutableMapOf<ContextWrapperKey, Wrapper<*, *>>()
+    private var wrappers = mutableMapOf<ContextWrapperKey, Mapper<*, *>>()
 
-    fun register(key: ContextWrapperKey, wrapper: Wrapper<*, *>) {
+    fun register(key: ContextWrapperKey, wrapper: Mapper<*, *>) {
         wrappers[key] = wrapper
     }
 
-    fun get(key: ContextWrapperKey): Wrapper<*, *>? {
+    fun get(key: ContextWrapperKey): Mapper<*, *>? {
         return wrappers[key]
     }
 
-    fun getWrappers(): List<Wrapper<*, *>> {
+    fun getWrappers(): List<Mapper<*, *>> {
         return wrappers.values.toList()
     }
 

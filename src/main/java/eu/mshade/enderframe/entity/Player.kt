@@ -3,10 +3,8 @@ package eu.mshade.enderframe.entity
 import eu.mshade.enderframe.Agent
 import eu.mshade.enderframe.GameMode
 import eu.mshade.enderframe.entity.metadata.EntityMetadataKey
-import eu.mshade.enderframe.inventory.Inventory
-import eu.mshade.enderframe.inventory.InventoryClickStore
-import eu.mshade.enderframe.inventory.NamedInventory
-import eu.mshade.enderframe.inventory.PlayerInventory
+import eu.mshade.enderframe.inventory.*
+import eu.mshade.enderframe.item.ItemStack
 import eu.mshade.enderframe.mojang.GameProfile
 import eu.mshade.enderframe.protocol.MinecraftProtocolVersion
 import eu.mshade.enderframe.protocol.MinecraftSession
@@ -20,7 +18,7 @@ import java.net.InetSocketAddress
 import java.util.*
 import java.util.concurrent.ConcurrentLinkedQueue
 
-abstract class Player : Entity, Agent {
+abstract class Player : Entity, Agent, Equipable {
 
     var inetSocketAddress: InetSocketAddress? = null
     var minecraftProtocolVersion: MinecraftProtocolVersion? = null
@@ -107,5 +105,23 @@ abstract class Player : Entity, Agent {
 
     fun removeLookAtEntity(entity: Entity) {
         lookAtEntity.remove(entity)
+    }
+
+    override fun getEquipment(slot: EquipmentSlot): ItemStack? {
+        return inventory?.getItemStack(slot)
+    }
+
+    override fun setEquipment(slot: EquipmentSlot, itemStack: ItemStack?) {
+        inventory?.setItemStack(slot, itemStack)
+    }
+
+    override fun getEquipments(): Map<EquipmentSlot, ItemStack> {
+        val equipments = mutableMapOf<EquipmentSlot, ItemStack>()
+
+        for (slot in EquipmentSlot.values()) {
+            getEquipment(slot)?.let { equipments[slot] = it }
+        }
+
+        return equipments
     }
 }

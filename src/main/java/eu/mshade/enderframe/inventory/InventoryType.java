@@ -10,7 +10,7 @@ public class InventoryType {
 
     public static InventoryKey CHEST = InventoryKey.from(0, "CHEST", 9 * 3);
     public static InventoryKey HOPPER = InventoryKey.from(1, "HOPPER", 5);
-    public static InventoryKey PLAYER = InventoryKey.from(2, "PLAYER", 45);
+    public static InventoryKey PLAYER = InventoryKey.from(2, "PLAYER", 46);
     public static InventoryKey WORKBENCH = InventoryKey.from(3, "WORKBENCH", 3 * 3);
     public static InventoryKey FURNACE = InventoryKey.from(4, "FURNACE", 3);
     public static InventoryKey DISPENSER = InventoryKey.from(5, "DISPENSER", 3 * 3);
