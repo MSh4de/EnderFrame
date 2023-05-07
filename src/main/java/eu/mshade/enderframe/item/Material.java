@@ -1355,7 +1355,8 @@ public class Material {
             for (Field field : declaredFields) {
                 Object o = field.get(null);
                 if (o instanceof MaterialKey materialKey) {
-                    LOGGER.debug("Register " + MATERIAL_BY_NAMESPACED_KEY.put(materialKey.getNamespacedKey(), materialKey));
+                    MATERIAL_BY_NAMESPACED_KEY.put(materialKey.getNamespacedKey(), materialKey);
+                    LOGGER.debug("Register " + materialKey);
                 }
             }
         } catch (IllegalAccessException e) {
@@ -1402,5 +1403,50 @@ public class Material {
     private static String key(int id, int metadata) {
         return id + ":" + metadata;
     }
+
+    public static MaterialKey findMaterialKeyByName(String name) {
+        MaterialKey bestMatch = null;
+        double bestRatio = 0.0;
+
+        for (NamespacedKey namespacedKey : Material.getRegisteredNamespacedKeys()) {
+            double ratio = levenshteinRatio(namespacedKey.getKey(), name.toLowerCase());
+            if (ratio > bestRatio) {
+                bestRatio = ratio;
+                bestMatch = Material.fromNamespacedKey(namespacedKey);
+            }
+        }
+
+        return bestMatch;
+    }
+
+    public static double levenshteinRatio(String s1, String s2) {
+        int distance = levenshteinDistance(s1, s2);
+        int maxLength = Math.max(s1.length(), s2.length());
+        return 1.0 - (double) distance / (double) maxLength;
+    }
+
+    public static int levenshteinDistance(String s1, String s2) {
+        int m = s1.length();
+        int n = s2.length();
+        int[][] d = new int[m + 1][n + 1];
+
+        for (int i = 0; i <= m; i++) {
+            d[i][0] = i;
+        }
+
+        for (int j = 0; j <= n; j++) {
+            d[0][j] = j;
+        }
+
+        for (int j = 1; j <= n; j++) {
+            for (int i = 1; i <= m; i++) {
+                int substitutionCost = s1.charAt(i - 1) == s2.charAt(j - 1) ? 0 : 1;
+                d[i][j] = Math.min(Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1), d[i - 1][j - 1] + substitutionCost);
+            }
+        }
+
+        return d[m][n];
+    }
+
 
 }

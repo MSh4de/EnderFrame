@@ -25,4 +25,9 @@ abstract class ContextualWrapper<I, O, C>: Mapper<I, O> {
         inputByOutput[context]?.remove(output)
     }
 
+    fun register(c: C, input: I, output: O) {
+        registerMapping(c, input, output)
+        registerReverseMapping(c, input, output)
+    }
+
 }

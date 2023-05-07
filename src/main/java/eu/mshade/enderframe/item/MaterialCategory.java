@@ -21,7 +21,7 @@ public class MaterialCategory {
     public static MaterialCategoryKey OCCLUDING = MaterialCategoryKey.from("OCCLUDING");
     public static MaterialCategoryKey AIR = MaterialCategoryKey.from("AIR");
     public static MaterialCategoryKey BURNABLE = MaterialCategoryKey.from("BURNABLE");
-    public static MaterialCategoryKey INTERACTABLE = MaterialCategoryKey.Pfrom("INTERACTABLE");
+    public static MaterialCategoryKey INTERACTABLE = MaterialCategoryKey.from("INTERACTABLE");
     public static MaterialCategoryKey SOLID = MaterialCategoryKey.from("SOLID");
     public static MaterialCategoryKey GRAVITY = MaterialCategoryKey.from("GRAVITY");
     public static MaterialCategoryKey DURABILITY = MaterialCategoryKey.from("DURABILITY");
