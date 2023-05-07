@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.protocol
 
 import eu.mshade.enderframe.PlayerInfoBuilder
+import eu.mshade.enderframe.animation.AnimationType
 import eu.mshade.enderframe.entity.Entity
 import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.inventory.EquipmentSlot
@@ -182,8 +183,10 @@ open abstract class MinecraftSession(@JvmField val channel: Channel) {
     abstract fun sendParticle(particle: Particle)
     abstract fun sendInventoryUpdate(block: Block, vararg metadataKeys: MetadataKey)
     abstract fun sendEquipment(entity: Entity, equipmentSlot: EquipmentSlot, itemStack: ItemStack?)
-    
-    
+    abstract fun sendAnimation(player: Player, animationType: AnimationType)
+
+
+
     override fun toString(): String {
         return "SessionWrapper{" +
                 "channel=" + channel +

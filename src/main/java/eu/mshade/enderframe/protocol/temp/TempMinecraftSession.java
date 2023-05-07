@@ -1,7 +1,9 @@
 package eu.mshade.enderframe.protocol.temp;
 
 import eu.mshade.enderframe.PlayerInfoBuilder;
+import eu.mshade.enderframe.animation.AnimationType;
 import eu.mshade.enderframe.entity.Entity;
+import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.inventory.EquipmentSlot;
 import eu.mshade.enderframe.inventory.Inventory;
 import eu.mshade.enderframe.inventory.NamedInventory;
@@ -314,6 +316,11 @@ public class TempMinecraftSession extends MinecraftSession {
 
     @Override
     public void sendEquipment(@NotNull Entity entity, @NotNull EquipmentSlot equipmentSlot, ItemStack itemStack) {
+
+    }
+
+    @Override
+    public void sendAnimation(@NotNull Player player, @NotNull AnimationType animationType) {
 
     }
 }
