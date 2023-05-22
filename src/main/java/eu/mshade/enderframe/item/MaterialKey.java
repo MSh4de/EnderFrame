@@ -1,5 +1,6 @@
 package eu.mshade.enderframe.item;
 
+import eu.mshade.enderframe.inventory.EquipmentSlot;
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket;
 import eu.mshade.enderframe.mojang.NamespacedKey;
 import eu.mshade.enderframe.world.block.Block;
@@ -7,6 +8,31 @@ import eu.mshade.enderframe.world.block.Block;
 import java.util.*;
 
 public interface MaterialKey {
+
+
+    static MaterialKey from(NamespacedKey namespacedKey, int maxStackSize, int maxDurability, float hardness, float blastResistance, float slipperiness, Set<MaterialTagKey> materialTagKeys) {
+        return from(namespacedKey, maxStackSize, maxDurability, hardness, blastResistance, slipperiness, null, materialTagKeys);
+    }
+
+    static MaterialKey from(NamespacedKey namespacedKey, int maxStackSize, int maxDurability, float hardness, float blastResistance, float slipperiness, EquipmentSlot equipmentSlot, Set<MaterialTagKey> materialTagKeys) {
+        return from(0, 0, namespacedKey, maxStackSize, maxDurability, hardness, blastResistance, slipperiness, equipmentSlot, materialTagKeys);
+    }
+
+    static MaterialKey from(int id, NamespacedKey namespacedKey, int maxStackSize, int maxDurability, Set<MaterialTagKey> materialTagKeys) {
+        return from(id, 0, namespacedKey, maxStackSize, maxDurability, 0, 0, 0, null, materialTagKeys);
+    }
+
+    static MaterialKey from(int id) {
+        return from(id, 0);
+    }
+
+    static MaterialKey from(int id, int data) {
+        return from(id, data, null, 0, 0, 0, 0, 0, null, Set.of());
+    }
+
+    static MaterialKey from(int id, int data, NamespacedKey namespacedKey, int maxStackSize, int maxDurability, float hardness, float blastResistance, float slipperiness, EquipmentSlot equipmentSlot, Set<MaterialTagKey> materialTagKeys) {
+        return new DefaultMaterialKey(id, data, namespacedKey, maxStackSize, maxDurability, hardness, blastResistance, slipperiness, equipmentSlot, materialTagKeys);
+    }
 
     int getId();
 
@@ -18,21 +44,26 @@ public interface MaterialKey {
 
     int getMaxDurability();
 
-    Set<MaterialCategoryKey> getMaterialCategories();
+    float getHardness();
 
-    MaterialCategoryKey getTag();
+    float getBlastResistance();
 
+    float getSlipperiness();
 
-    default boolean inMaterialCategories(MaterialCategoryKey... materialCategoryKeys) {
-        for (MaterialCategoryKey materialCategoryKey : materialCategoryKeys) {
-            if (getMaterialCategories().contains(materialCategoryKey)) return true;
+    EquipmentSlot getEquipmentSlot();
+
+    Set<MaterialTagKey> getMaterialCategories();
+
+    default boolean inMaterialCategories(MaterialTagKey... materialTagKeys) {
+        for (MaterialTagKey materialTagKey : materialTagKeys) {
+            if (getMaterialCategories().contains(materialTagKey)) return true;
         }
         return false;
     }
 
-    default boolean inMaterialCategories(Collection<MaterialCategoryKey> materialCategoryKeys) {
-        for (MaterialCategoryKey materialCategoryKey : materialCategoryKeys) {
-            if (getMaterialCategories().contains(materialCategoryKey)) return true;
+    default boolean inMaterialCategories(Collection<MaterialTagKey> materialTagKeys) {
+        for (MaterialTagKey materialTagKey : materialTagKeys) {
+            if (getMaterialCategories().contains(materialTagKey)) return true;
         }
         return false;
     }
@@ -41,35 +72,6 @@ public interface MaterialKey {
         return new Block(this, new MetadataKeyValueBucket());
     }
 
-    static MaterialKey from(NamespacedKey namespacedKey, int maxStackSize, int maxDurability, Set<MaterialCategoryKey> materialCategoryKeys) {
-        return new DefaultMaterialKey(-1, 0, namespacedKey, maxStackSize, maxDurability, MaterialCategory.DEFAULT, materialCategoryKeys);
-    }
-
-    static MaterialKey from(NamespacedKey namespacedKey, int maxStackSize, int maxDurability, MaterialCategoryKey tag, Set<MaterialCategoryKey> materialCategoryKeys) {
-        return new DefaultMaterialKey(-1, 0, namespacedKey, maxStackSize, maxDurability, tag, materialCategoryKeys);
-    }
-
-    static MaterialKey from(NamespacedKey namespacedKey, int maxStackSize, Set<MaterialCategoryKey> materialCategoryKeys) {
-        return from(namespacedKey, maxStackSize, -1, materialCategoryKeys);
-    }
-
-    static MaterialKey from(NamespacedKey namespacedKey, Set<MaterialCategoryKey> materialCategoryKeys) {
-        return from(namespacedKey, -1, -1, materialCategoryKeys);
-    }
-
-    static MaterialKey from(int id, NamespacedKey namespacedKey, int maxStackSize, int maxDurability, Set<MaterialCategoryKey> materialCategoryKeys) {
-        return new DefaultMaterialKey(id, 0, namespacedKey, maxStackSize, maxDurability, MaterialCategory.DEFAULT, materialCategoryKeys);
-    }
-
-    static MaterialKey from(int id, int data) {
-        return new DefaultMaterialKey(id, data, null, -1, -1, MaterialCategory.DEFAULT, Set.of());
-    }
-
-    static MaterialKey from(int id) {
-        return new DefaultMaterialKey(id, 0, null, -1, -1, MaterialCategory.DEFAULT, Set.of());
-    }
-
-
     class DefaultMaterialKey implements MaterialKey {
 
         private int id;
@@ -77,72 +79,89 @@ public interface MaterialKey {
         private NamespacedKey namespacedKey;
         private int maxStackSize;
         private int maxDurability;
-        private Set<MaterialCategoryKey> materialCategoryKeys;
-        private MaterialCategoryKey tag;
+        private float hardness;
+        private float blastResistance;
+        private float slipperiness;
+        private EquipmentSlot equipmentSlot;
+        private Set<MaterialTagKey> materialCategories;
 
-        public DefaultMaterialKey(int id, int metadata, NamespacedKey namespacedKey, int maxStackSize, int maxDurability, MaterialCategoryKey tag, Set<MaterialCategoryKey> materialCategoryKeys) {
+        public DefaultMaterialKey(int id, int metadata, NamespacedKey namespacedKey, int maxStackSize, int maxDurability, float hardness, float blastResistance, float slipperiness, EquipmentSlot equipmentSlot, Set<MaterialTagKey> materialCategories) {
             this.id = id;
             this.metadata = metadata;
             this.namespacedKey = namespacedKey;
             this.maxStackSize = maxStackSize;
             this.maxDurability = maxDurability;
-            this.materialCategoryKeys = materialCategoryKeys;
-            this.tag = tag;
+            this.hardness = hardness;
+            this.blastResistance = blastResistance;
+            this.slipperiness = slipperiness;
+            this.equipmentSlot = equipmentSlot;
+            this.materialCategories = materialCategories;
         }
 
         @Override
         public int getId() {
-            return this.id;
+            return id;
         }
 
-
-        public DefaultMaterialKey setId(int id) {
+        public void setId(int id) {
             this.id = id;
-            return this;
         }
 
         @Override
         public int getMetadata() {
-            return this.metadata;
+            return metadata;
         }
 
         @Override
         public NamespacedKey getNamespacedKey() {
-            return this.namespacedKey;
-        }
-
-
-        @Override
-        public Set<MaterialCategoryKey> getMaterialCategories() {
-            return this.materialCategoryKeys;
-        }
-
-        @Override
-        public MaterialCategoryKey getTag() {
-            return this.tag;
+            return namespacedKey;
         }
 
         @Override
         public int getMaxStackSize() {
-            return this.maxStackSize;
+            return maxStackSize;
         }
 
         @Override
         public int getMaxDurability() {
-            return this.maxDurability;
+            return maxDurability;
+        }
+
+        @Override
+        public float getHardness() {
+            return hardness;
+        }
+
+        @Override
+        public float getBlastResistance() {
+            return blastResistance;
+        }
+
+        @Override
+        public float getSlipperiness() {
+            return slipperiness;
+        }
+
+        @Override
+        public EquipmentSlot getEquipmentSlot() {
+            return equipmentSlot;
+        }
+
+        @Override
+        public Set<MaterialTagKey> getMaterialCategories() {
+            return materialCategories;
         }
 
         @Override
         public boolean equals(Object o) {
-            if (o == null) return false;
-            if (!(o instanceof MaterialKey materialKey)) return false;
             if (this == o) return true;
-            return id == materialKey.getId() && metadata == materialKey.getMetadata();
+            if (!(o instanceof DefaultMaterialKey that)) return false;
+            return id == that.id && metadata == that.metadata && maxStackSize == that.maxStackSize && maxDurability == that.maxDurability && Float.compare(that.hardness, hardness) == 0 && Float.compare(that.blastResistance, blastResistance) == 0 && Float.compare(that.slipperiness, slipperiness) == 0 && Objects.equals(namespacedKey, that.namespacedKey) && equipmentSlot == that.equipmentSlot && Objects.equals(materialCategories, that.materialCategories);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(id, metadata);
+            return Objects.hash(id, metadata, namespacedKey, maxStackSize, maxDurability, hardness, blastResistance, slipperiness, equipmentSlot, materialCategories);
         }
 
         @Override
@@ -150,9 +169,14 @@ public interface MaterialKey {
             return "DefaultMaterialKey{" +
                     "id=" + id +
                     ", metadata=" + metadata +
-                    ", maxStackSize=" + maxStackSize +
                     ", namespacedKey=" + namespacedKey +
-                    ", materialCategoryKeys=" + materialCategoryKeys +
+                    ", maxStackSize=" + maxStackSize +
+                    ", maxDurability=" + maxDurability +
+                    ", hardness=" + hardness +
+                    ", blastResistance=" + blastResistance +
+                    ", slipperiness=" + slipperiness +
+                    ", equipmentSlot=" + equipmentSlot +
+                    ", materialCategories=" + materialCategories +
                     '}';
         }
     }

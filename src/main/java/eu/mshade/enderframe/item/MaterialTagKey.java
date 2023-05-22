@@ -2,19 +2,19 @@ package eu.mshade.enderframe.item;
 
 import java.util.Objects;
 
-public interface MaterialCategoryKey {
+public interface MaterialTagKey {
 
     String getName();
 
 
-    static MaterialCategoryKey from(String name){
-        return new DefaultMaterialCategoryKey(name);
+    static MaterialTagKey from(String name){
+        return new DefaultMaterialTagKey(name);
     }
 
-     class DefaultMaterialCategoryKey implements MaterialCategoryKey {
+     class DefaultMaterialTagKey implements MaterialTagKey {
 
         private final String name;
-        public DefaultMaterialCategoryKey(String name) {
+        public DefaultMaterialTagKey(String name) {
             this.name = name;
         }
 
@@ -26,9 +26,8 @@ public interface MaterialCategoryKey {
         @Override
         public boolean equals(Object o) {
             if (o == null) return false;
-            if(!(o instanceof MaterialCategoryKey)) return false;
-            MaterialCategoryKey materialCategoryKey = (MaterialCategoryKey) o;
-            return Objects.equals(name, materialCategoryKey.getName());
+            if(!(o instanceof MaterialTagKey materialTagKey)) return false;
+            return Objects.equals(name, materialTagKey.getName());
         }
 
         @Override

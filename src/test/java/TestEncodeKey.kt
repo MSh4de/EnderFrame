@@ -1,9 +1,3 @@
-import eu.mshade.mwork.ShrinkingUUID
-import java.math.BigInteger
-import java.security.SecureRandom
-import java.util.UUID
-import kotlin.experimental.and
-
 fun main() {
 
     val encodedKey = encodeKey("makey12")
@@ -12,7 +6,6 @@ fun main() {
     val decodedKey = decodeKey(encodedKey)
     println(decodedKey)
 
-    println(ShrinkingUUID.randomUUID())
 }
 
 

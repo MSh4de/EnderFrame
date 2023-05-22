@@ -25,7 +25,7 @@ public abstract class EntityMetadataBucket {
         return this.indexEntityMetadataByType.get(entityMetadataKey);
     }
 
-    public MetadataWrapper getEntityMetadataWrapper(MetadataKey entityMetadataKey){
+    public MetadataWrapper<?> getEntityMetadataWrapper(MetadataKey entityMetadataKey){
         return this.entityMetadataBufferByType.get(entityMetadataKey);
     }
 

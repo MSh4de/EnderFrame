@@ -22,9 +22,7 @@ class Block(private val materialKey: MaterialKey, private val metadataKeyValueBu
         other as Block
 
         if (materialKey != other.materialKey) return false
-        if (metadataKeyValueBucket != other.metadataKeyValueBucket) return false
-
-        return true
+        return metadataKeyValueBucket == other.metadataKeyValueBucket
     }
 
     override fun hashCode(): Int {

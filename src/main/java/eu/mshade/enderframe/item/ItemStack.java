@@ -72,6 +72,10 @@ public class ItemStack implements Cloneable {
         return metadataKeyValueBucket;
     }
 
+    public boolean matchMetadata(ItemStack itemStack) {
+        return itemStack.material == material && itemStack.metadataKeyValueBucket.equals(metadataKeyValueBucket);
+    }
+
     public boolean visitModified() {
         boolean modified = this.modified;
         this.modified = false;

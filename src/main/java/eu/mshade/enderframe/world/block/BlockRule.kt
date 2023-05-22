@@ -1,16 +1,12 @@
 package eu.mshade.enderframe.world.block
 
-import eu.mshade.enderframe.item.Material
-import eu.mshade.enderframe.item.MaterialCategoryKey
 import eu.mshade.enderframe.item.MaterialKey
-import eu.mshade.enderframe.metadata.MetadataKeyValueBucket
 import eu.mshade.enderframe.world.Location
 import eu.mshade.enderframe.world.Vector
-import eu.mshade.enderframe.world.block.BlockMetadataType.MULTIPLE_FACE
 
-abstract class BlockRule {
+interface BlockRule {
 
-    abstract fun apply(
+    fun apply(
         pov: Location,
         blockPosition: Vector,
         blockFace: BlockFace,
@@ -18,19 +14,32 @@ abstract class BlockRule {
         block: Block
     ): Block?
 
+    fun canApply(material: MaterialKey): Boolean
+
 }
 
 
 class BlockRuleRepository {
 
-    private val blockRuleByMaterialKey = mutableMapOf<MaterialCategoryKey, BlockRule>()
+    private val blockRules = mutableListOf<BlockRule>()
 
-    fun register(materialCategoryKey: MaterialCategoryKey, blockRule: BlockRule) {
-        blockRuleByMaterialKey[materialCategoryKey] = blockRule
+    fun register(blockRule: BlockRule) {
+        blockRules.add(blockRule)
     }
 
-    fun getBlockRule(materialCategoryKey: MaterialCategoryKey): BlockRule? {
-        return blockRuleByMaterialKey[materialCategoryKey]
+    fun getBlockRule(materialKey: MaterialKey): BlockRule? {
+        var blockRule: BlockRule? = null
+
+        for (rule in blockRules) {
+            if (rule.canApply(materialKey)) {
+                if (blockRule != null) {
+                    throw IllegalStateException("Multiple block rule found for ${materialKey.namespacedKey} (${blockRule.javaClass.name}, ${rule.javaClass.name})")
+                }
+                blockRule = rule
+            }
+        }
+
+        return blockRule
     }
 
 }

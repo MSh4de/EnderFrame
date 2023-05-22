@@ -1,11 +1,10 @@
 package eu.mshade.enderframe.scoreboard
 
 import eu.mshade.enderframe.Agent
+import eu.mshade.enderframe.UniqueId
 import eu.mshade.enderframe.Watchable
-import eu.mshade.enderframe.entity.Entity
 import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.mojang.chat.TextComponent
-import eu.mshade.mwork.ShrinkingUUID
 import java.util.concurrent.ConcurrentLinkedQueue
 
 typealias TextComponentModifier = (TextComponent) -> TextComponent
@@ -14,11 +13,16 @@ abstract class Scoreboard(
     private var title: TextComponent, val scoreboardPosition: ScoreboardPosition, val scoreboardType: ScoreboardType
 ) : Watchable {
 
-    private val shrinkingId: String = ShrinkingUUID.randomUUID(6)
+
+    companion object {
+        val uniqueId = UniqueId()
+    }
+
+    private val id = "sb-" + uniqueId.freeId
     protected val viewers = ConcurrentLinkedQueue<Agent>()
 
     fun getId(): String {
-        return shrinkingId
+        return id
     }
 
     override fun addWatcher(agent: Agent) {
@@ -37,7 +41,6 @@ abstract class Scoreboard(
         val player = agent as? Player ?: return
         val minecraftSession = player.minecraftSession
         minecraftSession.sendScoreboard(this, ScoreboardAction.REMOVE)
-
     }
 
     override fun isWatching(agent: Agent?): Boolean {
@@ -63,7 +66,7 @@ abstract class Scoreboard(
 
 }
 
-interface ScoreboardLine: Cloneable {
+interface ScoreboardLine : Cloneable {
 
     fun getValue(): String
 

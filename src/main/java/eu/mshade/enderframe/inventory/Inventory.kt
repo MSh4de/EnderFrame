@@ -59,6 +59,20 @@ abstract class Inventory(var inventoryKey: InventoryKey, @JvmField var itemStack
         return -1
     }
 
+    fun addItemStack(itemStack: ItemStack): Boolean {
+        val first = findItemStack(itemStack.material) { item -> item != null && item.matchMetadata(itemStack) }
+        if (first == null || first.amount >= itemStack.material.maxStackSize) {
+            val findFirstEmptySlot = findFirstEmptySlot()
+            if (findFirstEmptySlot == -1) {
+                setItemStack(findFirstEmptySlot, itemStack)
+                return true
+            }
+            return false
+        }
+        first.modifyAmount { _ ->  itemStack.amount }
+        return true
+    }
+
     fun findItemStack(materialKey: MaterialKey, filter: Function<ItemStack?, Boolean>): ItemStack? {
         return findItemStack(0, materialKey, filter)
     }
@@ -73,6 +87,7 @@ abstract class Inventory(var inventoryKey: InventoryKey, @JvmField var itemStack
         }
         return null
     }
+
 
     val size: Int
         get() = itemStacks.size

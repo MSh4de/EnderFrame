@@ -22,7 +22,6 @@ public abstract class World extends Tickable {
 
     protected final File worldFolder;
     protected final File regionFolder;
-    protected final File indicesFolder;
 
     protected final MetadataKeyValueBucket metadatas;
     protected final Map<Long, CompletableFuture<Chunk>> chunkById = new ConcurrentHashMap<>();
@@ -34,8 +33,8 @@ public abstract class World extends Tickable {
     public World(File worldFolder, MetadataKeyValueBucket metadatas) {
         this.worldFolder = worldFolder;
         this.regionFolder = new File(worldFolder, "regions");
-        this.indicesFolder = new File(worldFolder, "indices");
         this.metadatas = metadatas;
+        this.regionFolder.mkdirs();
     }
 
     public World(File worldFolder) {
@@ -162,10 +161,6 @@ public abstract class World extends Tickable {
 
     public File getRegionFolder() {
         return this.regionFolder;
-    }
-
-    public File getIndicesFolder() {
-        return indicesFolder;
     }
 
     public File getWorldFolder() {

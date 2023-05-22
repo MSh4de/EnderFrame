@@ -3,12 +3,13 @@ package eu.mshade.enderframe.scoreboard
 import eu.mshade.enderframe.Agent
 import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.mojang.chat.TextComponent
-import eu.mshade.mwork.ShrinkingUUID
 import java.util.function.Consumer
 
 const val MAX_LINES = 15
 
 class ScoreboardSidebar(title: TextComponent) : Scoreboard(title, ScoreboardPosition.SIDEBAR, ScoreboardType.INTEGER) {
+
+    constructor(title: String) : this(TextComponent.of(title))
 
     private val lines = mutableMapOf<String, ScoreboardLine>()
 
