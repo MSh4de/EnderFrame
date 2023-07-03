@@ -8,10 +8,10 @@ import java.util.UUID;
 public class EnchantmentTableInventory extends Inventory {
 
     public EnchantmentTableInventory() {
-        super(InventoryType.ENCHANTMENT_TABLE, UUID.randomUUID());
+        super(InventoryType.ENCHANTMENT_TABLE);
     }
 
     public EnchantmentTableInventory(UUID uniqueId) {
-        super(InventoryType.ENCHANTMENT_TABLE, uniqueId);
+        super(InventoryType.ENCHANTMENT_TABLE);
     }
 }

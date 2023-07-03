@@ -56,6 +56,10 @@ abstract class Player : Entity, Agent, Equipable {
         return lookAtChunks.contains(chunk)
     }
 
+    fun hasLookAtChunk(chunkX: Int, chunkZ: Int): Boolean {
+        return lookAtChunks.stream().anyMatch { chunk: Chunk -> chunk.x == chunkX && chunk.z == chunkZ }
+    }
+
     fun openInventory(inventory: NamedInventory) {
         openedInventory = inventory
         minecraftSession.sendOpenInventory(inventory)

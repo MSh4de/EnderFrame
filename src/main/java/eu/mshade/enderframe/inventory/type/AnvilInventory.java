@@ -8,10 +8,10 @@ import java.util.UUID;
 public class AnvilInventory extends Inventory {
 
     public AnvilInventory() {
-        super(InventoryType.ANVIL, UUID.randomUUID());
+        super(InventoryType.ANVIL);
     }
 
     public AnvilInventory(UUID uniqueId) {
-        super(InventoryType.ANVIL, uniqueId);
+        super(InventoryType.ANVIL);
     }
 }

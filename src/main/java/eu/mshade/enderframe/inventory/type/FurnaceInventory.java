@@ -8,10 +8,10 @@ import java.util.UUID;
 public class FurnaceInventory extends Inventory {
 
     public FurnaceInventory() {
-        super(InventoryType.FURNACE, UUID.randomUUID());
+        super(InventoryType.FURNACE);
     }
 
     public FurnaceInventory(UUID uniqueId) {
-        super(InventoryType.FURNACE, uniqueId);
+        super(InventoryType.FURNACE);
     }
 }

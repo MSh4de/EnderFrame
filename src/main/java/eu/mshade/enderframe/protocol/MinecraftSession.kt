@@ -1,6 +1,8 @@
 package eu.mshade.enderframe.protocol
 
 import eu.mshade.enderframe.PlayerInfoBuilder
+import eu.mshade.enderframe.effect.Effect
+import eu.mshade.enderframe.effect.EffectKey
 import eu.mshade.enderframe.entity.Entity
 import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.inventory.EquipmentSlot
@@ -42,12 +44,13 @@ import java.util.concurrent.ThreadLocalRandom
 import java.util.function.Consumer
 import javax.crypto.SecretKey
 
-open abstract class MinecraftSession(@JvmField val channel: Channel) {
+abstract class MinecraftSession(@JvmField val channel: Channel) {
     val sessionId: String
     val verifyToken = ByteArray(4)
+
     @JvmField
-    var gameProfile: GameProfile ?= null
-    var handshake: MinecraftHandshake ?= null
+    var gameProfile: GameProfile? = null
+    var handshake: MinecraftHandshake? = null
     var protocolStatus = MinecraftProtocolStatus.HANDSHAKE
         protected set
 
@@ -147,6 +150,9 @@ open abstract class MinecraftSession(@JvmField val channel: Channel) {
     abstract fun removeEntity(vararg entities: Entity)
     abstract fun sendMetadata(entity: Entity, vararg entityMetadataKeys: MetadataKey)
     abstract fun sendMetadata(entity: Entity, entityMetadataKeys: Collection<MetadataKey>)
+    abstract fun sendEntityProperties(entity: Entity)
+//    abstract fun sendEntityProperties(entity: Entity, vararg entityPropertyKeys: EntityPropertyKey)
+    abstract fun sendEntityEffect(entity: Entity, vararg effects: Effect)
     abstract fun sendChunk(chunk: Chunk)
     abstract fun sendSection(section: Section)
     abstract fun sendSectionFromChunk(chunk: Chunk)
@@ -160,7 +166,7 @@ open abstract class MinecraftSession(@JvmField val channel: Channel) {
     abstract fun sendUnsafeBlockChange(blockPosition: Vector, materialKey: MaterialKey)
     abstract fun sendSign(vector: Vector, textComponents: List<TextComponent>)
     fun sendSign(vector: Vector, vararg textComponents: TextComponent) {
-        sendSign(vector, Arrays.asList(*textComponents))
+        sendSign(vector, listOf(*textComponents))
     }
 
     abstract fun sendOpenInventory(inventory: NamedInventory)
@@ -170,9 +176,7 @@ open abstract class MinecraftSession(@JvmField val channel: Channel) {
     abstract fun sendDisplayScoreboard(scoreboard: Scoreboard)
     abstract fun sendScoreboard(scoreboard: Scoreboard, mode: ScoreboardAction)
     abstract fun sendUpdateScoreboardLine(
-        scoreboard: Scoreboard,
-        scoreboardLine: ScoreboardLine,
-        action: ScoreboardLineAction
+        scoreboard: Scoreboard, scoreboardLine: ScoreboardLine, action: ScoreboardLineAction
     )
 
     abstract fun sendTeams(team: Team)
@@ -182,16 +186,7 @@ open abstract class MinecraftSession(@JvmField val channel: Channel) {
     abstract fun sendParticle(particle: Particle)
     abstract fun sendInventoryUpdate(block: Block, vararg metadataKeys: MetadataKey)
     abstract fun sendEquipment(entity: Entity, equipmentSlot: EquipmentSlot, itemStack: ItemStack?)
-    
-    
-    override fun toString(): String {
-        return "SessionWrapper{" +
-                "channel=" + channel +
-                ", sessionId='" + sessionId + '\'' +
-                ", verifyToken=" + Arrays.toString(verifyToken) +
-                ", gameProfile=" + gameProfile +
-                ", handshake=" + handshake +
-                ", protocolStatus=" + protocolStatus +
-                '}'
-    }
+
+
+    abstract fun sendRemoveEntityEffect(entity: Entity, vararg effectTypes: EffectKey)
 }

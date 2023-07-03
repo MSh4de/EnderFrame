@@ -8,8 +8,9 @@ import java.util.UUID;
 public class PlayerInventory extends Inventory {
 
     private int heldItemSlot = 0;
-    public PlayerInventory(UUID uniqueId) {
-        super(InventoryType.PLAYER, uniqueId);
+
+    public PlayerInventory() {
+        super(InventoryType.PLAYER);
     }
 
     @Override

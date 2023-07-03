@@ -9,14 +9,14 @@ public class ItemStack implements Cloneable {
     protected MaterialKey material;
     protected int amount;
     protected int durability;
-    protected MetadataKeyValueBucket metadataKeyValueBucket;
+    protected MetadataKeyValueBucket metadatas;
     protected boolean modified;
 
-    public ItemStack(MaterialKey material, int amount, int durability, MetadataKeyValueBucket metadataKeyValueBucket) {
+    public ItemStack(MaterialKey material, int amount, int durability, MetadataKeyValueBucket metadatas) {
         this.material = material;
         this.amount = amount;
         this.durability = durability;
-        this.metadataKeyValueBucket = metadataKeyValueBucket;
+        this.metadatas = metadatas;
     }
 
     public ItemStack(MaterialKey material, int amount, int durability) {
@@ -68,12 +68,12 @@ public class ItemStack implements Cloneable {
     }
 
 
-    public MetadataKeyValueBucket getMetadataKeyValueBucket() {
-        return metadataKeyValueBucket;
+    public MetadataKeyValueBucket getMetadatas() {
+        return metadatas;
     }
 
     public boolean matchMetadata(ItemStack itemStack) {
-        return itemStack.material == material && itemStack.metadataKeyValueBucket.equals(metadataKeyValueBucket);
+        return itemStack.material == material && itemStack.metadatas.equals(metadatas);
     }
 
     public boolean visitModified() {
@@ -93,6 +93,6 @@ public class ItemStack implements Cloneable {
 
     @Override
     public String toString() {
-        return "ItemStack{" + "material=" + material + ", amount=" + amount + ", durability=" + durability + ", metadataKeyValueBucket=" + metadataKeyValueBucket + '}';
+        return "ItemStack{" + "material=" + material + ", amount=" + amount + ", durability=" + durability + ", metadataKeyValueBucket=" + metadatas + '}';
     }
 }

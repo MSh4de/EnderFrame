@@ -84,6 +84,13 @@ public class Vector implements Cloneable {
         return this;
     }
 
+    public Vector add(int x, int y, int z){
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        return this;
+    }
+
     public Vector subtract(Vector vec) {
         x -= vec.x;
         y -= vec.y;
@@ -103,6 +110,22 @@ public class Vector implements Cloneable {
         y /= vec.y;
         z /= vec.z;
         return this;
+    }
+
+    public float taxicabDistance(Vector vec) {
+        return (float) (Math.abs(vec.x - x) + Math.abs(vec.y - y) + Math.abs(vec.z - z));
+    }
+
+    public float chebyshevDistance(Vector vec) {
+        return (float) Math.max(Math.max(Math.abs(vec.x - x), Math.abs(vec.y - y)), Math.abs(vec.z - z));
+    }
+
+    public float distance(Vector vec) {
+        return (float) Math.sqrt(distanceSquared(vec));
+    }
+
+    public double distanceSquared(Vector vec) {
+        return Math.pow(vec.x - x, 2) + Math.pow(vec.y - y, 2) + Math.pow(vec.z - z, 2);
     }
 
     @Override

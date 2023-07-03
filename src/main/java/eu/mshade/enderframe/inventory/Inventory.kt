@@ -10,19 +10,13 @@ import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.function.Consumer
 import java.util.function.Function
 
-abstract class Inventory(var inventoryKey: InventoryKey, @JvmField var itemStacks: Array<ItemStack?>, var uniqueId: UUID) :
-    Watchable {
+abstract class Inventory(var inventoryKey: InventoryKey, @JvmField var itemStacks: Array<ItemStack?>) : Watchable {
     protected var updateSlots: MutableList<Int> = ArrayList()
     protected var agents: Queue<Agent> = ConcurrentLinkedQueue()
 
-    init {
-        InventoryRepository.add(this)
-    }
-
-    constructor(inventoryKey: InventoryKey, uniqueId: UUID) : this(
+    constructor(inventoryKey: InventoryKey) : this(
         inventoryKey,
         arrayOfNulls<ItemStack>(inventoryKey.defaultSlot),
-        uniqueId
     )
 
     open fun setItemStack(slot: Int, itemStack: ItemStack?) {
@@ -54,38 +48,56 @@ abstract class Inventory(var inventoryKey: InventoryKey, @JvmField var itemStack
 
     open fun findFirstEmptySlot(offset: Int): Int {
         for (i in offset until itemStacks.size) {
-            getItemStack(i) ?: return i
+            val itemStack = getItemStack(i)
+            if (itemStack == null || itemStack.amount < itemStack.material.maxStackSize) return i
         }
         return -1
     }
 
     fun addItemStack(itemStack: ItemStack): Boolean {
-        val first = findItemStack(itemStack.material) { item -> item != null && item.matchMetadata(itemStack) }
-        if (first == null || first.amount >= itemStack.material.maxStackSize) {
+        val (slot, foundItemStack) = findItemStack(itemStack.material) { item -> item != null && item.matchMetadata(itemStack) && item.amount < item.material.maxStackSize }
+        if (foundItemStack == null || foundItemStack.amount >= itemStack.material.maxStackSize) {
             val findFirstEmptySlot = findFirstEmptySlot()
-            if (findFirstEmptySlot == -1) {
+            if (findFirstEmptySlot != -1) {
                 setItemStack(findFirstEmptySlot, itemStack)
+                updateSlots.add(findFirstEmptySlot)
                 return true
             }
             return false
         }
-        first.modifyAmount { _ ->  itemStack.amount }
+
+        if (foundItemStack.amount + itemStack.amount > itemStack.material.maxStackSize) {
+            val rest = (foundItemStack.amount + itemStack.amount) - itemStack.material.maxStackSize
+            foundItemStack.amount = itemStack.material.maxStackSize
+            updateSlots.add(slot)
+
+            val findFirstEmptySlot = findFirstEmptySlot()
+            if (findFirstEmptySlot != -1) {
+                setItemStack(findFirstEmptySlot, itemStack.clone().apply { amount = rest })
+                updateSlots.add(findFirstEmptySlot)
+                return true
+            }
+            return false
+        }else {
+            foundItemStack.modifyAmount { amount -> itemStack.amount + amount }
+            updateSlots.add(slot)
+        }
         return true
     }
 
-    fun findItemStack(materialKey: MaterialKey, filter: Function<ItemStack?, Boolean>): ItemStack? {
+    fun findItemStack(materialKey: MaterialKey, filter: Function<ItemStack?, Boolean>): Pair<Int, ItemStack?> {
         return findItemStack(0, materialKey, filter)
     }
 
-    fun findItemStack(offset: Int, materialKey: MaterialKey, filter: Function<ItemStack?, Boolean>): ItemStack? {
+    fun findItemStack(offset: Int, materialKey: MaterialKey, filter: Function<ItemStack?, Boolean>): Pair<Int, ItemStack?> {
         for (i in offset until itemStacks.size) {
             val itemStack = getItemStack(i)
             if (itemStack == null || itemStack.material != materialKey) continue
             if (filter.apply(itemStack)) {
-                return itemStack
+                return Pair(i, itemStack)
             }
         }
-        return null
+        return Pair(-1, null)
     }
 
 
@@ -105,6 +117,10 @@ abstract class Inventory(var inventoryKey: InventoryKey, @JvmField var itemStack
         val updateSlots: Collection<Int> = ArrayList(updateSlots)
         this.updateSlots.clear()
         return updateSlots
+    }
+
+    fun isInUpdateSlots(slot: Int): Boolean {
+        return updateSlots.contains(slot)
     }
 
     override fun addWatcher(agent: Agent) {

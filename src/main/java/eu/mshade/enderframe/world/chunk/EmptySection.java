@@ -12,6 +12,6 @@ public class EmptySection extends Section {
         }
 
         blockLight.fill((byte) 15);
-        palette.setBlock(0, 4096, Material.AIR.toBlock());
+        palette.setBlock(0, Material.AIR.toBlock(), 4096);
     }
 }

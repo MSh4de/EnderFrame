@@ -123,6 +123,10 @@ public abstract class MinecraftByteBuf extends ByteBuf {
 
     public Vector readBlockPosition() {
         long val = byteBuf.readLong();
+        if (val == -1){
+            return Vector.ZERO;
+        }
+
         long x = (val >> 38);
         long y = (val >> 26) & 0xfff;
         long z = (val << 38) >> 38;

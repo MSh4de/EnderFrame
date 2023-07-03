@@ -10,6 +10,7 @@ public class TextComponentSerializer extends JsonSerializer<TextComponentEntry> 
     @Override
     public void serialize(TextComponentEntry value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeStartObject();
+
         gen.writeStringField("text", value.getText());
 
         if (value.getChatColor() != null) gen.writeStringField("color", value.getChatColor().getName());

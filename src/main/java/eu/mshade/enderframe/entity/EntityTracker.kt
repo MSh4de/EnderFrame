@@ -6,56 +6,63 @@ import eu.mshade.enderframe.inventory.EquipmentSlot
 import eu.mshade.enderframe.item.ItemStack
 import eu.mshade.enderframe.tick.Tickable
 import eu.mshade.enderframe.world.chunk.Chunk
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
+import java.util.concurrent.Semaphore
 
 object EntityTracker : Tickable() {
 
-    val entities = ConcurrentLinkedQueue<Entity>()
-    val trackedEntities = ConcurrentHashMap<Entity, EntityTrackerEntry>()
+    private val entities = ConcurrentLinkedQueue<Entity>()
+    private val trackedEntities = ConcurrentHashMap<Entity, EntityTrackerEntry>()
+
+
+    const val CHUNK_VIEW_DISTANCE = 5
+    const val ENTITY_VIEW_DISTANCE = 80
+
 
     override fun tick() {
-        for (entity in entities) {
+        entities.forEach{ entity ->
             if (entity is Player) {
-
                 val location = entity.getLocation()
                 val world = location.world
 
                 val chunkX: Int = location.chunkX
                 val chunkZ: Int = location.chunkZ
-                val entities: MutableSet<Entity> = HashSet()
+                val entitiesInRange: MutableList<Entity> = ArrayList()
+                val chunks = mutableListOf<CompletableFuture<Chunk>?>()
 
-                for (x in chunkX - 5..chunkX + 5) {
-                    for (z in chunkZ - 5..chunkZ + 5) {
-                        if ((chunkX - x) * (chunkX - x) + (chunkZ - z) * (chunkZ - z) <= 5 * 5) {
-                            val chunk: Chunk = world.getChunk(x, z).join()
-                            entities.addAll(chunk.entities)
-
-                            for (watcher in chunk.watchers) {
-                                if (watcher is Player && watcher != entity) {
-                                    entities.add(watcher)
-                                }
-                            }
-
+                for (x in chunkX - CHUNK_VIEW_DISTANCE..chunkX + CHUNK_VIEW_DISTANCE) {
+                    for (z in chunkZ - CHUNK_VIEW_DISTANCE..chunkZ + CHUNK_VIEW_DISTANCE) {
+                        if ((chunkX - x) * (chunkX - x) + (chunkZ - z) * (chunkZ - z) <= CHUNK_VIEW_DISTANCE * CHUNK_VIEW_DISTANCE) {
+                            /*if (entity.hasLookAtChunk(x, z)) */
+                            chunks.add(world.getChunk(x, z))
                         }
                     }
                 }
 
-                //distance 80 that mean 5 chunk of distance view
-                val entitiesFiltered = getEntities(entities, entity, 80)
+                chunks.forEach { cfChunk ->
+                    cfChunk?.join()?.let { chunk ->
+                        entitiesInRange.addAll(chunk.entities)
 
-                for (target in entitiesFiltered) {
-                    target.addWatcher(entity)
-                }
-
-                for (target in entity.getLookAtEntity()) {
-                    if (!entitiesFiltered.contains(target)) {
-                        target.removeWatcher(entity)
+                        chunk.watchers.filterIsInstance<Player>()
+                            .filter { it != entity }
+                            .forEach { entitiesInRange.add(it) }
                     }
                 }
 
+                val entitiesFiltered = getEntitiesInRange(entitiesInRange, entity, ENTITY_VIEW_DISTANCE)
 
-                for (watchedEntity in entity.getLookAtEntity()) {
+                entitiesFiltered.forEach { target ->
+                    target.addWatcher(entity)
+                }
+
+                entity.getLookAtEntity().filterNot { entitiesFiltered.contains(it) }
+                    .forEach { target ->
+                        target.removeWatcher(entity)
+                    }
+
+                entity.getLookAtEntity().forEach { watchedEntity ->
                     if (watchedEntity.getTickLocation() != watchedEntity.getTickBeforeLocation()) {
                         entity.minecraftSession.sendUpdateLocation(
                             watchedEntity,
@@ -69,8 +76,7 @@ object EntityTracker : Tickable() {
                         entity.minecraftSession.sendMetadata(watchedEntity, consumeUpdatedMetadataKeyValue)
                     }
 
-                    val trackerEntry = trackedEntities[watchedEntity]!!
-                    trackerEntry.update(entity)
+                    trackedEntities[watchedEntity]?.update(entity)
                 }
             }
         }
@@ -86,9 +92,9 @@ object EntityTracker : Tickable() {
         trackedEntities.remove(entity)
     }
 
-    private fun getEntities(entities: Collection<Entity>, source: Entity, distance: Int): Collection<Entity> {
-        val newEntities = HashSet<Entity>()
-        for (entity in entities) {
+    private fun getEntitiesInRange(entities: Collection<Entity>, source: Entity, distance: Int): Collection<Entity> {
+        val newEntities = ArrayList<Entity>()
+        entities.forEach { entity ->
             if (entity.getLocation().distanceXZ(source.getLocation()) <= distance) {
                 newEntities.add(entity)
             }
@@ -97,33 +103,30 @@ object EntityTracker : Tickable() {
     }
 }
 
-class EntityTrackerEntry(val entity: Entity){
+class EntityTrackerEntry(private val entity: Entity) {
 
     private var lastEquipment = mutableMapOf<EquipmentSlot, ItemStack>()
 
-    fun update(player: Player){
+    fun update(player: Player) {
         if (entity is Equipable) {
             val equipments = entity.getEquipments()
             if (lastEquipment == equipments) return
 
-            for (value in EquipmentSlot.values()) {
+            EquipmentSlot.values().forEach { value ->
                 val itemStack = equipments[value]
                 val lastItemStack = lastEquipment[value]
                 if (itemStack != lastItemStack) {
                     val equipmentChangeEvent = EquipmentChangeEvent(entity, value, lastItemStack, itemStack)
                     EnderFrame.get().minecraftEvents.publish(equipmentChangeEvent)
-                    if (equipmentChangeEvent.isCancelled) continue
+                    if (equipmentChangeEvent.isCancelled) return@forEach
                     player.minecraftSession.sendEquipment(entity, value, itemStack)
-                    if (itemStack == null){
+                    if (itemStack == null) {
                         lastEquipment.remove(value)
-                    }else {
+                    } else {
                         lastEquipment[value] = itemStack
                     }
                 }
             }
-
-
         }
     }
-
 }

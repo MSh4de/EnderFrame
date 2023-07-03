@@ -8,10 +8,10 @@ import java.util.UUID;
 public class BeaconInventory extends Inventory {
 
     public BeaconInventory() {
-        super(InventoryType.BEACON, UUID.randomUUID());
+        super(InventoryType.BEACON);
     }
 
     public BeaconInventory(UUID uniqueId) {
-        super(InventoryType.BEACON, uniqueId);
+        super(InventoryType.BEACON);
     }
 }

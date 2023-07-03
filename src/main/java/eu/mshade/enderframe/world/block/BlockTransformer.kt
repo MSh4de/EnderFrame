@@ -8,9 +8,9 @@ abstract class BlockTransformer {
 
     abstract fun transform(block: Block, materialWrapper: MaterialKeyWrapper): MaterialKey?
 
-    abstract fun transform(materialKey: MaterialKey, materialWrapper: MaterialKeyWrapper): Block?
+    abstract fun transform(material: MaterialKey, materialWrapper: MaterialKeyWrapper): Block?
 
-    abstract fun canTransform(materialKey: MaterialKey): Boolean
+    abstract fun canTransform(material: MaterialKey): Boolean
 
 }
 
@@ -25,7 +25,7 @@ class BlockTransformerController(private val materialWrapper: MaterialKeyWrapper
 
     //server side
     fun transform(block: Block): MaterialKey? {
-        val materialKey = block.getMaterialKey()
+        val materialKey = block.getMaterial()
         val blockTransformer = getBlockTransformer(materialKey)
             ?: commonBlockTransformer
 
@@ -61,14 +61,14 @@ class BlockTransformerController(private val materialWrapper: MaterialKeyWrapper
 class CommonBlockTransformer : BlockTransformer() {
 
     override fun transform(block: Block, materialWrapper: MaterialKeyWrapper): MaterialKey? {
-        return materialWrapper.map(MaterialWrapperContext.BLOCK, block.getMaterialKey())
+        return materialWrapper.map(MaterialWrapperContext.BLOCK, block.getMaterial())
     }
 
-    override fun transform(materialKey: MaterialKey, materialWrapper: MaterialKeyWrapper): Block? {
-        return materialWrapper.reverseMap(MaterialWrapperContext.BLOCK, materialKey)?.toBlock()
+    override fun transform(material: MaterialKey, materialWrapper: MaterialKeyWrapper): Block? {
+        return materialWrapper.reverseMap(MaterialWrapperContext.BLOCK, material)?.toBlock()
     }
 
-    override fun canTransform(materialKey: MaterialKey): Boolean {
+    override fun canTransform(material: MaterialKey): Boolean {
         return true
     }
 

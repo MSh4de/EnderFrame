@@ -38,9 +38,9 @@ public abstract class Section {
 
     public int getRealBlock(){
         int air = 0;
-        for (Block block : palette.getBlock()) {
-            if (block.getMaterialKey() == Material.AIR) {
-                air += palette.getCount(palette.getId(block));
+        for (PaletteEntry paletteBlock : palette.getBlocks()) {
+            if (paletteBlock.getBlock().getMaterial() == Material.AIR) {
+                air+= paletteBlock.getCount();
             }
         }
 

@@ -2,24 +2,19 @@ package eu.mshade.enderframe.inventory
 
 import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.tick.Tickable
-import java.util.*
-import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
 
 object InventoryTracker : Tickable() {
 
     private val inventories = ConcurrentLinkedQueue<Inventory>()
-    private val inventoriesByUniqueId = ConcurrentHashMap<UUID, Inventory>()
 
     override fun tick() {
         inventories.forEach {
             if (it !is PlayerInventory) {
                 it.itemStacks.forEachIndexed { index, itemStack ->
-                    run {
-                        if (itemStack != null && (itemStack.visitModified() || itemStack.metadataKeyValueBucket.visitModified())) {
-                            it.notify(Player::class.java) { player ->
-                                player.minecraftSession.sendItemStack(it, index, it.getItemStack(index))
-                            }
+                    if (itemStack != null && (itemStack.visitModified() || itemStack.metadatas.visitModified()) && !it.isInUpdateSlots(index)) {
+                        it.notify(Player::class.java) { player ->
+                            player.minecraftSession.sendItemStack(it, index, it.getItemStack(index))
                         }
                     }
                 }
@@ -32,10 +27,8 @@ object InventoryTracker : Tickable() {
 
             } else {
                 it.itemStacks.forEachIndexed { index, itemStack ->
-                    run {
-                        if (itemStack != null && (itemStack.visitModified() || itemStack.metadataKeyValueBucket.visitModified())) {
-                            updateItemStack(it, index)
-                        }
+                    if (itemStack != null && (itemStack.visitModified() || itemStack.metadatas.visitModified()) && !it.isInUpdateSlots(index)) {
+                        updateItemStack(it, index)
                     }
                 }
 
@@ -48,12 +41,10 @@ object InventoryTracker : Tickable() {
 
     fun add(inventory: Inventory) {
         inventories.add(inventory)
-        inventoriesByUniqueId[inventory.uniqueId] = inventory
     }
 
     fun remove(inventory: Inventory) {
         inventories.remove(inventory)
-        inventoriesByUniqueId.remove(inventory.uniqueId)
     }
 
     private fun calculateRealIndex(player: Player, slot: Int): Int {

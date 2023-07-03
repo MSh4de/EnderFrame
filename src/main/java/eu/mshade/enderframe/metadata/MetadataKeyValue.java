@@ -2,7 +2,7 @@ package eu.mshade.enderframe.metadata;
 
 import java.util.Objects;
 
-public abstract class MetadataKeyValue<V> {
+public abstract class MetadataKeyValue<V> implements Cloneable {
 
     protected MetadataKey metadataKey;
     protected V metadataValue;
@@ -43,5 +43,16 @@ public abstract class MetadataKeyValue<V> {
     @Override
     public int hashCode() {
         return Objects.hash(metadataKey, metadataValue);
+    }
+
+    @Override
+    public MetadataKeyValue<V> clone() {
+        try {
+            MetadataKeyValue clone = (MetadataKeyValue) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

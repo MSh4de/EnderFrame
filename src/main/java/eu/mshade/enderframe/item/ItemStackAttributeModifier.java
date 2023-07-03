@@ -1,8 +1,8 @@
 package eu.mshade.enderframe.item;
 
 import eu.mshade.enderframe.inventory.EquipmentSlot;
-import eu.mshade.enderframe.metadata.attribute.AttributeKey;
-import eu.mshade.enderframe.metadata.attribute.AttributeModifier;
+import eu.mshade.enderframe.attribute.AttributeKey;
+import eu.mshade.enderframe.attribute.AttributeModifier;
 
 public class ItemStackAttributeModifier {
 

@@ -1,26 +1,30 @@
 package eu.mshade.enderframe.tick;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import eu.mshade.enderframe.UniqueId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.*;
 import java.util.concurrent.*;
 
 public class TickBus implements Runnable {
 
     private static final long SLEEP_PRECISION = TimeUnit.MILLISECONDS.toNanos(2);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TickBus.class);
+    public static final UniqueId TICKABLE_ID = new UniqueId();
 
-    private final Queue<Tickable> tickables = new ConcurrentLinkedQueue<>();
+    private final Map<Integer, Tickable> tickables = new ConcurrentHashMap<>();
     public long nanoTimePerTick;
     private long curTick;
     private int tick;
+    private int tickPerSecond;
     private double tps;
-
     private long lastTick;
-
 
     public TickBus(int tick) {
         this.tick = tick;
         this.tps = tick;
+        this.tickPerSecond = 1000 / tick;
         this.nanoTimePerTick = (long) (1E9 / tick);
     }
 
@@ -39,21 +43,36 @@ public class TickBus implements Runnable {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-            }else {
-                if (++curTick % tick == 0){
+            } else {
+                if (++curTick % tick == 0) {
                     double deltaTime = ((curTime - lastTickTps) / 1E9);
-                    tps =  tick * (1 /  deltaTime);
+                    tps = tick * (1 / deltaTime);
                     lastTickTps = curTime;
                 }
 
                 lastTick = curTime;
 
                 List<CompletableFuture<TickState>> completableFutures = new ArrayList<>();
-                for (Tickable tickable : this.tickables) {
+                for (Tickable tickable : this.tickables.values()) {
                     CompletableFuture<TickState> completableFuture = new CompletableFuture<>();
+                    if (tickable.getTickState() == TickState.PROCESS) {
+                        LOGGER.warn("Tickable {} is still processing from last tick, please optimize it!", tickable.getClass().getSimpleName());
+                        continue;
+                    }
                     completableFutures.add(completableFuture);
                     ForkJoinPool.commonPool().execute(() -> {
-                        tickable.tick();
+                        tickable.setTickState(TickState.PROCESS);
+                        long start = System.currentTimeMillis();
+                        try {
+                            tickable.tick();
+                        } catch (Exception e) {
+                            LOGGER.error("Error while ticking tickable {}", tickable.getClass().getSimpleName(), e);
+                        }
+                        tickable.setTickState(TickState.WAITING);
+                        long end = System.currentTimeMillis();
+                        if (end - start > tickPerSecond) {
+                            LOGGER.warn("Tickable {} took {}ms to tick ({}ms is the max) please optimize it!", tickable.getClass().getSimpleName(), end - start, tickPerSecond);
+                        }
                         tickable.addTick();
                         completableFuture.complete(tickable.getTickState());
                     });
@@ -73,12 +92,17 @@ public class TickBus implements Runnable {
         return tps;
     }
 
-    public void addTickable(Tickable tickable){
-        this.tickables.add(tickable);
+    public void addTickable(Tickable tickable) {
+        this.tickables.put(tickable.getTickId(), tickable);
     }
 
-    public void removeTickable(Tickable tickable){
-        this.tickables.remove(tickable);
+    public void removeTickable(Tickable tickable) {
+        this.tickables.remove(tickable.getTickId());
+        TICKABLE_ID.flushId(tickable.getTickId());
+    }
+
+    public Collection<Tickable> getTickables() {
+        return this.tickables.values();
     }
 
 

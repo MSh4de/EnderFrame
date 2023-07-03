@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum BlockHalf {
+
     TOP(0),
     BOTTOM(1);
 

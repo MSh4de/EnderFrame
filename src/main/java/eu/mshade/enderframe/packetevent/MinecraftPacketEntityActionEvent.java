@@ -1,7 +1,7 @@
 package eu.mshade.enderframe.packetevent;
 
 import eu.mshade.enderframe.entity.Player;
-import eu.mshade.enderframe.metadata.ActionType;
+import eu.mshade.enderframe.entity.ActionType;
 
 public class MinecraftPacketEntityActionEvent implements MinecraftPacketEvent {
 

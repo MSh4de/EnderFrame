@@ -49,6 +49,15 @@ public class ItemStackMetadataKey  {
      * FIREWORK SECTION
      */
 
+    public static MetadataKey EXPLOSION = MetadataKey.from("ITEM_STACK_EXPLOSION");
+    public static MetadataKey FIREWORKS = MetadataKey.from("ITEM_STACK_FIREWORKS");
+
+    /**
+     * MAP SECTION
+     */
+    public static MetadataKey MAP_IS_SCALING = MetadataKey.from("ITEM_STACK_MAP_IS_SCALING");
+    public static MetadataKey MAP_DECORATIONS = MetadataKey.from("ITEM_STACK_MAP_DECORATIONS");
+
     static {
         try {
             for (Field field : ItemStackMetadataKey.class.getDeclaredFields()) {

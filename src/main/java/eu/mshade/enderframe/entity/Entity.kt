@@ -1,6 +1,8 @@
 package eu.mshade.enderframe.entity
 
 import eu.mshade.enderframe.UniqueId
+import eu.mshade.enderframe.attribute.AttributeKey
+import eu.mshade.enderframe.attribute.AttributeProperty
 import eu.mshade.enderframe.metadata.MetadataKeyValueBucket
 import eu.mshade.enderframe.tick.Tickable
 import eu.mshade.enderframe.world.Location
@@ -24,6 +26,7 @@ abstract class Entity(
     private var tickBeforeLocation: Location
     private var tickLocation: Location
     val metadata = MetadataKeyValueBucket(true)
+    private val properties = mutableMapOf<AttributeKey, AttributeProperty>()
 
     protected val viewers = ConcurrentLinkedQueue<Entity>()
 
@@ -105,5 +108,17 @@ abstract class Entity(
 
     fun getWatchers(): MutableCollection<Entity> {
         return this.viewers
+    }
+
+    fun getProperties(): List<AttributeProperty> {
+        return properties.values.toList()
+    }
+
+    fun getProperty(key: AttributeKey): AttributeProperty? {
+        return properties[key]
+    }
+
+    fun addProperty(property: AttributeProperty) {
+        properties[property.attribute] = property
     }
 }

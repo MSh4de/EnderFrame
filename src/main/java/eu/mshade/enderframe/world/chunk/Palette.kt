@@ -1,72 +1,61 @@
 package eu.mshade.enderframe.world.chunk
 
 import eu.mshade.enderframe.world.block.Block
+import java.util.concurrent.ConcurrentLinkedQueue
 
-class Palette: Cloneable{
+class Palette: Cloneable {
 
-    val blockById = mutableMapOf<Int, Block>()
-    private val idByBlock = mutableMapOf<Block, Int>()
-    private val countBlock = mutableMapOf<Int, Int>();
+    private val blocks = ConcurrentLinkedQueue<PaletteEntry>()
 
-    fun setBlock(id: Int, block: Block) {
-        blockById[id] = block
-        idByBlock[block] = id
+    fun setBlock(id: Int, block: Block, count: Int = 1) {
+        blocks.add(PaletteEntry(id, block, count))
     }
 
-    //setBlock with count
-    fun setBlock(id: Int, count: Int, block: Block) {
-        blockById[id] = block
-        idByBlock[block] = id
-        countBlock[id] = count
-    }
-
-    //delete block from palette
-    fun deleteBlock(id: Int) {
-        idByBlock.remove(blockById.remove(id))
-        countBlock.remove(id)
-    }
-
-    //get id of block
-    fun getId(block: Block): Int? {
-        return idByBlock[block]
+    fun hasBlock(block: Block): Boolean {
+        return blocks.any { it.block == block }
     }
 
     fun getBlock(id: Int): Block? {
-        return blockById[id]
+        return blocks.firstOrNull { it.id == id }?.block
     }
 
-    //add count block
-    fun addCount(id: Int) {
-        countBlock[id] = countBlock.getOrDefault(id, 0) + 1
+    fun modifyCount(block: Block, modifier: (Int) -> Int) {
+        val entry = blocks.firstOrNull { it.block == block }
+        if (entry != null) {
+            entry.count = modifier(entry.count)
+        }
     }
 
-    //remove count block
-    fun removeCount(id: Int) {
-        countBlock[id] = countBlock.getOrDefault(id, 0) - 1
+    fun getCount(block: Block): Int? {
+        return blocks.firstOrNull { it.block == block }?.count
     }
 
-    //get count block
-    fun getCount(id: Int): Int {
-        return countBlock.getOrDefault(id, 0)
+    fun deleteBlock(block: Block) {
+        blocks.removeIf { it.block == block }
     }
 
-    //get all block
-    fun getBlock(): MutableCollection<Block> {
-        return blockById.values
+    fun getBlockEntry(block: Block): PaletteEntry? {
+        return blocks.firstOrNull { it.block == block }
+    }
+
+    fun getBlocks(): Collection<PaletteEntry>{
+        return blocks
     }
 
     public override fun clone(): Palette {
         val palette = Palette()
-        for (id in blockById.keys) {
-            palette.setBlock(id, countBlock[id]!!, blockById[id]!!.clone())
-        }
+        palette.blocks.addAll(blocks.map { it.clone() })
         return palette
     }
 
-    override fun toString(): String {
-        return "Palette(idByBlock=$idByBlock)"
+}
+
+data class PaletteEntry(val id: Int, val block: Block, var count: Int): Cloneable {
+
+    public override fun clone(): PaletteEntry {
+        return PaletteEntry(id, block.clone(), count)
     }
 
-
-
 }
+
+

@@ -8,10 +8,10 @@ import java.util.UUID;
 public class BrewingStandInventory extends Inventory {
 
     public BrewingStandInventory() {
-        super(InventoryType.BREWING_STAND, UUID.randomUUID());
+        super(InventoryType.BREWING_STAND);
     }
 
     public BrewingStandInventory(UUID uniqueId) {
-        super(InventoryType.BREWING_STAND, uniqueId);
+        super(InventoryType.BREWING_STAND);
     }
 }

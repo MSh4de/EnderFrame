@@ -41,6 +41,7 @@ public class MetadataKeyValueBucket implements PrettyString, Cloneable {
     }
 
     public Collection<MetadataKey> consumeUpdatedMetadataKeyValue(){
+        if (metadataKeyUpdated.isEmpty()) return Collections.emptySet();
         Set<MetadataKey> copy = new HashSet<>(this.metadataKeyUpdated);
         this.metadataKeyUpdated.clear();
         return copy;
@@ -66,7 +67,7 @@ public class MetadataKeyValueBucket implements PrettyString, Cloneable {
     @Override
     public String toString() {
         return "MetadataKeyValueBucket{" +
-                "metadataKeyValueByMetadataKey=" + metadataKeyValueByMetadataKey +
+                "metadataKeyValueByMetadataKey=" + metadataKeyValueByMetadataKey.values() +
                 '}';
     }
 
@@ -75,12 +76,12 @@ public class MetadataKeyValueBucket implements PrettyString, Cloneable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MetadataKeyValueBucket that = (MetadataKeyValueBucket) o;
-        return trackUpdates == that.trackUpdates && Objects.equals(metadataKeyValueByMetadataKey, that.metadataKeyValueByMetadataKey) && Objects.equals(metadataKeyUpdated, that.metadataKeyUpdated);
+        return Objects.equals(metadataKeyValueByMetadataKey, that.metadataKeyValueByMetadataKey);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(metadataKeyValueByMetadataKey, metadataKeyUpdated, trackUpdates);
+        return Objects.hash(metadataKeyValueByMetadataKey);
     }
 
 
@@ -115,11 +116,14 @@ public class MetadataKeyValueBucket implements PrettyString, Cloneable {
 
     @Override
     public MetadataKeyValueBucket clone()  {
-        try {
-            return (MetadataKeyValueBucket) super.clone();
-        }catch (CloneNotSupportedException e){
-            throw new RuntimeException(e);
+        MetadataKeyValueBucket metadataKeyValueBucket = new MetadataKeyValueBucket(trackUpdates);
+        for (MetadataKeyValue<?> metadataKeyValue : metadataKeyValueByMetadataKey.values()) {
+            metadataKeyValueBucket.setMetadataKeyValue(metadataKeyValue.clone());
         }
+
+        metadataKeyValueBucket.metadataKeyUpdated.addAll(metadataKeyUpdated);
+
+        return metadataKeyValueBucket;
     }
 }
 

@@ -6,7 +6,8 @@ import eu.mshade.enderframe.gamerule.GameRuleRepository
 import eu.mshade.enderframe.item.ItemRuleRepository
 import eu.mshade.enderframe.protocol.MinecraftProtocolRepository
 import eu.mshade.enderframe.world.World
-import eu.mshade.enderframe.world.block.BlockRuleRepository
+import eu.mshade.enderframe.world.block.BlockBehaviorRepository
+import eu.mshade.enderframe.world.block.TickableBlockRepository
 import java.util.UUID
 
 interface MinecraftServer {
@@ -31,7 +32,7 @@ interface MinecraftServer {
 
     fun getMinecraftProtocols(): MinecraftProtocolRepository
 
-    fun getBlockRules(): BlockRuleRepository
+    fun getBlockBehaviors(): BlockBehaviorRepository
 
     fun getGameRules(): GameRuleRepository
 
@@ -48,4 +49,5 @@ interface MinecraftServer {
      */
 
 
+    fun getTickableBlocks(): TickableBlockRepository
 }

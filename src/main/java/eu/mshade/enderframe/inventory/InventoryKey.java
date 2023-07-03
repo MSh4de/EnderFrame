@@ -2,6 +2,7 @@ package eu.mshade.enderframe.inventory;
 
 import eu.mshade.enderframe.mojang.NamespacedKey;
 
+import java.awt.*;
 import java.util.Objects;
 
 public interface InventoryKey {
@@ -9,6 +10,8 @@ public interface InventoryKey {
     int getId();
 
     String getName();
+
+    TextComponent getDefaultName();
 
     int getDefaultSlot();
 
@@ -44,6 +47,11 @@ public interface InventoryKey {
         @Override
         public String getName() {
             return this.name;
+        }
+
+        @Override
+        public TextComponent getDefaultName() {
+            return null;
         }
 
         @Override
