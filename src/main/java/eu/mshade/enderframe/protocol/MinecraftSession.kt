@@ -2,6 +2,7 @@ package eu.mshade.enderframe.protocol
 
 import eu.mshade.enderframe.PlayerInfoBuilder
 import eu.mshade.enderframe.animation.AnimationType
+import eu.mshade.enderframe.world.effect.WorldEffectType
 import eu.mshade.enderframe.entity.Entity
 import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.inventory.EquipmentSlot
@@ -33,6 +34,7 @@ import eu.mshade.enderframe.world.border.WorldBorder
 import eu.mshade.enderframe.world.border.WorldBorderAction
 import eu.mshade.enderframe.world.chunk.Chunk
 import eu.mshade.enderframe.world.chunk.Section
+import eu.mshade.enderframe.world.effect.WorldEffectKey
 import io.netty.channel.Channel
 import io.netty.channel.ChannelFutureListener
 import io.netty.channel.ChannelHandler
@@ -184,7 +186,7 @@ open abstract class MinecraftSession(@JvmField val channel: Channel) {
     abstract fun sendInventoryUpdate(block: Block, vararg metadataKeys: MetadataKey)
     abstract fun sendEquipment(entity: Entity, equipmentSlot: EquipmentSlot, itemStack: ItemStack?)
     abstract fun sendAnimation(player: Player, animationType: AnimationType)
-
+    abstract fun sendWorldEffect(worldEffect: WorldEffectKey, location: Vector, material: MaterialKey, relativeVolume: Boolean)
 
 
     override fun toString(): String {

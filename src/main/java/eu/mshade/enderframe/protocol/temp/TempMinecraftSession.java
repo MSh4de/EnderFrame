@@ -2,6 +2,8 @@ package eu.mshade.enderframe.protocol.temp;
 
 import eu.mshade.enderframe.PlayerInfoBuilder;
 import eu.mshade.enderframe.animation.AnimationType;
+import eu.mshade.enderframe.world.effect.WorldEffectKey;
+import eu.mshade.enderframe.world.effect.WorldEffectType;
 import eu.mshade.enderframe.entity.Entity;
 import eu.mshade.enderframe.entity.Player;
 import eu.mshade.enderframe.inventory.EquipmentSlot;
@@ -321,6 +323,11 @@ public class TempMinecraftSession extends MinecraftSession {
 
     @Override
     public void sendAnimation(@NotNull Player player, @NotNull AnimationType animationType) {
+
+    }
+
+    @Override
+    public void sendWorldEffect(@NotNull WorldEffectKey worldEffect, @NotNull Vector location, @NotNull MaterialKey material, boolean relativeVolume) {
 
     }
 }
