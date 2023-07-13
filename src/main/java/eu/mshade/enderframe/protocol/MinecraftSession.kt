@@ -1,8 +1,10 @@
 package eu.mshade.enderframe.protocol
 
 import eu.mshade.enderframe.PlayerInfoBuilder
-import eu.mshade.enderframe.effect.Effect
-import eu.mshade.enderframe.effect.EffectKey
+
+import eu.mshade.enderframe.animation.AnimationType
+import eu.mshade.enderframe.effect.PotionEffect
+import eu.mshade.enderframe.effect.PotionEffectKey
 import eu.mshade.enderframe.entity.Entity
 import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.inventory.EquipmentSlot
@@ -34,6 +36,7 @@ import eu.mshade.enderframe.world.border.WorldBorder
 import eu.mshade.enderframe.world.border.WorldBorderAction
 import eu.mshade.enderframe.world.chunk.Chunk
 import eu.mshade.enderframe.world.chunk.Section
+import eu.mshade.enderframe.world.effect.WorldEffectKey
 import io.netty.channel.Channel
 import io.netty.channel.ChannelFutureListener
 import io.netty.channel.ChannelHandler
@@ -152,7 +155,7 @@ abstract class MinecraftSession(@JvmField val channel: Channel) {
     abstract fun sendMetadata(entity: Entity, entityMetadataKeys: Collection<MetadataKey>)
     abstract fun sendEntityProperties(entity: Entity)
 //    abstract fun sendEntityProperties(entity: Entity, vararg entityPropertyKeys: EntityPropertyKey)
-    abstract fun sendEntityEffect(entity: Entity, vararg effects: Effect)
+    abstract fun sendEntityEffect(entity: Entity, vararg potionEffects: PotionEffect)
     abstract fun sendChunk(chunk: Chunk)
     abstract fun sendSection(section: Section)
     abstract fun sendSectionFromChunk(chunk: Chunk)
@@ -186,7 +189,9 @@ abstract class MinecraftSession(@JvmField val channel: Channel) {
     abstract fun sendParticle(particle: Particle)
     abstract fun sendInventoryUpdate(block: Block, vararg metadataKeys: MetadataKey)
     abstract fun sendEquipment(entity: Entity, equipmentSlot: EquipmentSlot, itemStack: ItemStack?)
+    abstract fun sendRemoveEntityEffect(entity: Entity, vararg effectTypes: PotionEffectKey)
+    abstract fun sendAnimation(player: Player, animationType: AnimationType)
+    abstract fun sendWorldEffect(worldEffect: WorldEffectKey, location: Vector, material: MaterialKey, relativeVolume: Boolean)
 
 
-    abstract fun sendRemoveEntityEffect(entity: Entity, vararg effectTypes: EffectKey)
 }

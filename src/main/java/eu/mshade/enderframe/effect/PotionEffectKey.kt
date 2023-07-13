@@ -1,6 +1,6 @@
 package eu.mshade.enderframe.effect
 
-interface EffectKey {
+interface PotionEffectKey {
 
     val key: String
     val defaultEffect: String
@@ -8,16 +8,16 @@ interface EffectKey {
 
     companion object {
         @JvmStatic
-        fun from(key: String, defaultEffect: String, id: Int): EffectKey {
-            return DefaultEffectKey(key, defaultEffect, id)
+        fun from(key: String, defaultEffect: String, id: Int): PotionEffectKey {
+            return DefaultPotionEffectKey(key, defaultEffect, id)
         }
     }
 }
 
-data class DefaultEffectKey(
+data class DefaultPotionEffectKey(
     override val key: String,
     override val defaultEffect: String,
     override val id: Int
-) : EffectKey
+) : PotionEffectKey
 
 
