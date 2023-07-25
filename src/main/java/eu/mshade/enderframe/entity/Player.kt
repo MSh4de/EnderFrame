@@ -2,6 +2,7 @@ package eu.mshade.enderframe.entity
 
 import eu.mshade.enderframe.Agent
 import eu.mshade.enderframe.GameMode
+import eu.mshade.enderframe.commands.CommandSender
 import eu.mshade.enderframe.entity.metadata.EntityMetadataKey
 import eu.mshade.enderframe.inventory.*
 import eu.mshade.enderframe.item.ItemStack
@@ -18,7 +19,7 @@ import java.net.InetSocketAddress
 import java.util.*
 import java.util.concurrent.ConcurrentLinkedQueue
 
-abstract class Player : Entity, Agent, Equipable {
+abstract class Player : Entity, Agent, Equipable, CommandSender {
 
     var inetSocketAddress: InetSocketAddress? = null
     var minecraftProtocolVersion: MinecraftProtocolVersion? = null
@@ -50,6 +51,9 @@ abstract class Player : Entity, Agent, Equipable {
 
     val name: String?
         get() = gameProfile?.name
+
+    override val senderName: String
+        get() = gameProfile?.name ?: "UNKNOWN"
 
 
     fun hasLookAtChunk(chunk: Chunk): Boolean {

@@ -1,6 +1,7 @@
 
 package eu.mshade.enderframe;
 
+import eu.mshade.enderframe.commands.CommandManager;
 import eu.mshade.enderframe.event.MinecraftEvent;
 import eu.mshade.enderframe.packetevent.MinecraftPacketEvent;
 import eu.mshade.mwork.binarytag.BinaryTagDriver;
@@ -11,6 +12,7 @@ public class EnderFrame {
     private final EventBus<MinecraftPacketEvent> packetEvents = new EventBus<>();
     private final EventBus<MinecraftEvent> minecraftEvents = new EventBus<>();
     private final BinaryTagDriver binaryTagDriver = new BinaryTagDriver();
+    private final CommandManager commandManager = new CommandManager();
     private static EnderFrame ENDER_FRAME;
 
     private EnderFrame() {
@@ -23,6 +25,10 @@ public class EnderFrame {
 
     public EventBus<MinecraftEvent> getMinecraftEvents() {
         return minecraftEvents;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 
     public BinaryTagDriver getBinaryTagDriver() {
