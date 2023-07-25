@@ -1,7 +1,6 @@
 package eu.mshade.enderframe.protocol
 
 import eu.mshade.enderframe.PlayerInfoBuilder
-
 import eu.mshade.enderframe.animation.AnimationType
 import eu.mshade.enderframe.effect.PotionEffect
 import eu.mshade.enderframe.effect.PotionEffectKey
@@ -42,7 +41,6 @@ import io.netty.channel.ChannelFutureListener
 import io.netty.channel.ChannelHandler
 import java.net.InetSocketAddress
 import java.security.PublicKey
-import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import java.util.function.Consumer
 import javax.crypto.SecretKey
@@ -134,6 +132,7 @@ abstract class MinecraftSession(@JvmField val channel: Channel) {
 
     abstract fun sendMessage(textComponent: TextComponent)
     abstract fun sendMessage(message: String)
+    abstract fun sendTabComplete(count: Int, matches: Array<String>)
     abstract fun disconnect(message: String)
     abstract fun disconnect(message: TextComponent)
     abstract fun teleport(location: Location)
