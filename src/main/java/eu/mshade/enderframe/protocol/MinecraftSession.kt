@@ -132,7 +132,7 @@ abstract class MinecraftSession(@JvmField val channel: Channel) {
 
     abstract fun sendMessage(textComponent: TextComponent)
     abstract fun sendMessage(message: String)
-    abstract fun sendTabComplete(count: Int, matches: Array<String>)
+    abstract fun sendTabComplete(vararg matches: TextComponent)
     abstract fun disconnect(message: String)
     abstract fun disconnect(message: TextComponent)
     abstract fun teleport(location: Location)

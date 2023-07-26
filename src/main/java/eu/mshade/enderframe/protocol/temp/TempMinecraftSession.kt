@@ -98,6 +98,10 @@ class TempMinecraftSession(channel: Channel) : MinecraftSession(channel) {
         TODO("Not yet implemented")
     }
 
+    override fun sendTabComplete(vararg matches: TextComponent) {
+        TODO("Not yet implemented")
+    }
+
     override fun disconnect(message: String) {
         TODO("Not yet implemented")
     }
