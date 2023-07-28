@@ -24,8 +24,8 @@ class WorldRepository {
         return worldByName.containsKey(name)
     }
 
-    fun getWorlds(): Collection<World> {
-        return worldByName.values
+    fun getWorlds(): List<World> {
+        return worldByName.values.toList()
     }
 
 }

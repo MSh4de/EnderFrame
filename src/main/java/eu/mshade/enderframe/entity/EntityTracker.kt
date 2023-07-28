@@ -1,6 +1,7 @@
 package eu.mshade.enderframe.entity
 
 import eu.mshade.enderframe.EnderFrame
+import eu.mshade.enderframe.MinecraftServer
 import eu.mshade.enderframe.event.EquipmentChangeEvent
 import eu.mshade.enderframe.inventory.EquipmentSlot
 import eu.mshade.enderframe.item.ItemStack
@@ -117,7 +118,7 @@ class EntityTrackerEntry(private val entity: Entity) {
                 val lastItemStack = lastEquipment[value]
                 if (itemStack != lastItemStack) {
                     val equipmentChangeEvent = EquipmentChangeEvent(entity, value, lastItemStack, itemStack)
-                    EnderFrame.get().minecraftEvents.publish(equipmentChangeEvent)
+                    MinecraftServer.getMinecraftEvent().publish(equipmentChangeEvent)
                     if (equipmentChangeEvent.isCancelled) return@forEach
                     player.minecraftSession.sendEquipment(entity, value, itemStack)
                     if (itemStack == null) {

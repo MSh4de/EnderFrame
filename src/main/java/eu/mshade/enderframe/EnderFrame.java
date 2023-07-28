@@ -9,7 +9,6 @@ import eu.mshade.mwork.event.EventBus;
 public class EnderFrame {
 
     private final EventBus<MinecraftPacketEvent> packetEvents = new EventBus<>();
-    private final EventBus<MinecraftEvent> minecraftEvents = new EventBus<>();
     private final BinaryTagDriver binaryTagDriver = new BinaryTagDriver();
     private static EnderFrame ENDER_FRAME;
 
@@ -19,10 +18,6 @@ public class EnderFrame {
 
     public EventBus<MinecraftPacketEvent> getPacketEvents() {
         return packetEvents;
-    }
-
-    public EventBus<MinecraftEvent> getMinecraftEvents() {
-        return minecraftEvents;
     }
 
     public BinaryTagDriver getBinaryTagDriver() {
