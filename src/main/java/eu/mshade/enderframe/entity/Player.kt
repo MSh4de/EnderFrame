@@ -49,11 +49,8 @@ abstract class Player : Entity, Agent, Equipable, CommandSender {
     constructor(location: Location, velocity: Vector, entityId: Int, uuid: UUID) : super(location, velocity, entityId, uuid, EntityType.PLAYER)
     constructor(location: Location, entityId: Int) : super(location, entityId, EntityType.PLAYER)
 
-    val name: String?
+    override val name: String?
         get() = gameProfile?.name
-
-    override val senderName: String
-        get() = gameProfile?.name ?: "UNKNOWN"
 
 
     fun hasLookAtChunk(chunk: Chunk): Boolean {
