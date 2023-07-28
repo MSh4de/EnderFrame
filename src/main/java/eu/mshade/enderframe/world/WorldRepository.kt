@@ -1,6 +1,6 @@
 package eu.mshade.enderframe.world
 
-object WorldRepository {
+class WorldRepository {
 
     private val worldByName = mutableMapOf<String, World>()
 

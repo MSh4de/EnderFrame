@@ -42,16 +42,17 @@ import io.netty.channel.ChannelFutureListener
 import io.netty.channel.ChannelHandler
 import java.net.InetSocketAddress
 import java.security.PublicKey
-import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import java.util.function.Consumer
 import javax.crypto.SecretKey
 
-abstract class MinecraftSession(@JvmField val channel: Channel) {
-    val sessionId: String
-    val verifyToken = ByteArray(4)
+abstract class MinecraftSession(val channel: Channel?) {
+    var sessionId: String
+        protected set
 
-    @JvmField
+    var verifyToken = ByteArray(4)
+        protected set
+
     var gameProfile: GameProfile? = null
     var handshake: MinecraftHandshake? = null
     var protocolStatus = MinecraftProtocolStatus.HANDSHAKE
@@ -62,19 +63,19 @@ abstract class MinecraftSession(@JvmField val channel: Channel) {
         ThreadLocalRandom.current().nextBytes(verifyToken)
     }
 
-    val remoteAddress: InetSocketAddress
-        get() = channel.remoteAddress() as InetSocketAddress
+    open val remoteAddress: InetSocketAddress
+        get() = channel?.remoteAddress() as InetSocketAddress
 
     fun sendPacket(packet: MinecraftPacketOut) {
-        if (isConnected) channel.writeAndFlush(packet)
+        if (isConnected) channel?.writeAndFlush(packet)
     }
 
     fun sendPacketAndClose(packet: MinecraftPacketOut) {
-        if (isConnected) channel.writeAndFlush(packet).addListener(ChannelFutureListener.CLOSE)
+        if (isConnected) channel?.writeAndFlush(packet)?.addListener(ChannelFutureListener.CLOSE)
     }
 
     fun toggleProtocol(minecraftProtocol: MinecraftProtocol) {
-        channel.flush()
+        channel?.flush()
         MinecraftProtocolPipeline.get().setProtocol(channel, minecraftProtocol)
     }
 
@@ -91,11 +92,11 @@ abstract class MinecraftSession(@JvmField val channel: Channel) {
     }
 
     private fun updatePipeline(key: String, handler: ChannelHandler) {
-        channel.pipeline().replace(key, key, handler)
+        channel?.pipeline()?.replace(key, key, handler)
     }
 
     val isConnected: Boolean
-        get() = channel.isActive
+        get() = channel?.isActive ?: false
     val protocol: MinecraftProtocol
         get() = MinecraftProtocolPipeline.get().getProtocol(channel)
     val player: Player
@@ -154,7 +155,8 @@ abstract class MinecraftSession(@JvmField val channel: Channel) {
     abstract fun sendMetadata(entity: Entity, vararg entityMetadataKeys: MetadataKey)
     abstract fun sendMetadata(entity: Entity, entityMetadataKeys: Collection<MetadataKey>)
     abstract fun sendEntityProperties(entity: Entity)
-//    abstract fun sendEntityProperties(entity: Entity, vararg entityPropertyKeys: EntityPropertyKey)
+
+    //    abstract fun sendEntityProperties(entity: Entity, vararg entityPropertyKeys: EntityPropertyKey)
     abstract fun sendEntityEffect(entity: Entity, vararg potionEffects: PotionEffect)
     abstract fun sendChunk(chunk: Chunk)
     abstract fun sendSection(section: Section)
@@ -191,7 +193,12 @@ abstract class MinecraftSession(@JvmField val channel: Channel) {
     abstract fun sendEquipment(entity: Entity, equipmentSlot: EquipmentSlot, itemStack: ItemStack?)
     abstract fun sendRemoveEntityEffect(entity: Entity, vararg effectTypes: PotionEffectKey)
     abstract fun sendAnimation(player: Player, animationType: AnimationType)
-    abstract fun sendWorldEffect(worldEffect: WorldEffectKey, location: Vector, material: MaterialKey, relativeVolume: Boolean)
+    abstract fun sendWorldEffect(
+        worldEffect: WorldEffectKey,
+        location: Vector,
+        material: MaterialKey,
+        relativeVolume: Boolean
+    )
 
 
 }

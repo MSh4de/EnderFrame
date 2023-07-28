@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
 
 abstract class World(
-    worldFolder: File,
+    val worldFolder: File,
     metadatas: MetadataKeyValueBucket = MetadataKeyValueBucket(true)
 ) : Tickable() {
 
